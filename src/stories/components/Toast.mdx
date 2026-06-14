@@ -1,0 +1,22 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/toast.stories.jsx";
+import * as Features from "../../components/toast.features.stories.jsx";
+
+<Meta title="Components/Toast/Docs" of={Stories} />
+
+# Toast
+
+A transient feedback surface for lightweight confirmations and short-lived alerts.
+
+## Primary example
+
+<Canvas of={Stories.ToastPlayground} sourceState="hidden" />
+
+## Features
+
+<Canvas of={Features.ToneSet} sourceState="hidden" />
+
+## Usage guidance
+
+- Use toast for events that do not block the current task.
+- Prefer banner or inline messaging when the user needs to act on the message.

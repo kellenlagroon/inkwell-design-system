@@ -1,0 +1,20 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Features from "../../components/panel.features.stories.jsx";
+
+<Meta title="Components/Panel/Docs" of={Features} />
+
+# Panel
+
+A presentational surface for grouped content, section headings, and empty states.
+
+## When to use
+
+- Use `Panel` to separate a block of content from the surrounding page.
+- Use `SectionHeading` when that block needs a title, copy, or actions.
+- Use `EmptyState` when the section has no data yet.
+
+## Features
+
+<Canvas of={Features.SectionHeadingFeature} sourceState="hidden" />
+<Canvas of={Features.WithActions} sourceState="hidden" />
+<Canvas of={Features.EmptyStateFeature} sourceState="hidden" />

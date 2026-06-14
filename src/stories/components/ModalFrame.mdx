@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/modalFrame.stories.jsx";
+import * as Features from "../../components/modalFrame.features.stories.jsx";
+
+<Meta title="Components/Modal Frame/Docs" of={Stories} />
+
+# Modal Frame
+
+A focused overlay surface for one decision, one form, or one constrained flow.
+
+## When to use
+
+- Use a modal when the task should temporarily take over attention.
+- Prefer inline or panel surfaces for lightweight edits.
+
+## Primary example
+
+<Canvas of={Stories.ModalPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={Stories} />
+
+## Features
+
+<Canvas of={Features.DefaultModal} sourceState="hidden" />
+<Canvas of={Features.CompactModal} sourceState="hidden" />

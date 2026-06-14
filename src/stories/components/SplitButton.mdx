@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/splitButton.stories.jsx";
+import * as Features from "../../components/splitButton.features.stories.jsx";
+
+<Meta title="Components/Split Button/Docs" of={Stories} />
+
+# Split Button
+
+A compound action control that pairs a primary action with adjacent creation or branching options.
+
+## When to use
+
+- Use a split button when one path is clearly primary but adjacent alternatives are common.
+- Avoid it when every option has equal importance.
+
+## Primary example
+
+<Canvas of={Stories.SplitButtonPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={Stories} />
+
+## Features
+
+<Canvas of={Features.Default} sourceState="hidden" />
+<Canvas of={Features.SideBySideHierarchy} sourceState="hidden" />

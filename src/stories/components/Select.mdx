@@ -1,0 +1,19 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/select.stories.jsx";
+import * as Features from "../../components/select.features.stories.jsx";
+
+<Meta title="Components/Select/Docs" of={Stories} />
+
+# Select
+
+A lightweight custom select for small option sets where visual tone needs to stay consistent with the rest of the system.
+
+## Primary example
+
+<Canvas of={Stories.SelectPlayground} sourceState="hidden" />
+
+## Features
+
+<Canvas of={Features.FormVariant} sourceState="hidden" />
+<Canvas of={Features.ControlVariant} sourceState="hidden" />
+<Canvas of={Features.DisabledSelect} sourceState="hidden" />

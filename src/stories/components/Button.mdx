@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/button.stories.jsx";
+import * as Features from "../../components/button.features.stories.jsx";
+
+<Meta title="Components/Button/Docs" of={Stories} />
+
+# Button
+
+A high-emphasis action control for primary, secondary, low-emphasis, and destructive actions.
+
+## When to use
+
+- Use `Button` for deliberate user actions.
+- Use `IconButton` only when the surrounding context already explains the action.
+
+## Primary example
+
+<Canvas of={Stories.ButtonPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={Stories} />
+
+## Features
+
+<Canvas of={Features.PrimaryButton} sourceState="hidden" />
+<Canvas of={Features.ButtonSizes} sourceState="hidden" />
+<Canvas of={Features.IconButtonStory} sourceState="hidden" />

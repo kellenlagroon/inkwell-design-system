@@ -1,0 +1,21 @@
+import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/pill.stories.jsx";
+import * as Features from "../../components/pill.features.stories.jsx";
+
+<Meta title="Components/Pill/Docs" of={Stories} />
+
+# Pill
+
+A compact status or metadata marker for concise, low-density labeling.
+
+## Primary example
+
+<Canvas of={Stories.PillPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={Stories} />
+
+## Features
+
+<Canvas of={Features.ToneSet} sourceState="hidden" />

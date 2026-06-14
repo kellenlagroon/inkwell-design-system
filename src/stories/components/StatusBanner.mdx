@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/statusBanner.stories.jsx";
+import * as Features from "../../components/statusBanner.features.stories.jsx";
+
+<Meta title="Components/Status Banner/Docs" of={Stories} />
+
+# Status Banner
+
+A persistent inline feedback surface for warnings, errors, and important system notices.
+
+## Primary example
+
+<Canvas of={Stories.BannerPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={Stories} />
+
+## Features
+
+<Canvas of={Features.DefaultBanner} sourceState="hidden" />
+<Canvas of={Features.WarningBanner} sourceState="hidden" />
+<Canvas of={Features.ErrorBanner} sourceState="hidden" />
