@@ -1,22 +1,63 @@
-import { Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/toast.stories.jsx";
-import * as Features from "../../components/toast.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ToastStories from "../../components/toast.stories.jsx";
+import * as ToastFeatures from "../../components/toast.features.stories.jsx";
 
-<Meta title="Components/Toast/Docs" of={Stories} />
+<Meta title="Components/Toast/Docs" of={ToastStories} />
 
 # Toast
 
-A transient feedback surface for lightweight confirmations and short-lived alerts.
+An ephemeral notification surface for lightweight confirmation and alert messaging that should not interrupt the current flow.
+
+## When to use
+
+- Use `Toast` for short-lived feedback that does not need to occupy the main layout.
+- Keep copy concise and strongly scannable.
+- Treat `ToastRegion` as infrastructure rather than a separate catalog component in this pass.
 
 ## Primary example
 
-<Canvas of={Stories.ToastPlayground} sourceState="hidden" />
+<Canvas of={ToastStories.ToastPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={ToastStories} />
 
 ## Features
 
-<Canvas of={Features.ToneSet} sourceState="hidden" />
+### Success
+
+Use success toasts for lightweight confirmation of completed actions.
+
+<Canvas of={ToastFeatures.ToastSuccess} sourceState="hidden" />
+
+### Error
+
+Use error toasts for lightweight failures that do not need an inline persistent banner.
+
+<Canvas of={ToastFeatures.ToastError} sourceState="hidden" />
+
+### Warning
+
+Use warnings for time-sensitive or cautionary information that should still stay lightweight.
+
+<Canvas of={ToastFeatures.ToastWarning} sourceState="hidden" />
+
+### Region behavior
+
+`ToastRegion` defines stacking and placement behavior for multiple toasts.
+
+<Canvas of={ToastFeatures.ToastRegionMultiple} sourceState="hidden" />
 
 ## Usage guidance
 
-- Use toast for events that do not block the current task.
-- Prefer banner or inline messaging when the user needs to act on the message.
+- Do keep toast copy brief and directly relevant to the triggered action.
+- Do use inline or persistent feedback instead when the user needs to act on the message in place.
+- Do keep region behavior consistent across the application.
+- Don’t use toasts for complex instructions.
+- Don’t rely on transient feedback for critical state changes.
+
+## Keyboard and accessibility
+
+- Toasts should remain understandable without color alone.
+- Dismiss actions should be reachable when present.
+- Region announcements should stay concise to avoid overwhelming assistive technology users.

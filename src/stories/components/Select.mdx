@@ -1,19 +1,63 @@
-import { Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/select.stories.jsx";
-import * as Features from "../../components/select.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as SelectStories from "../../components/select.stories.jsx";
+import * as SelectFeatures from "../../components/select.features.stories.jsx";
 
-<Meta title="Components/Select/Docs" of={Stories} />
+<Meta title="Components/Select/Docs" of={SelectStories} />
 
 # Select
 
-A lightweight custom select for small option sets where visual tone needs to stay consistent with the rest of the system.
+A custom select control used in both stacked form layouts and tighter control-bar contexts.
+
+## When to use
+
+- Use the `form` variant in standard field stacks.
+- Use the `control` variant in denser toolbar or header contexts.
+- Keep option labels and placeholder text short enough to scan inside the trigger.
 
 ## Primary example
 
-<Canvas of={Stories.SelectPlayground} sourceState="hidden" />
+<Canvas of={SelectStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={SelectStories} />
 
 ## Features
 
-<Canvas of={Features.FormVariant} sourceState="hidden" />
-<Canvas of={Features.ControlVariant} sourceState="hidden" />
-<Canvas of={Features.DisabledSelect} sourceState="hidden" />
+### Form variant
+
+Use the form variant when the select appears inside a conventional label stack.
+
+<Canvas of={SelectFeatures.FormVariant} sourceState="hidden" />
+
+### Disabled options
+
+Options can stay visible but unavailable when the user still needs to understand why a path is blocked.
+
+<Canvas of={SelectFeatures.DisabledOptions} sourceState="hidden" />
+
+### Control variant
+
+Use the control variant in compact bars where the select behaves more like a shell control than a form field.
+
+<Canvas of={SelectFeatures.ControlVariant} sourceState="hidden" />
+
+### Disabled state
+
+Disabled state should make temporary unavailability clear without hiding the surrounding context.
+
+<Canvas of={SelectFeatures.DisabledState} sourceState="hidden" />
+
+## Usage guidance
+
+- Do match the variant to the surrounding layout density.
+- Do keep placeholder text descriptive but short.
+- Do leave unavailable options visible when that context helps the user.
+- Don’t use the control variant as a generic replacement for form fields.
+- Don’t overload option labels with long descriptive copy.
+
+## Keyboard and accessibility
+
+- The trigger should clearly announce expanded state.
+- The active selection should remain legible without relying on color alone.
+- Use a meaningful accessible label when the surrounding text does not fully describe the control.

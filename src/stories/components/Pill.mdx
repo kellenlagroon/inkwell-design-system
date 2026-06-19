@@ -1,21 +1,57 @@
-import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/pill.stories.jsx";
-import * as Features from "../../components/pill.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as PillStories from "../../components/pill.stories.jsx";
+import * as PillFeatures from "../../components/pill.features.stories.jsx";
 
-<Meta title="Components/Pill/Docs" of={Stories} />
+<Meta title="Components/Pill/Docs" of={PillStories} />
 
 # Pill
 
-A compact status or metadata marker for concise, low-density labeling.
+A compact semantic status token for short labels such as role, publication state, or warning state.
+
+## When to use
+
+- Use pills for short, scan-friendly state labels.
+- Use them when a full banner or toast would be too heavy.
+- Keep the label concise and avoid sentence-length copy.
 
 ## Primary example
 
-<Canvas of={Stories.PillPlayground} sourceState="hidden" />
+<Canvas of={PillStories.PillPlayground} sourceState="hidden" />
 
 ## API
 
-<ArgTypes of={Stories} />
+<ArgTypes of={PillStories} />
 
 ## Features
 
-<Canvas of={Features.ToneSet} sourceState="hidden" />
+### Default
+
+The default pill works for neutral classification such as roles or categories.
+
+<Canvas of={PillFeatures.PillDefault} sourceState="hidden" />
+
+### Semantic tones
+
+Use semantic tones to communicate positive, cautionary, or urgent state at a glance.
+
+<Canvas of={PillFeatures.PillSuccess} sourceState="hidden" />
+<Canvas of={PillFeatures.PillWarning} sourceState="hidden" />
+<Canvas of={PillFeatures.PillDanger} sourceState="hidden" />
+
+### Variant set
+
+Review the full tone set together when validating hierarchy and readability in dense layouts.
+
+<Canvas of={PillFeatures.PillAllVariants} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use pills for short state tokens, not long explanations.
+- Do prefer semantic tone conventions over ad hoc color meaning.
+- Don’t overload pills with large amounts of text.
+- Don’t use pills as the only way to communicate critical information.
+
+## Keyboard and accessibility
+
+- Pills are informational by default and should not masquerade as interactive controls.
+- The text inside the pill should remain understandable without relying on color.

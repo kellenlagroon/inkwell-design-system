@@ -1,17 +1,25 @@
 import { StatusBanner } from "./ui.jsx";
 
 export default {
-  title: "Components/Status Banner/Features",
+  title: "Components/StatusBanner/Features",
 };
 
-export const DefaultBanner = {
-  render: () => <StatusBanner message="Changes are saved automatically." onDismiss={() => {}} />,
+export const BannerSuccess = {
+  render: () => <StatusBanner message="Ballot saved successfully." tone="success" />,
 };
 
-export const WarningBanner = {
-  render: () => <StatusBanner message="This configuration needs review before publishing." tone="warning" onDismiss={() => {}} />,
+export const BannerWarning = {
+  render: () => <StatusBanner message="Sign in before joining this private league invite." tone="warning" />,
 };
 
-export const ErrorBanner = {
-  render: () => <StatusBanner message="We could not complete the request." tone="error" onDismiss={() => {}} />,
+export const BannerError = {
+  render: () => <StatusBanner message="That team is already linked to another account." tone="error" />,
+};
+
+export const BannerWithDismiss = {
+  render: () => <StatusBanner message="Joined Storybook Dynasty. Finish your team setup to start voting." tone="success" onDismiss={() => {}} />,
+};
+
+export const BannerNoMessage = {
+  render: () => <StatusBanner message="" tone="success" />,
 };

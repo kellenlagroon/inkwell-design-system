@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { IconArrowDown, IconCheck, IconClose } from "./icons.jsx";
 
 export function Button({ children, className = "primary-button", type = "button", ...props }) {
@@ -41,8 +41,10 @@ export function EmptyState({ children, className = "empty-state", ...props }) {
 }
 
 const MODAL_SIZE_CLASSES = {
-  default: "modal-card panel modal-panel",
+  default: "modal-card panel modal-panel modal-panel--wide wide-modal",
   compact: "modal-card panel modal-panel modal-panel--compact",
+  picker:  "modal-card panel modal-panel modal-panel--compact modal-panel--form modal-panel--picker ballot-picker-modal-card",
+  settings: "modal-card panel modal-panel--settings",
 };
 
 export function ModalFrame({
@@ -61,21 +63,11 @@ export function ModalFrame({
   const classes = ["modal", open ? "" : "hidden", className].filter(Boolean).join(" ");
 
   return (
-    <div
-      id={id}
-      className={classes}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={titleId}
-      aria-describedby={describedBy}
-      aria-hidden={open ? "false" : "true"}
-    >
-      <div className="modal-backdrop" onClick={onClose} />
+    <div id={id} className={classes} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={describedBy} aria-hidden={open ? "false" : "true"}>
+      <div className="modal-backdrop" onClick={onClose}></div>
       <div className={resolvedCardClass}>
         <SectionHeading title={title}>
-          <Button className="ghost-button modal-close-button" aria-label="Close" onClick={onClose}>
-            <IconClose />
-          </Button>
+          <Button className="ghost-button modal-close-button" aria-label="Close" onClick={onClose}><IconClose /></Button>
         </SectionHeading>
         {children}
       </div>
@@ -86,7 +78,6 @@ export function ModalFrame({
 export function StatusBanner({ message, tone, onDismiss }) {
   if (!message) return null;
   const toneClass = tone === "error" ? "error" : tone === "warning" ? "warning" : "";
-
   return (
     <div className={["status-banner", toneClass].filter(Boolean).join(" ")}>
       <span>{message}</span>
@@ -102,13 +93,8 @@ export function StatusBanner({ message, tone, onDismiss }) {
 export function Toast({ id, message, tone, onDismiss }) {
   return (
     <article className={["toast", tone].filter(Boolean).join(" ")}>
-      <div>
-        <strong>{message}</strong>
-        {id ? <div className="subtle">#{id}</div> : null}
-      </div>
-      <button type="button" aria-label="Dismiss" onClick={onDismiss}>
-        <IconClose />
-      </button>
+      <div><strong>{message}</strong></div>
+      <button type="button" aria-label="Dismiss" onClick={onDismiss}><IconClose /></button>
     </article>
   );
 }
@@ -126,11 +112,7 @@ export function ToastRegion({ toasts = [], onDismiss }) {
 export function Pill({ tone = "default", children, className = "", ...props }) {
   const toneClass = ["pill", tone !== "default" ? tone : ""].filter(Boolean).join(" ");
   const classes = [toneClass, className].filter(Boolean).join(" ");
-  return (
-    <span className={classes} {...props}>
-      {children}
-    </span>
-  );
+  return <span className={classes} {...props}>{children}</span>;
 }
 
 export function IconButton({ icon, size, className = "", ...props }) {
@@ -156,9 +138,9 @@ export function Select({
   const ref = useRef(null);
 
   useEffect(() => {
-    if (!open) return undefined;
-    function handleOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) setOpen(false);
+    if (!open) return;
+    function handleOutside(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     }
     document.addEventListener("pointerdown", handleOutside);
     return () => document.removeEventListener("pointerdown", handleOutside);
@@ -169,12 +151,11 @@ export function Select({
     onChange?.(option.value);
   }
 
-  const selectedOption = options.find((option) => option.value === value);
+  const selectedOption = options.find((o) => o.value === value);
   const displayLabel = selectedOption?.label ?? placeholder;
   const isPlaceholder = !selectedOption;
-  const containerClass = ["cselect", variant === "control" ? "cselect--control" : "", open ? "open" : ""]
-    .filter(Boolean)
-    .join(" ");
+
+  const containerClass = ["cselect", variant === "control" ? "cselect--control" : "", open ? "open" : ""].filter(Boolean).join(" ");
 
   return (
     <div className={containerClass} ref={ref}>
@@ -186,7 +167,7 @@ export function Select({
         aria-expanded={open ? "true" : "false"}
         aria-label={ariaLabel}
         id={id}
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => setOpen((v) => !v)}
       >
         <span className={["cselect-value", isPlaceholder ? "placeholder" : ""].filter(Boolean).join(" ")}>
           {displayLabel}
@@ -199,13 +180,7 @@ export function Select({
             <button
               key={option.value}
               type="button"
-              className={[
-                "cselect-option",
-                option.value === value ? "selected" : "",
-                option.disabled ? "cselect-option--disabled" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
+              className={["cselect-option", option.value === value ? "selected" : "", option.disabled ? "cselect-option--disabled" : ""].filter(Boolean).join(" ")}
               role="option"
               aria-selected={option.value === value ? "true" : "false"}
               disabled={option.disabled}
@@ -231,19 +206,18 @@ export function PopoverMenu({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-
+  const onToggle = () => setOpen((v) => !v);
   useEffect(() => {
-    if (!open) return undefined;
-    function handleOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) setOpen(false);
+    if (!open) return;
+    function handleOutside(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     }
     document.addEventListener("pointerdown", handleOutside);
     return () => document.removeEventListener("pointerdown", handleOutside);
   }, [open]);
-
   return (
     <div ref={ref} className={[menuClassName, open ? "open" : ""].filter(Boolean).join(" ")}>
-      {trigger({ open, onToggle: () => setOpen((current) => !current) })}
+      {trigger({ open, onToggle })}
       <div className={popoverClassName} role={menuRole} aria-label={menuLabel}>
         {children}
       </div>

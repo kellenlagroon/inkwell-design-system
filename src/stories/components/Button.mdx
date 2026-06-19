@@ -1,28 +1,80 @@
-import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/button.stories.jsx";
-import * as Features from "../../components/button.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ButtonStories from "../../components/button.stories.jsx";
+import * as ButtonFeatures from "../../components/button.features.stories.jsx";
 
-<Meta title="Components/Button/Docs" of={Stories} />
+<Meta title="Components/Button/Docs" of={ButtonStories} />
 
 # Button
 
-A high-emphasis action control for primary, secondary, low-emphasis, and destructive actions.
+A clickable action control for primary, secondary, destructive, and low-emphasis actions across the coaches poll application.
 
 ## When to use
 
-- Use `Button` for deliberate user actions.
-- Use `IconButton` only when the surrounding context already explains the action.
+- Use `Button` when the user needs to trigger a clear next step or confirmation.
+- Use `IconButton` only when the surrounding context makes the action obvious without a text label.
+- Use visual hierarchy intentionally so one action reads as primary.
 
 ## Primary example
 
-<Canvas of={Stories.ButtonPlayground} sourceState="hidden" />
+<Canvas of={ButtonStories.ButtonPlayground} sourceState="hidden" />
 
 ## API
 
-<ArgTypes of={Stories} />
+<ArgTypes of={ButtonStories} />
 
 ## Features
 
-<Canvas of={Features.PrimaryButton} sourceState="hidden" />
-<Canvas of={Features.ButtonSizes} sourceState="hidden" />
-<Canvas of={Features.IconButtonStory} sourceState="hidden" />
+### Variant
+
+Use variant styling to create action hierarchy between save, manage, cancel, and destructive paths.
+
+<Canvas of={ButtonFeatures.PrimaryButton} sourceState="hidden" />
+<Canvas of={ButtonFeatures.SecondaryButton} sourceState="hidden" />
+<Canvas of={ButtonFeatures.GhostButton} sourceState="hidden" />
+<Canvas of={ButtonFeatures.DangerButton} sourceState="hidden" />
+
+### Size
+
+Scale button density based on surrounding UI, not just label length.
+
+<Canvas of={ButtonFeatures.ButtonSizes} sourceState="hidden" />
+
+### Hierarchy
+
+Use one dominant action and demote adjacent actions to preserve scan order.
+
+<Canvas of={ButtonFeatures.ButtonHierarchy} sourceState="hidden" />
+
+### Text and icon combinations
+
+Icons should reinforce the action, not replace clear button language.
+
+<Canvas of={ButtonFeatures.TextIconLeft} sourceState="hidden" />
+<Canvas of={ButtonFeatures.TextIconRight} sourceState="hidden" />
+
+### Icon button
+
+`IconButton` is documented as part of the button system rather than as a separate component entry.
+
+<Canvas of={ButtonFeatures.IconButtonStory} sourceState="hidden" />
+
+### Disabled state
+
+Disabled actions should be used sparingly and only when the user can infer what prerequisite is missing.
+
+<Canvas of={ButtonFeatures.DisabledButton} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep labels short, task-oriented, and written in sentence case.
+- Do use one primary button in a cluster whenever possible.
+- Do pair destructive intent with explicit danger styling.
+- Don’t place multiple primary buttons side by side in the same action group.
+- Don’t rely on icons alone when the action meaning could be ambiguous.
+
+## Keyboard and accessibility
+
+- `Tab` moves focus to the button.
+- `Enter` activates the focused button.
+- `Space` activates the focused button.
+- Icon-only buttons should always provide an accessible name.

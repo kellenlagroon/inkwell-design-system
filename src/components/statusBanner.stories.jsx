@@ -1,18 +1,26 @@
 import { StatusBanner } from "./ui.jsx";
 
 export default {
-  title: "Components/Status Banner",
+  title: "Components/StatusBanner",
 };
 
-export const BannerPlayground = {
+export const StatusBannerPlayground = {
   name: "Playground",
   args: {
-    message: "Changes are saved automatically.",
-    tone: "default",
+    message: "Ballot saved successfully.",
+    tone: "success",
+    dismissible: true,
   },
   argTypes: {
-    message: { control: "text" },
-    tone: { control: { type: "select" }, options: ["default", "warning", "error"] },
+    message: { control: "text", name: "Message" },
+    tone: {
+      control: { type: "select" },
+      name: "Tone",
+      options: ["success", "warning", "error"],
+    },
+    dismissible: { control: "boolean", name: "Show dismiss button" },
   },
-  render: ({ message, tone }) => <StatusBanner message={message} tone={tone} onDismiss={() => {}} />,
+  render: ({ message, tone, dismissible }) => (
+    <StatusBanner message={message} tone={tone} onDismiss={dismissible ? () => {} : undefined} />
+  ),
 };

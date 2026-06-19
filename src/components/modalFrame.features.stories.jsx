@@ -1,27 +1,71 @@
 import { Button, ModalFrame } from "./ui.jsx";
 
 export default {
-  title: "Components/Modal Frame/Features",
+  title: "Components/ModalFrame/Features",
 };
 
-export const DefaultModal = {
+export const ModalFrameOpen = {
   render: () => (
-    <ModalFrame id="modal-default" titleId="modal-default-title" title="Share workspace" open onClose={() => {}}>
-      <div style={{ display: "grid", gap: "12px" }}>
-        <p style={{ margin: 0 }}>Use the default size for forms and review steps with moderate content depth.</p>
-        <div style={{ display: "flex", gap: "8px" }}>
-          <Button>Send invite</Button>
-          <Button className="ghost-button">Cancel</Button>
-        </div>
-      </div>
+    <ModalFrame
+      id="storybookModal"
+      titleId="storybookModalTitle"
+      title="Create a poll round"
+      onClose={() => {}}
+      open
+    >
+      <form className="stacked-form">
+        <label>
+          Round name
+          <input type="text" placeholder="Week 8 Coaches Poll" />
+        </label>
+        <Button type="submit">Create round</Button>
+      </form>
     </ModalFrame>
   ),
 };
 
-export const CompactModal = {
+export const ModalFrameCompact = {
   render: () => (
-    <ModalFrame id="modal-compact" titleId="modal-compact-title" title="Archive item" size="compact" open onClose={() => {}}>
-      <p style={{ margin: 0 }}>Use compact modals for focused confirmations.</p>
+    <ModalFrame
+      id="storybookCompactModal"
+      titleId="storybookCompactModalTitle"
+      title="Open a poll round"
+      onClose={() => {}}
+      size="compact"
+      open
+    >
+      <p className="subtle">Compact modals are used for single-action forms.</p>
+      <Button type="button">Confirm</Button>
+    </ModalFrame>
+  ),
+};
+
+export const ModalFramePicker = {
+  render: () => (
+    <ModalFrame
+      id="storybookPickerModal"
+      titleId="storybookPickerModalTitle"
+      title="Select a team"
+      onClose={() => {}}
+      size="picker"
+      open
+    >
+      <p className="subtle">Picker modals appear as bottom sheets on mobile.</p>
+    </ModalFrame>
+  ),
+};
+
+export const ModalFrameSettings = {
+  render: () => (
+    <ModalFrame
+      id="storybookSettingsModal"
+      titleId="storybookSettingsModalTitle"
+      title="League settings"
+      onClose={() => {}}
+      size="settings"
+      open
+    >
+      <p className="subtle">Settings modals are full-height sheets.</p>
     </ModalFrame>
   ),
 };

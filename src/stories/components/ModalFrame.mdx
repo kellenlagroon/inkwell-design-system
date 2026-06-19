@@ -1,27 +1,63 @@
-import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/modalFrame.stories.jsx";
-import * as Features from "../../components/modalFrame.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ModalFrameStories from "../../components/modalFrame.stories.jsx";
+import * as ModalFrameFeatures from "../../components/modalFrame.features.stories.jsx";
 
-<Meta title="Components/Modal Frame/Docs" of={Stories} />
+<Meta title="Components/ModalFrame/Docs" of={ModalFrameStories} />
 
-# Modal Frame
+# ModalFrame
 
-A focused overlay surface for one decision, one form, or one constrained flow.
+The shared modal shell for commissioner and voting workflows. It defines container size, close behavior, heading treatment, and overall modal structure.
 
 ## When to use
 
-- Use a modal when the task should temporarily take over attention.
-- Prefer inline or panel surfaces for lightweight edits.
+- Use `ModalFrame` when the interaction needs focused task completion over the current page.
+- Use it as a shell around workflow content, not as the workflow itself.
+- Keep workflow-specific modal examples in `Patterns/Modals`.
 
 ## Primary example
 
-<Canvas of={Stories.ModalPlayground} sourceState="hidden" />
+<Canvas of={ModalFrameStories.ModalFramePlayground} sourceState="hidden" />
 
 ## API
 
-<ArgTypes of={Stories} />
+<ArgTypes of={ModalFrameStories} />
 
 ## Features
 
-<Canvas of={Features.DefaultModal} sourceState="hidden" />
-<Canvas of={Features.CompactModal} sourceState="hidden" />
+### Default size
+
+Use the default size for standard create, confirm, and edit flows.
+
+<Canvas of={ModalFrameFeatures.ModalFrameOpen} sourceState="hidden" />
+
+### Compact size
+
+Use compact modals for short single-action tasks.
+
+<Canvas of={ModalFrameFeatures.ModalFrameCompact} sourceState="hidden" />
+
+### Picker size
+
+Picker modals support selection-heavy tasks and collapse into a bottom-sheet-like experience on smaller screens.
+
+<Canvas of={ModalFrameFeatures.ModalFramePicker} sourceState="hidden" />
+
+### Settings size
+
+Use the settings variant for taller, denser configuration surfaces that need more room than a standard dialog.
+
+<Canvas of={ModalFrameFeatures.ModalFrameSettings} sourceState="hidden" />
+
+## Usage guidance
+
+- Do match the modal size to the task density.
+- Do keep the modal title specific and action-oriented.
+- Do reserve larger settings-style shells for configuration-heavy content.
+- Don’t mix workflow logic into the frame itself.
+- Don’t use a modal when the task would be better served inline.
+
+## Keyboard and accessibility
+
+- Modal content should be reachable by keyboard in a logical tab order.
+- The close button must remain accessible by keyboard and screen reader.
+- The title should clearly identify the task inside the dialog.

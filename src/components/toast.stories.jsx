@@ -1,5 +1,4 @@
-import { ToastRegion } from "./ui.jsx";
-import { toastExamples } from "../stories/storyData.jsx";
+import { Toast } from "./ui.jsx";
 
 export default {
   title: "Components/Toast",
@@ -7,5 +6,19 @@ export default {
 
 export const ToastPlayground = {
   name: "Playground",
-  render: () => <ToastRegion toasts={[toastExamples[0]]} onDismiss={() => {}} />,
+  args: {
+    message: "Ballot saved.",
+    tone: "success",
+  },
+  argTypes: {
+    message: { control: "text", name: "Message" },
+    tone: {
+      control: { type: "select" },
+      name: "Tone",
+      options: ["success", "error", "warning"],
+    },
+  },
+  render: ({ message, tone }) => (
+    <Toast id="playground" message={message} tone={tone} onDismiss={() => {}} />
+  ),
 };

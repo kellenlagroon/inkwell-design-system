@@ -1,20 +1,51 @@
-import { Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Features from "../../components/panel.features.stories.jsx";
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import * as PanelFeatures from "../../components/panel.features.stories.jsx";
 
-<Meta title="Components/Panel/Docs" of={Features} />
+<Meta title="Components/Panel/Docs" />
 
 # Panel
 
-A presentational surface for grouped content, section headings, and empty states.
+The default structural surface for grouped content regions across vote, commissioner, and results views.
 
 ## When to use
 
-- Use `Panel` to separate a block of content from the surrounding page.
-- Use `SectionHeading` when that block needs a title, copy, or actions.
-- Use `EmptyState` when the section has no data yet.
+- Use `Panel` to define a major content surface.
+- Use `SectionHeading` to structure a panel’s internal hierarchy.
+- Use `EmptyState` when a panel needs to explain missing data or blocked access.
+
+## Primary example
+
+<Canvas of={PanelFeatures.PanelDefault} sourceState="hidden" />
 
 ## Features
 
-<Canvas of={Features.SectionHeadingFeature} sourceState="hidden" />
-<Canvas of={Features.WithActions} sourceState="hidden" />
-<Canvas of={Features.EmptyStateFeature} sourceState="hidden" />
+### Section heading
+
+`SectionHeading` provides a compact structural header for grouped content inside a panel.
+
+<Canvas of={PanelFeatures.SectionHeadingDefault} sourceState="hidden" />
+
+### Compact section heading
+
+Use the compact variant when vertical density matters more than expressive page framing.
+
+<Canvas of={PanelFeatures.SectionHeadingCompact} sourceState="hidden" />
+
+### Empty state
+
+`EmptyState` keeps blocked or no-data conditions inside the same structural surface rather than pushing them into a separate page.
+
+<Canvas of={PanelFeatures.EmptyStateDefault} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use panels as the default surface for major content blocks.
+- Do keep one clear header hierarchy per panel.
+- Do place empty-state guidance inside the same panel region the user expects to use.
+- Don’t treat `Panel`, `SectionHeading`, and `EmptyState` as unrelated visual fragments.
+- Don’t add a separate playground when the value is primarily compositional.
+
+## Keyboard and accessibility
+
+- Panels should preserve heading order so screen readers can scan the page structure.
+- Empty states should include clear text guidance rather than relying on styling alone.

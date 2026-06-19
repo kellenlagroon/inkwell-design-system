@@ -1,17 +1,51 @@
-import { Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/popoverMenu.stories.jsx";
-import * as Features from "../../components/popoverMenu.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as PopoverStories from "../../components/popoverMenu.stories.jsx";
+import * as PopoverFeatures from "../../components/popoverMenu.features.stories.jsx";
 
-<Meta title="Components/Popover Menu/Docs" of={Stories} />
+<Meta title="Components/PopoverMenu/Docs" of={PopoverStories} />
 
-# Popover Menu
+# PopoverMenu
 
-A lightweight anchored surface for secondary actions and compact option lists.
+An anchored lightweight menu surface for account actions and row-level utility actions.
+
+## When to use
+
+- Use `PopoverMenu` when the trigger and menu actions are tightly related.
+- Use it for small action sets that should stay visually attached to the trigger.
+- Move multi-step or workflow-heavy behavior into a modal instead.
 
 ## Primary example
 
-<Canvas of={Stories.PopoverPlayground} sourceState="hidden" />
+<Canvas of={PopoverStories.PopoverMenuPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={PopoverStories} />
 
 ## Features
 
-<Canvas of={Features.ListMenu} sourceState="hidden" />
+### Account menu
+
+The default account menu pattern supports identity and session actions near the header.
+
+<Canvas of={PopoverFeatures.PopoverMenuDefault} sourceState="hidden" />
+
+### Row actions
+
+Use a denser action menu for per-row utility actions such as edit and remove.
+
+<Canvas of={PopoverFeatures.PopoverMenuRosterActions} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep menu options short and distinct.
+- Do keep the menu visually anchored to its trigger.
+- Do separate destructive actions clearly inside the list.
+- Don’t bury multi-step tasks inside a popover.
+- Don’t use a popover menu when the action set is the primary content of the surface.
+
+## Keyboard and accessibility
+
+- Menu triggers should expose the correct expanded/collapsed state.
+- Menus need an accessible label when the trigger alone is not sufficient context.
+- Keyboard users should be able to reach the trigger and interact with the visible menu options predictably.

@@ -1,0 +1,20 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "../../components/modals.stories.jsx";
+
+<Meta title="Patterns/Modals/Docs" of={Stories} />
+
+# Modals
+
+This section documents reusable modal patterns built from `ModalFrame`.
+
+## Danger modal
+
+Use a danger modal when the action is destructive, irreversible, and important enough to require an explicit confirmation step.
+
+<Canvas of={Stories.DangerModal} sourceState="hidden" />
+
+## When to use
+
+- Use a danger modal for deletion, archival, or other irreversible actions.
+- Keep the message direct about what will be removed and what cannot be recovered.
+- Pair the destructive action with a clearly labeled cancel path.

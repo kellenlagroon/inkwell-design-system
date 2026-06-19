@@ -7,12 +7,16 @@ export default {
 export const PillPlayground = {
   name: "Playground",
   args: {
-    children: "Beta",
-    tone: "default",
+    children: "Published",
+    tone: "success",
   },
   argTypes: {
-    children: { control: "text" },
-    tone: { control: { type: "select" }, options: ["default", "success", "warning", "danger"] },
+    children: { control: "text", name: "Label" },
+    tone: {
+      control: { type: "select" },
+      name: "Tone",
+      options: ["default", "success", "warning", "danger"],
+    },
   },
   render: ({ children, tone }) => <Pill tone={tone}>{children}</Pill>,
 };

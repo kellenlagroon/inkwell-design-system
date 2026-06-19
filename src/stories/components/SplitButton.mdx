@@ -1,27 +1,50 @@
-import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/splitButton.stories.jsx";
-import * as Features from "../../components/splitButton.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as SplitButtonStories from "../../components/splitButton.stories.jsx";
+import * as SplitButtonFeatures from "../../components/splitButton.features.stories.jsx";
 
-<Meta title="Components/Split Button/Docs" of={Stories} />
+<Meta title="Components/SplitButton/Docs" of={SplitButtonStories} />
 
-# Split Button
+# SplitButton
 
-A compound action control that pairs a primary action with adjacent creation or branching options.
+A composite action control that keeps one dominant action visible while exposing a small set of related alternate actions.
 
 ## When to use
 
-- Use a split button when one path is clearly primary but adjacent alternatives are common.
-- Avoid it when every option has equal importance.
+- Use `SplitButton` when one creation path is primary but nearby alternates still need to be quickly available.
+- Keep the primary action label stable and easy to scan.
+- Use concise alternate labels with short descriptions.
 
 ## Primary example
 
-<Canvas of={Stories.SplitButtonPlayground} sourceState="hidden" />
+<Canvas of={SplitButtonStories.Playground} sourceState="hidden" />
 
 ## API
 
-<ArgTypes of={Stories} />
+<ArgTypes of={SplitButtonStories} />
 
 ## Features
 
-<Canvas of={Features.Default} sourceState="hidden" />
-<Canvas of={Features.SideBySideHierarchy} sourceState="hidden" />
+### Default behavior
+
+The default split button keeps the primary action visible while exposing adjacent options in the menu.
+
+<Canvas of={SplitButtonFeatures.Default} sourceState="hidden" />
+
+### Hierarchy beside a primary action
+
+Use hierarchy carefully when a split button appears near another strong action.
+
+<Canvas of={SplitButtonFeatures.SideBySideWithPrimary} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use split buttons for related alternate creation paths.
+- Do keep the primary label as the dominant scan target.
+- Do make alternate options feel meaningfully related to the primary action.
+- Don’t use a split button when there is no clearly dominant action.
+- Don’t overload the menu with a large or unrelated action set.
+
+## Keyboard and accessibility
+
+- Keyboard users should be able to reach the primary action and menu trigger predictably.
+- Alternate choices should remain understandable without relying on icon color alone.

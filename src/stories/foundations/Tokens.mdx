@@ -4,19 +4,16 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Tokens
 
-The token source lives in `tokens/inkwell.tokens.json` and is compiled into CSS variables in `src/styles/tokens.css`.
+Tokens are the shared design decisions behind the interface.
 
-<div className="token-grid">
-  <div className="token-card">
-    <h3>Color</h3>
-    <p>Semantic surfaces, borders, text, and feedback tones.</p>
-  </div>
-  <div className="token-card">
-    <h3>Typography</h3>
-    <p>Display and sans stacks plus shared size steps.</p>
-  </div>
-  <div className="token-card">
-    <h3>Motion</h3>
-    <p>Duration and easing tokens for interaction consistency.</p>
-  </div>
-</div>
+## Rules
+
+- Prefer semantic tokens over raw values.
+- Use foundation stories as the reference source for approved values.
+- Avoid hard-coded pixel or color values when a token already exists.
+
+## Token layers
+
+- Primitive values define raw scales and palette entries.
+- Semantic values define intended UI meaning.
+- Component usage should consume semantic values wherever possible.

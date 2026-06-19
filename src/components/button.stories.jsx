@@ -7,7 +7,7 @@ export default {
 export const ButtonPlayground = {
   name: "Playground",
   args: {
-    children: "Save changes",
+    children: "Save ballot",
     variant: "primary",
     size: "md",
     disabled: false,
@@ -16,16 +16,21 @@ export const ButtonPlayground = {
     children: { control: "text", name: "Label" },
     variant: {
       control: { type: "select" },
+      name: "Variant",
       options: ["primary", "secondary", "ghost", "danger"],
     },
     size: {
       control: { type: "select" },
+      name: "Size",
       options: ["xs", "sm", "md", "lg", "xl"],
     },
     disabled: { control: "boolean" },
   },
   render: ({ children, variant, size, disabled }) => (
-    <Button className={`${variant}-button${size !== "md" ? ` button--${size}` : ""}`} disabled={disabled}>
+    <Button
+      className={`${variant}-button${size !== "md" ? ` button--${size}` : ""}`}
+      disabled={disabled}
+    >
       {children}
     </Button>
   ),

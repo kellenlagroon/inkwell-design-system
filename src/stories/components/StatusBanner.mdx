@@ -1,23 +1,62 @@
-import { ArgTypes, Canvas, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "../../components/statusBanner.stories.jsx";
-import * as Features from "../../components/statusBanner.features.stories.jsx";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as StatusStories from "../../components/statusBanner.stories.jsx";
+import * as StatusFeatures from "../../components/statusBanner.features.stories.jsx";
 
-<Meta title="Components/Status Banner/Docs" of={Stories} />
+<Meta title="Components/StatusBanner/Docs" of={StatusStories} />
 
-# Status Banner
+# StatusBanner
 
-A persistent inline feedback surface for warnings, errors, and important system notices.
+An inline feedback surface for success, warning, and error communication near the active task.
+
+## When to use
+
+- Use `StatusBanner` for contextual system feedback inside the current view.
+- Prefer it over a toast when the user needs the message to stay attached to nearby content.
+- Use dismissible behavior only when clearing the message is safe.
 
 ## Primary example
 
-<Canvas of={Stories.BannerPlayground} sourceState="hidden" />
+<Canvas of={StatusStories.StatusBannerPlayground} sourceState="hidden" />
 
 ## API
 
-<ArgTypes of={Stories} />
+<ArgTypes of={StatusStories} />
 
 ## Features
 
-<Canvas of={Features.DefaultBanner} sourceState="hidden" />
-<Canvas of={Features.WarningBanner} sourceState="hidden" />
-<Canvas of={Features.ErrorBanner} sourceState="hidden" />
+### Success
+
+Use success banners for positive task feedback that should remain visible near the work surface.
+
+<Canvas of={StatusFeatures.BannerSuccess} sourceState="hidden" />
+
+### Warning
+
+Warnings should communicate blocked or incomplete state without feeling fatal.
+
+<Canvas of={StatusFeatures.BannerWarning} sourceState="hidden" />
+
+### Error
+
+Use error banners for failures that need clear correction or retry.
+
+<Canvas of={StatusFeatures.BannerError} sourceState="hidden" />
+
+### Dismissible
+
+Use dismissible banners only when the user can safely remove the message after reading it.
+
+<Canvas of={StatusFeatures.BannerWithDismiss} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep the message short and actionable.
+- Do place the banner close to the content or task it refers to.
+- Do use tone consistently with system severity.
+- Don’t rely on banner tone alone to convey meaning.
+- Don’t dismiss a banner automatically if the user still needs the context.
+
+## Keyboard and accessibility
+
+- Dismiss buttons must be reachable and clearly labeled.
+- Banner content should remain understandable without color cues.

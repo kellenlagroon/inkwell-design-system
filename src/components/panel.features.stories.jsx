@@ -4,38 +4,32 @@ export default {
   title: "Components/Panel/Features",
 };
 
-export const SectionHeadingFeature = {
-  name: "Section heading",
+export const PanelDefault = {
   render: () => (
     <Panel>
-      <SectionHeading eyebrow="Overview" title="Workspace summary" copy="Use a panel to hold grouped content, then add a section heading when the content needs title, copy, or actions." />
+      <SectionHeading eyebrow="League setup" title="Storybook Dynasty" />
+      <p className="helper-text">Panels wrap major content regions across vote, commissioner, and results views.</p>
     </Panel>
   ),
 };
 
-export const WithActions = {
+export const SectionHeadingDefault = {
   render: () => (
-    <Panel>
-      <SectionHeading eyebrow="Actions" title="Release plan">
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          <Button>Publish</Button>
-          <Button className="secondary-button">Preview</Button>
-        </div>
-      </SectionHeading>
-      <p>Use panel sections to group content and adjacent actions without introducing a full page pattern.</p>
-    </Panel>
+    <SectionHeading eyebrow="Current voter" title="UCF Knights">
+      <Button className="secondary-button">Action</Button>
+    </SectionHeading>
   ),
 };
 
-export const EmptyStateFeature = {
-  name: "Empty state",
+export const SectionHeadingCompact = {
+  render: () => <SectionHeading title="Poll rounds" compact />,
+};
+
+export const EmptyStateDefault = {
   render: () => (
-    <Panel>
-      <EmptyState>
-        <h3 style={{ margin: 0 }}>No collaborators yet</h3>
-        <p style={{ margin: 0 }}>Empty states should explain what is missing and what the next useful action is.</p>
-        <Button>Invite people</Button>
-      </EmptyState>
-    </Panel>
+    <EmptyState>
+      <strong>Join or create a league before voting.</strong>
+      <div className="subtle top-gap">Open a private invite link to join an existing league.</div>
+    </EmptyState>
   ),
 };

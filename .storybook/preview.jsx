@@ -4,10 +4,10 @@ import "../src/styles/inkwell.css";
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {
-    layout: "padded",
+    layout: "fullscreen",
     options: {
       storySort: {
-        order: ["Foundations", "Components", "Guidance"],
+        order: ["Foundations", "Components", "Patterns"],
       },
     },
     controls: {

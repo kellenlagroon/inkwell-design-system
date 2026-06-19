@@ -1,23 +1,40 @@
 import { Button, PopoverMenu } from "./ui.jsx";
 
 export default {
-  title: "Components/Popover Menu",
+  title: "Components/PopoverMenu",
 };
 
-export const PopoverPlayground = {
+export const PopoverMenuPlayground = {
   name: "Playground",
-  render: () => (
-    <PopoverMenu
-      trigger={({ onToggle }) => (
-        <Button className="secondary-button" onClick={onToggle}>
-          Open menu
-        </Button>
-      )}
-    >
-      <div className="popover-list">
-        <div className="popover-item"><strong>Profile</strong>Account details</div>
-        <div className="popover-item"><strong>Preferences</strong>Workspace settings</div>
-      </div>
-    </PopoverMenu>
+  args: {
+    menuLabel: "Account menu",
+    triggerLabel: "Account ▾",
+  },
+  argTypes: {
+    menuLabel: { control: "text", name: "Menu aria-label" },
+    triggerLabel: { control: "text", name: "Trigger label" },
+  },
+  render: ({ menuLabel, triggerLabel }) => (
+    <div style={{ display: "flex", justifyContent: "flex-end", padding: 16 }}>
+      <PopoverMenu
+        trigger={({ open, onToggle }) => (
+          <Button
+            className="secondary-button"
+            aria-haspopup="menu"
+            aria-expanded={open ? "true" : "false"}
+            onClick={onToggle}
+          >
+            {triggerLabel}
+          </Button>
+        )}
+        menuLabel={menuLabel}
+      >
+        <div className="header-account-label">
+          <strong>Jordan Fields</strong>
+          <span>Google account</span>
+        </div>
+        <Button className="ghost-button header-account-menu-button">Sign out</Button>
+      </PopoverMenu>
+    </div>
   ),
 };

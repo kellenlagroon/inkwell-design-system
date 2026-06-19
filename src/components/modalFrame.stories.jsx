@@ -1,26 +1,34 @@
-import { ModalFrame } from "./ui.jsx";
+import { Button, ModalFrame } from "./ui.jsx";
 
 export default {
-  title: "Components/Modal Frame",
+  title: "Components/ModalFrame",
 };
 
-export const ModalPlayground = {
+export const ModalFramePlayground = {
   name: "Playground",
   args: {
-    title: "Share workspace",
+    title: "Create a poll round",
     size: "default",
   },
   argTypes: {
-    title: { control: "text" },
-    size: { control: { type: "select" }, options: ["default", "compact"] },
+    title: { control: "text", name: "Title" },
+    size: {
+      control: { type: "select" },
+      name: "Size",
+      options: ["default", "compact", "picker", "settings"],
+    },
   },
   render: ({ title, size }) => (
-    <ModalFrame id="modal-demo" titleId="modal-demo-title" title={title} size={size} open onClose={() => {}}>
-      <div style={{ display: "grid", gap: "12px" }}>
-        <p id="modal-demo-copy" style={{ margin: 0 }}>
-          Modals should focus on one decision, one form, or one constrained workflow.
-        </p>
-      </div>
+    <ModalFrame
+      id="playgroundModal"
+      titleId="playgroundModalTitle"
+      title={title}
+      onClose={() => {}}
+      size={size}
+      open
+    >
+      <p className="subtle">Switch Size in Controls to preview each modal variant.</p>
+      <Button>Confirm</Button>
     </ModalFrame>
   ),
 };

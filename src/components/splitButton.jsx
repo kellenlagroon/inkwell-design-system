@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { IconArrowDown } from "./icons.jsx";
 
 export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }) {
@@ -6,9 +6,9 @@ export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (!open) return undefined;
-    function handleOutside(event) {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
+    if (!open) return;
+    function handleOutside(e) {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
         setOpen(false);
       }
     }
@@ -30,8 +30,8 @@ export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }) {
       <button
         type="button"
         className="split-button-chevron"
-        onClick={() => setOpen((current) => !current)}
-        aria-label="More options"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="More round types"
         aria-haspopup="menu"
         aria-expanded={open ? "true" : "false"}
       >
@@ -47,7 +47,11 @@ export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }) {
               role="menuitem"
               onClick={() => handleItemClick(item.onClick)}
             >
-              <span className="split-dropdown-icon" style={{ background: item.iconBg, color: item.iconColor }} aria-hidden="true">
+              <span
+                className="split-dropdown-icon"
+                style={{ background: item.iconBg, color: item.iconColor }}
+                aria-hidden="true"
+              >
                 {item.icon}
               </span>
               <span className="split-dropdown-copy">
