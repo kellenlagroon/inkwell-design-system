@@ -1,0 +1,50 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as StackStories from "../../components/stack.stories.jsx";
+import * as StackFeatures from "../../components/stack.features.stories.jsx";
+
+<Meta title="Components/Stack/Docs" of={StackStories} />
+
+# Stack
+
+Vertical flow with a consistent, token-backed gap. `Stack` is the generalization
+of the app's `.stacked-form` rhythm — reach for it instead of hand-rolling a
+flex column with an arbitrary gap.
+
+## When to use
+
+- Use for any vertical list of elements that needs even spacing: form fields, card rows, sections.
+- Use [Inline](?path=/docs/components-inline-docs--docs) for horizontal flow, [Grid](?path=/docs/components-grid-docs--docs) for columns.
+
+## Primary example
+
+<Canvas of={StackStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={StackStories} />
+
+The `gap` scale maps to the spacing tokens: `xs`=4px, `sm`=8px, `md`=12px
+(default), `lg`=16px, `xl`=24px, plus `none`. All native `div` props pass through.
+
+## Features
+
+### Gap scale
+
+<Canvas of={StackFeatures.GapScale} sourceState="hidden" />
+
+### Alignment
+
+`align` maps to `align-items`; the default `stretch` makes children fill the width.
+
+<Canvas of={StackFeatures.Alignment} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use `Stack` rather than a bare `<div style={{ display: 'flex' }}>` so spacing stays on the token scale.
+- Do keep `md` (12px) as the default rhythm unless the density genuinely differs.
+- Don’t nest many Stacks purely to tweak one gap — reach for the right `gap` value first.
+
+## Accessibility
+
+- `Stack` is a layout wrapper and renders a plain `div`; it adds no semantics.
+- When the content is a list, pass `role="list"` (and `role="listitem"` on children) or use semantic elements around it.

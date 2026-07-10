@@ -1,0 +1,52 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as GridStories from "../../components/grid.stories.jsx";
+import * as GridFeatures from "../../components/grid.features.stories.jsx";
+
+<Meta title="Components/Grid/Docs" of={GridStories} />
+
+# Grid
+
+Equal-column layout with a token-backed gap. `Grid` uses the app's
+`repeat(n, minmax(0, 1fr))` convention, so columns stay equal and never overflow
+their track when content is wide.
+
+## When to use
+
+- Use for evenly divided columns: card grids, stat rows, option matrices.
+- Use [Stack](?path=/docs/components-stack-docs--docs) for vertical flow and [Inline](?path=/docs/components-inline-docs--docs) for items that should wrap rather than hold a column count.
+- For bespoke templates (e.g. `content + trailing auto`), use a plain element with custom CSS.
+
+## Primary example
+
+<Canvas of={GridStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={GridStories} />
+
+`columns` sets the number of equal columns (`repeat(n, minmax(0, 1fr))`, default
+2). `gap` uses the shared spacing scale (default `md`/12px). All native `div`
+props pass through.
+
+## Features
+
+### Column counts
+
+<Canvas of={GridFeatures.Columns} sourceState="hidden" />
+
+### Equal columns don’t overflow
+
+`minmax(0, 1fr)` keeps every column equal even when one child holds long content.
+
+<Canvas of={GridFeatures.EqualColumnsDontOverflow} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use `Grid` when you want columns of equal width.
+- Do reach for [Inline](?path=/docs/components-inline-docs--docs) instead when items should wrap freely rather than hold a fixed column count.
+- Don’t use `Grid` for a single column — use `Stack`.
+
+## Accessibility
+
+- `Grid` is a layout wrapper and renders a plain `div`; it adds no semantics.
+- DOM order is the reading and tab order — keep it meaningful, since the grid only affects visual placement.

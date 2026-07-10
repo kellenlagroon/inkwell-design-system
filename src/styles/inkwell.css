@@ -993,6 +993,32 @@ select option {
   gap: var(--space-3);
 }
 
+/* Layout primitives (Stack / Inline / Grid). Namespaced with ink- to avoid
+   collision with the seeded generic classes above; the md/12px default rhythm
+   matches the shared layout rhythm. */
+.ink-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ink-stack-gap, var(--space-3));
+  align-items: var(--ink-stack-align, stretch);
+}
+
+.ink-inline {
+  display: flex;
+  flex-direction: row;
+  gap: var(--ink-inline-gap, var(--space-3));
+  align-items: var(--ink-inline-align, center);
+  justify-content: var(--ink-inline-justify, flex-start);
+  flex-wrap: var(--ink-inline-wrap, wrap);
+}
+
+.ink-grid {
+  display: grid;
+  gap: var(--ink-grid-gap, var(--space-3));
+  grid-template-columns: var(--ink-grid-columns, repeat(2, minmax(0, 1fr)));
+  align-items: var(--ink-grid-align, stretch);
+}
+
 .ballot-ranks {
   gap: 0;
 }

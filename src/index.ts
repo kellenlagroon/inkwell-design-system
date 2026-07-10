@@ -41,5 +41,16 @@ export type {
   CheckboxProps,
 } from "./components/forms";
 
+// Layout primitives
+export { Stack, Inline, Grid } from "./components/layout";
+export type {
+  StackProps,
+  InlineProps,
+  GridProps,
+  SpaceScale,
+  AlignItems,
+  JustifyContent,
+} from "./components/layout";
+
 // Icons
 export * from "./components/icons";
