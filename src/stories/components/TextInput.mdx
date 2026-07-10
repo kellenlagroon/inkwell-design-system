@@ -1,0 +1,58 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TextInputStories from "../../components/textInput.stories.jsx";
+import * as TextInputFeatures from "../../components/textInput.features.stories.jsx";
+
+<Meta title="Components/TextInput/Docs" of={TextInputStories} />
+
+# TextInput
+
+Single-line text entry. Wraps the native `input` element, so it keeps native
+behavior and inherits Inkwell's field styling. Pair it with [FormField](?path=/docs/components-formfield-docs--docs)
+when it needs a label, hint, or error message.
+
+## When to use
+
+- Use for any single-line value: names, titles, emails, codes.
+- Set `type="search"` for filter fields to get the leading search icon.
+- Reach for [Textarea](?path=/docs/components-textarea-docs--docs) when the value spans multiple lines.
+
+## Primary example
+
+<Canvas of={TextInputStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={TextInputStories} />
+
+All native `input` props (`value`, `onChange`, `placeholder`, `disabled`, `name`,
+…) pass through. Inside a `FormField`, the `id`, `aria-describedby`,
+`aria-invalid`, and `required` are inherited automatically.
+
+## Features
+
+### Input types
+
+`type` maps straight to the native input type. `search` adds the leading search icon.
+
+<Canvas of={TextInputFeatures.InputTypes} sourceState="hidden" />
+
+### States
+
+Default, filled, disabled, and invalid all share one control. Use `invalid` to
+force the error style when the control is used standalone; inside a `FormField`,
+passing an `error` sets it for you.
+
+<Canvas of={TextInputFeatures.States} sourceState="hidden" />
+
+## Usage guidance
+
+- Do wrap labelled inputs in `FormField` rather than hand-rolling `<label>` markup.
+- Do use `type="search"` for filters so the affordance is consistent across apps.
+- Don’t rely on the invalid color alone — provide an error message via `FormField`.
+- Don’t disable an input to signal an error; disabled means unavailable.
+
+## Keyboard and accessibility
+
+- The control is a native `input`, so focus and typing work with no extra handling.
+- The focus-visible ring uses the shared Inkwell focus tokens; the invalid state uses the danger token for border and ring.
+- Provide an accessible name via a `FormField` label or an explicit `aria-label`.

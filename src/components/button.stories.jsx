@@ -27,10 +27,7 @@ export const ButtonPlayground = {
     disabled: { control: "boolean" },
   },
   render: ({ children, variant, size, disabled }) => (
-    <Button
-      className={`${variant}-button${size !== "md" ? ` button--${size}` : ""}`}
-      disabled={disabled}
-    >
+    <Button variant={variant} size={size} disabled={disabled}>
       {children}
     </Button>
   ),

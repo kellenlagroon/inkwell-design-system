@@ -6,7 +6,7 @@ import * as ModalFrameFeatures from "../../components/modalFrame.features.storie
 
 # ModalFrame
 
-The shared modal shell for commissioner and voting workflows. It defines container size, close behavior, heading treatment, and overall modal structure.
+The shared modal shell. It defines container size, close behavior, heading treatment, and the accessibility wiring (focus trap, Escape, scroll lock, and focus return) around modal structure.
 
 ## When to use
 
@@ -38,7 +38,7 @@ Use compact modals for short single-action tasks.
 
 ### Picker size
 
-Picker modals support selection-heavy tasks and collapse into a bottom-sheet-like experience on smaller screens.
+Picker modals support selection-heavy tasks. It currently shares the compact sizing — the app-specific bottom-sheet treatment is intentionally not part of Inkwell.
 
 <Canvas of={ModalFrameFeatures.ModalFramePicker} sourceState="hidden" />
 
@@ -58,6 +58,9 @@ Use the settings variant for taller, denser configuration surfaces that need mor
 
 ## Keyboard and accessibility
 
-- Modal content should be reachable by keyboard in a logical tab order.
-- The close button must remain accessible by keyboard and screen reader.
-- The title should clearly identify the task inside the dialog.
+- On open, focus moves into the dialog (first focusable element, else the card).
+- `Tab` / `Shift+Tab` are trapped within the dialog and cycle at the ends.
+- `Escape` calls `onClose`, as does clicking the backdrop or the close button.
+- Background scroll is locked while the dialog is open.
+- On close, focus returns to the element that was focused before opening.
+- The dialog is `role="dialog"` with `aria-modal`; pass `titleId` (applied to the heading) so `aria-labelledby` names the dialog, and `describedBy` for supporting copy.

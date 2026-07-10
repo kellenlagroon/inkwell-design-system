@@ -58,6 +58,10 @@ Disabled state should make temporary unavailability clear without hiding the sur
 
 ## Keyboard and accessibility
 
-- The trigger should clearly announce expanded state.
-- The active selection should remain legible without relying on color alone.
-- Use a meaningful accessible label when the surrounding text does not fully describe the control.
+- The trigger announces expanded state (`aria-haspopup="listbox"`, `aria-expanded`).
+- From the trigger, `ArrowDown` / `ArrowUp` / `Enter` / `Space` open the list with the current selection active.
+- In the open list, `ArrowUp` / `ArrowDown` move (skipping disabled options and wrapping); `Home` / `End` jump to the first / last option.
+- Type-ahead: typing characters jumps to the option whose label starts with what you typed.
+- `Enter` / `Space` choose the active option; `Escape` closes and returns focus to the trigger; `Tab` closes.
+- The active selection remains legible without relying on color alone.
+- Use a meaningful `aria-label` when the surrounding text does not fully describe the control.

@@ -16,7 +16,7 @@ export const PanelDefault = {
 export const SectionHeadingDefault = {
   render: () => (
     <SectionHeading eyebrow="Current voter" title="UCF Knights">
-      <Button className="secondary-button">Action</Button>
+      <Button variant="secondary">Action</Button>
     </SectionHeading>
   ),
 };
