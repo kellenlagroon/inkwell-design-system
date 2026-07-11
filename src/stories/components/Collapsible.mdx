@@ -25,16 +25,25 @@ controlled or uncontrolled.
 <ArgTypes of={CollapsibleStories} />
 
 Uncontrolled by default (`defaultOpen`); pass `open` + `onOpenChange` to control
-it. `title`, optional `description`, and optional `meta` build the header; the
-revealed content is `children`.
+it. `title`, optional `description`, and optional `meta` build the header, and the
+whole header is the toggle. The revealed content is `children`. Pass `divided` to
+add a hairline divider under the row — the treatment the app uses for stacked
+submission rows.
 
 ## Features
 
 ### Stacked
 
-Each collapsible manages its own state, so any combination can be open.
+Each collapsible manages its own state, so any combination can be open. These use
+`divided` so the rows read as a list, matching the app's submission rows.
 
 <Canvas of={CollapsibleFeatures.Stacked} sourceState="hidden" />
+
+### Divided vs. plain
+
+`divided` is opt-in; the default is borderless.
+
+<Canvas of={CollapsibleFeatures.Divided} sourceState="hidden" />
 
 ### Title only
 
@@ -50,7 +59,8 @@ Each collapsible manages its own state, so any combination can be open.
 
 ## Keyboard and accessibility
 
-- The header is a native button: `Enter`/`Space` toggle it, and it's in the tab order.
+- The whole header is a native button: `Enter`/`Space` toggle it, and it's in the tab order. It names itself from `title`.
+- On hover/focus the fill is contained to the chevron box, but the entire row is the click target.
 - It exposes `aria-expanded` and `aria-controls`; the content region is labelled by the trigger.
 - The content stays mounted and is hidden via the `hidden` attribute, so `aria-controls` always resolves.
-- The chevron is decorative (`aria-hidden`).
+- The chevron (and its box) is decorative (`aria-hidden`).

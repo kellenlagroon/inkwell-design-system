@@ -356,8 +356,9 @@ body[data-preview-mode="mobile"] .app-header {
   pointer-events: none;
 }
 
-/* Collapsible: a disclosure with a toggle header and rotating chevron
-   (see Collapsible component). Seeded from the multi-category result toggle. */
+/* Collapsible: a disclosure whose whole header is the toggle button. The
+   chevron sits in a 36px box that carries the hover-surface fill, so the
+   affordance reads as a contained control even though the full row is clickable. */
 .collapsible-trigger {
   display: flex;
   align-items: center;
@@ -371,6 +372,39 @@ body[data-preview-mode="mobile"] .app-header {
   font: inherit;
   text-align: left;
   cursor: pointer;
+}
+
+.collapsible-trigger:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+  border-radius: var(--radius-sharp);
+}
+
+/* The chevron box mirrors the app's icon-only ghost button (36px square). It
+   fills with the shared hover-surface token whenever the row is hovered or
+   focused, keeping the visible affordance contained to the chevron. */
+.collapsible-chevron-box {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sharp);
+  color: var(--text);
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.collapsible-trigger:hover .collapsible-chevron-box,
+.collapsible-trigger:focus-visible .collapsible-chevron-box {
+  background: var(--hover-surface);
+}
+
+/* Opt-in divider: mirrors the app's stacked submission rows, which carry a
+   hairline border-bottom on the whole row (below any expanded content). */
+.collapsible--divided {
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .collapsible-main {
@@ -392,8 +426,7 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .collapsible-chevron {
-  flex-shrink: 0;
-  color: var(--muted);
+  color: currentColor;
   transition: transform var(--duration-fast) var(--ease-default);
 }
 

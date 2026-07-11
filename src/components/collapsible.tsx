@@ -15,6 +15,8 @@ export interface CollapsibleProps {
   open?: boolean;
   /** Called with the next open state when the trigger is activated. */
   onOpenChange?: (open: boolean) => void;
+  /** Adds a hairline divider under the row — matches the app's stacked submission rows. */
+  divided?: boolean;
   /** The revealed content. */
   children?: ReactNode;
   id?: string;
@@ -22,8 +24,10 @@ export interface CollapsibleProps {
 }
 
 /**
- * A disclosure: a header that toggles a region of content, with a chevron that
- * rotates when open. Works controlled (`open` + `onOpenChange`) or uncontrolled
+ * A disclosure: the whole header is the toggle button, with a chevron that
+ * rotates when open. The chevron sits in a contained box that carries the
+ * hover/focus fill, so the affordance reads as a control even though the full
+ * row is clickable. Works controlled (`open` + `onOpenChange`) or uncontrolled
  * (`defaultOpen`). The content stays mounted and is hidden via the `hidden`
  * attribute so `aria-controls` always resolves.
  */
@@ -34,6 +38,7 @@ export function Collapsible({
   defaultOpen = false,
   open,
   onOpenChange,
+  divided = false,
   children,
   id,
   className = "",
@@ -54,7 +59,7 @@ export function Collapsible({
   }
 
   return (
-    <div className={["collapsible", className].filter(Boolean).join(" ")}>
+    <div className={["collapsible", divided ? "collapsible--divided" : "", className].filter(Boolean).join(" ")}>
       <button
         type="button"
         id={triggerId}
@@ -68,10 +73,11 @@ export function Collapsible({
           {description ? <span className="subtle">{description}</span> : null}
         </span>
         {meta ? <span className="collapsible-meta">{meta}</span> : null}
-        <IconArrowDown
-          className={["collapsible-chevron", isOpen ? "collapsible-chevron--open" : ""].filter(Boolean).join(" ")}
-          aria-hidden="true"
-        />
+        <span className="collapsible-chevron-box" aria-hidden="true">
+          <IconArrowDown
+            className={["collapsible-chevron", isOpen ? "collapsible-chevron--open" : ""].filter(Boolean).join(" ")}
+          />
+        </span>
       </button>
       <div id={contentId} className="collapsible-content" role="region" aria-labelledby={triggerId} hidden={!isOpen}>
         {children}

@@ -36,6 +36,27 @@ describe("Collapsible (uncontrolled)", () => {
     );
     expect(container.querySelector(".collapsible-content")!.hasAttribute("hidden")).toBe(false);
   });
+
+  it("makes the whole header the toggle, with the chevron contained in a box", () => {
+    const { getByRole, container } = render(
+      <Collapsible title="Best offense" meta="12 submissions">x</Collapsible>,
+    );
+    // the single button is the full-width header, and it names itself via the title
+    const trigger = getByRole("button", { name: /Best offense/ });
+    expect(trigger.classList.contains("collapsible-trigger")).toBe(true);
+    // the chevron lives in a decorative box that carries the hover fill
+    const box = container.querySelector(".collapsible-chevron-box")!;
+    expect(box.getAttribute("aria-hidden")).toBe("true");
+    expect(box.querySelector(".collapsible-chevron")).not.toBeNull();
+  });
+
+  it("adds the divided modifier only when requested", () => {
+    const { container, rerender } = render(<Collapsible title="Plain">x</Collapsible>);
+    expect(container.querySelector(".collapsible")!.classList.contains("collapsible--divided")).toBe(false);
+
+    rerender(<Collapsible title="Divided" divided>x</Collapsible>);
+    expect(container.querySelector(".collapsible")!.classList.contains("collapsible--divided")).toBe(true);
+  });
 });
 
 describe("Collapsible (controlled)", () => {
