@@ -41,6 +41,11 @@ export type {
   CheckboxProps,
 } from "./components/forms";
 
+export { Card, CardActions } from "./components/card";
+export type { CardProps, CardActionsProps, CardTone, CardVariant } from "./components/card";
+export { Badge } from "./components/badge";
+export type { BadgeProps, BadgeTone } from "./components/badge";
+
 // Layout primitives
 export { Stack, Inline, Grid } from "./components/layout";
 export type {
