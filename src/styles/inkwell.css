@@ -438,6 +438,72 @@ body[data-preview-mode="mobile"] .app-header {
   padding-bottom: var(--space-3);
 }
 
+/* Tooltip: a trigger with a popover shown above it on hover/focus (see Tooltip
+   component). Seeded from the app's info tooltip. The reveal is CSS-driven; the
+   component adds role="tooltip", aria-describedby, and Escape-to-dismiss. */
+.info-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.info-tooltip-trigger {
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  cursor: pointer;
+}
+
+.info-tooltip-trigger:focus-visible {
+  outline: 0;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 2px var(--color-focus-outline);
+}
+
+.info-tooltip-content {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + var(--space-2));
+  z-index: var(--z-tooltip);
+  width: min(320px, 82vw);
+  padding: var(--space-3);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition: opacity var(--duration-fast) var(--ease-default), transform var(--duration-fast) var(--ease-default);
+}
+
+.info-tooltip:hover .info-tooltip-content,
+.info-tooltip:focus-within .info-tooltip-content {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Escape-to-dismiss: overrides the hover/focus reveal while set. Scoped to the
+   same states plus the attribute so it outranks the reveal by specificity
+   (rather than relying on source order). */
+.info-tooltip[data-tooltip-dismissed]:hover .info-tooltip-content,
+.info-tooltip[data-tooltip-dismissed]:focus-within .info-tooltip-content {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+}
+
 .header-topline {
   display: contents;
 }

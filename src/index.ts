@@ -49,6 +49,8 @@ export { Tabs } from "./components/tabs";
 export type { TabsProps, TabItem } from "./components/tabs";
 export { Collapsible } from "./components/collapsible";
 export type { CollapsibleProps } from "./components/collapsible";
+export { Tooltip } from "./components/tooltip";
+export type { TooltipProps } from "./components/tooltip";
 
 // Layout primitives
 export { Stack, Inline, Grid } from "./components/layout";
