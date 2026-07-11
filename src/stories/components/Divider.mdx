@@ -1,0 +1,54 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as DividerStories from "../../components/divider.stories.jsx";
+import * as DividerFeatures from "../../components/divider.features.stories.jsx";
+
+<Meta title="Components/Divider/Docs" of={DividerStories} />
+
+# Divider
+
+A thin hairline rule that separates content. Generalizes the app's `border-bottom`
+row dividers and the split-button rule into one primitive.
+
+## When to use
+
+- Use to separate stacked sections or inline groups.
+- Use a `label` to break a stack with a word (e.g. "or" between auth options).
+- For spacing alone (no visible line), use the layout primitives instead.
+
+## Primary example
+
+<Canvas of={DividerStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={DividerStories} />
+
+`orientation` is `horizontal` (default, a native `<hr>`) or `vertical` (an inline
+rule that needs a flex/grid parent to take height). `label` renders a centered
+label between two lines. The rule carries no margins — space it with layout
+primitives.
+
+## Features
+
+### Horizontal
+
+The default: a full-width hairline.
+
+<Canvas of={DividerFeatures.Horizontal} sourceState="hidden" />
+
+### Labeled
+
+A centered label flanked by two lines.
+
+<Canvas of={DividerFeatures.Labeled} sourceState="hidden" />
+
+### Vertical
+
+An inline rule between items in a flex row.
+
+<Canvas of={DividerFeatures.Vertical} sourceState="hidden" />
+
+## Accessibility
+
+- The horizontal rule is a native `<hr>` (implicit `role="separator"`, horizontal orientation).
+- The vertical and labeled variants use `role="separator"`; vertical adds `aria-orientation="vertical"`.

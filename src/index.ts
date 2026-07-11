@@ -50,7 +50,11 @@ export type { TabsProps, TabItem } from "./components/tabs";
 export { Collapsible } from "./components/collapsible";
 export type { CollapsibleProps } from "./components/collapsible";
 export { Tooltip } from "./components/tooltip";
-export type { TooltipProps } from "./components/tooltip";
+export type { TooltipProps, TooltipPlacement } from "./components/tooltip";
+export { Divider } from "./components/divider";
+export type { DividerProps } from "./components/divider";
+export { Avatar } from "./components/avatar";
+export type { AvatarProps, AvatarSize, AvatarShape } from "./components/avatar";
 
 // Layout primitives
 export { Stack, Inline, Grid } from "./components/layout";

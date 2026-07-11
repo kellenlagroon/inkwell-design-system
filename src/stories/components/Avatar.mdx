@@ -1,0 +1,67 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as AvatarStories from "../../components/avatar.stories.jsx";
+import * as AvatarFeatures from "../../components/avatar.features.stories.jsx";
+
+<Meta title="Components/Avatar/Docs" of={AvatarStories} />
+
+# Avatar
+
+A compact identity mark showing an image or an initials fallback. Seeded from the
+app's account avatar.
+
+## When to use
+
+- Use to represent a person or entity in headers, lists, and menus.
+- Provide `name` even when you pass `src` — it drives the initials fallback and the accessible label.
+- Set `decorative` when the name is already shown next to the avatar.
+
+## Primary example
+
+<Canvas of={AvatarStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={AvatarStories} />
+
+`name` drives the initials (up to two uppercase letters) and the accessible label.
+`src` shows an image instead; `alt` defaults to `name`. `size` is `sm` | `md`
+(default) | `lg`, and `shape` is `circle` (default) | `square`. Pass `children`
+to supply a custom fallback such as an icon.
+
+## Features
+
+### Initials
+
+Up to two uppercase initials derived from `name`.
+
+<Canvas of={AvatarFeatures.Initials} sourceState="hidden" />
+
+### Image
+
+An image fills the frame (`object-fit: cover`).
+
+<Canvas of={AvatarFeatures.Image} sourceState="hidden" />
+
+### Sizes
+
+`sm` (26px), `md` (34px, default), `lg` (44px).
+
+<Canvas of={AvatarFeatures.Sizes} sourceState="hidden" />
+
+### Shapes
+
+`circle` (default) or `square` for non-person marks like team logos.
+
+<Canvas of={AvatarFeatures.Shapes} sourceState="hidden" />
+
+### Decorative beside a name
+
+When the name is already visible, mark the avatar `decorative` so it's skipped by assistive tech.
+
+<Canvas of={AvatarFeatures.WithName} sourceState="hidden" />
+
+## Accessibility
+
+- With initials (and not `decorative`), the mark is `role="img"` with an `aria-label` of the name.
+- With an image, the `<img>` carries the `alt`; the wrapper adds no extra role.
+- `decorative` hides the avatar from assistive tech (`aria-hidden`), for when the name is shown adjacently.
