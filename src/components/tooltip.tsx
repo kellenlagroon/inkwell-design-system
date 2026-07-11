@@ -1,9 +1,13 @@
 import { cloneElement, isValidElement, useId, useState } from "react";
 import type { KeyboardEvent, ReactElement, ReactNode } from "react";
 
+export type TooltipPlacement = "top" | "bottom" | "left" | "right";
+
 export interface TooltipProps {
   /** The tooltip body, revealed on hover/focus. */
   content: ReactNode;
+  /** Which side of the trigger the popover appears on. Defaults to "top". */
+  placement?: TooltipPlacement;
   /**
    * The trigger. Defaults to a small round "i" info button. Pass a custom
    * element (it should be focusable so keyboard users can reveal the tooltip);
@@ -25,6 +29,7 @@ export interface TooltipProps {
  */
 export function Tooltip({
   content,
+  placement = "top",
   trigger,
   triggerLabel = "More information",
   id,
@@ -67,7 +72,7 @@ export function Tooltip({
       onBlur={rearm}
     >
       {triggerNode}
-      <span id={contentId} role="tooltip" className="info-tooltip-content">
+      <span id={contentId} role="tooltip" className="info-tooltip-content" data-placement={placement}>
         {content}
       </span>
     </span>

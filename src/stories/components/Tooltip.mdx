@@ -27,7 +27,8 @@ focusable element can be the trigger.
 The tooltip body is `content`. The trigger defaults to an info "i" button — set
 `triggerLabel` to give it an accessible name. Pass a custom `trigger` (a
 focusable element) to attach the tooltip to your own control; it's wired to the
-content via `aria-describedby`.
+content via `aria-describedby`. Use `placement` (`top` | `bottom` | `left` |
+`right`, default `top`) to choose which side of the trigger the popover appears on.
 
 ## Features
 
@@ -42,6 +43,12 @@ The default — a round "i" button that reveals the tooltip on hover or focus.
 Any focusable element can be the trigger; it receives `aria-describedby`.
 
 <Canvas of={TooltipFeatures.CustomTrigger} sourceState="hidden" />
+
+### Placement
+
+`placement` positions the popover on the `top` (default), `bottom`, `left`, or `right` of the trigger.
+
+<Canvas of={TooltipFeatures.Placements} sourceState="hidden" />
 
 ### Rich content
 

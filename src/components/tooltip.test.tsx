@@ -24,6 +24,13 @@ describe("Tooltip", () => {
     expect(trigger.getAttribute("aria-describedby")).toBe(getByRole("tooltip").id);
   });
 
+  it("defaults to top placement and honors the placement prop", () => {
+    const { getByRole, rerender } = render(<Tooltip content="x" />);
+    expect(getByRole("tooltip").getAttribute("data-placement")).toBe("top");
+    rerender(<Tooltip content="x" placement="right" />);
+    expect(getByRole("tooltip").getAttribute("data-placement")).toBe("right");
+  });
+
   it("dismisses on Escape and re-arms on mouse leave", () => {
     const { container } = render(<Tooltip content="Hidden on escape." />);
     const wrap = container.querySelector(".info-tooltip")!;

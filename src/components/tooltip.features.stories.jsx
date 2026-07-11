@@ -35,6 +35,33 @@ export const CustomTrigger = {
   ),
 };
 
+export const Placements = {
+  name: "Placement",
+  render: () => (
+    <div
+      style={{
+        padding: 120,
+        display: "grid",
+        gridTemplateColumns: "repeat(2, max-content)",
+        gap: 64,
+        justifyContent: "center",
+        color: "var(--color-text-primary)",
+      }}
+    >
+      {["top", "bottom", "left", "right"].map((placement) => (
+        <span key={placement} style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+          {placement}
+          <Tooltip
+            placement={placement}
+            content={`Placed on the ${placement}.`}
+            triggerLabel={`More information (${placement})`}
+          />
+        </span>
+      ))}
+    </div>
+  ),
+};
+
 export const RichContent = {
   name: "Rich content",
   render: () => (

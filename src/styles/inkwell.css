@@ -468,13 +468,18 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .info-tooltip-content {
+  /* --tip-tx/ty center the popover on its axis; --tip-from-x/y are the small
+     offset it animates in from. Placement rules below re-point these. */
+  --tip-tx: -50%;
+  --tip-ty: 0px;
+  --tip-from-x: 0px;
+  --tip-from-y: 4px;
   position: absolute;
   left: 50%;
   bottom: calc(100% + var(--space-2));
   z-index: var(--z-tooltip);
   width: min(320px, 82vw);
   padding: var(--space-3);
-  border: 1px solid var(--line-soft);
   border-radius: var(--radius-sharp);
   background: var(--color-surface-raised);
   color: var(--text);
@@ -484,14 +489,43 @@ body[data-preview-mode="mobile"] .app-header {
   line-height: var(--line-height-body);
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, 4px);
+  transform: translate(calc(var(--tip-tx) + var(--tip-from-x)), calc(var(--tip-ty) + var(--tip-from-y)));
   transition: opacity var(--duration-fast) var(--ease-default), transform var(--duration-fast) var(--ease-default);
+}
+
+/* Placement: repoint the anchor and the center/offset vars. Default is top. */
+.info-tooltip-content[data-placement="bottom"] {
+  top: calc(100% + var(--space-2));
+  bottom: auto;
+  --tip-from-y: -4px;
+}
+
+.info-tooltip-content[data-placement="left"] {
+  right: calc(100% + var(--space-2));
+  left: auto;
+  top: 50%;
+  bottom: auto;
+  --tip-tx: 0px;
+  --tip-ty: -50%;
+  --tip-from-x: 4px;
+  --tip-from-y: 0px;
+}
+
+.info-tooltip-content[data-placement="right"] {
+  left: calc(100% + var(--space-2));
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  --tip-tx: 0px;
+  --tip-ty: -50%;
+  --tip-from-x: -4px;
+  --tip-from-y: 0px;
 }
 
 .info-tooltip:hover .info-tooltip-content,
 .info-tooltip:focus-within .info-tooltip-content {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(var(--tip-tx), var(--tip-ty));
 }
 
 /* Escape-to-dismiss: overrides the hover/focus reveal while set. Scoped to the
@@ -501,7 +535,7 @@ body[data-preview-mode="mobile"] .app-header {
 .info-tooltip[data-tooltip-dismissed]:focus-within .info-tooltip-content {
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, 4px);
+  transform: translate(calc(var(--tip-tx) + var(--tip-from-x)), calc(var(--tip-ty) + var(--tip-from-y)));
 }
 
 .header-topline {
@@ -2464,51 +2498,9 @@ textarea {
   gap: var(--space-2);
 }
 
-.info-tooltip {
-  position: relative;
-  display: inline-flex;
-}
-
-.info-tooltip-trigger {
-  width: 22px;
-  height: 22px;
-  min-height: 0;
-  padding: 0;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--line-soft);
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-}
-
-.info-tooltip-content {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + var(--space-2));
-  z-index: var(--z-tooltip);
-  width: min(320px, 82vw);
-  padding: var(--space-3);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius-sharp);
-  background: var(--color-surface-raised);
-  color: var(--text);
-  box-shadow: var(--shadow);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-body);
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 4px);
-  transition: opacity var(--duration-fast) var(--ease-default), transform var(--duration-fast) var(--ease-default);
-}
-
-.info-tooltip:hover .info-tooltip-content,
-.info-tooltip:focus-within .info-tooltip-content {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
+/* Tooltip CSS is defined once, in the curated Tooltip block above (search
+   ".info-tooltip"). The app's original tooltip rules previously lived here as
+   part of the raw seed; removed to avoid a duplicate that overrode it. */
 
 .selection-submission-list-wrap,
 .selection-submission-list {
