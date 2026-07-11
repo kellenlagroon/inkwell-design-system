@@ -55,6 +55,16 @@ export { Divider } from "./components/divider";
 export type { DividerProps } from "./components/divider";
 export { Avatar } from "./components/avatar";
 export type { AvatarProps, AvatarSize, AvatarShape } from "./components/avatar";
+export { Table } from "./components/table";
+export type {
+  TableProps,
+  TableColumn,
+  TableSortDirection,
+  TableDensity,
+  TableAlign,
+} from "./components/table";
+export { List } from "./components/list";
+export type { ListProps, ListRowProps, ListDensity } from "./components/list";
 
 // Layout primitives
 export { Stack, Inline, Grid } from "./components/layout";

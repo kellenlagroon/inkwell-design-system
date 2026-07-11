@@ -1,0 +1,175 @@
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { IconArrowDown } from "./icons";
+
+export type TableSortDirection = "asc" | "desc";
+export type TableDensity = "comfortable" | "compact";
+export type TableAlign = "start" | "center" | "end";
+
+export interface TableColumn<T> {
+  /** Stable id used for sort state and React keys. */
+  id: string;
+  /** Header cell content. */
+  header: ReactNode;
+  /** Renders the body cell for a row. */
+  render: (row: T) => ReactNode;
+  /** Show the sort affordance on the header; clicks call `onSortChange`. */
+  sortable?: boolean;
+  /** Text alignment for this column's cells and header. Defaults to "start". */
+  align?: TableAlign;
+  /** Optional width, applied via `<colgroup>` (e.g. "12ch", "20%"). */
+  width?: string;
+}
+
+export interface TableProps<T> {
+  columns: TableColumn<T>[];
+  data: readonly T[];
+  /** Stable React key for each row. */
+  getRowKey: (row: T) => string | number;
+  /** Controlled sort column id. */
+  sortBy?: string;
+  /** Controlled sort direction. */
+  sortDirection?: TableSortDirection;
+  /** Called when a sortable header is activated. */
+  onSortChange?: (sortBy: string, direction: TableSortDirection) => void;
+  /** Uncontrolled starting sort column. */
+  defaultSortBy?: string;
+  /** Uncontrolled starting sort direction. Defaults to "asc". */
+  defaultSortDirection?: TableSortDirection;
+  /** Row height / padding. Defaults to "comfortable". */
+  density?: TableDensity;
+  /** Pin `<thead>` when the parent scrolls. */
+  stickyHeader?: boolean;
+  /** Subtle hover fill on rows. */
+  hoverable?: boolean;
+  /** Renders as `<caption>`. */
+  caption?: ReactNode;
+  /** Empty-state content shown when `data` is empty. */
+  empty?: ReactNode;
+  id?: string;
+  className?: string;
+}
+
+/**
+ * A semantic HTML table with optional sortable columns, sticky header, row
+ * hover, and density presets. Sorting is caller-controlled: the component
+ * surfaces the click and shows the indicator, but the data must already be in
+ * the desired order (use `onSortChange` to react).
+ */
+export function Table<T>({
+  columns,
+  data,
+  getRowKey,
+  sortBy,
+  sortDirection,
+  onSortChange,
+  defaultSortBy,
+  defaultSortDirection = "asc",
+  density = "comfortable",
+  stickyHeader = false,
+  hoverable = false,
+  caption,
+  empty,
+  id,
+  className = "",
+}: TableProps<T>) {
+  const isControlled = sortBy !== undefined;
+  const [internalSort, setInternalSort] = useState<{ by?: string; direction: TableSortDirection }>({
+    by: defaultSortBy,
+    direction: defaultSortDirection,
+  });
+  const activeSortBy = isControlled ? sortBy : internalSort.by;
+  const activeSortDirection = isControlled ? (sortDirection ?? "asc") : internalSort.direction;
+
+  function toggleSort(columnId: string) {
+    const nextDirection: TableSortDirection =
+      activeSortBy === columnId && activeSortDirection === "asc" ? "desc" : "asc";
+    if (!isControlled) setInternalSort({ by: columnId, direction: nextDirection });
+    onSortChange?.(columnId, nextDirection);
+  }
+
+  const classes = [
+    "ink-table",
+    density === "compact" ? "ink-table--compact" : "",
+    stickyHeader ? "ink-table--sticky" : "",
+    hoverable ? "ink-table--hoverable" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <table id={id} className={classes}>
+      {caption ? <caption className="ink-table-caption">{caption}</caption> : null}
+      {columns.some((c) => c.width) ? (
+        <colgroup>
+          {columns.map((c) => (
+            <col key={c.id} style={c.width ? { width: c.width } : undefined} />
+          ))}
+        </colgroup>
+      ) : null}
+      <thead>
+        <tr>
+          {columns.map((column) => {
+            const align = column.align ?? "start";
+            const isActive = column.sortable && activeSortBy === column.id;
+            const ariaSort = column.sortable
+              ? isActive
+                ? activeSortDirection === "asc"
+                  ? "ascending"
+                  : "descending"
+                : "none"
+              : undefined;
+            return (
+              <th
+                key={column.id}
+                scope="col"
+                aria-sort={ariaSort}
+                data-align={align}
+              >
+                {column.sortable ? (
+                  <button
+                    type="button"
+                    className="ink-table-sort-button"
+                    onClick={() => toggleSort(column.id)}
+                  >
+                    <span className="ink-table-header-label">{column.header}</span>
+                    <IconArrowDown
+                      className={[
+                        "ink-table-sort-icon",
+                        isActive ? "ink-table-sort-icon--active" : "",
+                        isActive && activeSortDirection === "asc" ? "ink-table-sort-icon--asc" : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                      aria-hidden="true"
+                    />
+                  </button>
+                ) : (
+                  <span className="ink-table-header-label">{column.header}</span>
+                )}
+              </th>
+            );
+          })}
+        </tr>
+      </thead>
+      <tbody>
+        {data.length === 0 ? (
+          <tr className="ink-table-empty-row">
+            <td colSpan={columns.length}>{empty ?? "No data."}</td>
+          </tr>
+        ) : (
+          data.map((row) => (
+            <tr key={getRowKey(row)}>
+              {columns.map((column) => (
+                <td key={column.id} data-align={column.align ?? "start"}>
+                  {column.render(row)}
+                </td>
+              ))}
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  );
+}

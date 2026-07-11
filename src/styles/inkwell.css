@@ -668,6 +668,144 @@ body[data-preview-mode="mobile"] .app-header {
   box-shadow: 0 0 0 2px var(--color-focus-outline);
 }
 
+/* Table: semantic <table> primitive with sortable headers, sticky header, row
+   hover, and density presets. Namespaced .ink-table (generic name). */
+.ink-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+}
+
+.ink-table-caption {
+  padding: var(--space-2) var(--space-3);
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+  text-align: start;
+  caption-side: top;
+}
+
+.ink-table thead {
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ink-table th,
+.ink-table td {
+  padding: var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--line-soft);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.ink-table--compact th,
+.ink-table--compact td {
+  padding: var(--space-2) var(--space-3);
+}
+
+.ink-table th[data-align="center"],
+.ink-table td[data-align="center"] {
+  text-align: center;
+}
+
+.ink-table th[data-align="end"],
+.ink-table td[data-align="end"] {
+  text-align: end;
+}
+
+/* Sticky header pins <thead> when the table's scroll container scrolls. */
+.ink-table--sticky thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-surface-default);
+  z-index: 1;
+}
+
+/* Row hover: subtle surface fill on tbody rows. */
+.ink-table--hoverable tbody tr {
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.ink-table--hoverable tbody tr:hover {
+  background: var(--hover-surface);
+}
+
+/* Sortable header: the whole header cell is a button. */
+.ink-table-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.ink-table-sort-button:hover,
+.ink-table-sort-button:focus-visible {
+  color: var(--text);
+}
+
+.ink-table-sort-icon {
+  flex-shrink: 0;
+  color: var(--muted);
+  opacity: 0.4;
+  transition: transform var(--duration-fast) var(--ease-default),
+    opacity var(--duration-fast) var(--ease-default);
+}
+
+.ink-table-sort-icon--active {
+  color: currentColor;
+  opacity: 1;
+}
+
+.ink-table-sort-icon--asc {
+  transform: rotate(180deg);
+}
+
+.ink-table-empty-row td {
+  padding: var(--space-4) var(--space-3);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* List: a grid-based list of rows. Not a semantic table; content-flexible.
+   Seeded from the app's .roster-table (grid rows with hairline dividers). */
+.ink-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ink-list-row {
+  display: grid;
+  grid-template-columns: var(--ink-list-cols, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+
+.ink-list--compact .ink-list-row {
+  padding: var(--space-2) var(--space-3);
+}
+
+.ink-list--bordered .ink-list-row {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+/* Last row's divider is redundant — the list itself sits inside a container. */
+.ink-list--bordered .ink-list-row:last-child {
+  border-bottom: 0;
+}
+
 .header-topline {
   display: contents;
 }
