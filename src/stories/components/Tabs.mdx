@@ -1,0 +1,54 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TabsStories from "../../components/tabs.stories.jsx";
+import * as TabsFeatures from "../../components/tabs.features.stories.jsx";
+
+<Meta title="Components/Tabs/Docs" of={TabsStories} />
+
+# Tabs
+
+A segmented tab bar with a sliding underline indicator, generalizing the app's
+ballot-type switcher. It's controlled: `Tabs` renders the tablist and reports the
+selection through `onChange`; you render the matching panel.
+
+## When to use
+
+- Use to switch between a few peer views of the same area (ballot types, round statuses, sections).
+- Keep the set small and the labels short — this is a horizontal bar, not a nav menu.
+
+## Primary example
+
+<Canvas of={TabsStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={TabsStories} />
+
+Pass `tabs` as `{ value, label, disabled? }[]`, plus the controlled `value` and
+an `onChange`. Set `id` to wire the tabs to panels: each tab gets
+`${id}-tab-${value}` and `aria-controls="${id}-panel-${value}"` — give the panel
+that id, `role="tabpanel"`, and `aria-labelledby` the tab id.
+
+## Features
+
+### Basic
+
+<Canvas of={TabsFeatures.Basic} sourceState="hidden" />
+
+### Disabled tab
+
+Disabled tabs are skipped by keyboard navigation and can't be selected.
+
+<Canvas of={TabsFeatures.WithDisabledTab} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep tab labels to one or two words.
+- Do render a `role="tabpanel"` region for the selected content and wire it with `id`.
+- Don’t use Tabs for primary navigation between pages — that's a nav pattern.
+
+## Keyboard and accessibility
+
+- The tablist uses roving focus: only the selected tab is in the tab order; arrow keys move within it.
+- `ArrowRight`/`ArrowDown` and `ArrowLeft`/`ArrowUp` move and activate the next/previous enabled tab, wrapping at the ends.
+- `Home`/`End` jump to the first/last enabled tab.
+- Each tab is `role="tab"` with `aria-selected`; set `id` so `aria-controls` links each tab to its panel.

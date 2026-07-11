@@ -1,0 +1,56 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as CollapsibleStories from "../../components/collapsible.stories.jsx";
+import * as CollapsibleFeatures from "../../components/collapsible.features.stories.jsx";
+
+<Meta title="Components/Collapsible/Docs" of={CollapsibleStories} />
+
+# Collapsible
+
+A disclosure: a header that toggles a region of content, with a chevron that
+rotates when open. Generalizes the app's expandable result rows. Works
+controlled or uncontrolled.
+
+## When to use
+
+- Use to let people expand a row or section for more detail (results breakdowns, advanced options).
+- Stack several for an accordion-style list where each opens independently.
+- For switching between peer views, use [Tabs](?path=/docs/components-tabs-docs--docs) instead.
+
+## Primary example
+
+<Canvas of={CollapsibleStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={CollapsibleStories} />
+
+Uncontrolled by default (`defaultOpen`); pass `open` + `onOpenChange` to control
+it. `title`, optional `description`, and optional `meta` build the header; the
+revealed content is `children`.
+
+## Features
+
+### Stacked
+
+Each collapsible manages its own state, so any combination can be open.
+
+<Canvas of={CollapsibleFeatures.Stacked} sourceState="hidden" />
+
+### Title only
+
+`description` and `meta` are optional.
+
+<Canvas of={CollapsibleFeatures.NoMeta} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep the title scannable and put counts/status in `meta`.
+- Do use the controlled API when something outside the header needs to drive the state.
+- Don’t hide critical content behind a collapsed disclosure by default.
+
+## Keyboard and accessibility
+
+- The header is a native button: `Enter`/`Space` toggle it, and it's in the tab order.
+- It exposes `aria-expanded` and `aria-controls`; the content region is labelled by the trigger.
+- The content stays mounted and is hidden via the `hidden` attribute, so `aria-controls` always resolves.
+- The chevron is decorative (`aria-hidden`).

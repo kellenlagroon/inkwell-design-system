@@ -45,6 +45,10 @@ export { Card, CardActions } from "./components/card";
 export type { CardProps, CardActionsProps, CardTone, CardVariant } from "./components/card";
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
+export { Tabs } from "./components/tabs";
+export type { TabsProps, TabItem } from "./components/tabs";
+export { Collapsible } from "./components/collapsible";
+export type { CollapsibleProps } from "./components/collapsible";
 
 // Layout primitives
 export { Stack, Inline, Grid } from "./components/layout";
