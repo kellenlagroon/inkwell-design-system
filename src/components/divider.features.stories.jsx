@@ -26,12 +26,14 @@ export const Labeled = {
 
 export const Vertical = {
   render: () => (
-    <div style={{ padding: 24, display: "flex", alignItems: "center", gap: 12, height: 24, color: "var(--color-text-primary)" }}>
-      <span>Overview</span>
-      <Divider orientation="vertical" />
-      <span>Ballots</span>
-      <Divider orientation="vertical" />
-      <span>Results</span>
+    <div style={{ padding: 24, color: "var(--color-text-primary)" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, height: 24 }}>
+        <span>Overview</span>
+        <Divider orientation="vertical" />
+        <span>Ballots</span>
+        <Divider orientation="vertical" />
+        <span>Results</span>
+      </div>
     </div>
   ),
 };

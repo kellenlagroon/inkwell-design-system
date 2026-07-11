@@ -14,23 +14,13 @@ export const Playground = {
     label: { control: "text" },
   },
   render: ({ orientation, label }) => (
-    <div
-      style={{
-        padding: 24,
-        maxWidth: 420,
-        color: "var(--color-text-primary)",
-        display: orientation === "vertical" ? "flex" : "block",
-        gap: 12,
-        height: orientation === "vertical" ? 40 : "auto",
-        alignItems: "center",
-      }}
-    >
+    <div style={{ padding: 24, maxWidth: 420, color: "var(--color-text-primary)" }}>
       {orientation === "vertical" ? (
-        <>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, height: 40 }}>
           <span>Left</span>
           <Divider orientation="vertical" />
           <span>Right</span>
-        </>
+        </div>
       ) : (
         <>
           <p style={{ margin: "0 0 12px" }}>Above the rule.</p>

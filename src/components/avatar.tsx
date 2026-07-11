@@ -18,6 +18,15 @@ export interface AvatarProps {
   children?: ReactNode;
   /** Hide from assistive tech — use when the name is already shown adjacently. */
   decorative?: boolean;
+  /**
+   * Make the avatar a button. Wraps it in a `<button>` that brightens the ring
+   * on hover/focus, matching the app's account trigger. Provide `onClick`.
+   */
+  interactive?: boolean;
+  /** Click handler when `interactive` is set. */
+  onClick?: () => void;
+  /** Accessible label for the interactive button. Defaults to `name`. */
+  buttonLabel?: string;
   id?: string;
   className?: string;
 }
@@ -47,14 +56,17 @@ export function Avatar({
   shape = "circle",
   children,
   decorative = false,
+  interactive = false,
+  onClick,
+  buttonLabel,
   id,
   className = "",
 }: AvatarProps) {
-  const classes = [
+  const avatarClasses = [
     "ink-avatar",
     size !== "md" ? `ink-avatar--${size}` : "",
     shape === "square" ? "ink-avatar--square" : "",
-    className,
+    !interactive ? className : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -64,25 +76,40 @@ export function Avatar({
 
   let body: ReactNode;
   if (src) {
-    body = <img className="ink-avatar-image" src={src} alt={decorative ? "" : label ?? ""} />;
+    body = <img className="ink-avatar-image" src={src} alt={decorative || interactive ? "" : label ?? ""} />;
   } else if (children != null) {
     body = children;
   } else {
-    body = initials;
+    // Wrapping initials lets us optically center them without shifting images.
+    body = <span className="ink-avatar-initials">{initials}</span>;
   }
 
-  // The <img> carries its own alt, so only the initials/children path needs a
-  // role/label to be announced.
+  // The <img> or the interactive button carries the accessible name, so only
+  // the plain initials/children path needs a role/label on the wrapper.
   const labelProps =
-    decorative || src
+    decorative || interactive || src
       ? { "aria-hidden": decorative || undefined }
       : label
         ? { role: "img", "aria-label": label }
         : { "aria-hidden": true };
 
-  return (
-    <span id={id} className={classes} {...labelProps}>
+  const avatar = (
+    <span id={interactive ? undefined : id} className={avatarClasses} {...labelProps}>
       {body}
     </span>
+  );
+
+  if (!interactive) return avatar;
+
+  return (
+    <button
+      type="button"
+      id={id}
+      className={["ink-avatar-button", className].filter(Boolean).join(" ")}
+      aria-label={buttonLabel ?? label ?? "Account"}
+      onClick={onClick}
+    >
+      {avatar}
+    </button>
   );
 }

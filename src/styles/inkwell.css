@@ -550,10 +550,11 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .ink-divider--vertical {
+  /* Needs a flex/grid parent to give it a cross-axis height. Uses height:100%
+     rather than align-self:stretch — stretch requires the base's `height:0` to
+     stay as `auto`, and mixing them left the rule computing to 0. */
   width: 0;
-  height: auto;
-  min-height: 1em;
-  align-self: stretch;
+  height: 100%;
   border-top: 0;
   border-left: 1px solid var(--line-soft);
 }
@@ -582,7 +583,10 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 /* Avatar: a compact image/initials identity mark (see Avatar component). Seeded
-   from .header-account-avatar. Namespaced (avatar is a collision-prone name). */
+   from the app's .header-account-avatar + .header-account-trigger pattern — a
+   34px avatar with a 46px ring around it. The ring is drawn with outline+offset
+   so it doesn't affect the avatar's layout size. Namespaced (avatar is a
+   collision-prone name). */
 .ink-avatar {
   display: inline-flex;
   align-items: center;
@@ -600,22 +604,34 @@ body[data-preview-mode="mobile"] .app-header {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   user-select: none;
+  outline: 1px solid var(--control-border);
+  outline-offset: 4px;
+  transition: outline-color var(--duration-fast) var(--ease-default);
 }
 
 .ink-avatar--sm {
   width: 26px;
   height: 26px;
   font-size: var(--font-size-xs);
+  outline-offset: 3px;
 }
 
 .ink-avatar--lg {
   width: 44px;
   height: 44px;
   font-size: var(--font-size-base);
+  outline-offset: 5px;
 }
 
 .ink-avatar--square {
   border-radius: var(--radius-sharp);
+}
+
+/* Optical centering: caps like "KL" sit high in the em-box; a small nudge
+   settles them into the visual center. Especially noticeable on the square
+   shape (the circle hides the asymmetry). */
+.ink-avatar-initials {
+  transform: translateY(0.06em);
 }
 
 .ink-avatar-image {
@@ -623,6 +639,33 @@ body[data-preview-mode="mobile"] .app-header {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Interactive avatar: wraps the avatar in a button that brightens the ring on
+   hover/focus, matching the app's .header-account-trigger. */
+.ink-avatar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+}
+
+.ink-avatar-button:focus-visible {
+  outline: 0;
+}
+
+.ink-avatar-button:hover .ink-avatar,
+.ink-avatar-button:focus-visible .ink-avatar {
+  outline-color: var(--control-border-hover);
+}
+
+.ink-avatar-button:focus-visible .ink-avatar {
+  box-shadow: 0 0 0 2px var(--color-focus-outline);
 }
 
 .header-topline {

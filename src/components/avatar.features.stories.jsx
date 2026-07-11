@@ -54,6 +54,16 @@ export const Shapes = {
   ),
 };
 
+export const Interactive = {
+  name: "Interactive (account trigger)",
+  render: () => (
+    <div style={{ padding: 24, display: "flex", gap: 16, alignItems: "center" }}>
+      <Avatar name="Kellen Lagroon" interactive onClick={() => {}} />
+      <Avatar name="Kellen Lagroon" src={SAMPLE_IMAGE} interactive onClick={() => {}} />
+    </div>
+  ),
+};
+
 export const WithName = {
   name: "Decorative beside a name",
   render: () => (

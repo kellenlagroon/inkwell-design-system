@@ -28,6 +28,10 @@ app's account avatar.
 (default) | `lg`, and `shape` is `circle` (default) | `square`. Pass `children`
 to supply a custom fallback such as an icon.
 
+All avatars carry a subtle ring (an outlined offset outside the frame) — matches
+the app's account trigger treatment. Set `interactive` (with `onClick`) to make
+the avatar a button; the ring brightens on hover/focus.
+
 ## Features
 
 ### Initials
@@ -53,6 +57,12 @@ An image fills the frame (`object-fit: cover`).
 `circle` (default) or `square` for non-person marks like team logos.
 
 <Canvas of={AvatarFeatures.Shapes} sourceState="hidden" />
+
+### Interactive
+
+Wraps the avatar in a button; the ring brightens on hover and focus.
+
+<Canvas of={AvatarFeatures.Interactive} sourceState="hidden" />
 
 ### Decorative beside a name
 
