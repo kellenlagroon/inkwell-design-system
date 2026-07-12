@@ -1,5 +1,5 @@
 export default {
-  title: "Foundations/Shadows",
+  title: "Tokens/Shadow",
   parameters: { layout: "padded" },
 };
 

@@ -1,0 +1,51 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Component Status/Overview" />
+
+# Component Lifecycle
+
+Milestones that summarize the maturity of components in Inkwell. Components
+must meet all criteria before progressing to the next milestone.
+
+## Beta
+
+The component is functional and ready for preliminary use. It may be missing
+secondary functionality, and hasn't yet been validated by consumer usage.
+
+- **Functionality** — Primary use cases have been tested and reviewed. The component meets minimum functional requirements.
+- **Implementation strategy** — The API is drafted but may change based on real-world usage. Breaking changes should be expected.
+- **Accessibility** — Contrast, sizing, and semantic markup are handled. Keyboard and assistive-technology support is present but not exhaustively audited.
+- **Responsiveness** — Works at desktop and typical mobile widths; no dedicated small-screen adaptations yet.
+- **Documentation** — Playground + Features stories + a docs page exist. Usage guidance is minimal.
+- **Performance** — No unnecessary regressions; not benchmarked.
+
+## Stable
+
+Use is encouraged for most scenarios. The API is stable, keyboard and
+accessibility support are implemented, and the component has been validated in
+production (in the seed app, or through repeated internal use).
+
+- **Functionality** — Used in a real app or in multiple internal usages. Correctness reviewed.
+- **Implementation strategy** — API is stable; breaking changes will be avoided or paired with a migration path.
+- **Accessibility** — Any behaviors that impact primary use cases are implemented (keyboard navigation, ARIA wiring). Manually reviewed.
+- **Responsiveness** — Adapts to different screen sizes. Interactive areas are touch-friendly.
+- **Documentation** — Usage guidance + configuration cover most common cases. Multiple examples in Storybook.
+- **Performance** — No regressions; tested via the automated test suite.
+
+## Healthy
+
+*Reserved for the future.* A component deeply embedded across products with
+long-term support expected. Not currently used — every Stable component is
+still on its first major consumer.
+
+## Deprecated
+
+*Not currently used.* Reserved for components superseded by a replacement.
+When needed, deprecated entries link to the replacement.
+
+# Accessibility review
+
+Each component's status page notes whether it has been manually reviewed for
+accessibility. Reviewed components have had keyboard, screen-reader, and focus
+behavior verified. Unreviewed components still ship with baseline ARIA and
+keyboard support, but haven't been through a dedicated audit.

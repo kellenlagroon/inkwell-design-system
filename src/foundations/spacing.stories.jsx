@@ -1,5 +1,5 @@
 export default {
-  title: "Foundations/Spacing",
+  title: "Tokens/Spacing",
   parameters: { layout: "padded" },
 };
 

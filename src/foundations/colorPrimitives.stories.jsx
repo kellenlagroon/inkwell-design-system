@@ -1,7 +1,7 @@
 import { ColorSwatch } from "./ColorSwatch.jsx";
 
 export default {
-  title: "Foundations/Color/Primitives",
+  title: "Tokens/Color/Palettes",
   parameters: { layout: "padded" },
 };
 

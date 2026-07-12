@@ -1,5 +1,5 @@
 export default {
-  title: "Foundations/Typography",
+  title: "Tokens/Typography",
   parameters: { layout: "padded" },
 };
 

@@ -1,7 +1,7 @@
 import { ColorSwatch } from "./ColorSwatch.jsx";
 
 export default {
-  title: "Foundations/Color/Semantic",
+  title: "Tokens/Color/Semantic",
   parameters: { layout: "padded" },
 };
 

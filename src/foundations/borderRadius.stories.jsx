@@ -1,5 +1,5 @@
 export default {
-  title: "Foundations/BorderRadius",
+  title: "Tokens/Radius",
   parameters: { layout: "padded" },
 };
 
