@@ -1,6 +1,5 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 import { Table } from "../../components/table";
-import { Pill } from "../../components/pill";
 
 <Meta title="Component Status/Status" />
 
@@ -55,14 +54,27 @@ export const COLUMNS = [
     id: "status",
     header: "Status",
     render: (r) => (
-      <Pill tone={r.status === "Stable" ? "success" : "warning"}>{r.status}</Pill>
+      <span
+        style={{
+          color: r.status === "Stable" ? "var(--color-success)" : "var(--color-warning)",
+          fontWeight: 600,
+        }}
+      >
+        {r.status}
+      </span>
     ),
   },
   {
     id: "a11y",
     header: "Accessibility",
     render: (r) => (
-      <Pill tone={r.a11y === "Meets standards" ? "success" : "default"}>{r.a11y}</Pill>
+      <span
+        style={{
+          color: r.a11y === "Meets standards" ? "var(--color-success)" : "var(--muted)",
+        }}
+      >
+        {r.a11y}
+      </span>
     ),
   },
   {
@@ -80,8 +92,23 @@ export const COLUMNS = [
   },
 ];
 
+<style>{`
+  /* Status page — quiet the shared Table thead treatment so this table reads as
+     a reference list, not an emphasized data table. Sentence case, higher
+     contrast, no all-caps. Scoped via .ink-status-table so no other Table is
+     affected. */
+  .ink-status-table thead th {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+`}</style>
+
 <div style={{ padding: "16px 0" }}>
   <Table
+    className="ink-status-table"
     columns={COLUMNS}
     data={ROWS}
     getRowKey={(r) => r.name}
