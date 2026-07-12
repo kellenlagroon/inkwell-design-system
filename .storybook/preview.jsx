@@ -7,7 +7,7 @@ const preview = {
     layout: "fullscreen",
     options: {
       storySort: {
-        order: ["Foundations", "Components", "Patterns"],
+        order: ["Foundations", "Tokens", "Component Status", "Patterns", "Components"],
       },
     },
     controls: {
