@@ -14,6 +14,10 @@ isn't affected.
 stylesheet import (`import "inkwell/styles.css"`). Components render against the
 global `.ink-*` / seeded classes; there is no CSS-in-JS.
 
+## Reference material
+
+- [`docs/reference/relayfi-storybook.md`](docs/reference/relayfi-storybook.md) — structural reference for RelayFi's public design system (Telegraph). This is the shape Inkwell's docs should grow toward, at a smaller scale. Read before doing any docs/IA work.
+
 ## Directory map
 
 | Path | What lives here |
