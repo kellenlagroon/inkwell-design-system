@@ -9,6 +9,8 @@ import * as AvatarFeatures from "../../components/avatar.features.stories.jsx";
 A compact identity mark showing an image or an initials fallback. Seeded from the
 app's account avatar.
 
+**Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Reviewed
+
 ## When to use
 
 - Use to represent a person or entity in headers, lists, and menus.
@@ -70,7 +72,7 @@ When the name is already visible, mark the avatar `decorative` so it's skipped b
 
 <Canvas of={AvatarFeatures.WithName} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - With initials (and not `decorative`), the mark is `role="img"` with an `aria-label` of the name.
 - With an image, the `<img>` carries the `alt`; the wrapper adds no extra role.

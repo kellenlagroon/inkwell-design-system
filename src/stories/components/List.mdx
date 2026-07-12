@@ -10,6 +10,8 @@ A grid-based list of rows — not a semantic table. Use for content that reads
 tabularly but isn't structured data (rosters, ballot summaries, action rows).
 Seeded from the app's `roster-table` pattern.
 
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Baseline
+
 ## When to use
 
 - Use for stacked rows where each row has a consistent column layout but the content is heterogeneous (avatars, buttons, blocks of copy).
@@ -46,7 +48,7 @@ Turn off the hairline divider between rows.
 
 <Canvas of={ListFeatures.Unbordered} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - The wrapper carries `role="list"`; each row is `role="listitem"`.
 - Rows are visual containers — put any interactive controls inside as normal.

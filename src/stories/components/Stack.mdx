@@ -10,6 +10,8 @@ Vertical flow with a consistent, token-backed gap. `Stack` is the generalization
 of the app's `.stacked-form` rhythm — reach for it instead of hand-rolling a
 flex column with an arbitrary gap.
 
+**Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Reviewed
+
 ## When to use
 
 - Use for any vertical list of elements that needs even spacing: form fields, card rows, sections.
@@ -44,7 +46,7 @@ The `gap` scale maps to the spacing tokens: `xs`=4px, `sm`=8px, `md`=12px
 - Do keep `md` (12px) as the default rhythm unless the density genuinely differs.
 - Don’t nest many Stacks purely to tweak one gap — reach for the right `gap` value first.
 
-## Accessibility
+## Keyboard and accessibility
 
 - `Stack` is a layout wrapper and renders a plain `div`; it adds no semantics.
 - When the content is a list, pass `role="list"` (and `role="listitem"` on children) or use semantic elements around it.

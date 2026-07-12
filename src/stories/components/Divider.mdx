@@ -9,6 +9,8 @@ import * as DividerFeatures from "../../components/divider.features.stories.jsx"
 A thin hairline rule that separates content. Generalizes the app's `border-bottom`
 row dividers and the split-button rule into one primitive.
 
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Baseline
+
 ## When to use
 
 - Use to separate stacked sections or inline groups.
@@ -48,7 +50,7 @@ An inline rule between items in a flex row.
 
 <Canvas of={DividerFeatures.Vertical} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - The horizontal rule is a native `<hr>` (implicit `role="separator"`, horizontal orientation).
 - The vertical and labeled variants use `role="separator"`; vertical adds `aria-orientation="vertical"`.

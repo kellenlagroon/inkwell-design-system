@@ -11,6 +11,14 @@ a label. For loading larger regions of content, use
 [Skeleton](?path=/docs/components-skeleton-docs--docs) so the layout doesn't
 jump when data arrives.
 
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Baseline
+
+## When to use
+
+- Use for short in-place waits inside a control or beside a label (e.g. a button in a loading state).
+- For larger regions of content, use [Skeleton](?path=/docs/components-skeleton-docs--docs) so the layout doesn't jump when data arrives.
+- For a task with known progress, use [Progress](?path=/docs/components-progress-docs--docs) instead.
+
 ## Primary example
 
 <Canvas of={SpinnerStories.Playground} sourceState="hidden" />
@@ -31,7 +39,7 @@ or `current` (inherits `currentColor` — pair with a colored container). Pass
 
 <Canvas of={SpinnerFeatures.InlineWithLabel} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - Renders `role="status"` with `aria-live="polite"` and an sr-only `label` (default "Loading").
 - Pass `decorative` to skip the announcement when the surrounding region carries it.

@@ -10,6 +10,8 @@ A semantic HTML `<table>` with optional sortable columns, sticky header, row
 hover, and density presets. Sort state is caller-controlled: the component
 surfaces the click and shows the indicator, but you sort the data yourself.
 
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Baseline
+
 ## When to use
 
 - Use for genuinely tabular data — comparing values across rows.
@@ -62,7 +64,7 @@ Wrap the table in a scrolling container; the `<thead>` pins on scroll.
 
 <Canvas of={TableFeatures.WithCaption} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - Renders a native `<table>` with `<thead>`/`<tbody>` and `<th scope="col">` headers.
 - Sortable headers use `aria-sort` (`ascending` | `descending` | `none`) and expose the click as a native button.

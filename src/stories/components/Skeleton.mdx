@@ -11,6 +11,14 @@ the shape of forthcoming content so the layout doesn't jump when data arrives.
 For short in-place waits, use
 [Spinner](?path=/docs/components-spinner-docs--docs) instead.
 
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Baseline
+
+## When to use
+
+- Use to reserve the shape of content that's about to appear so the layout doesn't jump.
+- Reach for it when the wait is long enough that a spinner would feel sparse (multiple seconds, or fetching multi-line content).
+- For short in-place waits, use [Spinner](?path=/docs/components-spinner-docs--docs) instead.
+
 ## Primary example
 
 <Canvas of={SkeletonStories.Playground} sourceState="hidden" />
@@ -31,7 +39,7 @@ For short in-place waits, use
 
 <Canvas of={SkeletonFeatures.AvatarWithText} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - Always decorative (`aria-hidden`). Announce loading state on the surrounding region (e.g. `role="status"` on the container).
 - Shimmer animation is disabled under `prefers-reduced-motion: reduce`.

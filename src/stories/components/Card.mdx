@@ -12,6 +12,8 @@ look; a content-unit sibling to the section-level `Panel`. Compose it with
 [SectionHeading](?path=/docs/components-panel-docs--docs) for a header and
 `CardActions` for a footer row.
 
+**Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Reviewed
+
 ## When to use
 
 - Use `Card` for a discrete block of related content that reads as one unit.
@@ -66,7 +68,7 @@ confirmations. It composes with either variant.
 - Do reserve `tone="danger"` for genuinely destructive content.
 - Don’t nest cards inside cards — reach for `Panel` or a plain section for inner grouping.
 
-## Accessibility
+## Keyboard and accessibility
 
 - `Card` renders a plain `div` and adds no semantics; give it a `role`/label if it represents a meaningful region.
 - For a clickable/selectable card, render an actual button or link inside (or as the card) — `Card` itself is not interactive.

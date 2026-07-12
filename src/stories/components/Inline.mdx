@@ -9,6 +9,8 @@ import * as InlineFeatures from "../../components/inline.features.stories.jsx";
 Horizontal flow with token-backed gap, wrapping, and alignment. Use it for
 button rows, toolbars, tag lists, and any set of items that sit side by side.
 
+**Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Reviewed
+
 ## When to use
 
 - Use for horizontally arranged items that need even spacing.
@@ -46,7 +48,7 @@ By default, items wrap onto new rows when they run out of horizontal space.
 - Do use `justify="between"` to push a trailing action to the far edge.
 - Don’t set `wrap={false}` unless clipping/overflow is genuinely intended.
 
-## Accessibility
+## Keyboard and accessibility
 
 - `Inline` is a layout wrapper and renders a plain `div`; it adds no semantics.
 - Order children in the DOM to match the intended reading and tab order.

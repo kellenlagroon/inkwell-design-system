@@ -10,6 +10,8 @@ A compact count / notification indicator. Show a small count or short label, or
 set `dot` for a bare presence indicator — the generalization of the app's nav
 notification dot.
 
+**Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Reviewed
+
 ## When to use
 
 - Use for an unread/new count or a small status number, usually attached to an icon, nav item, or control.
@@ -52,7 +54,7 @@ layout-agnostic rather than baking in placement.
 - Do position badges on controls with a relative wrapper, not by baking offsets into the component.
 - Don’t use Badge for a status word — that’s `Pill`.
 
-## Accessibility
+## Keyboard and accessibility
 
 - In `dot` mode there's no text, so give it an `aria-label` when it carries meaning, or `aria-hidden` when it's decorative.
 - A count badge on an icon control still needs the control itself to have an accessible name.

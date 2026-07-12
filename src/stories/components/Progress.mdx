@@ -9,6 +9,14 @@ import * as ProgressFeatures from "../../components/progress.features.stories.js
 A horizontal progress bar. Pass `value` (0–100) for determinate progress; omit
 it for an indeterminate sliding-bar animation.
 
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Baseline
+
+## When to use
+
+- Use for long-running single-task progress (uploads, syncs, downloads) where the user needs to see how far along it is.
+- Omit `value` for an indeterminate bar when the duration is unknown.
+- For short in-place waits, use [Spinner](?path=/docs/components-spinner-docs--docs) instead.
+
 ## Primary example
 
 <Canvas of={ProgressStories.Playground} sourceState="hidden" />
@@ -35,7 +43,7 @@ Without a label, provide `ariaLabel`.
 
 <Canvas of={ProgressFeatures.NoLabel} sourceState="hidden" />
 
-## Accessibility
+## Keyboard and accessibility
 
 - Renders `role="progressbar"` with `aria-valuemin="0"` and `aria-valuemax="100"`.
 - Determinate bars set `aria-valuenow`; indeterminate bars set `aria-valuetext="indeterminate"`.
