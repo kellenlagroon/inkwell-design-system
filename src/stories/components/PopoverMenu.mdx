@@ -46,6 +46,8 @@ Use a denser action menu for per-row utility actions such as edit and remove.
 
 ## Keyboard and accessibility
 
-- Menu triggers should expose the correct expanded/collapsed state.
-- Menus need an accessible label when the trigger alone is not sufficient context.
-- Keyboard users should be able to reach the trigger and interact with the visible menu options predictably.
+- `ArrowDown` on the trigger opens the menu and moves focus to the first item.
+- `ArrowUp` / `ArrowDown` move focus between items and wrap at the ends; `Home` / `End` jump to the first / last item.
+- `Escape` closes the menu and returns focus to the trigger; `Tab` closes the menu.
+- Clicking outside closes the menu.
+- The popover is `role="menu"` with an accessible `menuLabel`; give each item its own focusable control.

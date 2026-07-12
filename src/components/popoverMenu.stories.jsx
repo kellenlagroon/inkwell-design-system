@@ -33,7 +33,7 @@ export const PopoverMenuPlayground = {
           <strong>Jordan Fields</strong>
           <span>Google account</span>
         </div>
-        <Button className="ghost-button header-account-menu-button">Sign out</Button>
+        <Button variant="ghost" className="header-account-menu-button">Sign out</Button>
       </PopoverMenu>
     </div>
   ),

@@ -9,15 +9,15 @@ export const PrimaryButton = {
 };
 
 export const SecondaryButton = {
-  render: () => <Button className="secondary-button">Manage teams</Button>,
+  render: () => <Button variant="secondary">Manage teams</Button>,
 };
 
 export const GhostButton = {
-  render: () => <Button className="ghost-button">Cancel</Button>,
+  render: () => <Button variant="ghost">Cancel</Button>,
 };
 
 export const DangerButton = {
-  render: () => <Button className="danger-button">Delete league</Button>,
+  render: () => <Button variant="danger">Delete league</Button>,
 };
 
 export const DisabledButton = {
@@ -27,15 +27,15 @@ export const DisabledButton = {
 export const ButtonSizes = {
   render: () => (
     <div style={{ display: "grid", gap: "24px" }}>
-      {["primary-button", "secondary-button", "ghost-button", "danger-button"].map((variant) => (
+      {["primary", "secondary", "ghost", "danger"].map((variant) => (
         <div key={variant}>
           <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", marginBottom: "8px" }}>
-            {variant.replace("-button", "")}
+            {variant}
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
             {["xs", "sm", "md", "lg", "xl"].map((size) => (
               <div key={size} style={{ display: "grid", gap: "4px", justifyItems: "center" }}>
-                <Button className={`${variant}${size !== "md" ? ` button--${size}` : ""}`}>
+                <Button variant={variant} size={size}>
                   Label
                 </Button>
                 <span style={{ fontSize: "10px", color: "var(--muted)" }}>{size}</span>
@@ -52,11 +52,11 @@ export const ButtonHierarchy = {
   name: "Hierarchy — primary / secondary / ghost",
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-      <Button className="primary-button">Publish results</Button>
-      <Button className="secondary-button">Manage roster</Button>
-      <Button className="ghost-button">Cancel</Button>
+      <Button variant="primary">Publish results</Button>
+      <Button variant="secondary">Manage roster</Button>
+      <Button variant="ghost">Cancel</Button>
       <span style={{ flex: 1 }} />
-      <Button className="ghost-button" style={{ color: "var(--color-danger, #c83f4a)" }}>Delete round</Button>
+      <Button variant="ghost" style={{ color: "var(--color-danger, #c83f4a)" }}>Delete round</Button>
     </div>
   ),
 };
@@ -66,13 +66,13 @@ export const TextIconLeft = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary-button", [["ti-plus", "New round"], ["ti-send", "Publish results"], ["ti-check", "Save changes"]]],
-        ["secondary-button", [["ti-pencil", "Edit roster"], ["ti-settings", "Settings"], ["ti-download", "Export"]]],
-        ["ghost-button", [["ti-x", "Cancel"], ["ti-trash", "Remove"], ["ti-arrow-left", "Back"]]],
+        ["primary", [["ti-plus", "New round"], ["ti-send", "Publish results"], ["ti-check", "Save changes"]]],
+        ["secondary", [["ti-pencil", "Edit roster"], ["ti-settings", "Settings"], ["ti-download", "Export"]]],
+        ["ghost", [["ti-x", "Cancel"], ["ti-trash", "Remove"], ["ti-arrow-left", "Back"]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {items.map(([icon, label]) => (
-            <Button key={label} className={variant}>
+            <Button key={label} variant={variant}>
               <i className={`ti ${icon}`} />{label}
             </Button>
           ))}
@@ -87,13 +87,13 @@ export const TextIconRight = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary-button", [["New round", "ti-plus"], ["Publish results", "ti-send"], ["Continue", "ti-arrow-right"]]],
-        ["secondary-button", [["Edit roster", "ti-pencil"], ["Settings", "ti-settings"], ["Export", "ti-download"]]],
-        ["ghost-button", [["Cancel", "ti-x"], ["Remove", "ti-trash"], ["Next", "ti-arrow-right"]]],
+        ["primary", [["New round", "ti-plus"], ["Publish results", "ti-send"], ["Continue", "ti-arrow-right"]]],
+        ["secondary", [["Edit roster", "ti-pencil"], ["Settings", "ti-settings"], ["Export", "ti-download"]]],
+        ["ghost", [["Cancel", "ti-x"], ["Remove", "ti-trash"], ["Next", "ti-arrow-right"]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {items.map(([label, icon]) => (
-            <Button key={label} className={variant}>
+            <Button key={label} variant={variant}>
               {label}<i className={`ti ${icon}`} />
             </Button>
           ))}
@@ -116,7 +116,7 @@ export const IconButtonStory = {
             ["lg", "44px"],
           ].map(([size, label]) => (
             <div key={label} style={{ display: "grid", gap: "6px", justifyItems: "center" }}>
-              <IconButton icon="ti-dots-vertical" size={size} />
+              <IconButton icon={<i className="ti ti-dots-vertical" />} size={size} aria-label="More actions" />
               <span style={{ fontSize: "10px", color: "var(--muted)" }}>{label}</span>
             </div>
           ))}
@@ -126,16 +126,16 @@ export const IconButtonStory = {
         <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", marginBottom: "8px" }}>Common icons</p>
         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
           {["ti-eye", "ti-dots-vertical", "ti-pencil", "ti-trash", "ti-settings", "ti-copy", "ti-share", "ti-refresh", "ti-plus", "ti-x", "ti-check", "ti-arrow-right"].map((icon) => (
-            <IconButton key={icon} icon={icon} />
+            <IconButton key={icon} icon={<i className={`ti ${icon}`} />} aria-label={icon.replace("ti-", "")} />
           ))}
         </div>
       </div>
       <div>
         <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", marginBottom: "8px" }}>Disabled</p>
         <div style={{ display: "flex", gap: "4px" }}>
-          <IconButton icon="ti-eye" disabled />
-          <IconButton icon="ti-dots-vertical" disabled />
-          <IconButton icon="ti-pencil" disabled />
+          <IconButton icon={<i className="ti ti-eye" />} aria-label="View" disabled />
+          <IconButton icon={<i className="ti ti-dots-vertical" />} aria-label="More" disabled />
+          <IconButton icon={<i className="ti ti-pencil" />} aria-label="Edit" disabled />
         </div>
       </div>
     </div>

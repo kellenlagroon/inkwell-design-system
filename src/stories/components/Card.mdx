@@ -1,0 +1,72 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as CardStories from "../../components/card.stories.jsx";
+import * as CardFeatures from "../../components/card.features.stories.jsx";
+
+<Meta title="Components/Card/Docs" of={CardStories} />
+
+# Card
+
+A padded content surface for a self-contained unit — a poll round, a league, a
+settings group. Borderless and raised by default, matching the app's common
+look; a content-unit sibling to the section-level `Panel`. Compose it with
+[SectionHeading](?path=/docs/components-panel-docs--docs) for a header and
+`CardActions` for a footer row.
+
+## When to use
+
+- Use `Card` for a discrete block of related content that reads as one unit.
+- Use [Panel](?path=/docs/components-panel-docs--docs) instead when you want the borderless, raised surface.
+- Lay multiple cards out with [Grid](?path=/docs/components-grid-docs--docs) or [Stack](?path=/docs/components-stack-docs--docs).
+
+## Primary example
+
+<Canvas of={CardStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={CardStories} />
+
+`Card` is a container: it renders the surface and spaces its children on the
+`space-3` (12px) rhythm. `variant` picks the surface treatment and `tone` flags
+destructive zones (they compose). `CardActions` renders a wrapping footer row of
+buttons. All pass native `div` props through.
+
+## Features
+
+### Variants
+
+`plain` (default) is borderless on the raised surface — the app's common look.
+`outlined` adds a subtle border on the default surface for when there's no
+background contrast to rely on.
+
+<Canvas of={CardFeatures.Variants} sourceState="hidden" />
+
+### Header + actions
+
+Compose `SectionHeading` and `CardActions` inside the card, the way the source
+app builds its round cards.
+
+<Canvas of={CardFeatures.WithHeaderAndActions} sourceState="hidden" />
+
+### Danger tone
+
+`tone="danger"` adds a danger-soft border — for destructive zones and
+confirmations. It composes with either variant.
+
+<Canvas of={CardFeatures.DangerTone} sourceState="hidden" />
+
+### In a grid
+
+<Canvas of={CardFeatures.InAGrid} sourceState="hidden" />
+
+## Usage guidance
+
+- Do compose the header with `SectionHeading` rather than hand-rolling a title row.
+- Do put the primary and secondary actions in a single `CardActions` footer.
+- Do reserve `tone="danger"` for genuinely destructive content.
+- Don’t nest cards inside cards — reach for `Panel` or a plain section for inner grouping.
+
+## Accessibility
+
+- `Card` renders a plain `div` and adds no semantics; give it a `role`/label if it represents a meaningful region.
+- For a clickable/selectable card, render an actual button or link inside (or as the card) — `Card` itself is not interactive.

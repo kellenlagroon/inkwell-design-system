@@ -1,0 +1,52 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ListStories from "../../components/list.stories.jsx";
+import * as ListFeatures from "../../components/list.features.stories.jsx";
+
+<Meta title="Components/List/Docs" of={ListStories} />
+
+# List
+
+A grid-based list of rows — not a semantic table. Use for content that reads
+tabularly but isn't structured data (rosters, ballot summaries, action rows).
+Seeded from the app's `roster-table` pattern.
+
+## When to use
+
+- Use for stacked rows where each row has a consistent column layout but the content is heterogeneous (avatars, buttons, blocks of copy).
+- For structured data with sortable columns and cells, use [Table](?path=/docs/components-table-docs--docs) instead.
+
+## Primary example
+
+<Canvas of={ListStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={ListStories} />
+
+`columns` is a CSS `grid-template-columns` string — e.g. `"1fr auto"` or
+`"minmax(0, 1.1fr) minmax(0, 1fr) auto"`. It's applied to every row via the
+`--ink-list-cols` custom property. Compose rows with `<List.Row>`; each child of
+a row becomes a grid cell.
+
+## Features
+
+### Basic
+
+<Canvas of={ListFeatures.Basic} sourceState="hidden" />
+
+### Compact
+
+Tighter padding for denser lists.
+
+<Canvas of={ListFeatures.Compact} sourceState="hidden" />
+
+### Unbordered
+
+Turn off the hairline divider between rows.
+
+<Canvas of={ListFeatures.Unbordered} sourceState="hidden" />
+
+## Accessibility
+
+- The wrapper carries `role="list"`; each row is `role="listitem"`.
+- Rows are visual containers — put any interactive controls inside as normal.

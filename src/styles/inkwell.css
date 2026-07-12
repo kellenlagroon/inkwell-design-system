@@ -1,260 +1,5 @@
-/* Foundation / tokens */
-:root {
-  /* Tier 0: raw palette */
-
-  /* Ink scale — dark backgrounds and surfaces */
-  --ink-950: #040404;
-  --ink-940: #090909;
-  --ink-930: #0a0a0a;
-  --ink-900: #0d0d0d;
-  --ink-880: #101010;
-  --ink-850: #151515;
-
-  /* Cream scale — warm light text */
-  --cream-97: #fbf5ec;
-  --cream-95: #f4ede2;
-
-  /* Zinc — neutral secondary text */
-  --zinc-600: #a1a1aa;
-
-  /* Crimson — brand */
-  --crimson-900: #73000a;
-  --crimson-800: #940010;
-  --crimson-600: #c83f4a;
-
-  /* Steel — info / focus */
-  --steel-400: #6f8fb5;
-
-  /* Sage — success */
-  --sage-400: #7ab089;
-
-  /* Coral — danger */
-  --coral-500: #d56d57;
-  --coral-200: #ffb6a7;
-
-  /* Amber — warning */
-  --amber-400: #cfae43;
-
-  /* Alpha scales — overlays and borders (rgba literals; cannot reference other vars) */
-  --white-a3:  rgba(255, 255, 255, 0.03);
-  --white-a5:  rgba(255, 255, 255, 0.05);
-  --cream-a7:  rgba(255, 238, 223, 0.07);
-  --cream-a8:  rgba(255, 238, 223, 0.08);
-  --cream-a12: rgba(255, 238, 223, 0.12);
-  --cream-a16: rgba(255, 238, 223, 0.16);
-  --cream-a28: rgba(255, 238, 223, 0.28);
-  --steel-a20: rgba(111, 143, 181, 0.20);
-  --steel-a22: rgba(111, 143, 181, 0.22);
-  --steel-a30: rgba(111, 143, 181, 0.30);
-  --steel-a72: rgba(111, 143, 181, 0.72);
-  --black-a58: rgba(0, 0, 0, 0.58);
-
-  /* Tier 1: semantic tokens */
-  --color-bg-base:            var(--ink-950);
-  --color-bg-canvas-alt:      var(--ink-940);
-  --color-bg-canvas:          var(--ink-930);
-  --color-surface-default:    var(--ink-900);
-  --color-surface-raised:     var(--ink-880);
-  --color-surface-active:     var(--ink-850);
-  --color-text-primary:       var(--cream-95);
-  --color-text-strong:        var(--cream-97);
-  --color-text-secondary:     var(--zinc-600);
-  --color-text-inverse:       var(--ink-930);
-  --color-border-subtle:      var(--cream-a8);
-  --color-border-default:     var(--cream-a12);
-  --color-border-strong:      var(--cream-a16);
-  --color-border-interactive: var(--cream-a28);
-  --color-overlay-soft:       var(--white-a3);
-  --color-overlay-strong:     var(--white-a5);
-  --color-hover-surface:      var(--cream-a7);
-  --color-scrim:              var(--black-a58);
-  --color-brand:              var(--crimson-900);
-  --color-brand-hover:        var(--crimson-800);
-  --color-brand-emphasis:     var(--crimson-600);
-  --color-info:               var(--steel-400);
-  --color-success:            var(--sage-400);
-  --color-danger:             var(--coral-500);
-  --color-danger-text:        var(--coral-200);
-  --color-warning:            var(--amber-400);
-  --color-focus-outline-soft: var(--steel-a22);
-  --color-focus-outline:      var(--steel-a30);
-  --color-focus-ring:         var(--steel-a72);
-  --color-brand-soft:         color-mix(in srgb, var(--crimson-900) 18%, transparent);
-  --color-success-soft:       color-mix(in srgb, var(--sage-400)    16%, transparent);
-  --color-warning-soft:       color-mix(in srgb, var(--amber-400)   14%, transparent);
-  --color-danger-soft:        color-mix(in srgb, var(--coral-500)   18%, transparent);
-  --color-info-soft:          var(--steel-a20);
-
-  /* Tier 3: component tokens */
-  --button-primary-bg: var(--color-brand);
-  --button-primary-bg-hover: var(--color-brand-hover);
-  --button-primary-fg: var(--color-text-strong);
-  --button-secondary-bg: var(--color-overlay-soft);
-  --button-secondary-fg: var(--color-text-primary);
-  --button-secondary-border: var(--color-border-strong);
-  --button-danger-fg: var(--color-text-strong);
-  --nav-active-bg: var(--color-text-strong);
-  --nav-active-fg: var(--color-text-inverse);
-  --control-surface: var(--color-surface-raised);
-  --control-surface-active: var(--color-surface-active);
-  --control-overlay: var(--color-overlay-soft);
-  --control-overlay-strong: var(--color-overlay-strong);
-  --control-border: var(--color-border-default);
-  --control-border-strong: var(--color-border-strong);
-  --control-border-hover: var(--color-border-interactive);
-  --input-bg: var(--color-overlay-soft);
-  --input-border: var(--color-border-strong);
-  --input-focus-border: var(--color-info);
-  --modal-surface: var(--color-surface-raised);
-  --modal-border: var(--color-border-default);
-  --modal-scrim: var(--color-scrim);
-  --status-success-bg: var(--color-success-soft);
-  --status-success-fg: var(--color-success);
-  --status-warning-bg: var(--color-warning-soft);
-  --status-warning-fg: var(--color-warning);
-  --status-danger-bg: var(--color-danger-soft);
-  --status-danger-fg: var(--color-danger-text);
-  --toast-success-border: rgba(122, 176, 137, 0.32);
-  --toast-danger-border: rgba(198, 93, 52, 0.32);
-  --toast-warning-border: rgba(216, 166, 75, 0.34);
-  --preview-chrome-highlight: rgba(255, 238, 223, 0.02);
-  --preview-chrome-sheen: rgba(255, 255, 255, 0.035);
-  --notification-dot-bg: var(--color-brand);
-
-  /* Tier 3 continued: card, popover, banner, toast surface, pill, rank */
-  --color-surface-panel:       color-mix(in srgb, var(--steel-400) 8%, var(--color-bg-canvas));
-  --card-surface:              var(--color-surface-raised);
-  --card-border:               var(--color-border-subtle);
-  --popover-surface:           var(--color-surface-raised);
-  --popover-border:            var(--color-border-default);
-  --popover-shadow:            0 18px 40px rgba(0, 0, 0, 0.38);
-  --banner-radius:             var(--radius-sharp);
-  --banner-padding:            14px 16px;
-  --toast-bg:                  var(--color-surface-default);
-  --toast-fg:                  var(--color-text-primary);
-  --toast-border-success:      var(--toast-success-border);
-  --toast-border-danger:       var(--toast-danger-border);
-  --toast-border-warning:      var(--toast-warning-border);
-  --pill-success-fg:           var(--color-success);
-  --pill-warning-fg:           var(--color-warning);
-  --pill-danger-fg:            var(--color-danger-text);
-  --rank-accent:               var(--color-brand);
-  --slot-bg:                   var(--color-overlay-soft);
-  --slot-bg-filled:            var(--color-overlay-strong);
-  --nav-mobile-bg:             rgba(13, 13, 13, 0.96);
-  --menu-item-bg-hover:        var(--color-overlay-strong);
-  --menu-item-danger-hover:    var(--color-danger-soft);
-  --selector-active-bg:        var(--color-overlay-soft);
-  --selector-active-accent:    var(--color-brand);
-
-
-  /* Typography — Tier 0: raw scale */
-  --font-size-2xs:  0.62rem;
-  --font-size-xs:   0.72rem;
-  --font-size-sm:   0.78rem;
-  --font-size-base: 0.84rem;
-  --font-size-md:   0.9rem;
-  --font-size-lg:   1.08rem;
-  --font-size-xl:   1.28rem;
-  --font-size-2xl:  1.55rem;
-  --font-size-3xl:  1.65rem;
-
-  /* Typography — Tier 1: semantic */
-  --font-size-badge:      var(--font-size-2xs);
-  --font-size-caption:    var(--font-size-xs);
-  --font-size-label-sm:   var(--font-size-sm);
-  --font-size-label:      var(--font-size-base);
-  --font-size-body:       var(--font-size-md);
-  --font-size-heading-sm: var(--font-size-lg);
-  --font-size-heading:    var(--font-size-xl);
-  --font-size-display:    var(--font-size-2xl);
-  --font-size-rank:       var(--font-size-3xl);
-
-  /* Font weight — Tier 0: raw scale */
-  --font-weight-regular:   400;
-  --font-weight-medium:    500;
-  --font-weight-semibold:  600;
-  --font-weight-bold:      700;
-  --font-weight-extrabold: 800;
-
-  /* Font weight — Tier 1: semantic */
-  --font-weight-label:   var(--font-weight-semibold);
-  --font-weight-ui:      var(--font-weight-bold);
-  --font-weight-display: var(--font-weight-extrabold);
-
-  /* Line height */
-  --line-height-none:    0;
-  --line-height-tight:   1;
-  --line-height-compact: 1.1;
-  --line-height-display: 1.05;
-  --line-height-heading: 1.2;
-  --line-height-label:   1.3;
-  --line-height-body:    1.5;
-
-  /* Motion */
-  --duration-fast:   120ms;
-  --duration-medium: 140ms;
-  --ease-default:    ease;
-
-  /* Z-index layers */
-  --z-raised:       1;
-  --z-tooltip:     20;
-  --z-sticky:      30;
-  --z-nav:         35;
-  --z-overlay:     40;
-  --z-float:       50;
-  --z-modal-front: 60;
-  --z-modal-host:  80;
-
-  /* Spacing — extended steps */
-  --space-0-5:  2px;
-  --space-7:   28px;
-  --space-8:   32px;
-  --space-10:  40px;
-  --space-11:  44px;
-  --space-12:  48px;
-  --space-14:  56px;
-  --space-15:  60px;
-
-  /* Legacy aliases */
-  --bg: var(--color-bg-base);
-  --surface: var(--color-surface-default);
-  --surface-strong: var(--color-surface-active);
-  --surface-soft: var(--color-overlay-soft);
-  --control-bg: var(--control-overlay);
-  --control-bg-strong: var(--control-overlay-strong);
-  --text: var(--color-text-primary);
-  --muted: var(--color-text-secondary);
-  --line: var(--color-border-strong);
-  --line-soft: var(--color-border-subtle);
-  --accent: var(--color-brand);
-  --accent-deep: var(--color-brand-hover);
-  --accent-readable: var(--color-brand-emphasis);
-  --accent-soft: var(--color-brand-soft);
-  --utility: var(--color-info);
-  --utility-soft: var(--color-info-soft);
-  --green: var(--color-success);
-  --danger: var(--color-danger);
-  --focus-ring: var(--color-focus-ring);
-  --hover-surface: var(--color-hover-surface);
-  --shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --radius-none: 0;
-  --radius-sharp: 2px;
-  --radius-rounded: 12px;
-  --radius-pill: 999px;
-  --radius-device-frame: 28px;
-  --radius-dialog-prominent: 18px;
-  --radius-sheet-top: 2px 2px 0 0;
-  --mobile-nav-height: 64px;
-  --chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none'%3E%3Cpath d='M2 2.25L7 7L12 2.25' stroke='%23A1A1AA' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cline x1='15' y1='15' x2='21' y2='21'/%3E%3C/svg%3E");
-}
+/* Design tokens are generated into tokens.css from tokens/inkwell.tokens.json.
+   tokens.css is imported before this file (see .storybook/preview.jsx). Run: npm run tokens */
 
 * {
   box-sizing: border-box;
@@ -502,6 +247,732 @@ body[data-preview-mode="mobile"] .app-header {
   align-items: center;
   gap: var(--space-3);
   flex-wrap: wrap;
+}
+
+/* Card: padded content surface (see Card component). Borderless + raised by
+   default — the app's common look — with a space-3 internal rhythm. `outlined`
+   adds a subtle border on the default surface; `danger` flags destructive zones. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+}
+
+.card--outlined {
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-default);
+}
+
+.card--danger {
+  border: 1px solid var(--color-danger-soft);
+}
+
+/* Badge: compact count / notification indicator (see Badge component).
+   Generalizes the app's nav notification dot; `--dot` is the bare indicator. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  /* line-height matches the badge height so numerals (no descender) sit
+     optically centered rather than riding high. */
+  line-height: 18px;
+  white-space: nowrap;
+  background: var(--color-brand);
+  color: var(--color-text-strong);
+}
+
+.badge--neutral {
+  background: var(--color-surface-active);
+  color: var(--color-text-secondary);
+}
+
+.badge--danger {
+  background: var(--color-danger);
+  color: var(--color-text-strong);
+}
+
+.badge--dot {
+  width: 10px;
+  min-width: 10px;
+  height: 10px;
+  padding: 0;
+}
+
+/* Tabs: segmented underline tab bar with a sliding indicator (see Tabs
+   component). Namespaced ink- to avoid the seeded generic tab classes. */
+.ink-tabs {
+  position: relative;
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.ink-tab {
+  position: relative;
+  min-height: 42px;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  color: var(--button-secondary-fg);
+  font: inherit;
+  font-weight: var(--font-weight-label);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ink-tab:hover,
+.ink-tab--active {
+  color: var(--color-text-strong);
+}
+
+.ink-tab:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+  border-radius: var(--radius-sharp);
+}
+
+.ink-tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ink-tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px 1px 0 0;
+  transition: transform 200ms ease, width 200ms ease;
+  pointer-events: none;
+}
+
+/* Collapsible: a disclosure whose whole header is the toggle button. The
+   chevron sits in a 36px box that carries the hover-surface fill, so the
+   affordance reads as a contained control even though the full row is clickable. */
+.collapsible-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-3) 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.collapsible-trigger:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+  border-radius: var(--radius-sharp);
+}
+
+/* The chevron box mirrors the app's icon-only ghost button (36px square). It
+   fills with the shared hover-surface token whenever the row is hovered or
+   focused, keeping the visible affordance contained to the chevron. */
+.collapsible-chevron-box {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sharp);
+  color: var(--text);
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.collapsible-trigger:hover .collapsible-chevron-box,
+.collapsible-trigger:focus-visible .collapsible-chevron-box {
+  background: var(--hover-surface);
+}
+
+/* Opt-in divider: mirrors the app's stacked submission rows, which carry a
+   hairline border-bottom on the whole row (below any expanded content). */
+.collapsible--divided {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.collapsible-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.collapsible-main > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.collapsible-meta {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.collapsible-chevron {
+  color: currentColor;
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+.collapsible-chevron--open {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  padding-bottom: var(--space-3);
+}
+
+/* Tooltip: a trigger with a popover shown above it on hover/focus (see Tooltip
+   component). Seeded from the app's info tooltip. The reveal is CSS-driven; the
+   component adds role="tooltip", aria-describedby, and Escape-to-dismiss. */
+.info-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.info-tooltip-trigger {
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  cursor: pointer;
+}
+
+.info-tooltip-trigger:focus-visible {
+  outline: 0;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 2px var(--color-focus-outline);
+}
+
+.info-tooltip-content {
+  /* --tip-tx/ty center the popover on its axis; --tip-from-x/y are the small
+     offset it animates in from. Placement rules below re-point these. */
+  --tip-tx: -50%;
+  --tip-ty: 0px;
+  --tip-from-x: 0px;
+  --tip-from-y: 4px;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + var(--space-2));
+  z-index: var(--z-tooltip);
+  width: min(320px, 82vw);
+  padding: var(--space-3);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(calc(var(--tip-tx) + var(--tip-from-x)), calc(var(--tip-ty) + var(--tip-from-y)));
+  transition: opacity var(--duration-fast) var(--ease-default), transform var(--duration-fast) var(--ease-default);
+}
+
+/* Placement: repoint the anchor and the center/offset vars. Default is top. */
+.info-tooltip-content[data-placement="bottom"] {
+  top: calc(100% + var(--space-2));
+  bottom: auto;
+  --tip-from-y: -4px;
+}
+
+.info-tooltip-content[data-placement="left"] {
+  right: calc(100% + var(--space-2));
+  left: auto;
+  top: 50%;
+  bottom: auto;
+  --tip-tx: 0px;
+  --tip-ty: -50%;
+  --tip-from-x: 4px;
+  --tip-from-y: 0px;
+}
+
+.info-tooltip-content[data-placement="right"] {
+  left: calc(100% + var(--space-2));
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  --tip-tx: 0px;
+  --tip-ty: -50%;
+  --tip-from-x: -4px;
+  --tip-from-y: 0px;
+}
+
+.info-tooltip:hover .info-tooltip-content,
+.info-tooltip:focus-within .info-tooltip-content {
+  opacity: 1;
+  transform: translate(var(--tip-tx), var(--tip-ty));
+}
+
+/* Escape-to-dismiss: overrides the hover/focus reveal while set. Scoped to the
+   same states plus the attribute so it outranks the reveal by specificity
+   (rather than relying on source order). */
+.info-tooltip[data-tooltip-dismissed]:hover .info-tooltip-content,
+.info-tooltip[data-tooltip-dismissed]:focus-within .info-tooltip-content {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(calc(var(--tip-tx) + var(--tip-from-x)), calc(var(--tip-ty) + var(--tip-from-y)));
+}
+
+/* Divider: a thin hairline rule (see Divider component). Generalizes the app's
+   border-bottom row dividers and the split-button rule. Marginless — space it
+   with layout primitives. Namespaced (divider is a collision-prone name). */
+.ink-divider {
+  width: 100%;
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.ink-divider--vertical {
+  /* Needs a flex/grid parent to give it a cross-axis height. Uses height:100%
+     rather than align-self:stretch — stretch requires the base's `height:0` to
+     stay as `auto`, and mixing them left the rule computing to 0. */
+  width: 0;
+  height: 100%;
+  border-top: 0;
+  border-left: 1px solid var(--line-soft);
+}
+
+.ink-divider--labeled {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  height: auto;
+  border: 0;
+}
+
+.ink-divider--labeled::before,
+.ink-divider--labeled::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--line-soft);
+}
+
+.ink-divider-label {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+/* Avatar: a compact image/initials identity mark (see Avatar component). Seeded
+   from the app's .header-account-avatar + .header-account-trigger pattern — a
+   34px avatar with a 46px ring around it. The ring is drawn with outline+offset
+   so it doesn't affect the avatar's layout size. Namespaced (avatar is a
+   collision-prone name). */
+.ink-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-overlay-soft) 75%, transparent);
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  user-select: none;
+  outline: 1px solid var(--control-border);
+  outline-offset: 4px;
+  transition: outline-color var(--duration-fast) var(--ease-default);
+}
+
+.ink-avatar--sm {
+  width: 26px;
+  height: 26px;
+  font-size: var(--font-size-xs);
+  outline-offset: 3px;
+}
+
+.ink-avatar--lg {
+  width: 44px;
+  height: 44px;
+  font-size: var(--font-size-base);
+  outline-offset: 5px;
+}
+
+.ink-avatar--square {
+  border-radius: var(--radius-sharp);
+}
+
+/* Optical centering: caps like "KL" sit high in the em-box; a small nudge
+   settles them into the visual center. Especially noticeable on the square
+   shape (the circle hides the asymmetry). */
+.ink-avatar-initials {
+  transform: translateY(0.06em);
+}
+
+.ink-avatar-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Interactive avatar: wraps the avatar in a button that brightens the ring on
+   hover/focus, matching the app's .header-account-trigger. */
+.ink-avatar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+}
+
+.ink-avatar-button:focus-visible {
+  outline: 0;
+}
+
+.ink-avatar-button:hover .ink-avatar,
+.ink-avatar-button:focus-visible .ink-avatar {
+  outline-color: var(--control-border-hover);
+}
+
+.ink-avatar-button:focus-visible .ink-avatar {
+  box-shadow: 0 0 0 2px var(--color-focus-outline);
+}
+
+/* Table: semantic <table> primitive with sortable headers, sticky header, row
+   hover, and density presets. Namespaced .ink-table (generic name). */
+.ink-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+}
+
+.ink-table-caption {
+  padding: var(--space-2) var(--space-3);
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+  text-align: start;
+  caption-side: top;
+}
+
+.ink-table thead th {
+  background: var(--color-surface-default);
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ink-table th,
+.ink-table td {
+  padding: var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--line-soft);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.ink-table--compact th,
+.ink-table--compact td {
+  padding: var(--space-2) var(--space-3);
+}
+
+.ink-table th[data-align="center"],
+.ink-table td[data-align="center"] {
+  text-align: center;
+}
+
+.ink-table th[data-align="end"],
+.ink-table td[data-align="end"] {
+  text-align: end;
+}
+
+/* Sticky header pins <thead> when the table's scroll container scrolls. The
+   base thead background above ensures the pinned row stays opaque over the
+   scrolled tbody. */
+.ink-table--sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Row hover: subtle surface fill on tbody rows. */
+.ink-table--hoverable tbody tr {
+  transition: background-color var(--duration-fast) var(--ease-default);
+}
+
+.ink-table--hoverable tbody tr:hover {
+  background: var(--hover-surface);
+}
+
+/* Sortable header: the whole header cell is a button. */
+.ink-table-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.ink-table-sort-button:hover,
+.ink-table-sort-button:focus-visible {
+  color: var(--text);
+}
+
+.ink-table-sort-icon {
+  flex-shrink: 0;
+  color: var(--muted);
+  opacity: 0.4;
+  transition: transform var(--duration-fast) var(--ease-default),
+    opacity var(--duration-fast) var(--ease-default);
+}
+
+.ink-table-sort-icon--active {
+  color: currentColor;
+  opacity: 1;
+}
+
+.ink-table-sort-icon--asc {
+  transform: rotate(180deg);
+}
+
+.ink-table-empty-row td {
+  padding: var(--space-4) var(--space-3);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* List: a grid-based list of rows. Not a semantic table; content-flexible.
+   Seeded from the app's .roster-table (grid rows with hairline dividers). */
+.ink-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ink-list-row {
+  display: grid;
+  grid-template-columns: var(--ink-list-cols, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+
+.ink-list--compact .ink-list-row {
+  padding: var(--space-2) var(--space-3);
+}
+
+.ink-list--bordered .ink-list-row {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+/* Last row's divider is redundant — the list itself sits inside a container. */
+.ink-list--bordered .ink-list-row:last-child {
+  border-bottom: 0;
+}
+
+/* Spinner: an indeterminate rotating loader (see Spinner component). Built as
+   a 2px ring where one side is tinted, spinning continuously. Sizes and tones
+   scale via modifier classes. Namespaced .ink-spinner. */
+.ink-spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid color-mix(in srgb, var(--muted) 25%, transparent);
+  border-top-color: var(--muted);
+  animation: ink-spinner-rotate 720ms linear infinite;
+}
+
+.ink-spinner--sm {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+.ink-spinner--lg {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}
+
+.ink-spinner--brand {
+  border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  border-top-color: var(--accent);
+}
+
+.ink-spinner--current {
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+  border-top-color: currentColor;
+}
+
+@keyframes ink-spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-spinner { animation-duration: 2s; }
+}
+
+/* Skeleton: a placeholder block that shimmers while content loads. Uses a
+   moving gradient background over a subtle surface fill. Text lines optionally
+   stack via .ink-skeleton-lines. Always decorative (aria-hidden). */
+.ink-skeleton {
+  display: inline-block;
+  width: 100%;
+  height: 1em;
+  border-radius: var(--radius-sharp);
+  background-color: color-mix(in srgb, var(--color-overlay-soft) 60%, transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-overlay-soft) 55%, transparent) 40%,
+    color-mix(in srgb, var(--color-overlay-soft) 55%, transparent) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  background-position: 200% 0;
+  animation: ink-skeleton-shimmer 1400ms ease-in-out infinite;
+}
+
+.ink-skeleton--circle {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+}
+
+.ink-skeleton--rect {
+  display: block;
+}
+
+.ink-skeleton-lines {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Text variant shares its color/motion but the container drives layout. */
+.ink-skeleton-lines .ink-skeleton {
+  display: block;
+}
+
+@keyframes ink-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-skeleton {
+    animation: none;
+    background-image: none;
+  }
+}
+
+/* Progress: horizontal progress bar. Determinate value scales the fill via
+   scaleX from left; indeterminate slides a partial bar back and forth. */
+.ink-progress {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.ink-progress-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+}
+
+.ink-progress-label {
+  color: var(--text);
+}
+
+.ink-progress-track {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-overlay-soft) 60%, transparent);
+}
+
+.ink-progress--sm .ink-progress-track {
+  height: 3px;
+}
+
+.ink-progress-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: var(--accent);
+  border-radius: inherit;
+  transition: transform var(--duration-default, 200ms) var(--ease-default);
+}
+
+.ink-progress--success .ink-progress-fill {
+  background: var(--color-success, var(--accent));
+}
+
+.ink-progress--danger .ink-progress-fill {
+  background: var(--danger, var(--accent));
+}
+
+/* Indeterminate: a partial bar slides across. transform-origin returns to
+   left so scaleX doesn't fight the animation. */
+.ink-progress-fill--indeterminate {
+  width: 40%;
+  transform: none;
+  animation: ink-progress-indeterminate 1400ms ease-in-out infinite;
+}
+
+@keyframes ink-progress-indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-progress-fill { transition: none; }
+  .ink-progress-fill--indeterminate { animation-duration: 3s; }
 }
 
 .header-topline {
@@ -1248,6 +1719,32 @@ select option {
   gap: var(--space-3);
 }
 
+/* Layout primitives (Stack / Inline / Grid). Namespaced with ink- to avoid
+   collision with the seeded generic classes above; the md/12px default rhythm
+   matches the shared layout rhythm. */
+.ink-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ink-stack-gap, var(--space-3));
+  align-items: var(--ink-stack-align, stretch);
+}
+
+.ink-inline {
+  display: flex;
+  flex-direction: row;
+  gap: var(--ink-inline-gap, var(--space-3));
+  align-items: var(--ink-inline-align, center);
+  justify-content: var(--ink-inline-justify, flex-start);
+  flex-wrap: var(--ink-inline-wrap, wrap);
+}
+
+.ink-grid {
+  display: grid;
+  gap: var(--ink-grid-gap, var(--space-3));
+  grid-template-columns: var(--ink-grid-columns, repeat(2, minmax(0, 1fr)));
+  align-items: var(--ink-grid-align, stretch);
+}
+
 .ballot-ranks {
   gap: 0;
 }
@@ -1434,6 +1931,87 @@ textarea:focus-visible {
 
 textarea {
   resize: vertical;
+}
+
+/* Form field primitives (FormField / TextInput / Textarea / Checkbox) */
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field-label {
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field-required {
+  color: var(--color-danger);
+}
+
+.field-hint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.field-error {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-danger);
+}
+
+.input--invalid,
+.field--invalid .input,
+.field--invalid .textarea {
+  border-color: var(--color-danger);
+}
+
+.input--invalid:focus-visible,
+.field--invalid .input:focus-visible,
+.field--invalid .textarea:focus-visible {
+  border-color: var(--color-danger);
+  box-shadow:
+    inset 0 0 0 1px var(--color-danger),
+    0 0 0 2px color-mix(in srgb, var(--color-danger) 35%, transparent);
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.checkbox-input {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--color-danger);
+}
+
+.checkbox-label {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.checkbox--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.checkbox--disabled .checkbox-input {
+  cursor: not-allowed;
 }
 
 /* Custom Select component (.cselect) */
@@ -2357,51 +2935,9 @@ textarea {
   gap: var(--space-2);
 }
 
-.info-tooltip {
-  position: relative;
-  display: inline-flex;
-}
-
-.info-tooltip-trigger {
-  width: 22px;
-  height: 22px;
-  min-height: 0;
-  padding: 0;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--line-soft);
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-}
-
-.info-tooltip-content {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + var(--space-2));
-  z-index: var(--z-tooltip);
-  width: min(320px, 82vw);
-  padding: var(--space-3);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius-sharp);
-  background: var(--color-surface-raised);
-  color: var(--text);
-  box-shadow: var(--shadow);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-body);
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 4px);
-  transition: opacity var(--duration-fast) var(--ease-default), transform var(--duration-fast) var(--ease-default);
-}
-
-.info-tooltip:hover .info-tooltip-content,
-.info-tooltip:focus-within .info-tooltip-content {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
+/* Tooltip CSS is defined once, in the curated Tooltip block above (search
+   ".info-tooltip"). The app's original tooltip rules previously lived here as
+   part of the raw seed; removed to avoid a duplicate that overrode it. */
 
 .selection-submission-list-wrap,
 .selection-submission-list {

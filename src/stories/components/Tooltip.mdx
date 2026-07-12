@@ -1,0 +1,64 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TooltipStories from "../../components/tooltip.stories.jsx";
+import * as TooltipFeatures from "../../components/tooltip.features.stories.jsx";
+
+<Meta title="Components/Tooltip/Docs" of={TooltipStories} />
+
+# Tooltip
+
+A trigger paired with a popover that appears above it on hover or focus. Seeded
+from the app's info tooltip. Defaults to a small round "i" info button, but any
+focusable element can be the trigger.
+
+## When to use
+
+- Use for a brief, supplementary explanation of a label or control.
+- Keep the content short; it isn't a place for interactive elements or essential content.
+- For content that must always be visible, use inline helper text instead.
+
+## Primary example
+
+<Canvas of={TooltipStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={TooltipStories} />
+
+The tooltip body is `content`. The trigger defaults to an info "i" button — set
+`triggerLabel` to give it an accessible name. Pass a custom `trigger` (a
+focusable element) to attach the tooltip to your own control; it's wired to the
+content via `aria-describedby`. Use `placement` (`top` | `bottom` | `left` |
+`right`, default `top`) to choose which side of the trigger the popover appears on.
+
+## Features
+
+### Info trigger
+
+The default — a round "i" button that reveals the tooltip on hover or focus.
+
+<Canvas of={TooltipFeatures.DefaultTrigger} sourceState="hidden" />
+
+### Custom trigger
+
+Any focusable element can be the trigger; it receives `aria-describedby`.
+
+<Canvas of={TooltipFeatures.CustomTrigger} sourceState="hidden" />
+
+### Placement
+
+`placement` positions the popover on the `top` (default), `bottom`, `left`, or `right` of the trigger.
+
+<Canvas of={TooltipFeatures.Placements} sourceState="hidden" />
+
+### Rich content
+
+`content` accepts arbitrary nodes for short structured explanations.
+
+<Canvas of={TooltipFeatures.RichContent} sourceState="hidden" />
+
+## Keyboard and accessibility
+
+- Reveal is CSS-driven (`:hover` / `:focus-within`), so it works for pointer and keyboard — tabbing to the trigger shows the tooltip.
+- `Escape` dismisses the tooltip while it's focused; leaving or blurring the trigger re-arms it.
+- The content has `role="tooltip"` and is referenced by the trigger's `aria-describedby`, so assistive tech announces it.
+- Custom triggers should be focusable (a `button`, `a`, or an element with `tabindex`) so keyboard users can reach them.

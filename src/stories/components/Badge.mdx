@@ -1,0 +1,58 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as BadgeStories from "../../components/badge.stories.jsx";
+import * as BadgeFeatures from "../../components/badge.features.stories.jsx";
+
+<Meta title="Components/Badge/Docs" of={BadgeStories} />
+
+# Badge
+
+A compact count / notification indicator. Show a small count or short label, or
+set `dot` for a bare presence indicator — the generalization of the app's nav
+notification dot.
+
+## When to use
+
+- Use for an unread/new count or a small status number, usually attached to an icon, nav item, or control.
+- Use `dot` for a bare "there's something new" indicator with no number.
+- Use [Pill](?path=/docs/components-pill-docs--docs) instead for an inline status **label** (Published, Open, …).
+
+## Primary example
+
+<Canvas of={BadgeStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={BadgeStories} />
+
+`tone` sets the color (`brand` default, `neutral`, `danger`). `dot` renders a
+bare indicator and drops any content. All native `span` props pass through.
+
+## Features
+
+### Tones
+
+<Canvas of={BadgeFeatures.Tones} sourceState="hidden" />
+
+### Dots
+
+A bare indicator for presence without a count.
+
+<Canvas of={BadgeFeatures.Dots} sourceState="hidden" />
+
+### On a control
+
+Position the badge yourself with a `position: relative` wrapper — Badge stays
+layout-agnostic rather than baking in placement.
+
+<Canvas of={BadgeFeatures.OnAControl} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep the content to a short count or 1–2 characters (e.g. `9`, `99+`).
+- Do position badges on controls with a relative wrapper, not by baking offsets into the component.
+- Don’t use Badge for a status word — that’s `Pill`.
+
+## Accessibility
+
+- In `dot` mode there's no text, so give it an `aria-label` when it carries meaning, or `aria-hidden` when it's decorative.
+- A count badge on an icon control still needs the control itself to have an accessible name.

@@ -1,0 +1,71 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as FormFieldStories from "../../components/formField.stories.jsx";
+import * as FormFieldFeatures from "../../components/formField.features.stories.jsx";
+
+<Meta title="Components/FormField/Docs" of={FormFieldStories} />
+
+# FormField
+
+The labelled wrapper for form controls. `FormField` owns the control's `id` and
+forwards the accessibility wiring — `htmlFor`, `aria-describedby`,
+`aria-invalid`, and `required` — into whatever control it wraps
+([TextInput](?path=/docs/components-textinput-docs--docs),
+[Textarea](?path=/docs/components-textarea-docs--docs),
+[Select](?path=/docs/components-select-docs--docs)). This keeps labels, hint
+text, and error messages consistent without hand-wiring ids on every field.
+
+## When to use
+
+- Use whenever a control needs a visible label, helper text, or an error message.
+- Use to guarantee label/control association and error announcements are correct.
+- Skip it for a [Checkbox](?path=/docs/components-checkbox-docs--docs), which carries its own inline label.
+
+## Primary example
+
+<Canvas of={FormFieldStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={FormFieldStories} />
+
+The wrapped control is passed as `children`. A control inside a `FormField`
+inherits the generated `id`, `aria-describedby`, `aria-invalid`, and `required`,
+so you rarely set those on the control directly.
+
+## Features
+
+### Label and hint
+
+<Canvas of={FormFieldFeatures.LabelAndHint} sourceState="hidden" />
+
+### Required
+
+`required` adds the required marker and applies `required` to the wrapped control.
+
+<Canvas of={FormFieldFeatures.Required} sourceState="hidden" />
+
+### Error state
+
+Passing `error` flips the control to its invalid style, replaces the hint, and
+wires the message with `role="alert"` and `aria-describedby`.
+
+<Canvas of={FormFieldFeatures.ErrorState} sourceState="hidden" />
+
+### Wrapping any control
+
+`FormField` is control-agnostic — it wraps `Select` and `Textarea` the same way it wraps `TextInput`.
+
+<Canvas of={FormFieldFeatures.WrappingAnyControl} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use `FormField` instead of hand-rolling `<label>` markup, so id association and `aria-describedby` stay correct.
+- Do provide an `error` message rather than only coloring the control — the invalid state should never rely on color alone.
+- Do keep `hint` text short and instructional.
+- Don’t disable a field to signal an error; disabled means unavailable, invalid means "fix this."
+
+## Keyboard and accessibility
+
+- Hint and error text are linked to the control via `aria-describedby`; errors announce through `role="alert"`.
+- The required marker is decorative (`aria-hidden`); requiredness is conveyed to assistive tech through the control's `required` attribute.
+- The label's `htmlFor` targets the control `id`, so clicking the label focuses the control.

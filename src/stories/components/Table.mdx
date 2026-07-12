@@ -1,0 +1,69 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TableStories from "../../components/table.stories.jsx";
+import * as TableFeatures from "../../components/table.features.stories.jsx";
+
+<Meta title="Components/Table/Docs" of={TableStories} />
+
+# Table
+
+A semantic HTML `<table>` with optional sortable columns, sticky header, row
+hover, and density presets. Sort state is caller-controlled: the component
+surfaces the click and shows the indicator, but you sort the data yourself.
+
+## When to use
+
+- Use for genuinely tabular data — comparing values across rows.
+- For non-tabular content that still reads as rows (e.g. the app's roster), use [List](?path=/docs/components-list-docs--docs) instead.
+
+## Primary example
+
+<Canvas of={TableStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={TableStories} />
+
+Columns are `{ id, header, render, sortable?, align?, width? }`. `render` gets
+each row and returns the cell content. `align` is `"start" | "center" | "end"`
+(default start). Set `width` for a `<colgroup>` sized column (e.g. `"12ch"`).
+
+Sort is caller-controlled: pass `sortBy` + `sortDirection` + `onSortChange`, and
+sort the `data` array yourself. Or use `defaultSortBy` for uncontrolled UI state
+only (the data still needs to be pre-sorted).
+
+## Features
+
+### Basic
+
+<Canvas of={TableFeatures.Basic} sourceState="hidden" />
+
+### Sortable
+
+Set `sortable: true` on any column; clicks toggle direction and call
+`onSortChange(id, direction)`. `aria-sort` is set on the active header.
+
+<Canvas of={TableFeatures.Sortable} sourceState="hidden" />
+
+### Compact
+
+<Canvas of={TableFeatures.Compact} sourceState="hidden" />
+
+### Sticky header
+
+Wrap the table in a scrolling container; the `<thead>` pins on scroll.
+
+<Canvas of={TableFeatures.StickyHeader} sourceState="hidden" />
+
+### Empty
+
+<Canvas of={TableFeatures.Empty} sourceState="hidden" />
+
+### Caption
+
+<Canvas of={TableFeatures.WithCaption} sourceState="hidden" />
+
+## Accessibility
+
+- Renders a native `<table>` with `<thead>`/`<tbody>` and `<th scope="col">` headers.
+- Sortable headers use `aria-sort` (`ascending` | `descending` | `none`) and expose the click as a native button.
+- Empty state renders as a single spanning `<td>` so the row still parses as a table row.

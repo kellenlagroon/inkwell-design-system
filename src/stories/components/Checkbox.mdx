@@ -1,0 +1,58 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as CheckboxStories from "../../components/checkbox.stories.jsx";
+import * as CheckboxFeatures from "../../components/checkbox.features.stories.jsx";
+
+<Meta title="Components/Checkbox/Docs" of={CheckboxStories} />
+
+# Checkbox
+
+A single on/off choice with an inline label. Unlike [TextInput](?path=/docs/components-textinput-docs--docs)
+and [Textarea](?path=/docs/components-textarea-docs--docs), the checkbox owns its
+own label rather than pairing with a stacked `FormField` label, so it stays
+self-contained.
+
+## When to use
+
+- Use for a single binary choice ("Lock ballots at kickoff").
+- Stack several together for a set of independent toggles.
+- For one choice among many mutually exclusive options, use a radio group instead (not yet in Inkwell).
+
+## Primary example
+
+<Canvas of={CheckboxStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={CheckboxStories} />
+
+All native checkbox props (`checked`, `defaultChecked`, `onChange`, `disabled`,
+`name`, …) pass through. The `label` renders as the inline, clickable text.
+
+## Features
+
+### Single choice
+
+<Canvas of={CheckboxFeatures.SingleChoice} sourceState="hidden" />
+
+### Group
+
+Several independent checkboxes stacked together.
+
+<Canvas of={CheckboxFeatures.Group} sourceState="hidden" />
+
+### Disabled
+
+<Canvas of={CheckboxFeatures.Disabled} sourceState="hidden" />
+
+## Usage guidance
+
+- Do give every checkbox a `label`; the whole label is a click target.
+- Do keep several related toggles visually grouped.
+- Don’t wrap a checkbox in a stacked `FormField` label — it carries its own.
+- Don’t use a checkbox for mutually exclusive choices.
+
+## Keyboard and accessibility
+
+- The control is a native checkbox, so Space toggles it and it participates in tab order.
+- The label is associated via `htmlFor`/`id`, so clicking the text toggles the box.
+- Disabled checkboxes are dimmed and removed from interaction.

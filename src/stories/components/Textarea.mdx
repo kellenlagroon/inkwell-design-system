@@ -1,0 +1,53 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TextareaStories from "../../components/textarea.stories.jsx";
+import * as TextareaFeatures from "../../components/textarea.features.stories.jsx";
+
+<Meta title="Components/Textarea/Docs" of={TextareaStories} />
+
+# Textarea
+
+Multi-line text entry. Wraps the native `textarea`, shares Inkwell's field
+styling with [TextInput](?path=/docs/components-textinput-docs--docs), and is vertically
+resizable. Pair it with [FormField](?path=/docs/components-formfield-docs--docs)
+for a label, hint, or error.
+
+## When to use
+
+- Use for values that span multiple lines: notes, category lists, descriptions.
+- Set `rows` to size the default height to the expected content.
+- Use [TextInput](?path=/docs/components-textinput-docs--docs) for single-line values.
+
+## Primary example
+
+<Canvas of={TextareaStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={TextareaStories} />
+
+All native `textarea` props pass through. Inside a `FormField`, the `id`,
+`aria-describedby`, `aria-invalid`, and `required` are inherited automatically.
+
+## Features
+
+### Basic
+
+<Canvas of={TextareaFeatures.Basic} sourceState="hidden" />
+
+### States
+
+Filled, disabled, and invalid.
+
+<Canvas of={TextareaFeatures.States} sourceState="hidden" />
+
+## Usage guidance
+
+- Do set `rows` to match the expected input length so the field doesn’t feel cramped or oversized.
+- Do leave the resize handle available for long-form input.
+- Don’t use a textarea for values that are always single-line — use `TextInput`.
+
+## Keyboard and accessibility
+
+- The control is a native `textarea`, so focus, typing, and resizing work with no extra handling.
+- Provide an accessible name via a `FormField` label or an explicit `aria-label`.
+- The invalid state uses the danger token for border and focus ring.
