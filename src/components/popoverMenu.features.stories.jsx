@@ -20,11 +20,11 @@ export const PopoverMenuDefault = {
         )}
         menuLabel="Account menu"
       >
-        <div className="header-account-label">
+        <div className="ink-popover-label">
           <strong>Jordan Fields</strong>
           <span>Google account</span>
         </div>
-        <Button variant="ghost" className="header-account-menu-button">Sign out</Button>
+        <Button variant="ghost" className="ink-popover-action">Sign out</Button>
       </PopoverMenu>
     </div>
   ),
@@ -44,21 +44,21 @@ export const PopoverMenuRosterActions = {
             ···
           </Button>
         )}
-        menuClassName="roster-actions-menu"
-        popoverClassName="roster-actions-popover"
+        menuClassName="ink-popover-menu"
+        popoverClassName="ink-popover-surface"
         menuLabel="Row actions"
       >
-        <button className="roster-actions-item">
-          <span className="roster-actions-item-icon">
+        <button className="ink-popover-item">
+          <span className="ink-popover-item-icon">
             <svg viewBox="0 0 14 14"><path d="M7 1v12M1 7h12" /></svg>
           </span>
-          <span className="roster-actions-item-label">Edit member</span>
+          <span className="ink-popover-item-label">Edit member</span>
         </button>
-        <button className="roster-actions-item danger">
-          <span className="roster-actions-item-icon">
+        <button className="ink-popover-item danger">
+          <span className="ink-popover-item-icon">
             <svg viewBox="0 0 14 14"><path d="M2 2l10 10M12 2L2 12" /></svg>
           </span>
-          <span className="roster-actions-item-label">Remove member</span>
+          <span className="ink-popover-item-label">Remove member</span>
         </button>
       </PopoverMenu>
     </div>

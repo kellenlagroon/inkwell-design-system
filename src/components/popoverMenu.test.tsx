@@ -48,6 +48,6 @@ describe("PopoverMenu keyboard navigation", () => {
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
     fireEvent.keyDown(document.activeElement!, { key: "Escape" });
     expect(document.activeElement).toBe(trigger);
-    expect(container.querySelector(".header-account-menu")?.className.includes("open")).toBe(false);
+    expect(container.querySelector(".ink-popover-menu")?.className.includes("open")).toBe(false);
   });
 });

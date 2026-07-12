@@ -29,11 +29,11 @@ export const PopoverMenuPlayground = {
         )}
         menuLabel={menuLabel}
       >
-        <div className="header-account-label">
+        <div className="ink-popover-label">
           <strong>Jordan Fields</strong>
           <span>Google account</span>
         </div>
-        <Button variant="ghost" className="header-account-menu-button">Sign out</Button>
+        <Button variant="ghost" className="ink-popover-action">Sign out</Button>
       </PopoverMenu>
     </div>
   ),

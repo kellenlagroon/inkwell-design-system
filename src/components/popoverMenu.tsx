@@ -40,8 +40,8 @@ export interface PopoverMenuProps {
 export function PopoverMenu({
   trigger,
   children,
-  menuClassName = "header-account-menu",
-  popoverClassName = "header-account-popover",
+  menuClassName = "ink-popover-menu",
+  popoverClassName = "ink-popover-surface",
   menuRole = "menu",
   menuLabel = "Menu",
 }: PopoverMenuProps) {
