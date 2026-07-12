@@ -1,0 +1,78 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Applying Color" />
+
+# Applying color
+
+Color in Inkwell reinforces hierarchy and meaning. It rarely decorates.
+
+## The three-layer stack
+
+Inkwell frames every surface as one of three layers. Together they create a
+sense of depth without needing explicit elevation or shadows — think of them
+as a **z-axis for the screen**, ordered from behind to in front.
+
+### Canvas — the page behind everything
+
+`--color-bg-canvas` is the base color for the app. Panels and cards sit on top
+of it. Text should meet AA contrast when placed directly on the canvas — most
+prose UI belongs on a surface instead.
+
+### Surface — the raised content plane
+
+Surfaces are where content lives — cards, panels, tables, modals. They read as
+lighter than the canvas, which is what creates the sense of layering.
+
+| Token | When to use |
+|---|---|
+| `--color-surface-default` | Main content surfaces (Panel, Card, table body). |
+| `--color-surface-raised` | Content that sits *on top of* a surface — popover, tooltip, modal card. |
+| `--color-surface-active` | The "selected" or currently-active state of a surface item. |
+
+### Overlay — the interaction fills
+
+Overlays are subtle color washes applied *on top of* surfaces to indicate
+interaction (hover, focus, selection). They use white with low alpha so they
+work over any surface.
+
+| Token | Alpha | When to use |
+|---|---|---|
+| `--color-overlay-soft` | ~4% | Hover fills, input backgrounds, subtle selections. |
+| `--color-overlay-strong` | ~7% | Active/pressed states, stronger selections. |
+
+## Interaction states
+
+Interaction states follow a consistent recipe across components: **the surface
+gets a hover overlay, the border brightens, and focus adds a ring.**
+
+| State | Surface | Border | Ring |
+|---|---|---|---|
+| Rest | `--color-surface-*` | `--line-soft` | — |
+| Hover | + `--color-overlay-soft` | `--line` (brighter) | — |
+| Focus | (unchanged) | `--color-focus-ring` | `0 0 0 2px var(--color-focus-outline)` |
+| Active | + `--color-overlay-strong` | `--line` | — |
+| Disabled | (unchanged) | `--line-soft` | — (opacity ~ 0.5) |
+
+The [Button](?path=/docs/components-button--button) and
+[Avatar](?path=/docs/components-avatar--avatar) show this pattern in practice.
+
+## Semantic roles
+
+Beyond neutral surfaces, color carries meaning. Every semantic role has a
+paired *foreground* token (for text and icons) and a *soft* variant (for muted
+backgrounds — Pill, StatusBanner).
+
+| Role | Foreground | Soft background | When to use |
+|---|---|---|---|
+| Accent (brand) | `--accent` | — | Primary action, brand emphasis. Sparingly. |
+| Success | `--color-success` | `--color-success-soft` | Confirmation, saved state, positive outcome. |
+| Warning | `--color-warning` | `--color-warning-soft` | Non-blocking caution, "check this before continuing." |
+| Danger | `--danger` | `--color-danger-soft` | Destructive actions, errors, blocking problems. |
+| Muted | `--muted` | — | Secondary text — timestamps, hints, non-essential meta. |
+
+## General semantic usage
+
+- **Contrast, always.** Text on any surface must meet WCAG AA. When in doubt, use `--text` on any surface token and `--muted` for secondary text.
+- **Never lean on color alone.** Danger and success states also need an icon, label, or shape — some users can't distinguish red from green.
+- **Semantic tokens for semantics.** Don't reach for `--accent` to mean "success" just because both are recognizable; each has a specific meaning.
+- **Hover is a wash, not a re-skin.** Interaction states brighten what's there. They don't swap the base color.

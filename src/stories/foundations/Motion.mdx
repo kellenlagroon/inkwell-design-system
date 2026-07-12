@@ -1,0 +1,82 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Motion" />
+
+# Motion
+
+Motion in Inkwell is fast, deliberate, and always disable-able. If you can't
+tie an animation to one of the use cases below, it's probably decoration —
+and Inkwell doesn't ship decorative motion.
+
+## Principles
+
+**Intentional.** Motion serves a purpose — guiding attention, confirming
+change, revealing hierarchy. If removing an animation doesn't hurt
+comprehension, remove it.
+
+**Contextual.** Motion should match the weight of what it's showing. A hover
+color-shift on a button is 120ms. Revealing a modal is faster than fading in a
+skeleton. Long-running progress *keeps* moving so the user knows we're alive.
+
+**Accessible.** Users who set `prefers-reduced-motion: reduce` get slowed or
+removed motion — never surprise them. Every animation in Inkwell has a
+reduced-motion path.
+
+**Non-blocking.** Motion never gates interaction. A user can click through a
+still-animating hover state. A spinner never intercepts a click on the button
+it's inside.
+
+## Use cases
+
+Motion is only worth shipping when it does one of these jobs.
+
+**Continuity.** Show that two states are the same element. The Tabs indicator
+slides between tabs so it's clear the underline moves rather than jumps.
+
+**Progress.** Convey ongoing work. The [Spinner](?path=/docs/components-spinner--spinner)
+rotates, [Progress](?path=/docs/components-progress--progress) fills or drifts,
+[Skeleton](?path=/docs/components-skeleton--skeleton) shimmers — all say
+"still working."
+
+**Feedback.** Reinforce that an interaction happened. Buttons brighten on
+hover; the Collapsible chevron rotates when a section opens.
+
+**Reveal.** Bring content in without a jarring jump. Tooltips fade + translate
+in from below; modals fade in over the page.
+
+## Tokens
+
+Inkwell exposes four motion tokens. Everything else builds from these.
+
+| Token | Value | Use for |
+|---|---|---|
+| `--duration-fast` | 120ms | Hover color shifts, small in-place transitions. |
+| `--duration-medium` | 140ms | Reveal transitions (Tooltip opacity + translate), Collapsible chevron. |
+| `--ease-default` | `ease` | The default curve for everything. |
+| `--ease-standard` | (alias) | Alias reserved for future differentiation. |
+
+For repeating/looping animations (Spinner rotation, Skeleton shimmer, Progress
+indeterminate drift), the duration lives in the component's own CSS and isn't
+tokenized — the "feel" of each loop is component-specific.
+
+## Reduced motion
+
+Every animation in Inkwell has a
+`@media (prefers-reduced-motion: reduce)` variant that either slows the loop
+significantly (Spinner: 720ms → 2s) or removes it entirely (Skeleton shimmer
+disabled; Progress fill transition removed). When adding a new animation,
+always add the reduced-motion path in the same block.
+
+```css
+.ink-thing {
+  transition: transform var(--duration-fast) var(--ease-default);
+  animation: my-loop 900ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-thing {
+    transition: none;
+    animation-duration: 2s; /* or `animation: none` */
+  }
+}
+```

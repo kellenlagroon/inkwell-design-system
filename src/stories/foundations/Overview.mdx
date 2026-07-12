@@ -1,0 +1,58 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Overview" />
+
+# Inkwell
+
+Inkwell is a small, opinionated design system for internal apps in this
+workspace. It was seeded from the CFB Coaches Poll app and kept deliberately
+isolated: it ships its own tokens, styles, components, tests, and lib build.
+
+## What's in the system
+
+Inkwell is built in four layers. Each one references the layer above.
+
+1. **Tokens** — the shared design decisions (color, spacing, radius, shadow,
+   typography, motion). Everything else consumes tokens; components never
+   hard-code hex values or pixel magic numbers. Start here:
+   [Tokens/Getting Started](?path=/docs/tokens-getting-started--docs).
+2. **Foundations** — the narratives that explain *how* to use the tokens
+   coherently. This section. Covers [Applying Color](?path=/docs/foundations-applying-color--docs)
+   and [Motion](?path=/docs/foundations-motion--docs).
+3. **Layout primitives** — `Stack`, `Inline`, `Grid`. They own vertical rhythm,
+   horizontal flow, and column geometry using the spacing tokens directly. Reach
+   for these instead of raw flex/grid CSS.
+4. **Components** — the shipped controls, surfaces, and feedback primitives.
+   See [Components](?path=/docs/components-avatar--avatar) and the
+   [Component Status page](?path=/docs/component-status-status--docs) for the
+   catalog and each component's maturity.
+
+## Working principles
+
+These hold across every layer.
+
+**Tokens over literals.** Never hardcode a color, radius, spacing value, or
+duration in a component. If a token doesn't exist yet, add it — don't inline.
+
+**A11y is baseline, not extra.** Every component ships with sensible ARIA,
+keyboard support, and focus rings. Where the app the system was seeded from
+lacked something, Inkwell adds it (full arrow-key nav on Tabs, Escape-dismiss
+on Tooltip, `role="progressbar"` on Progress).
+
+**Reduced motion is respected.** Any animation has a
+`@media (prefers-reduced-motion: reduce)` variant that slows or removes motion.
+
+**Namespaced classes for generic names.** Any class name whose word could
+collide with app CSS (`.avatar`, `.divider`, `.table`, `.list`) is prefixed
+`.ink-*` so it can't be silently overridden by leftover app styles in the same
+stylesheet.
+
+## Where to look for what
+
+| Looking for… | Go to |
+|---|---|
+| The current tokens | [Tokens](?path=/docs/tokens-getting-started--docs) |
+| Which surface color to use | [Applying Color](?path=/docs/foundations-applying-color--docs) |
+| Motion principles and durations | [Motion](?path=/docs/foundations-motion--docs) |
+| A specific component's API | [Components/*](?path=/docs/components-avatar--avatar) |
+| Is a component ready to use? | [Component Status](?path=/docs/component-status-status--docs) |
