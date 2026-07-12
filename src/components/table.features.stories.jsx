@@ -51,7 +51,7 @@ export const StickyHeader = {
   name: "Sticky header",
   render: () => (
     <div style={{ padding: 24, maxWidth: 480, color: "var(--color-text-primary)" }}>
-      <div style={{ height: 200, overflow: "auto", border: "1px solid var(--line-soft)" }}>
+      <div style={{ height: 200, overflow: "auto" }}>
         <Table
           columns={COLUMNS}
           data={Array.from({ length: 20 }, (_, i) => ({
