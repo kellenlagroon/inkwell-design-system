@@ -1,0 +1,37 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as SkeletonStories from "../../components/skeleton.stories.jsx";
+import * as SkeletonFeatures from "../../components/skeleton.features.stories.jsx";
+
+<Meta title="Components/Skeleton/Docs" of={SkeletonStories} />
+
+# Skeleton
+
+A placeholder block that shimmers while content is loading. Use it to reserve
+the shape of forthcoming content so the layout doesn't jump when data arrives.
+For short in-place waits, use
+[Spinner](?path=/docs/components-spinner-docs--docs) instead.
+
+## Primary example
+
+<Canvas of={SkeletonStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={SkeletonStories} />
+
+`variant` is `text` (default, one line — set `lines` for multiple), `rect`
+(generic block; supply `height`), or `circle` (1:1; size via `size` or
+`width`/`height`).
+
+## Features
+
+<Canvas of={SkeletonFeatures.Variants} sourceState="hidden" />
+
+<Canvas of={SkeletonFeatures.TextLines} sourceState="hidden" />
+
+<Canvas of={SkeletonFeatures.AvatarWithText} sourceState="hidden" />
+
+## Accessibility
+
+- Always decorative (`aria-hidden`). Announce loading state on the surrounding region (e.g. `role="status"` on the container).
+- Shimmer animation is disabled under `prefers-reduced-motion: reduce`.

@@ -65,6 +65,12 @@ export type {
 } from "./components/table";
 export { List } from "./components/list";
 export type { ListProps, ListRowProps, ListDensity } from "./components/list";
+export { Spinner } from "./components/spinner";
+export type { SpinnerProps, SpinnerSize, SpinnerTone } from "./components/spinner";
+export { Skeleton } from "./components/skeleton";
+export type { SkeletonProps, SkeletonVariant } from "./components/skeleton";
+export { Progress } from "./components/progress";
+export type { ProgressProps, ProgressTone, ProgressSize } from "./components/progress";
 
 // Layout primitives
 export { Stack, Inline, Grid } from "./components/layout";

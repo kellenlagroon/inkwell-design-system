@@ -808,6 +808,173 @@ body[data-preview-mode="mobile"] .app-header {
   border-bottom: 0;
 }
 
+/* Spinner: an indeterminate rotating loader (see Spinner component). Built as
+   a 2px ring where one side is tinted, spinning continuously. Sizes and tones
+   scale via modifier classes. Namespaced .ink-spinner. */
+.ink-spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid color-mix(in srgb, var(--muted) 25%, transparent);
+  border-top-color: var(--muted);
+  animation: ink-spinner-rotate 720ms linear infinite;
+}
+
+.ink-spinner--sm {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+.ink-spinner--lg {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}
+
+.ink-spinner--brand {
+  border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  border-top-color: var(--accent);
+}
+
+.ink-spinner--current {
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+  border-top-color: currentColor;
+}
+
+@keyframes ink-spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-spinner { animation-duration: 2s; }
+}
+
+/* Skeleton: a placeholder block that shimmers while content loads. Uses a
+   moving gradient background over a subtle surface fill. Text lines optionally
+   stack via .ink-skeleton-lines. Always decorative (aria-hidden). */
+.ink-skeleton {
+  display: inline-block;
+  width: 100%;
+  height: 1em;
+  border-radius: var(--radius-sharp);
+  background-color: color-mix(in srgb, var(--color-overlay-soft) 60%, transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-overlay-soft) 55%, transparent) 40%,
+    color-mix(in srgb, var(--color-overlay-soft) 55%, transparent) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  background-position: 200% 0;
+  animation: ink-skeleton-shimmer 1400ms ease-in-out infinite;
+}
+
+.ink-skeleton--circle {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+}
+
+.ink-skeleton--rect {
+  display: block;
+}
+
+.ink-skeleton-lines {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* Text variant shares its color/motion but the container drives layout. */
+.ink-skeleton-lines .ink-skeleton {
+  display: block;
+}
+
+@keyframes ink-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-skeleton {
+    animation: none;
+    background-image: none;
+  }
+}
+
+/* Progress: horizontal progress bar. Determinate value scales the fill via
+   scaleX from left; indeterminate slides a partial bar back and forth. */
+.ink-progress {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.ink-progress-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+}
+
+.ink-progress-label {
+  color: var(--text);
+}
+
+.ink-progress-track {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-overlay-soft) 60%, transparent);
+}
+
+.ink-progress--sm .ink-progress-track {
+  height: 3px;
+}
+
+.ink-progress-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: var(--accent);
+  border-radius: inherit;
+  transition: transform var(--duration-default, 200ms) var(--ease-default);
+}
+
+.ink-progress--success .ink-progress-fill {
+  background: var(--color-success, var(--accent));
+}
+
+.ink-progress--danger .ink-progress-fill {
+  background: var(--danger, var(--accent));
+}
+
+/* Indeterminate: a partial bar slides across. transform-origin returns to
+   left so scaleX doesn't fight the animation. */
+.ink-progress-fill--indeterminate {
+  width: 40%;
+  transform: none;
+  animation: ink-progress-indeterminate 1400ms ease-in-out infinite;
+}
+
+@keyframes ink-progress-indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-progress-fill { transition: none; }
+  .ink-progress-fill--indeterminate { animation-duration: 3s; }
+}
+
 .header-topline {
   display: contents;
 }

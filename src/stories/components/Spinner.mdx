@@ -1,0 +1,38 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as SpinnerStories from "../../components/spinner.stories.jsx";
+import * as SpinnerFeatures from "../../components/spinner.features.stories.jsx";
+
+<Meta title="Components/Spinner/Docs" of={SpinnerStories} />
+
+# Spinner
+
+A small rotating indeterminate loader for short waits inside a control or beside
+a label. For loading larger regions of content, use
+[Skeleton](?path=/docs/components-skeleton-docs--docs) so the layout doesn't
+jump when data arrives.
+
+## Primary example
+
+<Canvas of={SpinnerStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={SpinnerStories} />
+
+`size` is `sm` | `md` (default) | `lg`. `tone` is `muted` (default), `brand`,
+or `current` (inherits `currentColor` — pair with a colored container). Pass
+`decorative` when a surrounding region already announces the loading state.
+
+## Features
+
+<Canvas of={SpinnerFeatures.Sizes} sourceState="hidden" />
+
+<Canvas of={SpinnerFeatures.Tones} sourceState="hidden" />
+
+<Canvas of={SpinnerFeatures.InlineWithLabel} sourceState="hidden" />
+
+## Accessibility
+
+- Renders `role="status"` with `aria-live="polite"` and an sr-only `label` (default "Loading").
+- Pass `decorative` to skip the announcement when the surrounding region carries it.
+- Rotation animation is slowed under `prefers-reduced-motion: reduce`.

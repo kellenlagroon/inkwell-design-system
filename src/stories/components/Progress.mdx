@@ -1,0 +1,44 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ProgressStories from "../../components/progress.stories.jsx";
+import * as ProgressFeatures from "../../components/progress.features.stories.jsx";
+
+<Meta title="Components/Progress/Docs" of={ProgressStories} />
+
+# Progress
+
+A horizontal progress bar. Pass `value` (0–100) for determinate progress; omit
+it for an indeterminate sliding-bar animation.
+
+## Primary example
+
+<Canvas of={ProgressStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={ProgressStories} />
+
+`value` is optional — omit for indeterminate. `tone` is `brand` (default),
+`success`, or `danger`. `size` is `md` (default, 6px) or `sm` (3px). When
+`label` is set, it's rendered above the bar and used as the accessible name; the
+value is shown alongside via `valueFormatter` (defaults to `${value}%`).
+Without a label, provide `ariaLabel`.
+
+## Features
+
+<Canvas of={ProgressFeatures.Determinate} sourceState="hidden" />
+
+<Canvas of={ProgressFeatures.Indeterminate} sourceState="hidden" />
+
+<Canvas of={ProgressFeatures.Tones} sourceState="hidden" />
+
+<Canvas of={ProgressFeatures.Sizes} sourceState="hidden" />
+
+<Canvas of={ProgressFeatures.NoLabel} sourceState="hidden" />
+
+## Accessibility
+
+- Renders `role="progressbar"` with `aria-valuemin="0"` and `aria-valuemax="100"`.
+- Determinate bars set `aria-valuenow`; indeterminate bars set `aria-valuetext="indeterminate"`.
+- Labeled bars use `aria-labelledby`; unlabeled bars need an `ariaLabel`.
+- Values passed via `value` are clamped to 0–100 and rounded to a whole percent.
+- Under `prefers-reduced-motion: reduce`, transitions and indeterminate motion are slowed.
