@@ -687,7 +687,8 @@ body[data-preview-mode="mobile"] .app-header {
   caption-side: top;
 }
 
-.ink-table thead {
+.ink-table thead th {
+  background: var(--color-surface-default);
   color: var(--muted);
   font-size: var(--font-size-sm);
   text-transform: uppercase;
@@ -717,11 +718,12 @@ body[data-preview-mode="mobile"] .app-header {
   text-align: end;
 }
 
-/* Sticky header pins <thead> when the table's scroll container scrolls. */
+/* Sticky header pins <thead> when the table's scroll container scrolls. The
+   base thead background above ensures the pinned row stays opaque over the
+   scrolled tbody. */
 .ink-table--sticky thead th {
   position: sticky;
   top: 0;
-  background: var(--color-surface-default);
   z-index: 1;
 }
 
