@@ -1,0 +1,82 @@
+/* Storybook Docs viewer theming.
+ *
+ * Storybook's Docs mode paints a white background under the mdx content, which
+ * makes our cream-text-on-dark components illegible. This file scopes overrides
+ * to Storybook's own `.sbdocs*` classes so real consumers of styles.css are
+ * unaffected — those classes never appear outside Storybook.
+ *
+ * Loaded from .storybook/preview.jsx, NOT bundled into dist/styles.css.
+ */
+
+.sbdocs-wrapper,
+.sbdocs.sbdocs-wrapper,
+.sbdocs.sbdocs-content {
+  background: var(--color-bg-canvas);
+  color: var(--text);
+}
+
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3,
+.sbdocs h4,
+.sbdocs h5,
+.sbdocs h6,
+.sbdocs p,
+.sbdocs li,
+.sbdocs td,
+.sbdocs th,
+.sbdocs strong,
+.sbdocs em {
+  color: var(--text);
+}
+
+.sbdocs a {
+  color: var(--accent);
+}
+
+.sbdocs a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.sbdocs code {
+  background: var(--color-overlay-soft);
+  color: var(--text);
+  padding: 1px 6px;
+  border-radius: var(--radius-sharp);
+  font-size: 0.92em;
+}
+
+.sbdocs pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Markdown tables rendered inline (not our Table component) */
+.sbdocs table {
+  color: var(--text);
+}
+
+.sbdocs table th,
+.sbdocs table td {
+  border-color: var(--line-soft);
+}
+
+/* Storybook's docs.css zebra-stripes every table row white. That leaks through
+   our own Table component and hides its transparent rows. Neutralize it. */
+.sbdocs table tr,
+.sbdocs table tr:nth-child(2n),
+.sbdocs table tr:nth-child(2n + 1) {
+  background: transparent;
+}
+
+/* Story preview blocks (Canvas embeds) sit on our canvas too */
+.sbdocs .docs-story {
+  background: var(--color-bg-canvas);
+}
+
+/* Blockquotes / callouts */
+.sbdocs blockquote {
+  color: var(--muted);
+  border-left-color: var(--line);
+}

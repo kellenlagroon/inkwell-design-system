@@ -43,9 +43,14 @@ still on its first major consumer.
 *Not currently used.* Reserved for components superseded by a replacement.
 When needed, deprecated entries link to the replacement.
 
-# Accessibility review
+# Accessibility
 
-Each component's status page notes whether it has been manually reviewed for
-accessibility. Reviewed components have had keyboard, screen-reader, and focus
-behavior verified. Unreviewed components still ship with baseline ARIA and
-keyboard support, but haven't been through a dedicated audit.
+The Status table also flags whether each component has been through a
+dedicated accessibility review. Two states:
+
+- **Meets standards** — Manually verified: keyboard nav, focus rings, ARIA roles/labels, and screen-reader behavior all check out. Safe to use in an accessible experience.
+- **Not reviewed** — Ships with reasonable ARIA defaults and keyboard support, but hasn't been formally reviewed yet. Use with more caution and expect it to move to Meets standards before the component is promoted to Stable.
+
+These are separate from the maturity status above: a Stable component always
+meets accessibility standards, but a Beta component may or may not — it depends
+on whether it's been through review yet.

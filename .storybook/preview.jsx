@@ -1,5 +1,6 @@
 import "../src/styles/tokens.css";
 import "../src/styles/inkwell.css";
+import "./docs-theme.css";
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
