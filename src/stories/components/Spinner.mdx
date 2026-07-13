@@ -39,6 +39,13 @@ or `current` (inherits `currentColor` — pair with a colored container). Pass
 
 <Canvas of={SpinnerFeatures.InlineWithLabel} sourceState="hidden" />
 
+## Usage guidance
+
+- Do use spinners for brief, localized waits.
+- Do pair the spinner with visible loading text when the wait may last more than a moment.
+- Do use `decorative` when the surrounding button or region already communicates loading.
+- Don’t use a spinner for known progress or full-page content loading.
+
 ## Keyboard and accessibility
 
 - Renders `role="status"` with `aria-live="polite"` and an sr-only `label` (default "Loading").

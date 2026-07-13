@@ -1,4 +1,4 @@
-import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
 import * as PanelFeatures from "../../components/panel.features.stories.jsx";
 
 <Meta title="Components/Panel/Docs" />
@@ -18,6 +18,15 @@ The default structural surface for grouped content regions across vote, commissi
 ## Primary example
 
 <Canvas of={PanelFeatures.PanelDefault} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={PanelFeatures} />
+
+`Panel` renders a semantic `<section>` with the `panel` class by default. Pass
+`className` to replace that class, and pass normal section attributes such as
+`id`, `aria-labelledby`, or `aria-describedby` through to the underlying
+element. Use `children` for the panel content.
 
 ## Features
 

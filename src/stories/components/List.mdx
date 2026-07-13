@@ -48,6 +48,13 @@ Turn off the hairline divider between rows.
 
 <Canvas of={ListFeatures.Unbordered} sourceState="hidden" />
 
+## Usage guidance
+
+- Do keep the column template consistent across every row in a list.
+- Do use `minmax(0, 1fr)` for text-heavy columns so content can truncate or wrap predictably.
+- Do place row actions in the trailing column when the list supports per-item management.
+- Don’t use List for sortable, comparable data; use Table instead.
+
 ## Keyboard and accessibility
 
 - The wrapper carries `role="list"`; each row is `role="listitem"`.

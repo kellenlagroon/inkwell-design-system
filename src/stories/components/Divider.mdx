@@ -50,6 +50,13 @@ An inline rule between items in a flex row.
 
 <Canvas of={DividerFeatures.Vertical} sourceState="hidden" />
 
+## Usage guidance
+
+- Do use dividers to separate related groups inside the same region.
+- Do let layout primitives own spacing around the divider.
+- Do use a labeled divider only when the label clarifies a choice or transition.
+- Don’t use a divider as a substitute for a heading or section label.
+
 ## Keyboard and accessibility
 
 - The horizontal rule is a native `<hr>` (implicit `role="separator"`, horizontal orientation).

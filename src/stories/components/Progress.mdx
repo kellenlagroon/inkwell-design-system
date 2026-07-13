@@ -43,6 +43,13 @@ Without a label, provide `ariaLabel`.
 
 <Canvas of={ProgressFeatures.NoLabel} sourceState="hidden" />
 
+## Usage guidance
+
+- Do use determinate progress when the app can calculate meaningful completion.
+- Do use indeterminate progress when work is active but the duration is unknown.
+- Do pair unlabeled bars with a clear `ariaLabel`.
+- Don’t use progress bars for short button-level waits; use Spinner instead.
+
 ## Keyboard and accessibility
 
 - Renders `role="progressbar"` with `aria-valuemin="0"` and `aria-valuemax="100"`.

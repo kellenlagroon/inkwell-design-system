@@ -72,6 +72,13 @@ When the name is already visible, mark the avatar `decorative` so it's skipped b
 
 <Canvas of={AvatarFeatures.WithName} sourceState="hidden" />
 
+## Usage guidance
+
+- Do provide `name` for every non-decorative avatar, even when an image is present.
+- Do mark the avatar `decorative` when adjacent text already identifies the person or entity.
+- Do use `interactive` only when the avatar itself opens an account or profile action.
+- Don’t use initials as the only visible identifier when the surrounding UI has room for a name.
+
 ## Keyboard and accessibility
 
 - With initials (and not `decorative`), the mark is `role="img"` with an `aria-label` of the name.

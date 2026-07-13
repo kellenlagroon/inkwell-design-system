@@ -64,6 +64,13 @@ Wrap the table in a scrolling container; the `<thead>` pins on scroll.
 
 <Canvas of={TableFeatures.WithCaption} sourceState="hidden" />
 
+## Usage guidance
+
+- Do use tables when users need to compare the same fields across many rows.
+- Do keep column headers short and specific.
+- Do manage sorting in the caller so the rendered row order matches the active sort state.
+- Don’t put arbitrary card or form layouts inside table cells when List would be clearer.
+
 ## Keyboard and accessibility
 
 - Renders a native `<table>` with `<thead>`/`<tbody>` and `<th scope="col">` headers.

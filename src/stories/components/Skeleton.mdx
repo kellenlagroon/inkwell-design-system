@@ -39,6 +39,13 @@ For short in-place waits, use
 
 <Canvas of={SkeletonFeatures.AvatarWithText} sourceState="hidden" />
 
+## Usage guidance
+
+- Do match the skeleton shape to the content that will replace it.
+- Do reserve stable dimensions so loading does not shift surrounding layout.
+- Do announce loading on the surrounding region when users need status feedback.
+- Don’t leave skeletons onscreen after partial content has enough structure to render.
+
 ## Keyboard and accessibility
 
 - Always decorative (`aria-hidden`). Announce loading state on the surrounding region (e.g. `role="status"` on the container).
