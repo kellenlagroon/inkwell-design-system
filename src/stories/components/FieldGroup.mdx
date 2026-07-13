@@ -1,0 +1,42 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as FieldGroupStories from "../../components/fieldGroup.stories.jsx";
+import * as FieldGroupFeatures from "../../components/fieldGroup.features.stories.jsx";
+
+<Meta title="Components/FieldGroup/Docs" of={FieldGroupStories} />
+
+# FieldGroup
+
+A responsive grid for related form fields and aligned actions.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use when two to four related fields should read as one row.
+- Use for filter rows with an aligned submit/apply action.
+- Use `Stack` for unrelated fields in a vertical form.
+
+## Primary example
+
+<Canvas of={FieldGroupStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={FieldGroupStories} />
+
+## Features
+
+### Two columns
+
+<Canvas of={FieldGroupFeatures.TwoColumns} sourceState="hidden" />
+
+### With aligned action
+
+<Canvas of={FieldGroupFeatures.WithAlignedAction} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep grouped fields semantically related.
+- Do let it collapse to one column on mobile widths.
+- Don’t use it for whole-page layout.
+

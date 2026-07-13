@@ -1,0 +1,47 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as PopoverStories from "../../components/popover.stories.jsx";
+import * as PopoverFeatures from "../../components/popover.features.stories.jsx";
+
+<Meta title="Components/Popover/Docs" of={PopoverStories} />
+
+# Popover
+
+A general positioned surface for non-menu content.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use for filter panels, compact forms, and supporting controls.
+- Use `PopoverMenu` when the content is a menu of actions.
+- Use `Drawer` when the content needs persistent space or mobile full-height treatment.
+
+## Primary example
+
+<Canvas of={PopoverStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={PopoverStories} />
+
+## Features
+
+### Positioned surface
+
+<Canvas of={PopoverFeatures.PositionedSurface} sourceState="hidden" />
+
+### Top placement
+
+<Canvas of={PopoverFeatures.TopPlacement} sourceState="hidden" />
+
+## Usage guidance
+
+- Do provide a trigger with a clear label.
+- Do keep content compact.
+- Don’t use it for menu semantics; use `PopoverMenu`.
+
+## Keyboard and accessibility
+
+- Escape closes the popover and returns focus to the trigger.
+- Outside pointer interaction closes uncontrolled popovers.
+

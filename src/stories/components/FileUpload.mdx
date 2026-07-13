@@ -1,0 +1,53 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as FileUploadStories from "../../components/fileUpload.stories.jsx";
+import * as FileUploadFeatures from "../../components/fileUpload.features.stories.jsx";
+
+<Meta title="Components/FileUpload/Docs" of={FileUploadStories} />
+
+# FileUpload
+
+A styled trigger around a native file input. The consuming app owns upload
+behavior, validation, and storage.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use for selecting a local file before an app-owned upload.
+- Pair with `FormField` for label, hint, error, and required wiring.
+- Keep validation messages specific to file type, size, or upload state.
+
+## Primary example
+
+<Canvas of={FileUploadStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={FileUploadStories} />
+
+## Features
+
+### Default
+
+<Canvas of={FileUploadFeatures.Default} sourceState="hidden" />
+
+### Error state
+
+<Canvas of={FileUploadFeatures.ErrorState} sourceState="hidden" />
+
+### Disabled
+
+<Canvas of={FileUploadFeatures.Disabled} sourceState="hidden" />
+
+## Usage guidance
+
+- Do pass `accept` when the workflow requires a specific file type.
+- Do leave upload side effects in the consuming app.
+- Don’t hide validation errors in helper copy.
+
+## Keyboard and accessibility
+
+- The hidden input remains associated with the `FormField` label.
+- The visible trigger is a button and can be activated by keyboard.
+- Selected filename text is visible beside the trigger.
+

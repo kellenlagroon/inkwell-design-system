@@ -1,0 +1,43 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as SurfaceStories from "../../components/surface.stories.jsx";
+import * as SurfaceFeatures from "../../components/surface.features.stories.jsx";
+
+<Meta title="Components/Surface/Docs" of={SurfaceStories} />
+
+# Surface
+
+Layout surfaces and simple page containers: `Container`, `Center`, `Surface`,
+and the `Paper` alias.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use `Container` for page-width constraints.
+- Use `Center` for centered auth or empty layouts.
+- Use `Surface`/`Paper` for framed panels that are not item cards.
+
+## Primary example
+
+<Canvas of={SurfaceStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={SurfaceStories} />
+
+## Features
+
+### Tones
+
+<Canvas of={SurfaceFeatures.Tones} sourceState="hidden" />
+
+### Centered layout
+
+<Canvas of={SurfaceFeatures.CenteredLayout} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use `Card` for repeated content items.
+- Do use `Surface` for framed task panels.
+- Don’t nest cards inside cards for page layout.
+

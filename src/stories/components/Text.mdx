@@ -1,0 +1,45 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as TextStories from "../../components/text.stories.jsx";
+import * as TextFeatures from "../../components/text.features.stories.jsx";
+
+<Meta title="Components/Text/Docs" of={TextStories} />
+
+# Text
+
+Text primitives for app copy: `Text`, `Heading`, and `Link`.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use `Text` for common body, muted, strong, and semantic text.
+- Use `Heading` for local content hierarchy.
+- Use `Link` for inline navigation and external anchors.
+
+## Primary example
+
+<Canvas of={TextStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={TextStories} />
+
+## Features
+
+### Text tones
+
+<Canvas of={TextFeatures.TextTones} sourceState="hidden" />
+
+### Heading sizes
+
+<Canvas of={TextFeatures.HeadingSizes} sourceState="hidden" />
+
+### Inline links
+
+<Canvas of={TextFeatures.InlineLinks} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use these primitives when consumers would otherwise reach for raw CSS.
+- Do keep headings proportional to their surrounding surface.
+- Don’t use heading-scale text inside compact controls or panels.

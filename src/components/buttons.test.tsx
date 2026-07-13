@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
-import { Button } from "./button";
+import { Button, ButtonLink } from "./button";
 import { IconButton } from "./iconButton";
 import { Pill } from "./pill";
 import { StatusBanner } from "./statusBanner";
@@ -41,6 +41,44 @@ describe("Button", () => {
     expect(btn.type).toBe("submit");
     expect(btn.disabled).toBe(true);
   });
+
+  it("renders link-backed actions with external rel defaults", () => {
+    const { getByRole } = render(
+      <Button as="a" href="https://example.com" target="_blank">
+        Resume
+      </Button>,
+    );
+    const link = getByRole("link") as HTMLAnchorElement;
+    expect(link.className).toBe("primary-button");
+    expect(link.rel).toContain("noopener");
+    expect(link.rel).toContain("noreferrer");
+  });
+
+  it("prevents disabled link-backed actions", () => {
+    const onClick = vi.fn();
+    const { getByRole } = render(
+      <ButtonLink href="/next" disabled onClick={onClick}>
+        Next
+      </ButtonLink>,
+    );
+    const link = getByRole("link") as HTMLAnchorElement;
+    expect(link.getAttribute("aria-disabled")).toBe("true");
+    fireEvent.click(link);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("marks loading actions busy and preserves the original label for layout", () => {
+    const { getByRole, getByText } = render(
+      <Button loading loadingLabel="Saving">
+        Save
+      </Button>,
+    );
+    const btn = getByRole("button") as HTMLButtonElement;
+    expect(btn.disabled).toBe(true);
+    expect(btn.getAttribute("aria-busy")).toBe("true");
+    expect(getByText("Save").className).toContain("button-label--hidden");
+    expect(getByText("Saving")).toBeTruthy();
+  });
 });
 
 describe("IconButton", () => {
@@ -79,7 +117,7 @@ describe("StatusBanner", () => {
       <StatusBanner message="Something went wrong" tone="error" onDismiss={onDismiss} />,
     );
     const banner = getByText("Something went wrong").parentElement!;
-    expect(classOf(banner)).toBe("status-banner error");
+    expect(classOf(banner)).toBe("status-banner status-banner--danger");
     fireEvent.click(getByLabelText("Dismiss"));
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
@@ -87,5 +125,10 @@ describe("StatusBanner", () => {
   it("success tone uses the default styling (no modifier)", () => {
     const { getByText } = render(<StatusBanner message="Saved" tone="success" />);
     expect(classOf(getByText("Saved").parentElement!)).toBe("status-banner");
+  });
+
+  it("maps danger tone to a semantic modifier", () => {
+    const { getByText } = render(<StatusBanner message="Failed" tone="danger" />);
+    expect(classOf(getByText("Failed").parentElement!)).toBe("status-banner status-banner--danger");
   });
 });

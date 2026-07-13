@@ -3,15 +3,16 @@ import { render } from "@testing-library/react";
 import { Progress } from "./progress";
 
 describe("Progress (determinate)", () => {
-  it("wires aria-valuenow and scales the fill", () => {
+  it("wires aria-valuenow and sets the ring arc", () => {
     const { getByRole, container } = render(<Progress value={42} ariaLabel="Uploading" />);
     const bar = getByRole("progressbar");
     expect(bar.getAttribute("aria-valuenow")).toBe("42");
     expect(bar.getAttribute("aria-valuemin")).toBe("0");
     expect(bar.getAttribute("aria-valuemax")).toBe("100");
     expect(bar.getAttribute("aria-label")).toBe("Uploading");
+    expect((container.firstChild as HTMLElement).style.getPropertyValue("--ink-progress-deg")).toBe("151.2deg");
     const fill = container.querySelector<HTMLElement>(".ink-progress-fill")!;
-    expect(fill.style.transform).toBe("scaleX(0.42)");
+    expect(fill.classList.contains("ink-progress-fill--indeterminate")).toBe(false);
   });
 
   it("clamps out-of-range values into 0–100", () => {

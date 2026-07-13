@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
-import { FormField, TextInput, Textarea, Checkbox } from "./forms";
+import { FormField, TextInput, Textarea, Checkbox, PasswordInput, FileUpload } from "./forms";
 
 describe("FormField + TextInput", () => {
   it("associates the label with the control and wires the hint via aria-describedby", () => {
@@ -45,6 +45,11 @@ describe("FormField + TextInput", () => {
     expect(input.getAttribute("aria-invalid")).toBe("true");
     expect(input.className).toContain("input--invalid");
   });
+
+  it("maps size to a class modifier", () => {
+    const { getByRole } = render(<TextInput size="lg" aria-label="Search" />);
+    expect(getByRole("textbox").className).toContain("input--lg");
+  });
 });
 
 describe("Textarea", () => {
@@ -66,5 +71,33 @@ describe("Checkbox", () => {
     expect(box.type).toBe("checkbox");
     fireEvent.click(box);
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("PasswordInput", () => {
+  it("toggles password visibility and keeps the accessible label", () => {
+    const { getByLabelText } = render(
+      <FormField label="Password">
+        <PasswordInput />
+      </FormField>,
+    );
+    const input = getByLabelText("Password") as HTMLInputElement;
+    expect(input.type).toBe("password");
+    fireEvent.click(getByLabelText("Show password"));
+    expect(input.type).toBe("text");
+    expect(getByLabelText("Hide password")).toBeTruthy();
+  });
+});
+
+describe("FileUpload", () => {
+  it("inherits FormField wiring", () => {
+    const { getByLabelText } = render(
+      <FormField label="Resume" hint="PDF only">
+        <FileUpload />
+      </FormField>,
+    );
+    const input = getByLabelText("Resume") as HTMLInputElement;
+    expect(input.type).toBe("file");
+    expect(input.getAttribute("aria-describedby")).toBeTruthy();
   });
 });

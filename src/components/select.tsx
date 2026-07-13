@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { IconArrowDown, IconCheck } from "./icons";
+import { useFieldContext } from "./forms";
 
 export interface SelectOption {
   value: string;
@@ -15,6 +16,9 @@ export interface SelectProps {
   placeholder?: string;
   variant?: "form" | "control";
   disabled?: boolean;
+  invalid?: boolean;
+  describedBy?: string;
+  className?: string;
   "aria-label"?: string;
   id?: string;
 }
@@ -49,9 +53,13 @@ export function Select({
   placeholder = "",
   variant = "form",
   disabled = false,
+  invalid = false,
+  describedBy,
+  className = "",
   "aria-label": ariaLabel,
   id,
 }: SelectProps) {
+  const field = useFieldContext();
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,6 +71,7 @@ export function Select({
   const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : undefined;
   const displayLabel = selectedOption?.label ?? placeholder;
   const isPlaceholder = !selectedOption;
+  const resolvedInvalid = invalid || field?.invalid || false;
 
   // Close when clicking outside.
   useEffect(() => {
@@ -161,6 +170,8 @@ export function Select({
   }
 
   const containerClass = ["cselect", variant === "control" ? "cselect--control" : "", open ? "open" : ""]
+    .concat(resolvedInvalid ? ["cselect--invalid"] : [])
+    .concat(className ? [className] : [])
     .filter(Boolean)
     .join(" ");
 
@@ -174,7 +185,9 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={open ? "true" : "false"}
         aria-label={ariaLabel}
-        id={id}
+        aria-invalid={resolvedInvalid || undefined}
+        aria-describedby={describedBy ?? field?.describedBy}
+        id={id ?? field?.id}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onTriggerKeyDown}
       >

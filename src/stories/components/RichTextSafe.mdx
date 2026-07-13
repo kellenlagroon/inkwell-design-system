@@ -1,0 +1,42 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as RichTextStories from "../../components/richTextSafe.stories.jsx";
+import * as RichTextFeatures from "../../components/richTextSafe.features.stories.jsx";
+
+<Meta title="Components/RichTextSafe/Docs" of={RichTextStories} />
+
+# RichTextSafe
+
+A styled container for already-sanitized rich HTML.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use for trusted, sanitized descriptions that include headings, lists, and links.
+- Keep sanitization in the consuming app.
+- Compose collapsed behavior with app-level controls when expansion is needed.
+
+## Primary example
+
+<Canvas of={RichTextStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={RichTextStories} />
+
+## Features
+
+### Default
+
+<Canvas of={RichTextFeatures.Default} sourceState="hidden" />
+
+### Collapsed
+
+<Canvas of={RichTextFeatures.Collapsed} sourceState="hidden" />
+
+## Usage guidance
+
+- Do sanitize HTML before rendering it.
+- Do use regular React children when content is app-authored.
+- Don’t pass unsanitized third-party HTML.
+

@@ -1,5 +1,6 @@
-import { createContext, useContext, useId } from "react";
-import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
+import { createContext, useContext, useId, useRef, useState } from "react";
+import type { ChangeEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
+import { IconEye } from "./icons";
 
 /**
  * Form primitives for Inkwell.
@@ -13,7 +14,7 @@ import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "rea
  * same control used standalone still works with explicit props.
  */
 
-interface FieldContextValue {
+export interface FieldContextValue {
   /** Control id, shared with the label's `htmlFor`. */
   id: string;
   /** Space-joined ids of hint/error text, for `aria-describedby`. */
@@ -25,6 +26,10 @@ interface FieldContextValue {
 }
 
 const FieldContext = createContext<FieldContextValue | null>(null);
+
+export function useFieldContext() {
+  return useContext(FieldContext);
+}
 
 export interface FormFieldProps {
   /** Visible label text. */
@@ -71,7 +76,7 @@ export function FormField({
         {label ? (
           <label className="field-label" htmlFor={id}>
             {label}
-            {required ? <span className="field-required" aria-hidden="true"> *</span> : null}
+            {required ? <span className="field-required" aria-hidden="true">*</span> : null}
           </label>
         ) : null}
         {children}
@@ -86,11 +91,13 @@ export function FormField({
   );
 }
 
-export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /** Force the invalid state when used outside a `FormField`. */
   invalid?: boolean;
   /** Explicit `aria-describedby`. Falls back to the FormField value. */
   describedBy?: string;
+  /** Control height/density. `md` is the default and adds no modifier. */
+  size?: "sm" | "md" | "lg";
 }
 
 /**
@@ -102,12 +109,18 @@ export function TextInput({
   type = "text",
   invalid = false,
   describedBy,
+  size = "md",
   className = "",
   ...props
 }: TextInputProps) {
   const field = useContext(FieldContext);
   const resolvedInvalid = invalid || field?.invalid || false;
-  const classes = ["input", resolvedInvalid ? "input--invalid" : "", className].filter(Boolean).join(" ");
+  const classes = [
+    "input",
+    size !== "md" ? `input--${size}` : "",
+    resolvedInvalid ? "input--invalid" : "",
+    className,
+  ].filter(Boolean).join(" ");
 
   return (
     <input
@@ -185,5 +198,119 @@ export function Checkbox({ id, label, invalid = false, className = "", ...props 
       />
       {label ? <span className="checkbox-label">{label}</span> : null}
     </label>
+  );
+}
+
+export type PasswordInputProps = Omit<TextInputProps, "type"> & {
+  /** Accessible label for the reveal control. */
+  revealLabel?: string;
+  /** Accessible label when hiding the password again. */
+  hideLabel?: string;
+};
+
+/** Password input with a visibility toggle and FormField wiring. */
+export function PasswordInput({
+  revealLabel = "Show password",
+  hideLabel = "Hide password",
+  autoComplete = "current-password",
+  className = "",
+  ...props
+}: PasswordInputProps) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div className="password-input">
+      <TextInput
+        {...props}
+        type={visible ? "text" : "password"}
+        autoComplete={autoComplete}
+        className={["password-input-control", className].filter(Boolean).join(" ")}
+      />
+      <button
+        type="button"
+        className="password-input-toggle"
+        aria-label={visible ? hideLabel : revealLabel}
+        aria-pressed={visible}
+        onClick={() => setVisible((value) => !value)}
+      >
+        <IconEye />
+      </button>
+    </div>
+  );
+}
+
+export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "placeholder"> {
+  /** Visible trigger label. */
+  label?: ReactNode;
+  /** Placeholder shown before a file is selected. */
+  placeholder?: ReactNode;
+  /** Optional validation or helper slot rendered below the trigger row. */
+  validationMessage?: ReactNode;
+  /** Force the invalid state when used outside a FormField. */
+  invalid?: boolean;
+  /** Explicit aria-describedby. Falls back to FormField value. */
+  describedBy?: string;
+}
+
+/** Hidden native file input with an Inkwell-styled trigger and filename display. */
+export function FileUpload({
+  id,
+  label = "Choose file",
+  placeholder = "No file selected",
+  validationMessage,
+  invalid = false,
+  describedBy,
+  className = "",
+  onChange,
+  ...props
+}: FileUploadProps) {
+  const field = useFieldContext();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [filename, setFilename] = useState<string>("");
+  const resolvedInvalid = invalid || field?.invalid || false;
+  const resolvedId = id ?? field?.id;
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setFilename(event.target.files?.[0]?.name ?? "");
+    onChange?.(event);
+  }
+
+  return (
+    <div className={["file-upload", resolvedInvalid ? "file-upload--invalid" : "", className].filter(Boolean).join(" ")}>
+      <input
+        {...props}
+        ref={inputRef}
+        id={resolvedId}
+        type="file"
+        className="file-upload-input"
+        aria-invalid={resolvedInvalid || undefined}
+        aria-describedby={describedBy ?? field?.describedBy}
+        required={field?.required}
+        onChange={handleChange}
+      />
+      <div className="file-upload-row">
+        <button type="button" className="secondary-button button--sm" onClick={() => inputRef.current?.click()} disabled={props.disabled}>
+          {label}
+        </button>
+        <span className={["file-upload-name", filename ? "" : "file-upload-name--empty"].filter(Boolean).join(" ")}>
+          {filename || placeholder}
+        </span>
+      </div>
+      {validationMessage ? <div className="file-upload-validation">{validationMessage}</div> : null}
+    </div>
+  );
+}
+
+export interface FieldGroupProps extends HTMLAttributes<HTMLDivElement> {
+  /** Number of columns before responsive collapse. */
+  columns?: 2 | 3 | 4;
+  children?: ReactNode;
+}
+
+/** Responsive grouping for related fields and aligned form actions. */
+export function FieldGroup({ columns = 2, className = "", children, ...props }: FieldGroupProps) {
+  return (
+    <div className={["field-group", `field-group--${columns}`, className].filter(Boolean).join(" ")} {...props}>
+      {children}
+    </div>
   );
 }

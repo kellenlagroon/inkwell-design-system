@@ -1,0 +1,46 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as PaginationStories from "../../components/pagination.stories.jsx";
+import * as PaginationFeatures from "../../components/pagination.features.stories.jsx";
+
+<Meta title="Components/Pagination/Docs" of={PaginationStories} />
+
+# Pagination
+
+Page navigation with callback and link-backed modes.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use for server-backed or paged result sets.
+- Use `getPageHref` when pagination should be link navigable.
+- Use `onPageChange` when pagination is client controlled.
+
+## Primary example
+
+<Canvas of={PaginationStories.CallbackMode} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={PaginationStories} />
+
+## Features
+
+### Callback mode
+
+<Canvas of={PaginationFeatures.CallbackMode} sourceState="hidden" />
+
+### Link mode
+
+<Canvas of={PaginationFeatures.LinkMode} sourceState="hidden" />
+
+### Short range
+
+<Canvas of={PaginationFeatures.ShortRange} sourceState="hidden" />
+
+## Keyboard and accessibility
+
+- The wrapper is a labelled `nav`.
+- Current page uses `aria-current="page"`.
+- Disabled previous/next controls expose disabled state.
+

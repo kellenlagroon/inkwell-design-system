@@ -1,0 +1,42 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as CheckboxSelectStories from "../../components/checkboxSelect.stories.jsx";
+import * as CheckboxSelectFeatures from "../../components/checkboxSelect.features.stories.jsx";
+
+<Meta title="Components/CheckboxSelect/Docs" of={CheckboxSelectStories} />
+
+# CheckboxSelect
+
+A multi-select filter popover built from checkboxes.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use when users need to select multiple filter values from a compact control.
+- Keep `value` and apply/close behavior consumer-owned.
+- Use plain `Checkbox` groups when space is available inline.
+
+## Primary example
+
+<Canvas of={CheckboxSelectStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={CheckboxSelectStories} />
+
+## Features
+
+### With search
+
+<Canvas of={CheckboxSelectFeatures.WithSearch} sourceState="hidden" />
+
+### Without search
+
+<Canvas of={CheckboxSelectFeatures.WithoutSearch} sourceState="hidden" />
+
+## Usage guidance
+
+- Do use concise option labels.
+- Do include search only when the list is long enough to need it.
+- Don’t bake domain concepts into the option model.
+

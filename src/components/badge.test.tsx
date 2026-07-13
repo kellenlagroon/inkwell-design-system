@@ -11,8 +11,10 @@ describe("Badge", () => {
     expect(el.textContent).toBe("3");
   });
 
-  it("applies neutral and danger tones", () => {
+  it("applies semantic tones", () => {
     expect(rootOf(render(<Badge tone="neutral">9</Badge>)).className).toBe("badge badge--neutral");
+    expect(rootOf(render(<Badge tone="success">9</Badge>)).className).toBe("badge badge--success");
+    expect(rootOf(render(<Badge tone="warning">9</Badge>)).className).toBe("badge badge--warning");
     expect(rootOf(render(<Badge tone="danger">9</Badge>)).className).toBe("badge badge--danger");
   });
 

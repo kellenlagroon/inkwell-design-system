@@ -1,7 +1,7 @@
 import { useId } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
-export type ProgressTone = "brand" | "success" | "danger";
+export type ProgressTone = "info" | "success" | "warning" | "danger" | "neutral" | "brand";
 export type ProgressSize = "sm" | "md";
 
 export interface ProgressProps {
@@ -9,9 +9,9 @@ export interface ProgressProps {
   value?: number;
   /** Fill color. Defaults to "brand". */
   tone?: ProgressTone;
-  /** Track height. `md` (default) ≈ 6px; `sm` ≈ 3px. */
+  /** Ring size. `md` is the default; `sm` renders a compact ring. */
   size?: ProgressSize;
-  /** Optional visible label rendered above the track. Also becomes the accessible name. */
+  /** Optional visible label rendered beside the ring. Also becomes the accessible name. */
   label?: ReactNode;
   /** Value formatter shown next to the label (determinate only). Defaults to `${value}%`. */
   valueFormatter?: (value: number) => string;
@@ -28,8 +28,8 @@ function clamp(value: number): number {
 }
 
 /**
- * A horizontal progress bar. Pass `value` for determinate progress; omit it for
- * an indeterminate sliding-bar animation. Exposes `role="progressbar"` with
+ * A circular progress ring with a drifting striped fill. Pass `value` for
+ * determinate progress; omit it for an indeterminate animated ring. Exposes `role="progressbar"` with
  * `aria-valuemin/max/now` (or `aria-valuetext="indeterminate"` when unknown).
  */
 export function Progress({
@@ -49,6 +49,7 @@ export function Progress({
   const isDeterminate = typeof value === "number";
   const percent = isDeterminate ? clamp(value) : 0;
   const formatted = isDeterminate ? (valueFormatter ?? ((v) => `${v}%`))(percent) : null;
+  const progressDeg = isDeterminate ? (percent / 100) * 360 : 270;
 
   const classes = [
     "ink-progress",
@@ -58,17 +59,14 @@ export function Progress({
   ]
     .filter(Boolean)
     .join(" ");
+  const style = {
+    "--ink-progress-deg": `${progressDeg}deg`,
+  } as CSSProperties;
 
   return (
-    <div id={id} className={classes}>
-      {label != null ? (
-        <div className="ink-progress-heading">
-          <span id={labelId} className="ink-progress-label">{label}</span>
-          {formatted != null ? <span className="ink-progress-value">{formatted}</span> : null}
-        </div>
-      ) : null}
+    <div id={id} className={classes} style={style}>
       <div
-        className="ink-progress-track"
+        className="ink-progress-ring"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
@@ -79,9 +77,12 @@ export function Progress({
       >
         <div
           className={["ink-progress-fill", isDeterminate ? "" : "ink-progress-fill--indeterminate"].filter(Boolean).join(" ")}
-          style={isDeterminate ? { transform: `scaleX(${percent / 100})` } : undefined}
         />
+        <span className="ink-progress-value">{formatted ?? ""}</span>
       </div>
+      {label != null ? (
+        <span id={labelId} className="ink-progress-label">{label}</span>
+      ) : null}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { IconClose } from "./icons";
 
-export type StatusBannerTone = "success" | "warning" | "error";
+export type StatusBannerTone = "info" | "success" | "warning" | "danger" | "neutral" | "brand" | "error";
 
 export interface StatusBannerProps {
   /** Banner copy. When empty/falsy the banner renders nothing. */
@@ -18,7 +18,8 @@ export interface StatusBannerProps {
  */
 export function StatusBanner({ message, tone, onDismiss }: StatusBannerProps) {
   if (!message) return null;
-  const toneClass = tone === "error" ? "error" : tone === "warning" ? "warning" : "";
+  const resolvedTone = tone === "error" ? "danger" : tone;
+  const toneClass = resolvedTone && resolvedTone !== "success" ? `status-banner--${resolvedTone}` : "";
   return (
     <div className={["status-banner", toneClass].filter(Boolean).join(" ")}>
       <span>{message}</span>

@@ -33,3 +33,14 @@ export const States = {
     </div>
   ),
 };
+
+export const Sizes = {
+  name: "Sizes",
+  render: () => (
+    <div style={{ padding: 24, maxWidth: 400, display: "grid", gap: 16 }}>
+      <Controlled size="sm" placeholder="Small input" />
+      <Controlled size="md" placeholder="Medium input" />
+      <Controlled size="lg" placeholder="Large input" />
+    </div>
+  ),
+};

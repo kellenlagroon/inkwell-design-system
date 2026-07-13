@@ -1,0 +1,42 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as StatusSummaryStories from "../../components/statusSummaryCompact.stories.jsx";
+import * as StatusSummaryFeatures from "../../components/statusSummaryCompact.features.stories.jsx";
+
+<Meta title="Components/StatusSummaryCompact/Docs" of={StatusSummaryStories} />
+
+# StatusSummaryCompact
+
+A compact row of labelled status values, optionally paired with expandable detail.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use for small health/status summaries.
+- Use neutral item labels and semantic tones.
+- Keep domain-specific meaning in the consuming app.
+
+## Primary example
+
+<Canvas of={StatusSummaryStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={StatusSummaryStories} />
+
+## Features
+
+### Summary only
+
+<Canvas of={StatusSummaryFeatures.SummaryOnly} sourceState="hidden" />
+
+### With detail
+
+<Canvas of={StatusSummaryFeatures.WithDetail} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep labels short.
+- Do use detail for secondary diagnostic context.
+- Don’t encode app-specific statuses into the component API.
+

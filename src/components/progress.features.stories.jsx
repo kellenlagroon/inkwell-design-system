@@ -26,8 +26,11 @@ export const Tones = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420, display: "grid", gap: 12 }}>
       <Progress value={60} tone="brand" label="Brand" />
+      <Progress value={60} tone="info" label="Info" />
       <Progress value={60} tone="success" label="Success" />
+      <Progress value={60} tone="warning" label="Warning" />
       <Progress value={60} tone="danger" label="Danger" />
+      <Progress value={60} tone="neutral" label="Neutral" />
     </div>
   ),
 };

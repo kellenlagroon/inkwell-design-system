@@ -8,7 +8,7 @@ export const Playground = {
   args: { value: 40, tone: "brand", size: "md", label: "Uploading", ariaLabel: "" },
   argTypes: {
     value: { control: { type: "range", min: 0, max: 100, step: 1 } },
-    tone: { control: "inline-radio", options: ["brand", "success", "danger"] },
+    tone: { control: "select", options: ["brand", "info", "success", "warning", "danger", "neutral"] },
     size: { control: "inline-radio", options: ["sm", "md"] },
     label: { control: "text" },
     ariaLabel: { control: "text" },

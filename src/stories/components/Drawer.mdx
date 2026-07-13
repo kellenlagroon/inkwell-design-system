@@ -1,0 +1,48 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as DrawerStories from "../../components/drawer.stories.jsx";
+import * as DrawerFeatures from "../../components/drawer.features.stories.jsx";
+
+<Meta title="Components/Drawer/Docs" of={DrawerStories} />
+
+# Drawer
+
+A side sheet for focused workflows that should keep page context visible.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+- Use for edit, inspect, and filter flows that need more room than a popover.
+- Use right-side drawers for detail/edit flows and left-side drawers for navigation-adjacent flows.
+- Use `ModalFrame` when the task should fully interrupt the page.
+
+## Primary example
+
+<Canvas of={DrawerStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={DrawerStories} />
+
+## Features
+
+### Right side
+
+<Canvas of={DrawerFeatures.RightSide} sourceState="hidden" />
+
+### Left side
+
+<Canvas of={DrawerFeatures.LeftSide} sourceState="hidden" />
+
+## Usage guidance
+
+- Do provide a specific title.
+- Do keep close behavior predictable: Escape, backdrop, and close button.
+- Don’t put app-specific workflow state in the drawer shell.
+
+## Keyboard and accessibility
+
+- The drawer uses `role="dialog"` and `aria-modal`.
+- Focus moves into the drawer on open and returns after close.
+- Tab focus is trapped while open.
+

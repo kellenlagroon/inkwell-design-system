@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
-export type BadgeTone = "brand" | "neutral" | "danger";
+export type BadgeTone = "info" | "success" | "warning" | "danger" | "neutral" | "brand";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   /** Color tone. Defaults to `brand` (the notification color). */

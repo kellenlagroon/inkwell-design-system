@@ -13,6 +13,7 @@ function Controlled({ initial = "", ...props }) {
 export const Playground = {
   args: {
     type: "text",
+    size: "md",
     placeholder: "Week 8 Coaches Poll",
     invalid: false,
     disabled: false,
@@ -23,12 +24,13 @@ export const Playground = {
       options: ["text", "search", "email", "password", "url", "number"],
     },
     placeholder: { control: "text" },
+    size: { control: "inline-radio", options: ["sm", "md", "lg"] },
     invalid: { control: "boolean" },
     disabled: { control: "boolean" },
   },
-  render: ({ type, placeholder, invalid, disabled }) => (
+  render: ({ type, size, placeholder, invalid, disabled }) => (
     <div style={{ padding: 24, maxWidth: 400 }}>
-      <Controlled type={type} placeholder={placeholder} invalid={invalid} disabled={disabled} />
+      <Controlled type={type} size={size} placeholder={placeholder} invalid={invalid} disabled={disabled} />
     </div>
   ),
 };
