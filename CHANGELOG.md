@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.1 - 2026-07-12
+
+Npm-ready package release.
+
+- Removed the private package flag.
+- Kept React and React DOM as peer dependencies only, so consumers provide their own React runtime.
+- Verified the package with tests, typecheck, library build, and npm publish dry-run.
+
 ## v0.1.0 - 2026-07-12
 
 Initial Inkwell design-system release.
