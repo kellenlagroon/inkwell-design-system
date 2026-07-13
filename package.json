@@ -1,6 +1,6 @@
 {
-  "name": "inkwell-design-system",
-  "version": "0.1.1",
+  "name": "@lagroon/inkwell-design-system",
+  "version": "0.1.2",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

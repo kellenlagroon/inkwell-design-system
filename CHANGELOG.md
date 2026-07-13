@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.2 - 2026-07-12
+
+Scoped npm package release.
+
+- Renamed the package to `@lagroon/inkwell-design-system` because the unscoped `inkwell-design-system` name is already owned on npm.
+- Kept the package contents unchanged from the npm-ready v0.1.1 build.
+- Publish with `npm publish --access public`.
+
 ## v0.1.1 - 2026-07-12
 
 Npm-ready package release.
