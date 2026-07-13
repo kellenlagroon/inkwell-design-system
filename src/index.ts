@@ -4,8 +4,8 @@
  * Components render against Inkwell's global stylesheet, so consumers must also
  * import the styles once at their app root:
  *
- *   import "inkwell/styles.css";
- *   import { Button, TextInput } from "inkwell";
+ *   import "@lagroon/inkwell-design-system/styles.css";
+ *   import { Button, TextInput } from "@lagroon/inkwell-design-system";
  */
 
 // Core components

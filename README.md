@@ -16,3 +16,21 @@ npm install
 npm run storybook
 npm run build-storybook
 ```
+
+## Install
+
+```bash
+npm install @lagroon/inkwell-design-system
+```
+
+Import the stylesheet once at your app root:
+
+```tsx
+import "@lagroon/inkwell-design-system/styles.css";
+```
+
+Then import components from the package entry point:
+
+```tsx
+import { Button, TextInput } from "@lagroon/inkwell-design-system";
+```
