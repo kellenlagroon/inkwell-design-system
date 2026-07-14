@@ -10,6 +10,7 @@ export interface PaginationProps {
   nextLabel?: ReactNode;
   "aria-label"?: string;
   className?: string;
+  compact?: boolean | "auto";
 }
 
 type PageItem = number | "ellipsis";
@@ -35,6 +36,7 @@ export function Pagination({
   nextLabel = "Next",
   "aria-label": ariaLabel = "Pagination",
   className = "",
+  compact = "auto",
 }: PaginationProps) {
   const current = Math.min(Math.max(1, page), Math.max(1, pageCount));
   const canPrevious = current > 1;
@@ -53,7 +55,7 @@ export function Pagination({
   }
 
   return (
-    <nav className={["ink-pagination", className].filter(Boolean).join(" ")} aria-label={ariaLabel}>
+    <nav className={["ink-pagination", compact === true ? "ink-pagination--compact" : compact === "auto" ? "ink-pagination--auto-compact" : "", className].filter(Boolean).join(" ")} aria-label={ariaLabel}>
       {renderAction(current - 1, previousLabel, { disabled: !canPrevious })}
       <ol className="ink-pagination-list">
         {items(current, pageCount, siblingCount).map((item, index) => (
@@ -64,6 +66,7 @@ export function Pagination({
           </li>
         ))}
       </ol>
+      <span className="ink-pagination-summary" aria-live="polite">Page {current} of {Math.max(1, pageCount)}</span>
       {renderAction(current + 1, nextLabel, { disabled: !canNext })}
     </nav>
   );

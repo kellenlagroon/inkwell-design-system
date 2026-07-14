@@ -50,9 +50,10 @@ export function CheckboxSelect({
 
   return (
     <Popover
+      mobileSheet
       className={["checkbox-select-panel", className].filter(Boolean).join(" ")}
       trigger={(triggerProps) => (
-        <Button variant="secondary" size="sm" {...triggerProps}>
+        <Button variant="secondary" {...triggerProps}>
           {triggerLabel}
         </Button>
       )}
@@ -72,7 +73,7 @@ export function CheckboxSelect({
             />
           ))}
         </div>
-        <Button variant="ghost" size="sm" onClick={() => onChange([])} disabled={value.length === 0}>
+        <Button variant="ghost" onClick={() => onChange([])} disabled={value.length === 0}>
           {clearLabel}
         </Button>
       </div>

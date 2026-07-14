@@ -10,15 +10,19 @@ export interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
   tone?: TextTone;
   size?: TextSize;
   clamp?: 1 | 2 | 3;
+  wrap?: "normal" | "anywhere";
+  truncate?: boolean;
   children?: ReactNode;
 }
 
-export function Text({ as: Component = "p", tone = "primary", size = "md", clamp, className = "", children, ...props }: TextProps) {
+export function Text({ as: Component = "p", tone = "primary", size = "md", clamp, wrap = "anywhere", truncate = false, className = "", children, ...props }: TextProps) {
   const classes = [
     "ink-text",
     tone !== "primary" ? `ink-text--${tone}` : "",
     size !== "md" ? `ink-text--${size}` : "",
     clamp ? `ink-line-clamp ink-line-clamp--${clamp}` : "",
+    wrap === "anywhere" ? "ink-wrap-anywhere" : "",
+    truncate ? "ink-truncate" : "",
     className,
   ].filter(Boolean).join(" ");
   return <Component className={classes} {...props}>{children}</Component>;

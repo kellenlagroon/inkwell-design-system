@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import { Stack, Inline, Grid } from "./layout";
+import { Stack, Inline, Grid, ActionGroup } from "./layout";
 
 const rootOf = (markup: ReturnType<typeof render>) => markup.container.firstChild as HTMLElement;
 const cssVar = (el: HTMLElement, name: string) => el.style.getPropertyValue(name).trim();
@@ -60,5 +60,19 @@ describe("Grid", () => {
     const el = rootOf(render(<Grid data-testid="g" role="list">x</Grid>));
     expect(el.getAttribute("data-testid")).toBe("g");
     expect(el.getAttribute("role")).toBe("list");
+  });
+
+  it("maps responsive columns to breakpoint variables", () => {
+    const el = rootOf(render(<Grid columns={{ base: 1, md: 2, lg: 3 }}>x</Grid>));
+    expect(cssVar(el, "--ink-grid-columns")).toBe("repeat(1, minmax(0, 1fr))");
+    expect(cssVar(el, "--ink-grid-columns-md")).toBe("repeat(2, minmax(0, 1fr))");
+    expect(cssVar(el, "--ink-grid-columns-lg")).toBe("repeat(3, minmax(0, 1fr))");
+  });
+});
+
+describe("ActionGroup", () => {
+  it("defaults to a small-screen stacking pattern", () => {
+    const el = rootOf(render(<ActionGroup>x</ActionGroup>));
+    expect(el.className).toContain("ink-action-group--stack-sm");
   });
 });

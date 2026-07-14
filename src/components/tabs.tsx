@@ -56,7 +56,10 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id }: Tab
 
   useEffect(() => {
     const btn = tabRefs.current[activeIndex];
-    if (btn) setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
+    if (btn) {
+      setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
+      btn.scrollIntoView?.({ block: "nearest", inline: "nearest" });
+    }
   }, [activeIndex, tabs]);
 
   function selectAt(index: number) {

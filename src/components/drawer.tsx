@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { IconClose } from "./icons";
 
 export type DrawerSide = "left" | "right";
@@ -14,6 +14,10 @@ export interface DrawerProps {
   closeOnBackdrop?: boolean;
   closeOnEscape?: boolean;
   children?: ReactNode;
+  footer?: ReactNode;
+  mobileSheet?: boolean;
+  height?: string;
+  maxHeight?: string;
   className?: string;
 }
 
@@ -28,6 +32,10 @@ export function Drawer({
   closeOnBackdrop = true,
   closeOnEscape = true,
   children,
+  footer,
+  mobileSheet = true,
+  height,
+  maxHeight,
   className = "",
 }: DrawerProps) {
   const titleId = useId();
@@ -61,11 +69,16 @@ export function Drawer({
 
   useEffect(() => {
     if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     previousFocus.current = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
     const first = panel?.querySelector<HTMLElement>(FOCUSABLE);
     first?.focus();
-    return () => previousFocus.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previousFocus.current?.focus();
+    };
   }, [open]);
 
   useEffect(() => {
@@ -98,6 +111,7 @@ export function Drawer({
   }, [closeOnEscape, onClose, open]);
 
   if (!rendered) return null;
+  const panelStyle = { "--ink-drawer-height": height, "--ink-drawer-max-height": maxHeight } as CSSProperties;
 
   return (
     <div className="ink-drawer-root" data-state={animationState} role="presentation">
@@ -110,7 +124,8 @@ export function Drawer({
       />
       <section
         ref={panelRef}
-        className={["ink-drawer", `ink-drawer--${side}`, `ink-drawer--${size}`, className].filter(Boolean).join(" ")}
+        className={["ink-drawer", `ink-drawer--${side}`, `ink-drawer--${size}`, mobileSheet ? "ink-drawer--mobile-sheet" : "", className].filter(Boolean).join(" ")}
+        style={panelStyle}
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
@@ -124,6 +139,7 @@ export function Drawer({
           </button>
         </header>
         <div className="ink-drawer-body">{children}</div>
+        {footer ? <footer className="ink-drawer-footer">{footer}</footer> : null}
       </section>
     </div>
   );

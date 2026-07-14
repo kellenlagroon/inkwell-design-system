@@ -79,6 +79,11 @@ describe("Button", () => {
     expect(getByText("Save").className).toContain("button-label--hidden");
     expect(getByText("Saving")).toBeTruthy();
   });
+
+  it("supports full-width button and link actions", () => {
+    expect(classOf(render(<Button fullWidth>Save</Button>).getByRole("button"))).toContain("button--full-width");
+    expect(classOf(render(<ButtonLink fullWidth href="/next">Next</ButtonLink>).getByRole("link"))).toContain("button--full-width");
+  });
 });
 
 describe("IconButton", () => {

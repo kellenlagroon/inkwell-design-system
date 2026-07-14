@@ -16,6 +16,7 @@ export interface PopoverProps {
   onOpenChange?: (open: boolean) => void;
   placement?: "bottom-start" | "bottom-end" | "top-start" | "top-end";
   className?: string;
+  mobileSheet?: boolean;
 }
 
 export function Popover({
@@ -26,6 +27,7 @@ export function Popover({
   onOpenChange,
   placement = "bottom-start",
   className = "",
+  mobileSheet = false,
 }: PopoverProps) {
   const id = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -66,7 +68,7 @@ export function Popover({
         onClick: () => setOpen(!isOpen),
       })}
       {isOpen ? (
-        <div id={id} className={["ink-popover-panel", `ink-popover-panel--${placement}`, className].filter(Boolean).join(" ")}>
+        <div id={id} className={["ink-popover-panel", `ink-popover-panel--${placement}`, mobileSheet ? "ink-popover-panel--mobile-sheet" : "", className].filter(Boolean).join(" ")}>
           {children}
         </div>
       ) : null}

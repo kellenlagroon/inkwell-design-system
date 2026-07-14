@@ -2,6 +2,7 @@ import type { HTMLAttributes, ReactNode } from "react";
 
 export type CardVariant = "plain" | "outlined";
 export type CardTone = "default" | "danger";
+export type CardPadding = "none" | "sm" | "md" | "lg";
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -12,6 +13,8 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
   /** `danger` flags a destructive zone with a danger-soft border. */
   tone?: CardTone;
+  /** Token-backed responsive internal spacing. */
+  padding?: CardPadding;
   children?: ReactNode;
 }
 
@@ -20,11 +23,12 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  * sibling to the section-level `Panel`). Compose it with `SectionHeading` for a
  * header and `CardActions` for a footer row.
  */
-export function Card({ variant = "plain", tone = "default", className = "", children, ...props }: CardProps) {
+export function Card({ variant = "plain", tone = "default", padding = "md", className = "", children, ...props }: CardProps) {
   const classes = [
     "card",
     variant === "outlined" ? "card--outlined" : "",
     tone === "danger" ? "card--danger" : "",
+    padding !== "md" ? `card--padding-${padding}` : "",
     className,
   ]
     .filter(Boolean)

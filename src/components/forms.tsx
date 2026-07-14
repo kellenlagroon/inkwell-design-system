@@ -249,6 +249,8 @@ export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   invalid?: boolean;
   /** Explicit aria-describedby. Falls back to FormField value. */
   describedBy?: string;
+  /** Stack trigger and filename. `mobile` stacks only on narrow viewports. */
+  layout?: "inline" | "stacked" | "mobile";
 }
 
 /** Hidden native file input with an Inkwell-styled trigger and filename display. */
@@ -259,6 +261,7 @@ export function FileUpload({
   validationMessage,
   invalid = false,
   describedBy,
+  layout = "mobile",
   className = "",
   onChange,
   ...props
@@ -275,7 +278,7 @@ export function FileUpload({
   }
 
   return (
-    <div className={["file-upload", resolvedInvalid ? "file-upload--invalid" : "", className].filter(Boolean).join(" ")}>
+    <div className={["file-upload", `file-upload--${layout}`, resolvedInvalid ? "file-upload--invalid" : "", className].filter(Boolean).join(" ")}>
       <input
         {...props}
         ref={inputRef}
@@ -288,7 +291,7 @@ export function FileUpload({
         onChange={handleChange}
       />
       <div className="file-upload-row">
-        <button type="button" className="secondary-button button--sm" onClick={() => inputRef.current?.click()} disabled={props.disabled}>
+        <button type="button" className="secondary-button" onClick={() => inputRef.current?.click()} disabled={props.disabled}>
           {label}
         </button>
         <span className={["file-upload-name", filename ? "" : "file-upload-name--empty"].filter(Boolean).join(" ")}>
@@ -303,13 +306,15 @@ export function FileUpload({
 export interface FieldGroupProps extends HTMLAttributes<HTMLDivElement> {
   /** Number of columns before responsive collapse. */
   columns?: 2 | 3 | 4;
+  /** Breakpoint below which fields collapse to one column. */
+  collapseBelow?: "sm" | "md" | "never";
   children?: ReactNode;
 }
 
 /** Responsive grouping for related fields and aligned form actions. */
-export function FieldGroup({ columns = 2, className = "", children, ...props }: FieldGroupProps) {
+export function FieldGroup({ columns = 2, collapseBelow = "md", className = "", children, ...props }: FieldGroupProps) {
   return (
-    <div className={["field-group", `field-group--${columns}`, className].filter(Boolean).join(" ")} {...props}>
+    <div className={["field-group", `field-group--${columns}`, collapseBelow !== "never" ? `field-group--collapse-${collapseBelow}` : "", className].filter(Boolean).join(" ")} {...props}>
       {children}
     </div>
   );

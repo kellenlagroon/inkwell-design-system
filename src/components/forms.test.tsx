@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
-import { FormField, TextInput, Textarea, Checkbox, PasswordInput, FileUpload } from "./forms";
+import { FormField, TextInput, Textarea, Checkbox, PasswordInput, FileUpload, FieldGroup } from "./forms";
 
 describe("FormField + TextInput", () => {
   it("associates the label with the control and wires the hint via aria-describedby", () => {
@@ -99,5 +99,18 @@ describe("FileUpload", () => {
     const input = getByLabelText("Resume") as HTMLInputElement;
     expect(input.type).toBe("file");
     expect(input.getAttribute("aria-describedby")).toBeTruthy();
+  });
+
+  it("uses the responsive stacked layout by default", () => {
+    const { container } = render(<FileUpload aria-label="Attachment" />);
+    expect(container.firstElementChild?.className).toContain("file-upload--mobile");
+  });
+});
+
+describe("FieldGroup", () => {
+  it("exposes a configurable collapse breakpoint", () => {
+    const { container } = render(<FieldGroup columns={3} collapseBelow="sm">fields</FieldGroup>);
+    expect(container.firstElementChild?.className).toContain("field-group--3");
+    expect(container.firstElementChild?.className).toContain("field-group--collapse-sm");
   });
 });

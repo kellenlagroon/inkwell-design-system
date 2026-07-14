@@ -33,6 +33,7 @@ const ALIGN: Record<AlignItems, string> = {
 };
 
 export type JustifyContent = "start" | "center" | "end" | "between" | "around";
+export type ResponsiveColumns = number | { base: number; sm?: number; md?: number; lg?: number };
 const JUSTIFY: Record<JustifyContent, string> = {
   start: "flex-start",
   center: "center",
@@ -79,14 +80,16 @@ export interface InlineProps extends HTMLAttributes<HTMLDivElement> {
   justify?: JustifyContent;
   /** Whether children wrap onto multiple rows. Defaults to `true`. */
   wrap?: boolean;
+  /** Stack children vertically below this breakpoint. */
+  stackBelow?: "sm" | "md";
   children?: ReactNode;
 }
 
 /** Horizontal flow with gap, wrapping, and alignment. */
-export function Inline({ gap = "md", align, justify, wrap = true, className = "", style, children, ...props }: InlineProps) {
+export function Inline({ gap = "md", align, justify, wrap = true, stackBelow, className = "", style, children, ...props }: InlineProps) {
   return (
     <div
-      className={["ink-inline", className].filter(Boolean).join(" ")}
+      className={["ink-inline", stackBelow ? `ink-inline--stack-${stackBelow}` : "", className].filter(Boolean).join(" ")}
       style={styleVars(style, {
         "--ink-inline-gap": SPACE[gap],
         "--ink-inline-align": align && ALIGN[align],
@@ -104,7 +107,7 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   /** Space between cells. Defaults to `md` (12px). */
   gap?: SpaceScale;
   /** Number of equal columns (`repeat(n, minmax(0, 1fr))`). Defaults to 2. */
-  columns?: number;
+  columns?: ResponsiveColumns;
   /** Cross-axis alignment (`align-items`). */
   align?: AlignItems;
   children?: ReactNode;
@@ -112,17 +115,36 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
 
 /** Equal-column grid using the app's `repeat(n, minmax(0, 1fr))` convention. */
 export function Grid({ gap = "md", columns = 2, align, className = "", style, children, ...props }: GridProps) {
+  const responsive = typeof columns === "number" ? { base: columns } : columns;
   return (
     <div
       className={["ink-grid", className].filter(Boolean).join(" ")}
       style={styleVars(style, {
         "--ink-grid-gap": SPACE[gap],
-        "--ink-grid-columns": `repeat(${columns}, minmax(0, 1fr))`,
+        "--ink-grid-columns": `repeat(${responsive.base}, minmax(0, 1fr))`,
+        "--ink-grid-columns-sm": responsive.sm ? `repeat(${responsive.sm}, minmax(0, 1fr))` : undefined,
+        "--ink-grid-columns-md": responsive.md ? `repeat(${responsive.md}, minmax(0, 1fr))` : undefined,
+        "--ink-grid-columns-lg": responsive.lg ? `repeat(${responsive.lg}, minmax(0, 1fr))` : undefined,
         "--ink-grid-align": align && ALIGN[align],
       })}
       {...props}
     >
       {children}
     </div>
+  );
+}
+
+export interface ActionGroupProps extends Omit<InlineProps, "stackBelow"> {
+  /** Breakpoint below which actions stack and stretch. Defaults to `sm`. */
+  stackBelow?: "sm" | "md" | "never";
+}
+
+/** Responsive action row: inline on wide screens, stacked and full-width when narrow. */
+export function ActionGroup({ stackBelow = "sm", className = "", ...props }: ActionGroupProps) {
+  return (
+    <Inline
+      {...props}
+      className={["ink-action-group", stackBelow !== "never" ? `ink-action-group--stack-${stackBelow}` : "", className].filter(Boolean).join(" ")}
+    />
   );
 }

@@ -20,6 +20,8 @@ interface ButtonOwnProps {
   loadingLabel?: string;
   /** Whether the spinner appears before or after the label. */
   spinnerPlacement?: ButtonSpinnerPlacement;
+  /** Stretch the action to the width of its container. Useful for narrow layouts. */
+  fullWidth?: boolean;
   children?: ReactNode;
 }
 
@@ -52,6 +54,7 @@ export function Button({
   loading = false,
   loadingLabel,
   spinnerPlacement = "start",
+  fullWidth = false,
   ...props
 }: ButtonProps) {
   const isAnchor = as === "a";
@@ -60,6 +63,7 @@ export function Button({
     `${variant}-button`,
     size !== "md" ? `button--${size}` : "",
     loading ? "button--loading" : "",
+    fullWidth ? "button--full-width" : "",
     className,
   ]
     .filter(Boolean)

@@ -51,7 +51,7 @@ export type {
 } from "./components/forms";
 
 export { Card, CardActions } from "./components/card";
-export type { CardProps, CardActionsProps, CardTone, CardVariant } from "./components/card";
+export type { CardProps, CardActionsProps, CardTone, CardVariant, CardPadding } from "./components/card";
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
 export { Tabs } from "./components/tabs";
@@ -83,7 +83,7 @@ export type { ProgressProps, ProgressTone, ProgressSize } from "./components/pro
 export { Text, Heading, Link } from "./components/text";
 export type { TextProps, HeadingProps, LinkProps, TextTone, TextSize, HeadingLevel, HeadingSize } from "./components/text";
 export { Container, Center, Surface, Paper } from "./components/surface";
-export type { ContainerProps, CenterProps, SurfaceProps, ContainerSize, SurfaceTone } from "./components/surface";
+export type { ContainerProps, CenterProps, SurfaceProps, ContainerSize, SurfaceTone, ResponsivePadding } from "./components/surface";
 export { Pagination } from "./components/pagination";
 export type { PaginationProps } from "./components/pagination";
 export { RichTextSafe } from "./components/richTextSafe";
@@ -92,11 +92,13 @@ export { StatusSummaryCompact } from "./components/statusSummaryCompact";
 export type { StatusSummaryCompactProps, StatusSummaryCompactItem } from "./components/statusSummaryCompact";
 
 // Layout primitives
-export { Stack, Inline, Grid } from "./components/layout";
+export { Stack, Inline, Grid, ActionGroup } from "./components/layout";
 export type {
   StackProps,
   InlineProps,
   GridProps,
+  ActionGroupProps,
+  ResponsiveColumns,
   SpaceScale,
   AlignItems,
   JustifyContent,
