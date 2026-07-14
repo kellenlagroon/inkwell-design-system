@@ -2,20 +2,24 @@ import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
 import * as SurfaceStories from "../../components/surface.stories.jsx";
 import * as SurfaceFeatures from "../../components/surface.features.stories.jsx";
 
-<Meta title="Components/Surface/Docs" of={SurfaceStories} />
+<Meta of={SurfaceStories} name="Docs" />
 
 # Surface
 
-Layout surfaces and simple page containers: `Container`, `Center`, `Surface`,
-and the `Paper` alias.
+The structural surfaces of Inkwell: `Container`, `Center`, `Surface`, `Paper`,
+`Panel`, `SectionHeading`, and `EmptyState`. Together they compose page layouts
+without leaking custom flex/grid rules.
 
 **Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
 
 ## When to use
 
 - Use `Container` for page-width constraints.
-- Use `Center` for centered auth or empty layouts.
+- Use `Center` for centered auth and empty layouts.
 - Use `Surface`/`Paper` for framed panels that are not item cards.
+- Use `Panel` as the default surface for a major content region.
+- Use `SectionHeading` to structure a panel's internal hierarchy.
+- Use `EmptyState` when a panel needs to explain missing data or blocked access.
 
 ## Primary example
 
@@ -35,9 +39,48 @@ and the `Paper` alias.
 
 <Canvas of={SurfaceFeatures.CenteredLayout} sourceState="hidden" />
 
+### Panel
+
+`Panel` renders a semantic `<section>` with the `panel` class. Pass `id`,
+`aria-labelledby`, or `aria-describedby` through to the underlying element.
+
+<Canvas of={SurfaceFeatures.PanelDefault} sourceState="hidden" />
+
+### Section heading
+
+`SectionHeading` provides a compact structural header for grouped content
+inside a panel.
+
+<Canvas of={SurfaceFeatures.SectionHeadingDefault} sourceState="hidden" />
+
+### Section heading — compact
+
+Use the compact variant when vertical density matters more than expressive page
+framing.
+
+<Canvas of={SurfaceFeatures.SectionHeadingCompact} sourceState="hidden" />
+
+### Empty state
+
+`EmptyState` keeps blocked or no-data conditions inside the same structural
+surface rather than pushing them into a separate page.
+
+<Canvas of={SurfaceFeatures.EmptyStateDefault} sourceState="hidden" />
+
 ## Usage guidance
 
-- Do use `Card` for repeated content items.
-- Do use `Surface` for framed task panels.
-- Don’t nest cards inside cards for page layout.
+- Do use `Card` for repeated content items and `Panel` for a page's main
+  content regions.
+- Do keep one clear heading hierarchy per panel.
+- Do place empty-state guidance inside the same panel region the user expects
+  to use.
+- Don't nest cards inside cards for page layout.
+- Don't treat `Panel`, `SectionHeading`, and `EmptyState` as unrelated visual
+  fragments — they compose together.
 
+## Keyboard and accessibility
+
+- Panels should preserve heading order so screen readers can scan the page
+  structure.
+- Empty states should include clear text guidance rather than relying on
+  styling alone.

@@ -37,6 +37,11 @@ export type { PopoverProps, PopoverTriggerProps } from "./components/popover";
 export { CheckboxSelect } from "./components/checkboxSelect";
 export type { CheckboxSelectProps, CheckboxSelectOption } from "./components/checkboxSelect";
 export { SplitButton } from "./components/splitButton";
+export type { SplitButtonProps, SplitButtonItem } from "./components/splitButton";
+export { Nav } from "./components/nav";
+export type { NavProps, NavItem, NavOrientation, NavVariant } from "./components/nav";
+export { Sidebar } from "./components/sidebar";
+export type { SidebarProps, SidebarSize, SidebarSide } from "./components/sidebar";
 
 // Form primitives
 export { FormField, TextInput, Textarea, Checkbox, PasswordInput, FileUpload, FieldGroup } from "./components/forms";

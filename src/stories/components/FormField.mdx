@@ -2,16 +2,16 @@ import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
 import * as FormFieldStories from "../../components/formField.stories.jsx";
 import * as FormFieldFeatures from "../../components/formField.features.stories.jsx";
 
-<Meta title="Components/FormField/Docs" of={FormFieldStories} />
+<Meta of={FormFieldStories} name="Docs" />
 
 # FormField
 
 The labelled wrapper for form controls. `FormField` owns the control's `id` and
 forwards the accessibility wiring — `htmlFor`, `aria-describedby`,
 `aria-invalid`, and `required` — into whatever control it wraps
-([TextInput](?path=/docs/components-textinput-docs--docs),
-[Textarea](?path=/docs/components-textarea-docs--docs),
-[Select](?path=/docs/components-select-docs--docs)). This keeps labels, hint
+([TextInput](?path=/docs/components-textinput--docs),
+[Textarea](?path=/docs/components-textarea--docs),
+[Select](?path=/docs/components-select--docs)). This keeps labels, hint
 text, and error messages consistent without hand-wiring ids on every field.
 
 **Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
@@ -20,7 +20,7 @@ text, and error messages consistent without hand-wiring ids on every field.
 
 - Use whenever a control needs a visible label, helper text, or an error message.
 - Use to guarantee label/control association and error announcements are correct.
-- Skip it for a [Checkbox](?path=/docs/components-checkbox-docs--docs), which carries its own inline label.
+- Skip it for a [Checkbox](?path=/docs/components-checkbox--docs), which carries its own inline label.
 
 ## Primary example
 

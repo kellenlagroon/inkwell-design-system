@@ -1,0 +1,82 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as SidebarStories from "../../components/sidebar.stories.jsx";
+import * as SidebarFeatures from "../../components/sidebar.features.stories.jsx";
+
+<Meta of={SidebarStories} name="Docs" />
+
+# Sidebar
+
+The full-height frame for primary product navigation. Pins a `header` and
+`footer` around a scrollable `main` region — drop a `Nav` (or anything) into
+the main slot.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
+
+## When to use
+
+- Use `Sidebar` when a product's primary navigation should own the full
+  viewport height (typical for admin/console/dashboard shells).
+- Prefer a horizontal `Nav` at the top of the page for lightweight or
+  content-heavy apps that don't need a persistent nav column.
+- Sidebar frames the nav; it doesn't *replace* it. Compose `<Sidebar><Nav
+  orientation="vertical" .../></Sidebar>` for the typical shell.
+
+## Primary example
+
+<Canvas of={SidebarStories.SidebarPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={SidebarStories} />
+
+## Features
+
+### Start side (default)
+
+<Canvas of={SidebarFeatures.StartSide} sourceState="hidden" />
+
+### End side
+
+Pass `side="end"` to anchor to the opposite edge. In LTR that's the right
+side; the logical property flips automatically in RTL contexts.
+
+<Canvas of={SidebarFeatures.EndSide} sourceState="hidden" />
+
+### Header and footer slots
+
+Both slots are optional. Anything above the `main` scroll region is pinned.
+
+<Canvas of={SidebarFeatures.HeaderAndFooter} sourceState="hidden" />
+
+### Fixed positioning
+
+Sticky by default so the Sidebar co-operates with its parent layout. Pass
+`fixed` to promote it to `position: fixed` for app shells that want the
+sidebar out of the flow.
+
+<Canvas of={SidebarFeatures.Fixed} sourceState="hidden" />
+
+### Sizes
+
+Named width tokens: `sm` = 200px, `md` = 240px, `lg` = 280px.
+
+<Canvas of={SidebarFeatures.Sizes} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep one `Sidebar` per page — it's the *primary* nav frame, not a
+  secondary column.
+- Do pair with `<Nav orientation="vertical" />` in the main slot as the
+  default composition.
+- Don't stack navigation controls in the header/footer slots that duplicate
+  the main-slot nav.
+- Don't set a fixed body width on top of `fixed` mode — the sidebar leaves the
+  layout, so the parent needs its own left/right margin equal to the
+  sidebar's width.
+
+## Keyboard and accessibility
+
+- Sidebar renders as `<aside>`. Give the nested `Nav` an `aria-label` (e.g.
+  "Primary") so screen readers can identify it.
+- The main region is scrollable — focus can enter and exit naturally with
+  `Tab`.

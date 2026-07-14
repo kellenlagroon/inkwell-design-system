@@ -1,0 +1,114 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as NavStories from "../../components/nav.stories.jsx";
+import * as NavFeatures from "../../components/nav.features.stories.jsx";
+
+<Meta of={NavStories} name="Docs" />
+
+# Nav
+
+Primary product navigation with an animated indicator that slides behind the
+active item. Renders as a `<nav>` with `<button>` items by default, or `<a>`
+when `href` is set. Supports both horizontal and vertical orientation.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
+
+## When to use
+
+- Use `Nav` for a product's top-level view switch (e.g. Ballot / Results / Commissioner).
+- Prefer `Tabs` when the switcher chooses a panel *within* a page — Nav is for whole-view routing.
+- Pass `orientation="vertical"` for a sidebar; `"horizontal"` for a top or bottom bar.
+
+## Primary example
+
+<Canvas of={NavStories.NavPlayground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={NavStories} />
+
+### Variants
+
+- **`chip`** (default) — segmented pill with a sliding indicator behind the
+  active item. Best for compact horizontal top-nav or a segmented vertical
+  switcher.
+- **`list`** — full-width rows, tinted-wash active state, sharp corners.
+  Tuned for full-height sidebars. Sidebar auto-defaults its nested Nav to
+  `list` via context — pass an explicit `variant` to override.
+
+### Item shape
+
+Each item takes the shape:
+
+```ts
+type NavItem = {
+  value: string;
+  label: ReactNode;
+  icon?: ReactNode;
+  badge?: ReactNode;
+  href?: string;
+};
+```
+
+Items with `href` render as `<a>`; the rest render as `<button type="button">`.
+`onChange` fires in both cases so single-page-app routers can intercept the
+click.
+
+## Features
+
+### Horizontal
+
+Default. Items sit in a row; the indicator slides on the X axis.
+
+<Canvas of={NavFeatures.Horizontal} sourceState="hidden" />
+
+### Vertical
+
+Sidebar layout. Items stack; the indicator slides on the Y axis and takes the
+item's height.
+
+<Canvas of={NavFeatures.Vertical} sourceState="hidden" />
+
+### List variant
+
+Full-width rows tuned for full-height sidebars: tinted-wash active state,
+sharp corners, no sliding indicator. This is what `Sidebar` renders by default.
+
+<Canvas of={NavFeatures.ListVariant} sourceState="hidden" />
+
+### With badges
+
+Optional trailing badge slot. Numbers render as a pill; pass any ReactNode for
+custom content. Pass `badge={true}` for a plain notification dot with no
+number.
+
+<Canvas of={NavFeatures.WithBadges} sourceState="hidden" />
+
+<Canvas of={NavFeatures.WithDotBadge} sourceState="hidden" />
+
+### Href-based items
+
+Pass `href` to render an `<a>`. `aria-current="page"` is applied to the active
+link automatically.
+
+<Canvas of={NavFeatures.AsLinks} sourceState="hidden" />
+
+### Label only
+
+Icons are optional. Nav works as a plain label switcher too.
+
+<Canvas of={NavFeatures.LabelOnly} sourceState="hidden" />
+
+## Usage guidance
+
+- Do keep item labels short — one or two words is ideal.
+- Do use the same set of items across every view; changing the item list mid-session breaks recognition.
+- Do use the badge slot sparingly — it's for genuinely new or urgent content, not decoration.
+- Don't use Nav as a Tabs replacement for content-within-a-page switching; Tabs has the correct ARIA semantics for that.
+- Don't stack multiple `Nav`s in the same view — the "primary" nav should live once per page.
+
+## Keyboard and accessibility
+
+- Items are reachable with `Tab`. `Enter` (buttons) or `Enter` (links) activates.
+- The wrapping `<nav>` takes `aria-label` — always set it, especially when the page has more than one nav.
+- The active item gets `aria-current="page"`; screen readers announce it as the current view.
+- Reduced-motion users get an instant indicator swap (no transition).

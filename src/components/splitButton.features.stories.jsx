@@ -1,4 +1,4 @@
-import { SplitButton } from "./splitButton.jsx";
+import { SplitButton } from "./splitButton";
 
 const ROUND_ITEMS = [
   {

@@ -1258,39 +1258,230 @@ select option {
   color: var(--color-text-primary);
 }
 
-/* App shell / nav */
-.top-nav {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 var(--space-4);
-  order: 0;
+/* Nav — product navigation with sliding indicator (horizontal / vertical). */
+.ink-nav {
+  display: block;
 }
 
-.nav-track {
+.ink-nav-track {
+  position: relative;
   display: inline-flex;
   gap: 2px;
   padding: 3px;
   background: var(--white-a5);
   border-radius: var(--radius-sharp);
-  position: relative;
 }
 
-.nav-slider {
+.ink-nav--horizontal .ink-nav-track {
+  flex-direction: row;
+}
+
+.ink-nav--vertical {
+  display: inline-block;
+}
+
+.ink-nav--vertical .ink-nav-track {
+  display: flex;
+  flex-direction: column;
+  min-width: 12rem;
+}
+
+.ink-nav-slider {
   position: absolute;
-  top: 3px;
-  left: 3px;
-  height: calc(100% - 6px);
+  top: 0;
+  left: 0;
   background: var(--nav-active-bg);
   border-radius: var(--radius-sharp);
   pointer-events: none;
   z-index: 0;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-              width   0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, width;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              width 200ms cubic-bezier(0.4, 0, 0.2, 1),
+              height 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, width, height;
+}
+
+.ink-nav-item {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  min-height: 44px;
+  border: 0;
+  border-radius: var(--radius-sharp);
+  background: transparent;
+  color: rgba(244, 237, 226, 0.5);
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.ink-nav--vertical .ink-nav-item {
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.ink-nav-item:not(.ink-nav-item--active):hover {
+  color: var(--color-text-primary);
+}
+
+.ink-nav-item--active {
+  color: var(--nav-active-fg);
+}
+
+.ink-nav-item:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.ink-nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.ink-nav-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ink-nav-label {
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--line-height-tight);
+  flex: 1 1 auto;
+}
+
+.ink-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--notification-dot-bg, var(--accent));
+  color: var(--color-text-strong);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.ink-nav-badge--dot {
+  min-width: 8px;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-nav-slider,
+  .ink-nav-item {
+    transition: none;
+  }
+}
+
+/* Nav list variant — full-width rows, tinted-wash active state, sharp radius.
+   The Sidebar component defaults nested Navs to variant="list" via context. */
+.ink-nav--vertical.ink-nav--list {
+  display: block;
+  width: 100%;
+}
+
+.ink-nav--list .ink-nav-track {
+  padding: 0;
+  gap: var(--space-1);
+  background: transparent;
+  border-radius: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.ink-nav--list .ink-nav-item {
+  min-height: 40px;
+  padding: 8px 12px;
+  gap: 12px;
+  border-radius: var(--radius-sharp);
+  color: var(--muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.ink-nav--list .ink-nav-item:hover {
+  background: var(--color-hover-surface, rgba(255, 255, 255, 0.04));
+  color: var(--color-text-primary);
+}
+
+.ink-nav--list .ink-nav-item--active {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--color-text-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Sidebar — full-height frame for a vertical Nav.
+   The aside itself pads top/bottom only. Header/footer/main slots each pad
+   their inline axis so list Nav items' active/hover wash reaches the left
+   edge while a right-edge gap remains. */
+.ink-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  padding: var(--space-4) 0;
+  gap: var(--space-4);
+  background: var(--color-bg-canvas, var(--bg));
+  border-color: var(--line-soft);
+  box-sizing: border-box;
+}
+
+.ink-sidebar--sm { width: 200px; }
+.ink-sidebar--md { width: 240px; }
+.ink-sidebar--lg { width: 280px; }
+
+.ink-sidebar--sticky {
+  position: sticky;
+  top: 0;
+}
+
+.ink-sidebar--fixed {
+  position: fixed;
+  top: 0;
+  z-index: var(--z-nav, 10);
+}
+
+.ink-sidebar--start {
+  border-right: 1px solid var(--line-soft);
+}
+.ink-sidebar--start.ink-sidebar--fixed { left: 0; }
+
+.ink-sidebar--end {
+  border-left: 1px solid var(--line-soft);
+}
+.ink-sidebar--end.ink-sidebar--fixed { right: 0; }
+
+.ink-sidebar-header,
+.ink-sidebar-footer {
+  flex: 0 0 auto;
+  padding-inline: var(--space-4);
+}
+
+.ink-sidebar-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-inline-end: var(--space-4);
+}
+
+/* When a list Nav is nested inside a Sidebar, the item background extends to
+   the sidebar's left edge; the item's own padding-left preserves the text at
+   its original inset (sidebar padding + item padding). */
+.ink-sidebar .ink-nav--list .ink-nav-item {
+  padding-inline-start: calc(var(--space-4) + 12px);
 }
 
 /* Shared controls */
-.nav-button,
 .primary-button,
 .secondary-button,
 .ghost-button,
@@ -1301,48 +1492,6 @@ select option {
   cursor: pointer;
   border: 0;
   font: inherit;
-}
-
-.nav-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 20px;
-  border-radius: var(--radius-sharp);
-  border: 0;
-  background: transparent;
-  color: rgba(244, 237, 226, 0.5);
-  font-weight: var(--font-weight-bold);
-  position: relative;
-  z-index: 1;
-  transition: color 0.2s;
-}
-
-.nav-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-}
-
-.nav-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.nav-label {
-  display: inline-flex;
-  align-items: center;
-  line-height: var(--line-height-tight);
-}
-
-.nav-beta-label {
-  display: inline-block;
-  margin-left: var(--space-1);
-  color: var(--color-warning);
-  font-size: var(--font-size-2xs);
-  font-weight: var(--font-weight-extrabold);
-  text-transform: uppercase;
 }
 
 .mobile-ballot-actions,
@@ -1397,11 +1546,6 @@ select option {
 
 .ballot-task-button.active:hover {
   color: var(--color-text-strong);
-}
-
-.nav-button.active {
-  background: transparent;
-  color: var(--nav-active-fg);
 }
 
 .primary-button {
@@ -1570,22 +1714,6 @@ select option {
 .slot-button,
 .picker-team-button {
   border: 1px solid var(--color-border-strong);
-}
-
-.nav-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 10px;
-  height: 10px;
-  min-width: 10px;
-  padding: 0;
-  border-radius: var(--radius-pill);
-  background: var(--notification-dot-bg);
-  color: transparent;
-  font-size: 0;
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-none);
 }
 
 /* Shared surfaces */
@@ -2162,7 +2290,6 @@ input[type="search"].input--lg {
   background: var(--hover-surface);
 }
 
-.nav-button:not(.active):hover,
 .secondary-button:hover,
 .preview-mode-button:hover:not(.active) {
   border-color: var(--control-border-hover);
@@ -2190,7 +2317,6 @@ input[type="search"].input--lg {
   cursor: default;
 }
 
-.nav-button.active:hover,
 .preview-mode-button.active:hover {
   filter: brightness(0.96);
 }
@@ -3086,7 +3212,6 @@ input[type="search"].input--lg {
   color: color-mix(in srgb, var(--muted) 62%, var(--bg));
 }
 
-.nav-button:focus-visible,
 .primary-button:focus-visible,
 .secondary-button:focus-visible,
 .ghost-button:focus-visible,
@@ -4235,14 +4360,6 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   text-align: center;
 }
 
-body[data-preview-mode="mobile"] .top-nav {
-  position: sticky;
-  left: auto;
-  right: auto;
-  width: auto;
-  margin-top: auto;
-}
-
 @container app (max-width: 760px) {
   .page-shell {
     width: 100%;
@@ -4327,7 +4444,7 @@ body[data-preview-mode="mobile"] .top-nav {
     font-size: var(--font-size-sm);
   }
 
-  .nav-track {
+  .ink-nav--horizontal .ink-nav-track {
     display: flex;
     width: 100%;
     background: transparent;
@@ -4336,11 +4453,11 @@ body[data-preview-mode="mobile"] .top-nav {
     gap: 0;
   }
 
-  .nav-slider {
+  .ink-nav--horizontal .ink-nav-slider {
     display: none;
   }
 
-  .top-nav {
+  .ink-nav--horizontal {
     order: 2;
     align-self: stretch;
     position: fixed;
@@ -4349,72 +4466,38 @@ body[data-preview-mode="mobile"] .top-nav {
     bottom: 0;
     z-index: var(--z-nav);
     display: flex;
-    flex-wrap: nowrap;
-    gap: 1px;
     width: 100%;
     margin: 0;
     padding: var(--space-1) var(--space-3) calc(var(--space-1) + env(safe-area-inset-bottom, 0));
     border-top: 1px solid var(--line);
-    border-right: 0;
-    border-bottom: 0;
-    border-left: 0;
-    border-radius: var(--radius-none);
     background: var(--nav-mobile-bg);
     backdrop-filter: blur(14px);
-    box-shadow: none;
   }
 
-  .nav-button {
-    position: relative;
+  .ink-nav--horizontal .ink-nav-item {
     flex: 1 1 0;
+    flex-direction: column;
     justify-content: center;
     min-height: 56px;
     min-width: 0;
-    padding: var(--space-2) var(--space-0-5) var(--space-2);
-    border: 0;
-    border-radius: var(--radius-sharp);
-    background: transparent;
-    color: var(--muted);
-    flex-direction: column;
+    padding: var(--space-2) var(--space-0-5);
     gap: var(--space-1);
+    color: var(--muted);
     font-size: var(--font-size-2xs);
     letter-spacing: 0.01em;
     text-align: center;
     white-space: normal;
   }
 
-  .nav-button.active {
-    background: transparent;
+  .ink-nav--horizontal .ink-nav-item--active {
     color: var(--accent-readable);
   }
 
-  .nav-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nav-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .nav-label {
+  .ink-nav--horizontal .ink-nav-label {
     display: block;
-    justify-content: center;
     width: 100%;
     line-height: var(--line-height-display);
     text-align: center;
-  }
-
-  .nav-beta-label {
-    display: none;
-  }
-
-  .vote-nav-button .nav-badge {
-    position: absolute;
-    top: 6px;
-    right: calc(50% - 18px);
   }
 
   .panel {
@@ -5068,11 +5151,11 @@ body[data-preview-mode="mobile"] .top-nav {
 }
 
 @container app (min-width: 761px) and (max-width: 920px) {
-  .top-nav {
+  .ink-nav--horizontal .ink-nav-track {
     gap: var(--space-2);
   }
 
-  .nav-button {
+  .ink-nav--horizontal .ink-nav-item {
     padding: var(--space-3) var(--space-4);
   }
 }

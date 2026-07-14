@@ -1,4 +1,4 @@
-import { Center, Container, Heading, Surface, Text } from "../index";
+import { Button, Center, Container, EmptyState, Heading, Panel, SectionHeading, Surface, Text } from "../index";
 
 export default {
   title: "Components/Surface/Features",
@@ -27,3 +27,36 @@ export const CenteredLayout = {
   ),
 };
 
+export const PanelDefault = {
+  name: "Panel",
+  render: () => (
+    <Panel>
+      <SectionHeading eyebrow="League setup" title="Storybook Dynasty" />
+      <p className="helper-text">Panels wrap major content regions across vote, commissioner, and results views.</p>
+    </Panel>
+  ),
+};
+
+export const SectionHeadingDefault = {
+  name: "Section heading",
+  render: () => (
+    <SectionHeading eyebrow="Current voter" title="UCF Knights">
+      <Button variant="secondary">Action</Button>
+    </SectionHeading>
+  ),
+};
+
+export const SectionHeadingCompact = {
+  name: "Section heading — compact",
+  render: () => <SectionHeading title="Poll rounds" compact />,
+};
+
+export const EmptyStateDefault = {
+  name: "Empty state",
+  render: () => (
+    <EmptyState>
+      <strong>Join or create a league before voting.</strong>
+      <div className="subtle top-gap">Open a private invite link to join an existing league.</div>
+    </EmptyState>
+  ),
+};

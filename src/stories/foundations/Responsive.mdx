@@ -1,0 +1,91 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Responsive" />
+
+# Responsive
+
+Inkwell targets the same interfaces at every viewport width — no separate mobile
+theme, no drastically different navigation. Components adapt through a small,
+predictable set of tools: `Grid` responsive columns, drawer sheets, safe-area
+insets, and container queries where scoping matters.
+
+## Breakpoints
+
+Three named breakpoints are used across the layout primitives and component
+styles.
+
+| Token | Min width | Intended for |
+|---|---|---|
+| `sm` | `480px` | Large phone in portrait; single-column layouts begin to breathe. |
+| `md` | `760px` | Tablet portrait / small laptop; multi-column grids and inline forms unlock. |
+| `lg` | `1024px` | Standard laptop and up; dense multi-pane layouts. |
+
+The narrow floor Inkwell design *against* is **320px** — the smallest viewport
+we treat as production. Any component must be readable and reachable at 320px
+before it ships. See [Patterns / Mobile readiness](?path=/docs/patterns-mobile-readiness--width320)
+for the fixtures that stress-test this.
+
+## Responsive column props
+
+`Grid` accepts a `columns` prop as either a number or a per-breakpoint map. The
+map keys mirror the breakpoints above and cascade upward — omitted keys inherit
+from the smaller one.
+
+```jsx
+<Grid columns={{ base: 1, md: 2, lg: 3 }} gap="lg">
+  ...
+</Grid>
+```
+
+- `base` — 320px and up. Always required.
+- `sm` — 480px and up.
+- `md` — 760px and up.
+- `lg` — 1024px and up.
+
+Other primitives (`Stack`, `Inline`) currently take scalar props only. If you
+need per-viewport spacing on a Stack, wrap it or scope with CSS.
+
+## Touch targets
+
+Interactive elements must be at least **44 × 44 CSS px** on touch. Inkwell
+components already meet this — `Button`, `Tabs` (`min-height: 44px`),
+`IconButton` (`--icon-btn-size` at md/lg), and form controls scale up on narrow
+viewports.
+
+Do not compress standard buttons below `size="sm"` in a mobile layout; use
+`IconButton` if space is genuinely constrained.
+
+## Safe-area insets
+
+The `Drawer` and `ToastRegion` components honor iOS safe-area insets via
+`env(safe-area-inset-*)`. When you build a new floating or edge-anchored
+surface, add the same padding fallback so notches and home indicators don't
+overlap content.
+
+```css
+.ink-thing {
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+}
+```
+
+## Mobile-specific patterns
+
+- **Drawer sheets** — use `Drawer` with `side="bottom"` and `maxHeight` for
+  filter panels and multi-step flows that would need a full page on desktop.
+- **Toast** — the `ToastRegion` component already anchors above the keyboard
+  and safe area.
+- **Pagination** — collapses to compact numeric controls under 480px.
+
+## What to check on every component
+
+Before shipping any component for mobile production:
+
+1. Render at 320px, 375px, and 768px. All labels and controls remain readable
+   and reachable.
+2. Interactive targets meet the 44 × 44 px minimum.
+3. Long content wraps or truncates — no horizontal scroll on the page body.
+4. Focus rings stay visible under any responsive layout shift.
+
+The [Patterns / Mobile readiness](?path=/docs/patterns-mobile-readiness--width320)
+fixture composes a realistic dashboard at 320px and 375px to make regressions
+easy to spot.

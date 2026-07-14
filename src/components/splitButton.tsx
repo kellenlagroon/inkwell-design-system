@@ -1,14 +1,29 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { IconArrowDown } from "./icons.jsx";
 
-export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }) {
+export interface SplitButtonItem {
+  label: string;
+  description?: string;
+  icon?: ReactNode;
+  iconBg?: string;
+  iconColor?: string;
+  onClick?: () => void;
+}
+
+export interface SplitButtonProps {
+  primaryLabel: ReactNode;
+  onPrimaryClick?: () => void;
+  items?: SplitButtonItem[];
+}
+
+export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }: SplitButtonProps) {
   const [open, setOpen] = useState(false);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    function handleOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
+    function handleOutside(e: PointerEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }
@@ -16,7 +31,7 @@ export function SplitButton({ primaryLabel, onPrimaryClick, items = [] }) {
     return () => document.removeEventListener("pointerdown", handleOutside);
   }, [open]);
 
-  function handleItemClick(onClick) {
+  function handleItemClick(onClick?: () => void) {
     setOpen(false);
     onClick?.();
   }
