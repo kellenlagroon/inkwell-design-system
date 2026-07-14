@@ -7,7 +7,7 @@ export default {
 export const ToastPlayground = {
   name: "Playground",
   args: {
-    message: "Ballot saved.",
+    message: "Changes saved.",
     tone: "success",
   },
   argTypes: {

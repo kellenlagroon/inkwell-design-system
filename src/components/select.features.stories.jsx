@@ -9,16 +9,16 @@ const SEASON_OPTIONS = [
 ];
 
 const LEAGUE_OPTIONS = [
-  { value: "l1", label: "Dynasty League · Alabama" },
-  { value: "l2", label: "CFB Open · Georgia" },
-  { value: "l3", label: "Rivalry Bowl · Michigan" },
+  { value: "l1", label: "Sample Project · Northstar" },
+  { value: "l2", label: "Sample Project · Summit" },
+  { value: "l3", label: "Rivalry Bowl · Cedar" },
 ];
 
 const TEAM_OPTIONS = [
-  { value: "t1", label: "Alabama · Jordan Fields" },
-  { value: "t2", label: "Georgia · Marcus Webb" },
-  { value: "t3", label: "Ohio State · Priya Nair" },
-  { value: "t4", label: "Michigan · Devin Torres" },
+  { value: "t1", label: "Northstar · Jordan Fields" },
+  { value: "t2", label: "Summit · Marcus Webb" },
+  { value: "t3", label: "Harbor · Priya Nair" },
+  { value: "t4", label: "Cedar · Devin Torres" },
   { value: "t5", label: "Clemson · already claimed", disabled: true },
 ];
 
@@ -49,8 +49,8 @@ export const FormVariant = {
         <Controlled options={SEASON_OPTIONS} variant="form" />
       </label>
       <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Commissioner team
-        <Controlled options={TEAM_OPTIONS} placeholder="Choose a team…" variant="form" />
+        Administrator item
+        <Controlled options={TEAM_OPTIONS} placeholder="Choose an item…" variant="form" />
       </label>
     </div>
   ),
@@ -61,10 +61,10 @@ export const DisabledOptions = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 400 }}>
       <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Claim an existing team
+        Choose an existing item
         <Controlled
           options={[
-            { value: "", label: "Create a custom team below instead" },
+            { value: "", label: "Create a custom item below instead" },
             ...TEAM_OPTIONS,
           ]}
           variant="form"
@@ -78,7 +78,7 @@ export const ControlVariant = {
   name: "Control variant",
   render: () => (
     <div style={{ background: "var(--color-surface-base, #0d0d0d)", padding: "12px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-      <strong style={{ fontFamily: "League Spartan, sans-serif", fontSize: 14, color: "var(--color-text-primary)", letterSpacing: "0.03em" }}>COACHES POLL</strong>
+      <strong style={{ fontFamily: "League Spartan, sans-serif", fontSize: 14, color: "var(--color-text-primary)", letterSpacing: "0.03em" }}>INKWELL</strong>
       <Controlled options={LEAGUE_OPTIONS} variant="control" />
       <button className="secondary-button button--sm">Sign in</button>
     </div>
@@ -95,7 +95,7 @@ export const DisabledState = {
       </label>
       <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
         Control — disabled
-        <Select variant="control" value="" placeholder="No joined leagues yet" options={[]} disabled />
+        <Select variant="control" value="" placeholder="No projects yet" options={[]} disabled />
       </label>
     </div>
   ),

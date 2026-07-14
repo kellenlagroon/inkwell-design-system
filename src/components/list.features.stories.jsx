@@ -5,9 +5,9 @@ export default {
 };
 
 const ROWS = [
-  { id: "a", primary: "Alabama", secondary: "SEC", meta: "12–1" },
-  { id: "b", primary: "Georgia", secondary: "SEC", meta: "11–2" },
-  { id: "c", primary: "Ohio State", secondary: "B1G", meta: "11–2" },
+  { id: "a", primary: "Northstar", secondary: "Core", meta: "12–1" },
+  { id: "b", primary: "Summit", secondary: "Core", meta: "11–2" },
+  { id: "c", primary: "Harbor", secondary: "Growth", meta: "11–2" },
 ];
 
 export const Basic = {

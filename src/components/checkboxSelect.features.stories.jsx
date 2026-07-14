@@ -29,4 +29,3 @@ export const WithSearch = {
 export const WithoutSearch = {
   render: () => <Demo searchable={false} />,
 };
-

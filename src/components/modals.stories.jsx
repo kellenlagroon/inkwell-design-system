@@ -12,11 +12,11 @@ export const DangerModal = {
       const [open, setOpen] = useState(false);
       return (
         <div style={{ padding: 24 }}>
-          <Button variant="danger" onClick={() => setOpen(true)}>Delete workspace…</Button>
+          <Button variant="danger" onClick={() => setOpen(true)}>Delete project…</Button>
           <ModalFrame
             id="danger-pattern-modal"
             titleId="danger-pattern-modal-title"
-            title="Delete workspace"
+            title="Delete project"
             size="compact"
             open={open}
             onClose={() => setOpen(false)}
@@ -26,7 +26,7 @@ export const DangerModal = {
                 Use a danger modal for irreversible actions that need a final confirmation step.
               </p>
               <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <Button variant="danger" onClick={() => setOpen(false)}>Delete workspace</Button>
+                <Button variant="danger" onClick={() => setOpen(false)}>Delete project</Button>
                 <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
               </div>
             </div>

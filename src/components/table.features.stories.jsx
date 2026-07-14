@@ -5,15 +5,15 @@ export default {
 };
 
 const ROWS = [
-  { id: "a", name: "Alabama", wins: 12, losses: 1 },
-  { id: "b", name: "Georgia", wins: 11, losses: 2 },
-  { id: "c", name: "Ohio State", wins: 11, losses: 2 },
+  { id: "a", name: "Northstar", priority: 12, status: 1 },
+  { id: "b", name: "Summit", priority: 11, status: 2 },
+  { id: "c", name: "Harbor", priority: 11, status: 2 },
 ];
 
 const COLUMNS = [
-  { id: "name", header: "Team", render: (r) => r.name },
-  { id: "wins", header: "Wins", align: "end", render: (r) => r.wins },
-  { id: "losses", header: "Losses", align: "end", render: (r) => r.losses },
+  { id: "name", header: "Item", render: (r) => r.name },
+  { id: "priority", header: "Wins", align: "end", render: (r) => r.priority },
+  { id: "status", header: "Losses", align: "end", render: (r) => r.status },
 ];
 
 export const Basic = {
@@ -56,9 +56,9 @@ export const StickyHeader = {
           columns={COLUMNS}
           data={Array.from({ length: 20 }, (_, i) => ({
             id: `r${i}`,
-            name: `Team ${i + 1}`,
-            wins: 12 - (i % 5),
-            losses: i % 5,
+            name: `Item ${i + 1}`,
+            priority: 12 - (i % 5),
+            status: i % 5,
           }))}
           getRowKey={(r) => r.id}
           stickyHeader

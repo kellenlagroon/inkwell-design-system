@@ -14,9 +14,9 @@ export const InputTypes = {
   name: "Input types",
   render: () => (
     <div style={{ padding: 24, maxWidth: 400, display: "grid", gap: 16 }}>
-      <Controlled type="text" placeholder="Poll title" />
-      <Controlled type="search" placeholder="Search league teams" />
-      <Controlled type="email" placeholder="coach@example.com" />
+      <Controlled type="text" placeholder="Project title" />
+      <Controlled type="search" placeholder="Search project items" />
+      <Controlled type="email" placeholder="name@example.com" />
       <Controlled type="password" placeholder="Access code" />
     </div>
   ),
@@ -27,7 +27,7 @@ export const States = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 400, display: "grid", gap: 16 }}>
       <Controlled placeholder="Default" />
-      <Controlled initial="CFB 27 Team Preferences" />
+      <Controlled initial="Project Preferences" />
       <TextInput placeholder="Disabled" disabled />
       <TextInput placeholder="Invalid" invalid defaultValue="not-an-email" />
     </div>

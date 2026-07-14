@@ -27,11 +27,11 @@ export const WithHeaderAndActions = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420 }}>
       <Card>
-        <SectionHeading eyebrow="Poll round" title="Week 8 Coaches Poll" compact />
-        <p className="subtle" style={{ margin: 0 }}>2026 Season · 25-slot ballot · top 25</p>
+        <SectionHeading eyebrow="Review cycle" title="Quarterly Planning Review" compact />
+        <p className="subtle" style={{ margin: 0 }}>2026 Season · 25-slot submission · top 25</p>
         <CardActions>
           <Button variant="secondary">Close voting</Button>
-          <Button>Publish round</Button>
+          <Button>Publish update</Button>
         </CardActions>
       </Card>
     </div>
@@ -43,10 +43,10 @@ export const DangerTone = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420 }}>
       <Card tone="danger">
-        <SectionHeading title="Delete league" compact />
-        <p className="subtle" style={{ margin: 0 }}>This permanently removes the league and every poll in it.</p>
+        <SectionHeading title="Delete project" compact />
+        <p className="subtle" style={{ margin: 0 }}>This permanently removes the project and its associated content.</p>
         <CardActions>
-          <Button variant="danger">Delete league</Button>
+          <Button variant="danger">Delete project</Button>
         </CardActions>
       </Card>
     </div>
@@ -59,10 +59,10 @@ export const InAGrid = {
     <div style={{ padding: 24, maxWidth: 640 }}>
       <Grid columns={2} gap="md">
         {[
-          ["Dynasty League", "open"],
-          ["CFB Open", "closed"],
+          ["Sample Project", "open"],
+          ["Sample Project", "closed"],
           ["Rivalry Bowl", "open"],
-          ["Playoff Poll", "published"],
+          ["Planning Review", "published"],
         ].map(([name, status]) => (
           <Card key={name}>
             <SectionHeading title={name} compact />

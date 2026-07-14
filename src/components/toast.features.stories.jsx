@@ -5,7 +5,7 @@ export default {
 };
 
 export const ToastSuccess = {
-  render: () => <Toast id="t1" message="Ballot saved." tone="success" onDismiss={() => {}} />,
+  render: () => <Toast id="t1" message="Changes saved." tone="success" onDismiss={() => {}} />,
 };
 
 export const ToastError = {
@@ -20,8 +20,8 @@ export const ToastRegionMultiple = {
   render: () => (
     <ToastRegion
       toasts={[
-        { id: "t1", message: "Ballot saved.", tone: "success" },
-        { id: "t2", message: "League created.", tone: "success" },
+        { id: "t1", message: "Changes saved.", tone: "success" },
+        { id: "t2", message: "Project created.", tone: "success" },
         { id: "t3", message: "Session expired.", tone: "error" },
       ]}
       onDismiss={() => {}}

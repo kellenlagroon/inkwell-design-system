@@ -7,7 +7,7 @@ export default {
 export const ButtonPlayground = {
   name: "Playground",
   args: {
-    children: "Save ballot",
+    children: "Save changes",
     variant: "primary",
     size: "md",
     disabled: false,

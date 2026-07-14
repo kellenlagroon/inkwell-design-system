@@ -6,22 +6,22 @@ export default {
 };
 
 const TABS = [
-  { value: "poll", label: "Coaches Poll" },
+  { value: "overview", label: "Overview" },
   { value: "multi", label: "Multi-Category" },
-  { value: "selection", label: "Team Selection" },
+  { value: "selection", label: "Settings" },
 ];
 
 export const Playground = {
   render: () => {
     function Demo() {
-      const [value, setValue] = useState("poll");
+      const [value, setValue] = useState("overview");
       return (
         <div style={{ padding: 24, maxWidth: 480 }}>
-          <Tabs tabs={TABS} value={value} onChange={setValue} aria-label="Active ballot type" id="ballot" />
+          <Tabs tabs={TABS} value={value} onChange={setValue} aria-label="Active submission type" id="submission" />
           <div
-            id={`ballot-panel-${value}`}
+            id={`submission-panel-${value}`}
             role="tabpanel"
-            aria-labelledby={`ballot-tab-${value}`}
+            aria-labelledby={`submission-tab-${value}`}
             style={{ paddingTop: 20, color: "var(--color-text-primary)" }}
           >
             {TABS.find((t) => t.value === value)?.label} content

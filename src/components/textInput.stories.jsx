@@ -14,7 +14,7 @@ export const Playground = {
   args: {
     type: "text",
     size: "md",
-    placeholder: "Week 8 Coaches Poll",
+    placeholder: "Quarterly Planning Review",
     invalid: false,
     disabled: false,
   },

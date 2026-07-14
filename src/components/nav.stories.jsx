@@ -7,14 +7,14 @@ export default {
 };
 
 const ITEMS = [
-  { value: "ballot", label: "Ballot", icon: <IconAward /> },
+  { value: "submission", label: "Submission", icon: <IconAward /> },
   { value: "results", label: "Results", icon: <IconTrophy />, badge: 3 },
-  { value: "commissioner", label: "Commissioner", icon: <IconSettings /> },
+  { value: "administrator", label: "Administrator", icon: <IconSettings /> },
 ];
 
 const VERTICAL_ITEMS = [
   { value: "overview", label: "Overview", icon: <IconList /> },
-  { value: "players", label: "Players", icon: <IconUsers />, badge: 12 },
+  { value: "members", label: "Members", icon: <IconUsers />, badge: 12 },
   { value: "results", label: "Results", icon: <IconTrophy /> },
   { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];

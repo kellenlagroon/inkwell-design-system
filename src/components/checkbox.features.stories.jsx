@@ -14,7 +14,7 @@ export const SingleChoice = {
   name: "Single choice",
   render: () => (
     <div style={{ padding: 24 }}>
-      <Controlled initial label="Lock ballots at kickoff" />
+      <Controlled initial label="Lock submissions after the deadline" />
     </div>
   ),
 };
@@ -23,9 +23,9 @@ export const Group = {
   name: "Group",
   render: () => (
     <div style={{ padding: 24, display: "grid", gap: 12 }}>
-      <Controlled initial label="Lock ballots at kickoff" />
-      <Controlled label="Allow late submissions" />
-      <Controlled label="Email coaches a reminder" />
+      <Controlled initial label="Lock submissions after the deadline" />
+      <Controlled label="Allow late entries" />
+      <Controlled label="Email reviewers a reminder" />
     </div>
   ),
 };
@@ -34,7 +34,7 @@ export const Disabled = {
   name: "Disabled",
   render: () => (
     <div style={{ padding: 24, display: "grid", gap: 12 }}>
-      <Checkbox label="Archived round" checked disabled />
+      <Checkbox label="Archived cycle" checked disabled />
       <Checkbox label="Unavailable option" disabled />
     </div>
   ),

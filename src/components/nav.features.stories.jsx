@@ -7,9 +7,9 @@ export default {
 };
 
 const APP_ITEMS = [
-  { value: "ballot", label: "Ballot", icon: <IconAward /> },
+  { value: "submission", label: "Submission", icon: <IconAward /> },
   { value: "results", label: "Results", icon: <IconTrophy /> },
-  { value: "commissioner", label: "Commissioner", icon: <IconSettings /> },
+  { value: "administrator", label: "Administrator", icon: <IconSettings /> },
 ];
 
 function ControlledNav({ items, orientation = "horizontal", initial }) {
@@ -37,7 +37,7 @@ export const ListVariant = {
           variant="list"
           items={[
             { value: "overview", label: "Overview", icon: <IconList /> },
-            { value: "players", label: "Players", icon: <IconUsers />, badge: 12 },
+            { value: "members", label: "Members", icon: <IconUsers />, badge: 12 },
             { value: "results", label: "Results", icon: <IconTrophy />, badge: true },
             { value: "settings", label: "Settings", icon: <IconSettings /> },
           ]}
@@ -54,7 +54,7 @@ export const Vertical = {
         orientation="vertical"
         items={[
           { value: "overview", label: "Overview", icon: <IconList /> },
-          { value: "players", label: "Players", icon: <IconUsers /> },
+          { value: "members", label: "Members", icon: <IconUsers /> },
           { value: "results", label: "Results", icon: <IconTrophy /> },
           { value: "settings", label: "Settings", icon: <IconSettings /> },
         ]}
@@ -69,9 +69,9 @@ export const WithBadges = {
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
       <ControlledNav
         items={[
-          { value: "ballot", label: "Ballot", icon: <IconAward />, badge: 1 },
+          { value: "submission", label: "Submission", icon: <IconAward />, badge: 1 },
           { value: "results", label: "Results", icon: <IconTrophy />, badge: 12 },
-          { value: "commissioner", label: "Commissioner", icon: <IconSettings /> },
+          { value: "administrator", label: "Administrator", icon: <IconSettings /> },
         ]}
       />
     </div>
@@ -84,9 +84,9 @@ export const WithDotBadge = {
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
       <ControlledNav
         items={[
-          { value: "ballot", label: "Ballot", icon: <IconAward /> },
+          { value: "submission", label: "Submission", icon: <IconAward /> },
           { value: "results", label: "Results", icon: <IconTrophy />, badge: true },
-          { value: "commissioner", label: "Commissioner", icon: <IconSettings />, badge: true },
+          { value: "administrator", label: "Administrator", icon: <IconSettings />, badge: true },
         ]}
       />
     </div>
@@ -99,9 +99,9 @@ export const AsLinks = {
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
       <ControlledNav
         items={[
-          { value: "ballot", label: "Ballot", icon: <IconAward />, href: "#ballot" },
+          { value: "submission", label: "Submission", icon: <IconAward />, href: "#submission" },
           { value: "results", label: "Results", icon: <IconTrophy />, href: "#results" },
-          { value: "commissioner", label: "Commissioner", icon: <IconSettings />, href: "#commissioner" },
+          { value: "administrator", label: "Administrator", icon: <IconSettings />, href: "#administrator" },
         ]}
       />
     </div>
@@ -116,7 +116,7 @@ export const LabelOnly = {
         items={[
           { value: "one", label: "Overview" },
           { value: "two", label: "Rounds" },
-          { value: "three", label: "Roster" },
+          { value: "three", label: "Directory" },
         ]}
       />
     </div>

@@ -6,8 +6,8 @@ export default {
 
 export const Playground = {
   args: {
-    content: "Ballots are anonymized before results are published.",
-    triggerLabel: "More information about ballots",
+    content: "Submissions are private until results are published.",
+    triggerLabel: "More information about submissions",
   },
   argTypes: {
     content: { control: "text" },
@@ -16,7 +16,7 @@ export const Playground = {
   render: ({ content, triggerLabel }) => (
     <div style={{ padding: 64, display: "flex", justifyContent: "center" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "var(--color-text-primary)" }}>
-        Final ballots
+        Final submissions
         <Tooltip content={content} triggerLabel={triggerLabel} />
       </span>
     </div>

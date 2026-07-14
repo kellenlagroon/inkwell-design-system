@@ -31,8 +31,8 @@ export const PanelDefault = {
   name: "Panel",
   render: () => (
     <Panel>
-      <SectionHeading eyebrow="League setup" title="Storybook Dynasty" />
-      <p className="helper-text">Panels wrap major content regions across vote, commissioner, and results views.</p>
+      <SectionHeading eyebrow="Project setup" title="Sample Project" />
+      <p className="helper-text">Panels wrap major content regions across overview, activity, and settings views.</p>
     </Panel>
   ),
 };
@@ -40,7 +40,7 @@ export const PanelDefault = {
 export const SectionHeadingDefault = {
   name: "Section heading",
   render: () => (
-    <SectionHeading eyebrow="Current voter" title="UCF Knights">
+    <SectionHeading eyebrow="Current user" title="Sample Account">
       <Button variant="secondary">Action</Button>
     </SectionHeading>
   ),
@@ -48,15 +48,15 @@ export const SectionHeadingDefault = {
 
 export const SectionHeadingCompact = {
   name: "Section heading — compact",
-  render: () => <SectionHeading title="Poll rounds" compact />,
+  render: () => <SectionHeading title="Review cycles" compact />,
 };
 
 export const EmptyStateDefault = {
   name: "Empty state",
   render: () => (
     <EmptyState>
-      <strong>Join or create a league before voting.</strong>
-      <div className="subtle top-gap">Open a private invite link to join an existing league.</div>
+      <strong>Join or create a project before continuing.</strong>
+      <div className="subtle top-gap">Open an invite link to join an existing project.</div>
     </EmptyState>
   ),
 };

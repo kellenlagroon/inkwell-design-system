@@ -21,7 +21,7 @@ export const Initials = {
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 12, alignItems: "center" }}>
       <Avatar name="Kellen Lagroon" />
-      <Avatar name="Georgia Bulldogs" />
+      <Avatar name="Summit Bulldogs" />
       <Avatar name="Ohio" />
     </div>
   ),
@@ -49,7 +49,7 @@ export const Shapes = {
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 12, alignItems: "center" }}>
       <Avatar name="Kellen Lagroon" shape="circle" />
-      <Avatar name="Team Logo" shape="square" src={SAMPLE_IMAGE} />
+      <Avatar name="Organization logo" shape="square" src={SAMPLE_IMAGE} />
     </div>
   ),
 };

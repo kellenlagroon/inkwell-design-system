@@ -4,7 +4,7 @@ export default {
 };
 
 const radiusTokens = [
-  { token: "--radius-none",             value: "0",          usage: "Roster rows, rail dividers" },
+  { token: "--radius-none",             value: "0",          usage: "Directory rows, rail dividers" },
   { token: "--radius-sharp",            value: "2px",        usage: "Buttons, panels, modals, most UI chrome" },
   { token: "--radius-rounded",          value: "12px",       usage: "Form inputs (generic select, input)" },
   { token: "--radius-pill",             value: "999px",      usage: "Pills, nav badges, avatar circles" },

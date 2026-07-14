@@ -11,8 +11,8 @@ export default {
 
 const ITEMS = [
   { value: "overview", label: "Overview", icon: <IconList /> },
-  { value: "players", label: "Players", icon: <IconUsers />, badge: 12 },
-  { value: "ballot", label: "Ballot", icon: <IconAward />, badge: true },
+  { value: "members", label: "Members", icon: <IconUsers />, badge: 12 },
+  { value: "submission", label: "Submission", icon: <IconAward />, badge: true },
   { value: "results", label: "Results", icon: <IconTrophy /> },
   { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];
@@ -30,7 +30,7 @@ function AppShell({ side = "start", size = "md" }) {
             <Avatar name="Kellen L" size="sm" />
             <div style={{ minWidth: 0 }}>
               <div style={{ color: "var(--text)", fontSize: "var(--font-size-sm)", fontWeight: 600 }}>Kellen L</div>
-              <div style={{ color: "var(--muted)", fontSize: "var(--font-size-2xs)" }}>Commissioner</div>
+              <div style={{ color: "var(--muted)", fontSize: "var(--font-size-2xs)" }}>Administrator</div>
             </div>
           </div>
         }

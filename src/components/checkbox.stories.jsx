@@ -12,7 +12,7 @@ function Controlled({ initial = false, ...props }) {
 
 export const Playground = {
   args: {
-    label: "Lock ballots at kickoff",
+    label: "Lock submissions after the deadline",
     disabled: false,
   },
   argTypes: {

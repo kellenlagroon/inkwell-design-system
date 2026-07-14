@@ -48,7 +48,7 @@ export const NoLabel = {
   name: "No label",
   render: () => (
     <div style={{ padding: 24, maxWidth: 420 }}>
-      <Progress value={70} ariaLabel="Ballot progress" />
+      <Progress value={70} ariaLabel="Submission progress" />
     </div>
   ),
 };

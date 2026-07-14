@@ -7,7 +7,7 @@ export default {
 export const StatusBannerPlayground = {
   name: "Playground",
   args: {
-    message: "Ballot saved successfully.",
+    message: "Changes saved successfully.",
     tone: "success",
     dismissible: true,
   },

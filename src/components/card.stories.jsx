@@ -17,11 +17,11 @@ export const Playground = {
   render: ({ variant, tone }) => (
     <div style={{ padding: 24, maxWidth: 420 }}>
       <Card variant={variant} tone={tone}>
-        <SectionHeading eyebrow="Poll round" title="Week 8 Coaches Poll" compact />
-        <p className="subtle" style={{ margin: 0 }}>2026 Season · 25-slot ballot · top 25</p>
+        <SectionHeading eyebrow="Review cycle" title="Quarterly Planning Review" compact />
+        <p className="subtle" style={{ margin: 0 }}>2026 Season · 25-slot submission · top 25</p>
         <CardActions>
           <Button variant="secondary">Close voting</Button>
-          <Button>Publish round</Button>
+          <Button>Publish update</Button>
         </CardActions>
       </Card>
     </div>

@@ -51,7 +51,7 @@ export const Typefaces = {
       <section>
         <SectionLabel>League Spartan — display</SectionLabel>
         <p style={{ margin: "0 0 8px", color: "var(--color-text-secondary)", fontSize: "var(--font-size-label)" }}>
-          Headings, section titles, rank numbers, team names, app title.
+          Headings, section titles, prominent values, item names, and app titles.
         </p>
         <p style={{
           fontFamily: "'League Spartan', sans-serif",
@@ -61,7 +61,7 @@ export const Typefaces = {
           margin: 0,
           color: "var(--color-text-primary)",
         }}>
-          Week 8 Coaches Poll
+          Quarterly Planning Review
         </p>
       </section>
 
@@ -138,7 +138,7 @@ export const TypeScale = {
                 lineHeight: "var(--line-height-tight)",
                 color: "var(--color-text-primary)",
               }}>
-                {isLeagueSpartan ? "Week 8 — #1 Alabama" : "The quick brown fox jumps over the lazy dog"}
+                {isLeagueSpartan ? "Week 8 — #1 Northstar" : "The quick brown fox jumps over the lazy dog"}
               </p>
             </div>
           );
@@ -228,7 +228,7 @@ export const LineHeights = {
                 color: "var(--color-text-primary)",
                 maxWidth: 340,
               }}>
-                Find a team, then choose its rank. Only one team may hold each position.
+                Find an item, then choose its priority. Only one item may hold each position.
               </p>
               <p style={{ margin: 0, fontSize: "var(--font-size-label-sm)", color: "var(--color-text-secondary)" }}>{usage}</p>
             </div>

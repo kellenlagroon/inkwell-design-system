@@ -2,22 +2,22 @@ import { SplitButton } from "./splitButton";
 
 const ROUND_ITEMS = [
   {
-    label: "Poll round",
-    description: "Coaches rank teams 1–25",
+    label: "Review cycle",
+    description: "Reviewers prioritize submitted items",
     icon: "ti-award",
     iconBg: "rgba(200,63,74,0.14)",
     iconColor: "#c83f4a",
   },
   {
-    label: "Multi-category poll",
-    description: "Vote across multiple categories",
+    label: "Multi-category review",
+    description: "Choose across multiple categories",
     icon: "ti-layout-list",
     iconBg: "rgba(111,143,181,0.14)",
     iconColor: "#6f8fb5",
   },
   {
-    label: "Team selection poll",
-    description: "Coaches pick a team roster",
+    label: "Item selection review",
+    description: "Reviewers choose from a shared directory",
     icon: "ti-shirt",
     iconBg: "rgba(122,176,137,0.14)",
     iconColor: "#7ab089",
@@ -30,7 +30,7 @@ export default {
 
 export const Playground = {
   args: {
-    primaryLabel: "New poll round",
+    primaryLabel: "New review cycle",
     disabled: false,
   },
   argTypes: {

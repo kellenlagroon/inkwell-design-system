@@ -5,12 +5,12 @@ export default {
   title: "Components/Table",
 };
 
-const TEAMS = [
-  { id: "ala", team: "Alabama", conf: "SEC", wins: 12, losses: 1 },
-  { id: "geo", team: "Georgia", conf: "SEC", wins: 11, losses: 2 },
-  { id: "osu", team: "Ohio State", conf: "B1G", wins: 11, losses: 2 },
-  { id: "mich", team: "Michigan", conf: "B1G", wins: 10, losses: 3 },
-  { id: "ore", team: "Oregon", conf: "PAC", wins: 10, losses: 3 },
+const ITEMS = [
+  { id: "ala", item: "Northstar", group: "Core", priority: 12, status: 1 },
+  { id: "geo", item: "Summit", group: "Core", priority: 11, status: 2 },
+  { id: "osu", item: "Harbor", group: "Growth", priority: 11, status: 2 },
+  { id: "mich", item: "Cedar", group: "Growth", priority: 10, status: 3 },
+  { id: "ore", item: "Atlas", group: "Platform", priority: 10, status: 3 },
 ];
 
 export const Playground = {
@@ -25,10 +25,10 @@ export const Playground = {
     stickyHeader: { control: "boolean" },
   },
   render: ({ density, hoverable, stickyHeader }) => {
-    const [sortBy, setSortBy] = useState("wins");
+    const [sortBy, setSortBy] = useState("priority");
     const [direction, setDirection] = useState("desc");
     const data = useMemo(() => {
-      const sorted = [...TEAMS];
+      const sorted = [...ITEMS];
       sorted.sort((a, b) => {
         const av = a[sortBy], bv = b[sortBy];
         const cmp = typeof av === "number" ? av - bv : String(av).localeCompare(String(bv));
@@ -41,10 +41,10 @@ export const Playground = {
       <div style={{ padding: 24, maxWidth: 640, color: "var(--color-text-primary)" }}>
         <Table
           columns={[
-            { id: "team", header: "Team", sortable: true, render: (r) => r.team },
-            { id: "conf", header: "Conf", sortable: true, render: (r) => r.conf },
-            { id: "wins", header: "W", sortable: true, align: "end", render: (r) => r.wins },
-            { id: "losses", header: "L", sortable: true, align: "end", render: (r) => r.losses },
+            { id: "item", header: "Item", sortable: true, render: (r) => r.item },
+            { id: "group", header: "Group", sortable: true, render: (r) => r.group },
+            { id: "priority", header: "Priority", sortable: true, align: "end", render: (r) => r.priority },
+            { id: "status", header: "Status", sortable: true, align: "end", render: (r) => r.status },
           ]}
           data={data}
           getRowKey={(r) => r.id}

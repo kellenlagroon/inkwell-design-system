@@ -20,8 +20,8 @@ export const LabelAndHint = {
   name: "Label and hint",
   render: () => (
     <div style={{ padding: 24, maxWidth: 400 }}>
-      <FormField label="Round name" hint="Shown to coaches on their ballot.">
-        <ControlledInput placeholder="Week 8 Coaches Poll" />
+      <FormField label="Cycle name" hint="Shown to reviewers on their submission.">
+        <ControlledInput placeholder="Quarterly Planning Review" />
       </FormField>
     </div>
   ),
@@ -31,8 +31,8 @@ export const Required = {
   name: "Required",
   render: () => (
     <div style={{ padding: 24, maxWidth: 400 }}>
-      <FormField label="Commissioner email" required>
-        <ControlledInput type="email" placeholder="coach@example.com" />
+      <FormField label="Administrator email" required>
+        <ControlledInput type="email" placeholder="name@example.com" />
       </FormField>
     </div>
   ),
@@ -58,8 +58,8 @@ export const WrappingAnyControl = {
         <FormField label="Active season">
           <Select value={season} onChange={setSeason} options={SEASON_OPTIONS} variant="form" />
         </FormField>
-        <FormField label="Notes" hint="Optional context for this round.">
-          <Textarea rows={4} placeholder="Add notes for coaches…" />
+        <FormField label="Notes" hint="Optional context for this cycle.">
+          <Textarea rows={4} placeholder="Add notes for reviewers…" />
         </FormField>
       </div>
     );

@@ -5,8 +5,8 @@ export default {
 };
 
 const CATEGORIES = [
-  { key: "offense", title: "Best offense", winner: "Alabama", count: 12 },
-  { key: "defense", title: "Best defense", winner: "Georgia", count: 12 },
+  { key: "offense", title: "Best offense", winner: "Northstar", count: 12 },
+  { key: "defense", title: "Best defense", winner: "Summit", count: 12 },
   { key: "surprise", title: "Biggest surprise", winner: "Indiana", count: 11 },
 ];
 
@@ -24,9 +24,9 @@ export const Stacked = {
           divided
         >
           <div style={{ display: "grid", gap: 8, color: "var(--color-text-primary)" }}>
-            <div>1. {c.winner} — 8 ballots</div>
-            <div>2. Michigan — 5 ballots</div>
-            <div>3. Oregon — 3 ballots</div>
+            <div>1. {c.winner} — 8 submissions</div>
+            <div>2. Cedar — 5 submissions</div>
+            <div>3. Atlas — 3 submissions</div>
           </div>
         </Collapsible>
       ))}

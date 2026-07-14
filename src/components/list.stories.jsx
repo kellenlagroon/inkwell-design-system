@@ -4,10 +4,10 @@ export default {
   title: "Components/List",
 };
 
-const TEAMS = [
-  { id: "ala", team: "Alabama", coach: "Kalen DeBoer", record: "12–1" },
-  { id: "geo", team: "Georgia", coach: "Kirby Smart", record: "11–2" },
-  { id: "osu", team: "Ohio State", coach: "Ryan Day", record: "11–2" },
+const ITEMS = [
+  { id: "ala", item: "Northstar", owner: "Avery Stone", status: "12–1" },
+  { id: "geo", item: "Summit", owner: "Jordan Lee", status: "11–2" },
+  { id: "osu", item: "Harbor", owner: "Morgan Chen", status: "11–2" },
 ];
 
 export const Playground = {
@@ -24,13 +24,13 @@ export const Playground = {
   render: ({ columns, density, bordered }) => (
     <div style={{ padding: 24, maxWidth: 560, color: "var(--color-text-primary)" }}>
       <List columns={columns} density={density} bordered={bordered}>
-        {TEAMS.map((t) => (
+        {ITEMS.map((t) => (
           <List.Row key={t.id}>
             <div>
-              <strong>{t.team}</strong>
-              <div className="subtle">{t.coach}</div>
+              <strong>{t.item}</strong>
+              <div className="subtle">{t.owner}</div>
             </div>
-            <div>{t.record}</div>
+            <div>{t.status}</div>
             <button type="button" className="ghost-button button--sm">Edit</button>
           </List.Row>
         ))}

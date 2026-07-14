@@ -13,16 +13,16 @@ const SEASON_OPTIONS = [
 ];
 
 const LEAGUE_OPTIONS = [
-  { value: "l1", label: "Dynasty League · Alabama" },
-  { value: "l2", label: "CFB Open · Georgia" },
-  { value: "l3", label: "Rivalry Bowl · Michigan" },
+  { value: "l1", label: "Sample Project · Northstar" },
+  { value: "l2", label: "Sample Project · Summit" },
+  { value: "l3", label: "Rivalry Bowl · Cedar" },
 ];
 
 const TEAM_OPTIONS = [
-  { value: "t1", label: "Alabama · Jordan Fields" },
-  { value: "t2", label: "Georgia · Marcus Webb" },
-  { value: "t3", label: "Ohio State · Priya Nair" },
-  { value: "t4", label: "Michigan · Devin Torres" },
+  { value: "t1", label: "Northstar · Jordan Fields" },
+  { value: "t2", label: "Summit · Marcus Webb" },
+  { value: "t3", label: "Harbor · Priya Nair" },
+  { value: "t4", label: "Cedar · Devin Torres" },
   { value: "t5", label: "Clemson · already claimed", disabled: true },
 ];
 

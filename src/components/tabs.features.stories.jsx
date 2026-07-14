@@ -11,7 +11,7 @@ export const Basic = {
       const [value, setValue] = useState("overview");
       const tabs = [
         { value: "overview", label: "Overview" },
-        { value: "ballots", label: "Ballots" },
+        { value: "submissions", label: "Submissions" },
         { value: "results", label: "Results" },
       ];
       return (
@@ -36,7 +36,7 @@ export const WithDisabledTab = {
       ];
       return (
         <div style={{ padding: 24, maxWidth: 480 }}>
-          <Tabs tabs={tabs} value={value} onChange={setValue} aria-label="Round status" />
+          <Tabs tabs={tabs} value={value} onChange={setValue} aria-label="Review status" />
         </div>
       );
     }

@@ -10,8 +10,8 @@ export default {
 
 const ITEMS = [
   { value: "overview", label: "Overview", icon: <IconList /> },
-  { value: "players", label: "Players", icon: <IconUsers /> },
-  { value: "ballot", label: "Ballot", icon: <IconAward /> },
+  { value: "members", label: "Members", icon: <IconUsers /> },
+  { value: "submission", label: "Submission", icon: <IconAward /> },
   { value: "results", label: "Results", icon: <IconTrophy /> },
   { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];

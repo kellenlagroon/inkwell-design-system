@@ -7,7 +7,7 @@ export default {
 export const Horizontal = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420, color: "var(--color-text-primary)" }}>
-      <p style={{ margin: "0 0 12px" }}>Final ballots are locked.</p>
+      <p style={{ margin: "0 0 12px" }}>Final submissions are locked.</p>
       <Divider />
       <p style={{ margin: "12px 0 0" }}>Results publish at noon.</p>
     </div>
@@ -30,7 +30,7 @@ export const Vertical = {
       <div style={{ display: "flex", alignItems: "center", gap: 12, height: 24 }}>
         <span>Overview</span>
         <Divider orientation="vertical" />
-        <span>Ballots</span>
+        <span>Submissions</span>
         <Divider orientation="vertical" />
         <span>Results</span>
       </div>

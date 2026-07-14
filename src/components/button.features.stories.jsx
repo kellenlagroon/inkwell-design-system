@@ -5,11 +5,11 @@ export default {
 };
 
 export const PrimaryButton = {
-  render: () => <Button>Save ballot</Button>,
+  render: () => <Button>Save changes</Button>,
 };
 
 export const SecondaryButton = {
-  render: () => <Button variant="secondary">Manage teams</Button>,
+  render: () => <Button variant="secondary">Manage items</Button>,
 };
 
 export const GhostButton = {
@@ -17,11 +17,11 @@ export const GhostButton = {
 };
 
 export const DangerButton = {
-  render: () => <Button variant="danger">Delete league</Button>,
+  render: () => <Button variant="danger">Delete project</Button>,
 };
 
 export const DisabledButton = {
-  render: () => <Button disabled>Save ballot</Button>,
+  render: () => <Button disabled>Save changes</Button>,
 };
 
 export const ButtonSizes = {
@@ -53,10 +53,10 @@ export const ButtonHierarchy = {
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <Button variant="primary">Publish results</Button>
-      <Button variant="secondary">Manage roster</Button>
+      <Button variant="secondary">Manage directory</Button>
       <Button variant="ghost">Cancel</Button>
       <span style={{ flex: 1 }} />
-      <Button variant="ghost" style={{ color: "var(--color-danger, #c83f4a)" }}>Delete round</Button>
+      <Button variant="ghost" style={{ color: "var(--color-danger, #c83f4a)" }}>Delete cycle</Button>
     </div>
   ),
 };
@@ -66,8 +66,8 @@ export const TextIconLeft = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary", [["ti-plus", "New round"], ["ti-send", "Publish results"], ["ti-check", "Save changes"]]],
-        ["secondary", [["ti-pencil", "Edit roster"], ["ti-settings", "Settings"], ["ti-download", "Export"]]],
+        ["primary", [["ti-plus", "New item"], ["ti-send", "Publish results"], ["ti-check", "Save changes"]]],
+        ["secondary", [["ti-pencil", "Edit directory"], ["ti-settings", "Settings"], ["ti-download", "Export"]]],
         ["ghost", [["ti-x", "Cancel"], ["ti-trash", "Remove"], ["ti-arrow-left", "Back"]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
@@ -87,8 +87,8 @@ export const TextIconRight = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary", [["New round", "ti-plus"], ["Publish results", "ti-send"], ["Continue", "ti-arrow-right"]]],
-        ["secondary", [["Edit roster", "ti-pencil"], ["Settings", "ti-settings"], ["Export", "ti-download"]]],
+        ["primary", [["New item", "ti-plus"], ["Publish results", "ti-send"], ["Continue", "ti-arrow-right"]]],
+        ["secondary", [["Edit directory", "ti-pencil"], ["Settings", "ti-settings"], ["Export", "ti-download"]]],
         ["ghost", [["Cancel", "ti-x"], ["Remove", "ti-trash"], ["Next", "ti-arrow-right"]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>

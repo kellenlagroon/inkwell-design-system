@@ -5,7 +5,7 @@ export default {
 };
 
 export const PillDefault = {
-  render: () => <span className="pill">Commissioner</span>,
+  render: () => <span className="pill">Administrator</span>,
 };
 
 export const PillSuccess = {
@@ -23,7 +23,7 @@ export const PillDanger = {
 export const PillAllVariants = {
   render: () => (
     <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
-      <Pill>Commissioner</Pill>
+      <Pill>Administrator</Pill>
       <Pill tone="success">Published</Pill>
       <Pill tone="warning">Open</Pill>
       <Pill tone="danger">Attention required</Pill>

@@ -9,7 +9,7 @@ export default {
 export const ModalFramePlayground = {
   name: "Playground",
   args: {
-    title: "Create a poll round",
+    title: "Create a review cycle",
     size: "default",
   },
   argTypes: {

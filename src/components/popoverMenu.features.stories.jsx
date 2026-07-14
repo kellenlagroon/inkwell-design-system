@@ -30,7 +30,7 @@ export const PopoverMenuDefault = {
   ),
 };
 
-export const PopoverMenuRosterActions = {
+export const PopoverMenuDirectoryActions = {
   render: () => (
     <div style={{ display: "flex", justifyContent: "flex-end", padding: 16 }}>
       <PopoverMenu

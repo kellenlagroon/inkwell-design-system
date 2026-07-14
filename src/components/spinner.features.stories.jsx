@@ -31,7 +31,7 @@ export const InlineWithLabel = {
   render: () => (
     <div style={{ padding: 24, display: "inline-flex", gap: 8, alignItems: "center", color: "var(--text)" }}>
       <Spinner size="sm" decorative />
-      <span>Loading ballots…</span>
+      <span>Loading content…</span>
     </div>
   ),
 };

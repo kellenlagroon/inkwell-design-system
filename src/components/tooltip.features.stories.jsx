@@ -24,7 +24,7 @@ export const CustomTrigger = {
   render: () => (
     <div style={{ padding: 64, display: "flex", justifyContent: "center" }}>
       <Tooltip
-        content="Anonymized: individual coaches' ballots are never shown."
+        content="Private: individual submissions are never shown."
         trigger={
           <button type="button" className="secondary-button">
             Why anonymized?
@@ -75,7 +75,7 @@ export const RichContent = {
               <strong>Applied in order:</strong>
               <span>1. Head-to-head result</span>
               <span>2. Total first-place votes</span>
-              <span>3. Average ballot rank</span>
+              <span>3. Average submission rank</span>
             </span>
           }
         />

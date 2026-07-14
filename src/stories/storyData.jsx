@@ -11,7 +11,7 @@ import {
 
 export const selectOptions = [
   { value: "daily", label: "Daily digest" },
-  { value: "weekly", label: "Weekly roundup" },
+  { value: "weekly", label: "Weekly summary" },
   { value: "monthly", label: "Monthly snapshot" },
   { value: "custom", label: "Custom cadence", disabled: true },
 ];
@@ -25,7 +25,7 @@ export const toastExamples = [
 export const splitButtonItems = [
   {
     label: "New campaign",
-    description: "Start from a blank workspace",
+    description: "Start from a blank project",
     icon: <IconAward />,
     iconBg: "rgba(216, 97, 93, 0.14)",
     iconColor: "#ef7d77",
