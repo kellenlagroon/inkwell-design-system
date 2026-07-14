@@ -37,6 +37,12 @@ describe("Sidebar", () => {
     expect(container.querySelector(".ink-sidebar-footer")).toBeNull();
   });
 
+  it("renders falsy ReactNode slot values", () => {
+    const { container } = render(<Sidebar header={0} footer={0}>x</Sidebar>);
+    expect(container.querySelector(".ink-sidebar-header")?.textContent).toBe("0");
+    expect(container.querySelector(".ink-sidebar-footer")?.textContent).toBe("0");
+  });
+
   it("switches to end side when requested", () => {
     const { container } = render(<Sidebar side="end">x</Sidebar>);
     expect(container.querySelector("aside")!.className).toContain("ink-sidebar--end");

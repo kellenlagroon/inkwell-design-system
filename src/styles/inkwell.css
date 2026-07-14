@@ -4444,7 +4444,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
     font-size: var(--font-size-sm);
   }
 
-  .ink-nav--horizontal .ink-nav-track {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-track {
     display: flex;
     width: 100%;
     background: transparent;
@@ -4453,11 +4453,11 @@ body[data-preview-mode="mobile"] .preview-mode-button {
     gap: 0;
   }
 
-  .ink-nav--horizontal .ink-nav-slider {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-slider {
     display: none;
   }
 
-  .ink-nav--horizontal {
+  .ink-nav--horizontal.ink-nav--mobile-docked {
     order: 2;
     align-self: stretch;
     position: fixed;
@@ -4474,7 +4474,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
     backdrop-filter: blur(14px);
   }
 
-  .ink-nav--horizontal .ink-nav-item {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-item {
     flex: 1 1 0;
     flex-direction: column;
     justify-content: center;
@@ -4489,11 +4489,11 @@ body[data-preview-mode="mobile"] .preview-mode-button {
     white-space: normal;
   }
 
-  .ink-nav--horizontal .ink-nav-item--active {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-item--active {
     color: var(--accent-readable);
   }
 
-  .ink-nav--horizontal .ink-nav-label {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-label {
     display: block;
     width: 100%;
     line-height: var(--line-height-display);
@@ -5151,11 +5151,11 @@ body[data-preview-mode="mobile"] .preview-mode-button {
 }
 
 @container app (min-width: 761px) and (max-width: 920px) {
-  .ink-nav--horizontal .ink-nav-track {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-track {
     gap: var(--space-2);
   }
 
-  .ink-nav--horizontal .ink-nav-item {
+  .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-item {
     padding: var(--space-3) var(--space-4);
   }
 }

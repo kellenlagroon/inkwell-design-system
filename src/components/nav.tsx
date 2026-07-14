@@ -29,6 +29,8 @@ export interface NavProps {
   orientation?: NavOrientation;
   /** Visual style. `chip` (default) is a segmented pill with a sliding indicator; `list` is a full-width list tuned for sidebars (no slider, tinted active row). Sidebar defaults its nested Nav to `list` automatically. */
   variant?: NavVariant;
+  /** Dock a horizontal Nav to the bottom of a narrow app container. Defaults to `false`. */
+  mobileDocked?: boolean;
   /** Accessible name for the wrapping `<nav>`. Required for a11y when the surrounding page has more than one nav. */
   "aria-label"?: string;
   /** Optional class name appended to the root. */
@@ -50,6 +52,7 @@ export function Nav({
   onChange,
   orientation = "horizontal",
   variant,
+  mobileDocked = false,
   "aria-label": ariaLabel,
   className,
 }: NavProps) {
@@ -117,7 +120,15 @@ export function Nav({
     };
   }, [measure, usesSlider]);
 
-  const classes = ["ink-nav", `ink-nav--${orientation}`, `ink-nav--${resolvedVariant}`, className].filter(Boolean).join(" ");
+  const classes = [
+    "ink-nav",
+    `ink-nav--${orientation}`,
+    `ink-nav--${resolvedVariant}`,
+    mobileDocked ? "ink-nav--mobile-docked" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <nav className={classes} aria-label={ariaLabel}>

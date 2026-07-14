@@ -71,4 +71,20 @@ describe("Nav", () => {
     const { getByRole } = render(<Harness orientation="vertical" />);
     expect(getByRole("navigation").className).toContain("ink-nav--vertical");
   });
+
+  it("only opts into mobile docking when requested", () => {
+    const { getByRole, rerender } = render(<Harness />);
+    expect(getByRole("navigation").className).not.toContain("ink-nav--mobile-docked");
+
+    rerender(
+      <Nav
+        items={ITEMS}
+        value="ballot"
+        onChange={() => {}}
+        mobileDocked
+        aria-label="Primary"
+      />,
+    );
+    expect(getByRole("navigation").className).toContain("ink-nav--mobile-docked");
+  });
 });

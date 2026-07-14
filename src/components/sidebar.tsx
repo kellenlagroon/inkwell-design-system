@@ -47,9 +47,9 @@ export function Sidebar({
   return (
     <NavVariantContext.Provider value="list">
       <aside className={classes} {...rest}>
-        {header ? <div className="ink-sidebar-header">{header}</div> : null}
+        {header != null ? <div className="ink-sidebar-header">{header}</div> : null}
         <div className="ink-sidebar-main">{children}</div>
-        {footer ? <div className="ink-sidebar-footer">{footer}</div> : null}
+        {footer != null ? <div className="ink-sidebar-footer">{footer}</div> : null}
       </aside>
     </NavVariantContext.Provider>
   );
