@@ -1,0 +1,101 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import {
+  IconArrowDown,
+  IconAward,
+  IconCheck,
+  IconClose,
+  IconCopy,
+  IconDiscord,
+  IconDotsVertical,
+  IconEye,
+  IconGoogle,
+  IconList,
+  IconLogout,
+  IconRestart,
+  IconSettings,
+  IconShirt,
+  IconTrophy,
+  IconUsers,
+} from "../../components/icons.jsx";
+
+<Meta title="Foundations/Icons" />
+
+# Icons
+
+Inkwell uses **Solar Linear** for product and interface icons, and **Simple
+Icons** for third-party brand marks. This is one icon system: do not introduce
+emoji or another UI-icon family.
+
+## Approved library
+
+The components exported from `components/icons.jsx` are the approved set. They
+render in a 24 × 24 viewBox, default to `1em`, and inherit their color from the
+surrounding component.
+
+| Product icons (Solar Linear) | Brand icons (Simple Icons) |
+|---|---|
+| Arrow down, Award, Check, Close, Copy, More, Eye, List, Log out, Restart, Settings, Shirt, Trophy, Users | Google, Discord |
+
+<div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(132px, 1fr))", gap: "12px", margin: "20px 0" }}>
+  {[
+    ["Arrow down", IconArrowDown], ["Award", IconAward], ["Check", IconCheck],
+    ["Close", IconClose], ["Copy", IconCopy], ["More", IconDotsVertical],
+    ["Eye", IconEye], ["List", IconList], ["Log out", IconLogout],
+    ["Restart", IconRestart], ["Settings", IconSettings], ["Shirt", IconShirt],
+    ["Trophy", IconTrophy], ["Users", IconUsers], ["Google", IconGoogle],
+    ["Discord", IconDiscord],
+  ].map(([name, Icon]) => (
+    <div key={name} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "10px", border: "1px solid var(--line-soft)", borderRadius: "6px" }}>
+      <Icon size="20px" />
+      <code>{name}</code>
+    </div>
+  ))}
+</div>
+
+## Size and alignment
+
+| Context | Size |
+|---|---:|
+| Dense controls and compact menus | 16px |
+| Standard buttons, inputs, and navigation | 20px |
+| Prominent empty states or feature callouts | 24px |
+| Illustration-style treatment | 32px+; intentional exception |
+
+- Icon-only buttons use 20px at the default size and 16px in compact controls.
+- Keep the original SVG viewBox and proportions. Do not stretch an icon, alter
+  its stroke width, or combine paths from different icons.
+- Components should align icons optically with adjacent text. Icons inherit
+  `currentColor`; use foreground tokens rather than hard-coded color values.
+
+## Meaning, color, and accessibility
+
+- Use an icon to reinforce an action or help scanning—not as decoration on
+  every control.
+- Use the same icon for the same meaning throughout the product. In particular,
+  use `IconDotsVertical` for “more actions,” `IconClose` for dismissal, and
+  `IconSettings` for settings.
+- Use semantic foreground colors: default, muted, accent, success, warning,
+  danger, or inverse. Disabled icons inherit the disabled state of their host.
+- Never communicate status or a destructive action through an icon or color
+  alone; pair it with text, a label, or another accessible cue.
+- An icon-only button is appropriate only when its action is familiar in
+  context. It must have an accessible name, such as
+  `aria-label="Close dialog"`.
+- In text buttons, put a leading icon before an initiating action and a trailing
+  icon after a directional/progressive action.
+
+## Brand marks
+
+- Use Simple Icons only to identify the associated external service.
+- Keep the official mark geometry. Use its native color only when recognition
+  or a branded sign-in action calls for it; otherwise inherit the surrounding
+  foreground color.
+- Never use a brand mark as a generic action icon.
+
+## Adding an icon
+
+Request or add an icon only when the approved set does not express a stable,
+repeated product concept. New interface icons must come from Solar Linear;
+product-specific additions must use the same 24px grid, outlined construction,
+rounded caps/joins, and visual weight. Record its source, upstream name,
+version, and license in [the icon-system reference](../../../docs/icon-system.md).

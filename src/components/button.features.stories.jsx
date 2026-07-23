@@ -1,4 +1,18 @@
 import { Button, IconButton } from "./ui.jsx";
+import {
+  IconArrowDown,
+  IconAward,
+  IconCheck,
+  IconClose,
+  IconCopy,
+  IconDotsVertical,
+  IconEye,
+  IconLogout,
+  IconRestart,
+  IconSettings,
+  IconTrophy,
+  IconUsers,
+} from "./icons.jsx";
 
 export default {
   title: "Components/Button/Features",
@@ -66,14 +80,14 @@ export const TextIconLeft = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary", [["ti-plus", "New item"], ["ti-send", "Publish results"], ["ti-check", "Save changes"]]],
-        ["secondary", [["ti-pencil", "Edit directory"], ["ti-settings", "Settings"], ["ti-download", "Export"]]],
-        ["ghost", [["ti-x", "Cancel"], ["ti-trash", "Remove"], ["ti-arrow-left", "Back"]]],
+        ["primary", [[IconAward, "Review cycle"], [IconRestart, "Restart review"], [IconCheck, "Save changes"]]],
+        ["secondary", [[IconEye, "View directory"], [IconSettings, "Settings"], [IconCopy, "Duplicate"]]],
+        ["ghost", [[IconClose, "Cancel"], [IconLogout, "Leave review"], [IconArrowDown, "Show more"]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {items.map(([icon, label]) => (
+          {items.map(([Icon, label]) => (
             <Button key={label} variant={variant}>
-              <i className={`ti ${icon}`} />{label}
+              <Icon />{label}
             </Button>
           ))}
         </div>
@@ -87,14 +101,14 @@ export const TextIconRight = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary", [["New item", "ti-plus"], ["Publish results", "ti-send"], ["Continue", "ti-arrow-right"]]],
-        ["secondary", [["Edit directory", "ti-pencil"], ["Settings", "ti-settings"], ["Export", "ti-download"]]],
-        ["ghost", [["Cancel", "ti-x"], ["Remove", "ti-trash"], ["Next", "ti-arrow-right"]]],
+        ["primary", [["Review cycle", IconAward], ["Restart review", IconRestart], ["Save changes", IconCheck]]],
+        ["secondary", [["View directory", IconEye], ["Settings", IconSettings], ["Duplicate", IconCopy]]],
+        ["ghost", [["Cancel", IconClose], ["Leave review", IconLogout], ["Show more", IconArrowDown]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {items.map(([label, icon]) => (
+          {items.map(([label, Icon]) => (
             <Button key={label} variant={variant}>
-              {label}<i className={`ti ${icon}`} />
+              {label}<Icon />
             </Button>
           ))}
         </div>
@@ -116,7 +130,7 @@ export const IconButtonStory = {
             ["lg", "44px"],
           ].map(([size, label]) => (
             <div key={label} style={{ display: "grid", gap: "6px", justifyItems: "center" }}>
-              <IconButton icon={<i className="ti ti-dots-vertical" />} size={size} aria-label="More actions" />
+              <IconButton icon={<IconDotsVertical />} size={size} aria-label="More actions" />
               <span style={{ fontSize: "10px", color: "var(--muted)" }}>{label}</span>
             </div>
           ))}
@@ -125,17 +139,22 @@ export const IconButtonStory = {
       <div>
         <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", marginBottom: "8px" }}>Common icons</p>
         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-          {["ti-eye", "ti-dots-vertical", "ti-pencil", "ti-trash", "ti-settings", "ti-copy", "ti-share", "ti-refresh", "ti-plus", "ti-x", "ti-check", "ti-arrow-right"].map((icon) => (
-            <IconButton key={icon} icon={<i className={`ti ${icon}`} />} aria-label={icon.replace("ti-", "")} />
+          {[
+            ["View", IconEye], ["More actions", IconDotsVertical], ["Settings", IconSettings],
+            ["Copy", IconCopy], ["Restart", IconRestart], ["Review cycle", IconAward],
+            ["Results", IconTrophy], ["Members", IconUsers], ["Cancel", IconClose],
+            ["Confirm", IconCheck], ["Show more", IconArrowDown], ["Leave review", IconLogout],
+          ].map(([label, Icon]) => (
+            <IconButton key={label} icon={<Icon />} aria-label={label} />
           ))}
         </div>
       </div>
       <div>
         <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", marginBottom: "8px" }}>Disabled</p>
         <div style={{ display: "flex", gap: "4px" }}>
-          <IconButton icon={<i className="ti ti-eye" />} aria-label="View" disabled />
-          <IconButton icon={<i className="ti ti-dots-vertical" />} aria-label="More" disabled />
-          <IconButton icon={<i className="ti ti-pencil" />} aria-label="Edit" disabled />
+          <IconButton icon={<IconEye />} aria-label="View" disabled />
+          <IconButton icon={<IconDotsVertical />} aria-label="More actions" disabled />
+          <IconButton icon={<IconSettings />} aria-label="Settings" disabled />
         </div>
       </div>
     </div>

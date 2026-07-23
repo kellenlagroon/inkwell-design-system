@@ -1,24 +1,25 @@
 import { SplitButton } from "./splitButton";
+import { IconAward, IconList, IconShirt } from "./icons.jsx";
 
 const ROUND_ITEMS = [
   {
     label: "Review cycle",
     description: "Reviewers prioritize submitted items",
-    icon: "ti-award",
+    icon: <IconAward />,
     iconBg: "rgba(200,63,74,0.14)",
     iconColor: "#c83f4a",
   },
   {
     label: "Multi-category review",
     description: "Choose across multiple categories",
-    icon: "ti-layout-list",
+    icon: <IconList />,
     iconBg: "rgba(111,143,181,0.14)",
     iconColor: "#6f8fb5",
   },
   {
     label: "Item selection review",
     description: "Reviewers choose from a shared directory",
-    icon: "ti-shirt",
+    icon: <IconShirt />,
     iconBg: "rgba(122,176,137,0.14)",
     iconColor: "#7ab089",
   },
