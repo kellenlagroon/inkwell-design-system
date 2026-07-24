@@ -22,7 +22,6 @@ import {
   Tabs,
   Text,
   TextInput,
-  ToastRegion,
 } from "../index";
 
 const MOBILE_VIEWPORTS = {
@@ -216,15 +215,6 @@ export const EmptyAndErrorStates = {
           </EmptyState>
         </Stack>
       </Container>
-    </MobileCanvas>
-  ),
-};
-
-export const NarrowToast = {
-  globals: mobileViewport("mobile320"),
-  render: () => (
-    <MobileCanvas>
-      <ToastRegion toasts={[{ id: "saved", tone: "success", message: "A long notification wraps inside the safe-area-aware region." }]} />
     </MobileCanvas>
   ),
 };
