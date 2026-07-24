@@ -2290,7 +2290,12 @@ input[type="search"].input--lg {
   background: var(--hover-surface);
 }
 
-.secondary-button:hover,
+.secondary-button:hover {
+  border-color: var(--button-secondary-border-hover);
+  background: var(--button-secondary-bg-hover);
+  color: var(--color-text-primary);
+}
+
 .preview-mode-button:hover:not(.active) {
   border-color: var(--control-border-hover);
   background: var(--color-hover-surface);
@@ -4218,6 +4223,10 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   gap: var(--space-1);
 }
 
+.ink-pagination { flex-wrap: wrap; }
+
+.ink-pagination--compact { gap: var(--space-3); }
+
 .ink-pagination-list {
   margin: 0;
   padding: 0;
@@ -4245,6 +4254,31 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   background: var(--nav-active-bg);
   color: var(--nav-active-fg);
 }
+
+a.ink-pagination-action[aria-disabled="true"] {
+  opacity: 0.28;
+  cursor: default;
+  pointer-events: none;
+}
+
+.ink-pagination-page-size {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: var(--space-2);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.ink-pagination-page-size .cselect-trigger {
+  min-height: 36px;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.ink-pagination-page-size .cselect { width: 4rem; min-width: 4rem; }
+.ink-pagination-page-size .cselect-dropdown { right: auto; width: max-content; min-width: 5rem; overflow-x: clip; }
+.ink-pagination-page-size .cselect-option { min-width: 100%; padding-inline: var(--space-3); white-space: nowrap; }
 
 .ink-pagination-item:disabled,
 .ink-pagination-item[aria-disabled="true"] {
@@ -5683,6 +5717,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   .ink-action-group--stack-md > * > :is(button, a) { width: 100%; }
   .ink-pagination--auto-compact .ink-pagination-list { display: none; }
   .ink-pagination--auto-compact .ink-pagination-summary { display: inline; }
+  .ink-pagination-page-size { flex-basis: 100%; margin-left: 0; }
   .ink-drawer--mobile-sheet {
     top: auto;
     right: 0;

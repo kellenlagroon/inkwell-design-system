@@ -6,19 +6,18 @@ import * as PaginationFeatures from "../../components/pagination.features.storie
 
 # Pagination
 
-Page navigation with callback and link-backed modes.
+Page navigation with optional compact and page-size layouts.
 
 **Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
 
 ## When to use
 
 - Use for server-backed or paged result sets.
-- Use `getPageHref` when pagination should be link navigable.
-- Use `onPageChange` when pagination is client controlled.
+- Use `onPageChange` for client-controlled pagination, or `getPageHref` for links.
 
 ## Primary example
 
-<Canvas of={PaginationStories.CallbackMode} sourceState="hidden" />
+<Canvas of={PaginationStories.Playground} sourceState="hidden" />
 
 ## API
 
@@ -26,17 +25,25 @@ Page navigation with callback and link-backed modes.
 
 ## Features
 
-### Callback mode
+### Compact layout
 
-<Canvas of={PaginationFeatures.CallbackMode} sourceState="hidden" />
+Use the compact range summary when page numbers are unnecessary.
 
-### Link mode
+<Canvas of={PaginationFeatures.Compact} sourceState="hidden" />
 
-<Canvas of={PaginationFeatures.LinkMode} sourceState="hidden" />
+### Results per page
 
-### Short range
+Use the optional page-size selector when people can choose how many results
+appear on each page.
 
-<Canvas of={PaginationFeatures.ShortRange} sourceState="hidden" />
+<Canvas of={PaginationFeatures.WithPageSizeSelector} sourceState="hidden" />
+
+## Layout options
+
+Pagination defaults to numbered pages. Pass `compact` for a compact range
+summary, or pass `showPageSizeSelector`,
+`pageSize`, `totalResults`, and `onPageSizeChange` when a result set lets
+people choose how many items appear per page.
 
 ## Design follow-up
 

@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import { Select } from "./select";
 
 export interface PaginationProps {
   page: number;
@@ -6,11 +7,26 @@ export interface PaginationProps {
   onPageChange?: (page: number) => void;
   getPageHref?: (page: number) => string;
   siblingCount?: number;
-  previousLabel?: ReactNode;
-  nextLabel?: ReactNode;
+  /** Accessible label for the previous-page icon button. */
+  previousLabel?: string;
+  /** Accessible label for the next-page icon button. */
+  nextLabel?: string;
   "aria-label"?: string;
   className?: string;
+  /** Use the compact result-summary layout. Defaults to false. */
   compact?: boolean | "auto";
+  /** Show a control for choosing how many results appear on each page. */
+  showPageSizeSelector?: boolean;
+  /** Currently selected number of results per page. */
+  pageSize?: number;
+  /** Total number of results, used in the compact range summary. */
+  totalResults?: number;
+  /** Available page-size choices. Defaults to 10, 25, and 50. */
+  pageSizeOptions?: number[];
+  /** Called when the user chooses a new page size. */
+  onPageSizeChange?: (pageSize: number) => void;
+  /** Visible label for the page-size control. */
+  pageSizeLabel?: ReactNode;
 }
 
 type PageItem = number | "ellipsis";
@@ -26,6 +42,15 @@ function items(page: number, pageCount: number, siblingCount: number): PageItem[
   return [1, ...(start > 2 ? ["ellipsis" as const] : []), ...range(start, end), ...(end < pageCount - 1 ? ["ellipsis" as const] : []), pageCount];
 }
 
+function PageChevron({ direction }: { direction: "previous" | "next" }) {
+  const d = direction === "previous" ? "m14 6l-6 6l6 6" : "m10 6l6 6l-6 6";
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d={d} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" />
+    </svg>
+  );
+}
+
 export function Pagination({
   page,
   pageCount,
@@ -36,13 +61,30 @@ export function Pagination({
   nextLabel = "Next",
   "aria-label": ariaLabel = "Pagination",
   className = "",
-  compact = "auto",
+  compact = false,
+  showPageSizeSelector = false,
+  pageSize,
+  totalResults,
+  pageSizeOptions = [10, 25, 50],
+  onPageSizeChange,
+  pageSizeLabel = "Results per page",
 }: PaginationProps) {
-  const current = Math.min(Math.max(1, page), Math.max(1, pageCount));
+  const selectedPageSize = String(pageSize ?? pageSizeOptions[0] ?? 10);
+  const effectivePageSize = Number(selectedPageSize);
+  const resolvedPageCount = totalResults === undefined
+    ? Math.max(1, pageCount)
+    : Math.max(1, Math.ceil(totalResults / effectivePageSize));
+  const current = Math.min(Math.max(1, page), resolvedPageCount);
   const canPrevious = current > 1;
-  const canNext = current < pageCount;
+  const canNext = current < resolvedPageCount;
+  const resolvedTotalResults = totalResults ?? pageCount * effectivePageSize;
+  const firstResult = resolvedTotalResults === 0 ? 0 : (current - 1) * effectivePageSize + 1;
+  const lastResult = Math.min(current * effectivePageSize, resolvedTotalResults);
+  const summary = showPageSizeSelector || totalResults !== undefined
+    ? `${firstResult}–${lastResult} of ${resolvedTotalResults}`
+    : `Page ${current} of ${resolvedPageCount}`;
 
-  function renderAction(targetPage: number, label: ReactNode, extra?: Partial<ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>>) {
+  function renderPageAction(targetPage: number, label: ReactNode, extra?: Partial<ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>>) {
     const common = {
       className: "ink-pagination-item",
       "aria-disabled": extra?.disabled || undefined,
@@ -54,20 +96,44 @@ export function Pagination({
     return <button {...common} type="button" disabled={extra?.disabled} onClick={() => onPageChange?.(targetPage)}>{label}</button>;
   }
 
+  function renderNavigationAction(targetPage: number, direction: "previous" | "next", disabled: boolean, label: string) {
+    const common = {
+      className: "icon-btn ink-pagination-action",
+      "aria-disabled": disabled || undefined,
+      "aria-label": label,
+    };
+    const icon = <PageChevron direction={direction} />;
+    if (getPageHref) return <a {...common} href={disabled ? undefined : getPageHref(targetPage)}>{icon}</a>;
+    return <button {...common} type="button" disabled={disabled} onClick={() => onPageChange?.(targetPage)}>{icon}</button>;
+  }
+
   return (
     <nav className={["ink-pagination", compact === true ? "ink-pagination--compact" : compact === "auto" ? "ink-pagination--auto-compact" : "", className].filter(Boolean).join(" ")} aria-label={ariaLabel}>
-      {renderAction(current - 1, previousLabel, { disabled: !canPrevious })}
+      {renderNavigationAction(current - 1, "previous", !canPrevious, previousLabel)}
       <ol className="ink-pagination-list">
-        {items(current, pageCount, siblingCount).map((item, index) => (
+        {items(current, resolvedPageCount, siblingCount).map((item, index) => (
           <li key={`${item}-${index}`}>
             {item === "ellipsis" ? (
               <span className="ink-pagination-ellipsis" aria-hidden="true">...</span>
-            ) : renderAction(item, item, { "aria-current": item === current ? "page" : undefined, "aria-label": `Page ${item}` })}
+            ) : renderPageAction(item, item, { "aria-current": item === current ? "page" : undefined, "aria-label": `Page ${item}` })}
           </li>
         ))}
       </ol>
-      <span className="ink-pagination-summary" aria-live="polite">Page {current} of {Math.max(1, pageCount)}</span>
-      {renderAction(current + 1, nextLabel, { disabled: !canNext })}
+      <span className="ink-pagination-summary" aria-live="polite">{summary}</span>
+      {renderNavigationAction(current + 1, "next", !canNext, nextLabel)}
+      {showPageSizeSelector && (
+        <div className="ink-pagination-page-size">
+          <span>{pageSizeLabel}</span>
+          <Select
+            aria-label="Results per page"
+            variant="control"
+            value={selectedPageSize}
+            options={pageSizeOptions.map((size) => ({ value: String(size), label: String(size) }))}
+            disabled={!onPageSizeChange}
+            onChange={(value) => onPageSizeChange?.(Number(value))}
+          />
+        </div>
+      )}
     </nav>
   );
 }

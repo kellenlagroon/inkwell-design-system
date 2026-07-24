@@ -5,29 +5,40 @@ export default {
   title: "Components/Pagination/Features",
 };
 
-export const CallbackMode = {
+export const Compact = {
   render: () => {
-    const [page, setPage] = useState(6);
+    const [page, setPage] = useState(3);
     return (
       <div style={{ padding: 24 }}>
-        <Pagination page={page} pageCount={20} onPageChange={setPage} />
+        <Pagination
+          page={page}
+          pageCount={10}
+          totalResults={100}
+          onPageChange={setPage}
+          compact
+        />
       </div>
     );
   },
 };
 
-export const LinkMode = {
-  render: () => (
-    <div style={{ padding: 24 }}>
-      <Pagination page={6} pageCount={20} getPageHref={(page) => `?page=${page}`} />
-    </div>
-  ),
-};
-
-export const ShortRange = {
-  render: () => (
-    <div style={{ padding: 24 }}>
-      <Pagination page={2} pageCount={3} onPageChange={() => {}} />
-    </div>
-  ),
+export const WithPageSizeSelector = {
+  render: () => {
+    const [page, setPage] = useState(2);
+    const [pageSize, setPageSize] = useState(25);
+    return (
+      <div style={{ padding: 24 }}>
+        <Pagination
+          page={page}
+          pageCount={12}
+          onPageChange={setPage}
+          compact
+          showPageSizeSelector
+          pageSize={pageSize}
+          totalResults={284}
+          onPageSizeChange={setPageSize}
+        />
+      </div>
+    );
+  },
 };
