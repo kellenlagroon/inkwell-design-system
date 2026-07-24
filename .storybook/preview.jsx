@@ -4,6 +4,28 @@ import "./docs-theme.css";
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
+  globalTypes: {
+    theme: {
+      description: "Preview color theme",
+      toolbar: {
+        icon: "paintbrush",
+        items: [
+          { value: "dark", title: "Dark" },
+          { value: "light", title: "Light" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: "dark",
+  },
+  decorators: [
+    (Story, context) => {
+      document.documentElement.dataset.theme = context.globals.theme;
+      return <Story />;
+    },
+  ],
   parameters: {
     layout: "fullscreen",
     options: {

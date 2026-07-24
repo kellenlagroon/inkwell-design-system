@@ -13,8 +13,8 @@ import { dirname, resolve } from "node:path";
  *
  * `root` groups are theme-invariant (palette, spacing, radius, typography,
  * motion, z-index). Each theme's groups are emitted under
- * `:root, [data-theme="<theme>"]` so the first theme is the default and
- * additional themes become a data attribute rather than a rewrite.
+ * `:root, [data-theme="<theme>"]` for the first theme so it is the default;
+ * additional themes are emitted only as data-attribute overrides.
  */
 
 const root = resolve(process.cwd());
@@ -44,8 +44,9 @@ const blocks = [
   renderBlock(":root", source.root),
 ];
 
-for (const [theme, groups] of Object.entries(source.themes ?? {})) {
-  blocks.push(renderBlock(`:root,\n[data-theme="${theme}"]`, groups));
+for (const [index, [theme, groups]] of Object.entries(source.themes ?? {}).entries()) {
+  const selector = index === 0 ? `:root,\n[data-theme="${theme}"]` : `[data-theme="${theme}"]`;
+  blocks.push(renderBlock(selector, groups));
 }
 
 const css = blocks.join("\n\n") + "\n";

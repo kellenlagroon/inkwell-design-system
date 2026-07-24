@@ -25,6 +25,18 @@
       }
     },
     {
+      "label": "Neutral scale — light theme surfaces and text",
+      "tokens": {
+        "neutral-0": "#ffffff",
+        "neutral-25": "#fafafa",
+        "neutral-50": "#f4f4f4",
+        "neutral-100": "#e9e9e9",
+        "neutral-200": "#dedede",
+        "neutral-600": "#5c5c5c",
+        "neutral-900": "#111111"
+      }
+    },
+    {
       "label": "Crimson — brand",
       "tokens": {
         "crimson-900": "#73000a",
@@ -35,26 +47,30 @@
     {
       "label": "Steel — info / focus",
       "tokens": {
-        "steel-400": "#6f8fb5"
+        "steel-400": "#6f8fb5",
+        "steel-700": "#3f5f86"
       }
     },
     {
       "label": "Sage — success",
       "tokens": {
-        "sage-400": "#7ab089"
+        "sage-400": "#7ab089",
+        "sage-700": "#356a43"
       }
     },
     {
       "label": "Coral — danger",
       "tokens": {
         "coral-500": "#d56d57",
-        "coral-200": "#ffb6a7"
+        "coral-200": "#ffb6a7",
+        "coral-700": "#a14333"
       }
     },
     {
       "label": "Amber — warning",
       "tokens": {
-        "amber-400": "#cfae43"
+        "amber-400": "#cfae43",
+        "amber-700": "#6d5700"
       }
     },
     {
@@ -295,6 +311,140 @@
           "menu-item-bg-hover": "var(--color-overlay-strong)",
           "menu-item-danger-hover": "var(--color-danger-soft)",
           "selector-active-bg": "var(--color-overlay-soft)",
+          "selector-active-accent": "var(--color-brand)"
+        }
+      },
+      {
+        "label": "Legacy aliases",
+        "tokens": {
+          "bg": "var(--color-bg-base)",
+          "surface": "var(--color-surface-default)",
+          "surface-strong": "var(--color-surface-active)",
+          "surface-soft": "var(--color-overlay-soft)",
+          "control-bg": "var(--control-overlay)",
+          "control-bg-strong": "var(--control-overlay-strong)",
+          "text": "var(--color-text-primary)",
+          "muted": "var(--color-text-secondary)",
+          "line": "var(--color-border-strong)",
+          "line-soft": "var(--color-border-subtle)",
+          "accent": "var(--color-brand)",
+          "accent-deep": "var(--color-brand-hover)",
+          "accent-readable": "var(--color-brand-emphasis)",
+          "accent-soft": "var(--color-brand-soft)",
+          "utility": "var(--color-info)",
+          "utility-soft": "var(--color-info-soft)",
+          "green": "var(--color-success)",
+          "danger": "var(--color-danger)",
+          "focus-ring": "var(--color-focus-ring)",
+          "hover-surface": "var(--color-hover-surface)"
+        }
+      }
+    ],
+    "light": [
+      {
+        "label": "Tier 1: semantic tokens",
+        "tokens": {
+          "color-bg-base": "var(--neutral-0)",
+          "color-bg-canvas-alt": "var(--neutral-25)",
+          "color-bg-canvas": "var(--neutral-50)",
+          "color-surface-default": "var(--neutral-50)",
+          "color-surface-raised": "var(--neutral-0)",
+          "color-surface-active": "var(--neutral-100)",
+          "color-text-primary": "var(--neutral-900)",
+          "color-text-strong": "var(--neutral-900)",
+          "color-text-secondary": "var(--neutral-600)",
+          "color-text-inverse": "var(--neutral-0)",
+          "color-border-subtle": "rgba(17, 17, 17, 0.08)",
+          "color-border-default": "rgba(17, 17, 17, 0.12)",
+          "color-border-strong": "rgba(17, 17, 17, 0.16)",
+          "color-border-interactive": "rgba(17, 17, 17, 0.24)",
+          "color-overlay-soft": "rgba(17, 17, 17, 0.03)",
+          "color-overlay-strong": "rgba(17, 17, 17, 0.05)",
+          "color-hover-surface": "rgba(17, 17, 17, 0.04)",
+          "color-scrim": "rgba(17, 17, 17, 0.58)",
+          "color-brand": "var(--crimson-900)",
+          "color-brand-hover": "var(--crimson-800)",
+          "color-brand-emphasis": "var(--crimson-600)",
+          "color-info": "var(--steel-700)",
+          "color-success": "var(--sage-700)",
+          "color-danger": "var(--coral-700)",
+          "color-danger-text": "var(--coral-700)",
+          "color-warning": "var(--amber-700)",
+          "color-focus-outline-soft": "var(--steel-a22)",
+          "color-focus-outline": "var(--steel-400)",
+          "color-focus-ring": "var(--steel-400)",
+          "color-brand-soft": "color-mix(in srgb, var(--crimson-900) 10%, var(--neutral-0))",
+          "color-success-soft": "color-mix(in srgb, var(--sage-700) 12%, var(--neutral-0))",
+          "color-warning-soft": "color-mix(in srgb, var(--amber-700) 12%, var(--neutral-0))",
+          "color-danger-soft": "color-mix(in srgb, var(--coral-700) 12%, var(--neutral-0))",
+          "color-info-soft": "color-mix(in srgb, var(--steel-700) 12%, var(--neutral-0))"
+        }
+      },
+      {
+        "label": "Tier 3: component tokens",
+        "tokens": {
+          "button-primary-bg": "var(--color-brand)",
+          "button-primary-bg-hover": "var(--color-brand-hover)",
+          "button-primary-fg": "var(--color-text-inverse)",
+          "button-secondary-bg": "var(--color-surface-active)",
+          "button-secondary-fg": "var(--color-text-primary)",
+          "button-secondary-border": "transparent",
+          "button-danger-fg": "var(--color-text-inverse)",
+          "nav-active-bg": "var(--color-surface-raised)",
+          "nav-active-fg": "var(--color-text-primary)",
+          "control-surface": "var(--color-surface-active)",
+          "control-surface-active": "var(--neutral-200)",
+          "control-overlay": "var(--color-overlay-soft)",
+          "control-overlay-strong": "var(--color-overlay-strong)",
+          "control-border": "transparent",
+          "control-border-strong": "transparent",
+          "control-border-hover": "var(--color-border-interactive)",
+          "input-bg": "var(--color-surface-active)",
+          "input-border": "transparent",
+          "input-focus-border": "var(--color-focus-ring)",
+          "modal-surface": "var(--color-surface-raised)",
+          "modal-border": "var(--color-border-subtle)",
+          "modal-scrim": "var(--color-scrim)",
+          "status-success-bg": "var(--color-success-soft)",
+          "status-success-fg": "var(--color-success)",
+          "status-warning-bg": "var(--color-warning-soft)",
+          "status-warning-fg": "var(--color-warning)",
+          "status-danger-bg": "var(--color-danger-soft)",
+          "status-danger-fg": "var(--color-danger)",
+          "toast-success-border": "rgba(53, 106, 67, 0.32)",
+          "toast-danger-border": "rgba(161, 67, 51, 0.32)",
+          "toast-warning-border": "rgba(109, 87, 0, 0.34)",
+          "preview-chrome-highlight": "rgba(17, 17, 17, 0.02)",
+          "preview-chrome-sheen": "rgba(255, 255, 255, 0.6)",
+          "notification-dot-bg": "var(--color-brand)"
+        }
+      },
+      {
+        "label": "Tier 3 continued: card, popover, banner, toast surface, pill, rank",
+        "tokens": {
+          "color-surface-panel": "var(--color-surface-default)",
+          "card-surface": "var(--color-surface-raised)",
+          "card-border": "transparent",
+          "popover-surface": "var(--color-surface-raised)",
+          "popover-border": "var(--color-border-subtle)",
+          "popover-shadow": "0 18px 40px rgba(17, 17, 17, 0.16)",
+          "banner-radius": "var(--radius-sharp)",
+          "banner-padding": "14px 16px",
+          "toast-bg": "var(--color-surface-raised)",
+          "toast-fg": "var(--color-text-primary)",
+          "toast-border-success": "var(--toast-success-border)",
+          "toast-border-danger": "var(--toast-danger-border)",
+          "toast-border-warning": "var(--toast-warning-border)",
+          "pill-success-fg": "var(--color-success)",
+          "pill-warning-fg": "var(--color-warning)",
+          "pill-danger-fg": "var(--color-danger)",
+          "rank-accent": "var(--color-brand)",
+          "slot-bg": "var(--color-surface-active)",
+          "slot-bg-filled": "var(--neutral-200)",
+          "nav-mobile-bg": "rgba(250, 250, 250, 0.96)",
+          "menu-item-bg-hover": "var(--color-surface-active)",
+          "menu-item-danger-hover": "var(--color-danger-soft)",
+          "selector-active-bg": "var(--color-surface-raised)",
           "selector-active-accent": "var(--color-brand)"
         }
       },
