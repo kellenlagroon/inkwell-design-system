@@ -16,7 +16,7 @@ const PROGRAMS = Array.from({ length: 8 }, (_, index) => ({
 }));
 
 export default {
-  title: "Sandbox/Filter sheet options",
+  title: "Patterns/Mobile readiness/Filter sheet options",
   parameters: {
     layout: "fullscreen",
     viewport: { options: MOBILE_VIEWPORTS },
