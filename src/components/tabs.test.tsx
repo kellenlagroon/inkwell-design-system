@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { afterEach, describe, it, expect, vi } from "vitest";
 import { useState } from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { Tabs, type TabItem } from "./tabs";
@@ -16,6 +16,10 @@ function Harness({ initial = "poll" }: { initial?: string }) {
 }
 
 const activeText = () => (document.activeElement as HTMLElement | null)?.textContent;
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe("Tabs", () => {
   it("renders a tablist with the selected tab and roving tabindex", () => {
@@ -52,5 +56,19 @@ describe("Tabs", () => {
     expect(activeText()).toBe("Results");
     fireEvent.keyDown(list, { key: "Home" });
     expect(activeText()).toBe("Poll");
+  });
+
+  it("scrolls the selected tab into view for overflowing tablists", () => {
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+
+    const { getByRole } = render(<Harness />);
+    scrollIntoView.mockClear();
+    fireEvent.click(getByRole("tab", { name: "Results" }));
+
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: "nearest", inline: "nearest" });
   });
 });

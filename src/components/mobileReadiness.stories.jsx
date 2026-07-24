@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { expect } from "storybook/test";
 import {
   ActionGroup,
   Button,
+  ButtonLink,
   Card,
   CheckboxSelect,
   Container,
   Drawer,
+  EmptyState,
   FieldGroup,
   FileUpload,
   FormField,
@@ -14,6 +17,7 @@ import {
   Pagination,
   PasswordInput,
   Select,
+  Stack,
   StatusBanner,
   Tabs,
   Text,
@@ -21,24 +25,42 @@ import {
   ToastRegion,
 } from "../index";
 
+const MOBILE_VIEWPORTS = {
+  mobile320: {
+    name: "Mobile 320",
+    styles: { width: "320px", height: "568px" },
+    type: "mobile",
+  },
+  mobile375: {
+    name: "Mobile 375",
+    styles: { width: "375px", height: "812px" },
+    type: "mobile",
+  },
+};
+
+const mobileViewport = (value) => ({ viewport: { value, isRotated: false } });
+
 export default {
   title: "Patterns/Mobile readiness",
-  parameters: { layout: "fullscreen" },
+  parameters: {
+    layout: "fullscreen",
+    viewport: { options: MOBILE_VIEWPORTS },
+  },
 };
 
 const longUrl = "https://example.com/organizations/very-long-organization-name/settings/notifications-and-security";
 
-function MobileFixture({ width, children }) {
-  return <div style={{ width, maxWidth: "100%", minHeight: "100vh", margin: "0 auto", borderInline: "1px solid var(--line-soft)" }}>{children}</div>;
+function MobileCanvas({ children }) {
+  return <div style={{ width: "100%", minHeight: "100dvh" }}>{children}</div>;
 }
 
-function ReadinessContent({ width }) {
+function ReadinessContent() {
   const [tab, setTab] = useState("overview");
   const [page, setPage] = useState(4);
   const [select, setSelect] = useState("");
   const [filters, setFilters] = useState([]);
   return (
-    <MobileFixture width={width}>
+    <MobileCanvas>
       <Container>
         <Grid columns={{ base: 1, md: 2, lg: 3 }} gap="lg">
           <Card>
@@ -61,6 +83,7 @@ function ReadinessContent({ width }) {
             <Select
               value={select}
               onChange={setSelect}
+              aria-label="Long option"
               placeholder="Choose a long option"
               options={[{ value: "one", label: "A long option label that wraps without overflowing" }, { value: "disabled", label: "Disabled option", disabled: true }]}
             />
@@ -82,21 +105,44 @@ function ReadinessContent({ width }) {
             <Pagination page={page} pageCount={18} onPageChange={setPage} />
             <ActionGroup>
               <Button variant="secondary">Cancel this operation</Button>
-              <Button loading={false}>Save all changes</Button>
+              <Button>Save all changes</Button>
             </ActionGroup>
           </Card>
         </Grid>
       </Container>
-    </MobileFixture>
+    </MobileCanvas>
   );
 }
 
-export const Width320 = { render: () => <ReadinessContent width={320} /> };
-export const Width375 = { render: () => <ReadinessContent width={375} /> };
+async function exerciseNarrowControls({ canvas, userEvent }) {
+  const securityTab = canvas.getByRole("tab", { name: "Security" });
+  await userEvent.click(securityTab);
+  await expect(securityTab).toHaveAttribute("aria-selected", "true");
+
+  const selectTrigger = canvas.getByRole("button", { name: "Long option" });
+  await userEvent.click(selectTrigger);
+  await expect(canvas.getByRole("listbox")).toBeVisible();
+  await userEvent.keyboard("{Escape}");
+  await expect(canvas.queryByRole("listbox")).not.toBeInTheDocument();
+  await expect(selectTrigger).toHaveFocus();
+}
+
+export const Width320 = {
+  globals: mobileViewport("mobile320"),
+  render: () => <ReadinessContent />,
+  play: exerciseNarrowControls,
+};
+
+export const Width375 = {
+  globals: mobileViewport("mobile375"),
+  render: () => <ReadinessContent />,
+  play: exerciseNarrowControls,
+};
 
 export const MobileDrawerSheet = {
+  globals: mobileViewport("mobile375"),
   render: () => (
-    <MobileFixture width={375}>
+    <MobileCanvas>
       <Drawer
         open
         onClose={() => {}}
@@ -106,14 +152,131 @@ export const MobileDrawerSheet = {
       >
         <Text>{Array.from({ length: 18 }, () => "Scrollable drawer content. ").join("")}</Text>
       </Drawer>
-    </MobileFixture>
+    </MobileCanvas>
+  ),
+};
+
+function DrawerInteractionFixture() {
+  const [open, setOpen] = useState(false);
+  return (
+    <MobileCanvas>
+      <Container>
+        <Button onClick={() => setOpen(true)}>Open mobile drawer</Button>
+      </Container>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Mobile keyboard check"
+        footer={<ActionGroup><Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button><Button>Apply</Button></ActionGroup>}
+      >
+        <FormField label="Filter name"><TextInput /></FormField>
+      </Drawer>
+    </MobileCanvas>
+  );
+}
+
+export const DrawerKeyboardBehavior = {
+  globals: mobileViewport("mobile375"),
+  render: () => <DrawerInteractionFixture />,
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("button", { name: "Open mobile drawer" });
+    await userEvent.click(trigger);
+    await expect(canvas.getByRole("dialog", { name: "Mobile keyboard check" })).toBeVisible();
+    await userEvent.keyboard("{Escape}");
+    await expect(canvas.queryByRole("dialog", { name: "Mobile keyboard check" })).not.toBeInTheDocument();
+    await expect(trigger).toHaveFocus();
+    await userEvent.click(trigger);
+  },
+};
+
+function MobileFilterFixture() {
+  const [filters, setFilters] = useState([]);
+  return (
+    <MobileCanvas>
+      <Container>
+        <Stack gap="lg">
+          <Heading level={1} size="md">Bottom-edge filter sheet</Heading>
+          <Text>The trigger stays near the viewport edge so the mobile sheet behavior is exercised.</Text>
+          <div style={{ minHeight: "58dvh" }} />
+          <CheckboxSelect
+            searchable
+            searchPlaceholder="Search programs"
+            label="Programs"
+            value={filters}
+            onChange={setFilters}
+            options={Array.from({ length: 8 }, (_, index) => ({ value: String(index), label: `Program option ${index + 1}` }))}
+          />
+        </Stack>
+      </Container>
+    </MobileCanvas>
+  );
+}
+
+export const BottomEdgeFilterSheet = {
+  globals: mobileViewport("mobile320"),
+  render: () => <MobileFilterFixture />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("button", { name: "Select" }));
+    await expect(canvas.getByRole("textbox", { name: "Search programs" })).toBeVisible();
+    const firstOption = canvas.getByRole("checkbox", { name: "Program option 1" });
+    await userEvent.click(firstOption);
+    await expect(firstOption).toBeChecked();
+  },
+};
+
+export const LoadingAndDisabledActions = {
+  globals: mobileViewport("mobile320"),
+  render: () => (
+    <MobileCanvas>
+      <Container>
+        <Card>
+          <Stack gap="lg">
+            <Heading level={1} size="md">Loading and disabled actions</Heading>
+            <ActionGroup>
+              <Button loading loadingLabel="Saving changes">Save changes</Button>
+              <Button variant="secondary" disabled>Unavailable action</Button>
+              <ButtonLink href="#mobile-readiness" disabled>Disabled link action</ButtonLink>
+            </ActionGroup>
+          </Stack>
+        </Card>
+      </Container>
+    </MobileCanvas>
+  ),
+};
+
+export const EmptyAndErrorStates = {
+  globals: mobileViewport("mobile320"),
+  render: () => (
+    <MobileCanvas>
+      <Container>
+        <Stack gap="lg">
+          <Card>
+            <FormField label="Organization name" error="Enter an organization name before continuing." required>
+              <TextInput defaultValue="" />
+            </FormField>
+            <FormField label="Archived workspace name" hint="Archived workspaces cannot be changed.">
+              <TextInput disabled value="Workspace unavailable" readOnly />
+            </FormField>
+            <FormField label="Supporting document" error="This file type is not supported.">
+              <FileUpload disabled placeholder="very-long-invalid-filename-with-details.exe" />
+            </FormField>
+          </Card>
+          <EmptyState>
+            <Heading level={2} size="md">No matching results</Heading>
+            <Text>Try removing a filter or changing the search terms.</Text>
+            <Button variant="secondary">Clear all filters</Button>
+          </EmptyState>
+        </Stack>
+      </Container>
+    </MobileCanvas>
   ),
 };
 
 export const NarrowToast = {
+  globals: mobileViewport("mobile320"),
   render: () => (
-    <MobileFixture width={320}>
+    <MobileCanvas>
       <ToastRegion toasts={[{ id: "saved", tone: "success", message: "A long notification wraps inside the safe-area-aware region." }]} />
-    </MobileFixture>
+    </MobileCanvas>
   ),
 };
