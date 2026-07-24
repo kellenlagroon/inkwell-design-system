@@ -19,9 +19,9 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * A padded content surface. Borderless and raised by default (a content-unit
- * sibling to the section-level `Panel`). Compose it with `SectionHeading` for a
- * header and `CardActions` for a footer row.
+ * A layout-neutral padded content surface. Borderless and raised by default (a
+ * content-unit sibling to the section-level `Panel`). Compose its contents with
+ * `Stack`, `SectionHeading`, and `CardActions` as needed.
  */
 export function Card({ variant = "plain", tone = "default", padding = "md", className = "", children, ...props }: CardProps) {
   const classes = [

@@ -63,49 +63,55 @@ function ReadinessContent() {
       <Container>
         <Grid columns={{ base: 1, md: 2, lg: 3 }} gap="lg">
           <Card>
-            <Heading level={1} size="lg">Narrow production interface</Heading>
-            <Text>Long content wraps safely: {longUrl}</Text>
-            <StatusBanner tone="warning" message="A deliberately long status message remains readable without colliding with its dismiss action." onDismiss={() => {}} />
+            <Stack gap="lg">
+              <Heading level={1} size="lg">Narrow production interface</Heading>
+              <Text>Long content wraps safely: {longUrl}</Text>
+              <StatusBanner tone="warning" message="A deliberately long status message remains readable without colliding with its dismiss action." onDismiss={() => {}} />
+            </Stack>
           </Card>
           <Card>
-            <FieldGroup columns={2}>
-              <FormField label="A very long account email label" hint="Hints and errors wrap at 320px and remain associated.">
-                <TextInput defaultValue="person-with-a-long-name@example.com" />
+            <Stack gap="lg">
+              <FieldGroup columns={2}>
+                <FormField label="A very long account email label" hint="Hints and errors wrap at 320px and remain associated.">
+                  <TextInput defaultValue="person-with-a-long-name@example.com" />
+                </FormField>
+                <FormField label="Password" error="Use at least twelve characters, including a symbol.">
+                  <PasswordInput defaultValue="password" />
+                </FormField>
+              </FieldGroup>
+              <FormField label="Resume or supporting document">
+                <FileUpload placeholder="No file selected; very-long-filenames-are-truncated-safely.pdf" />
               </FormField>
-              <FormField label="Password" error="Use at least twelve characters, including a symbol.">
-                <PasswordInput defaultValue="password" />
-              </FormField>
-            </FieldGroup>
-            <FormField label="Resume or supporting document">
-              <FileUpload placeholder="No file selected; very-long-filenames-are-truncated-safely.pdf" />
-            </FormField>
-            <Select
-              value={select}
-              onChange={setSelect}
-              aria-label="Long option"
-              placeholder="Choose a long option"
-              options={[{ value: "one", label: "A long option label that wraps without overflowing" }, { value: "disabled", label: "Disabled option", disabled: true }]}
-            />
+              <Select
+                value={select}
+                onChange={setSelect}
+                aria-label="Long option"
+                placeholder="Choose a long option"
+                options={[{ value: "one", label: "A long option label that wraps without overflowing" }, { value: "disabled", label: "Disabled option", disabled: true }]}
+              />
+            </Stack>
           </Card>
           <Card>
-            <Tabs
-              value={tab}
-              onChange={setTab}
-              aria-label="Account sections"
-              tabs={["overview", "activity", "notifications", "permissions", "security"].map((value) => ({ value, label: value[0].toUpperCase() + value.slice(1) }))}
-            />
-            <CheckboxSelect
-              searchable
-              label="Programs"
-              value={filters}
-              onChange={setFilters}
-              options={Array.from({ length: 8 }, (_, index) => ({ value: String(index), label: `Long filter option ${index + 1}` }))}
-            />
-            <Pagination page={page} pageCount={18} onPageChange={setPage} />
-            <ActionGroup>
-              <Button variant="secondary">Cancel this operation</Button>
-              <Button>Save all changes</Button>
-            </ActionGroup>
+            <Stack gap="lg">
+              <Tabs
+                value={tab}
+                onChange={setTab}
+                aria-label="Account sections"
+                tabs={["overview", "activity", "notifications", "permissions", "security"].map((value) => ({ value, label: value[0].toUpperCase() + value.slice(1) }))}
+              />
+              <CheckboxSelect
+                searchable
+                label="Programs"
+                value={filters}
+                onChange={setFilters}
+                options={Array.from({ length: 8 }, (_, index) => ({ value: String(index), label: `Long filter option ${index + 1}` }))}
+              />
+              <Pagination page={page} pageCount={18} onPageChange={setPage} />
+              <ActionGroup>
+                <Button variant="secondary">Cancel this operation</Button>
+                <Button>Save all changes</Button>
+              </ActionGroup>
+            </Stack>
           </Card>
         </Grid>
       </Container>
@@ -198,15 +204,17 @@ export const EmptyAndErrorStates = {
       <Container>
         <Stack gap="lg">
           <Card>
-            <FormField label="Organization name" error="Enter an organization name before continuing." required>
-              <TextInput defaultValue="" />
-            </FormField>
-            <FormField label="Archived workspace name" hint="Archived workspaces cannot be changed.">
-              <TextInput disabled value="Workspace unavailable" readOnly />
-            </FormField>
-            <FormField label="Supporting document" error="This file type is not supported.">
-              <FileUpload disabled placeholder="very-long-invalid-filename-with-details.exe" />
-            </FormField>
+            <Stack gap="lg">
+              <FormField label="Organization name" error="Enter an organization name before continuing." required>
+                <TextInput defaultValue="" />
+              </FormField>
+              <FormField label="Archived workspace name" hint="Archived workspaces cannot be changed.">
+                <TextInput disabled value="Workspace unavailable" readOnly />
+              </FormField>
+              <FormField label="Supporting document" error="This file type is not supported.">
+                <FileUpload disabled placeholder="very-long-invalid-filename-with-details.exe" />
+              </FormField>
+            </Stack>
           </Card>
           <EmptyState>
             <Heading level={2} size="md">No matching results</Heading>

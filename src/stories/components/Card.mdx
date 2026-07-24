@@ -6,11 +6,11 @@ import * as CardFeatures from "../../components/card.features.stories.jsx";
 
 # Card
 
-A padded content surface for a self-contained unit — a review cycle, a project, or a
-settings group. Borderless and raised by default, matching the app's common
-look; a content-unit sibling to the section-level `Panel`. Compose it with
-[SectionHeading](?path=/docs/components-surface--docs) for a header and
-`CardActions` for a footer row.
+A padded content surface for a self-contained unit. Borderless and raised by
+default, it is a content-unit sibling to the section-level `Panel`. Compose its
+interior with [Stack](?path=/docs/components-stack--docs),
+[SectionHeading](?path=/docs/components-surface--docs), and `CardActions` as
+needed.
 
 **Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
 
@@ -28,8 +28,9 @@ look; a content-unit sibling to the section-level `Panel`. Compose it with
 
 <ArgTypes of={CardStories} />
 
-`Card` is a container: it renders the surface and spaces its children on the
-`space-3` (12px) rhythm. `variant` picks the surface treatment and `tone` flags
+`Card` is a surface primitive: it provides padding and surface treatment but no
+child layout or spacing. Use `Stack`, `Inline`, or `Grid` inside it to make the
+content rhythm explicit. `variant` picks the surface treatment and `tone` flags
 destructive zones (they compose). `CardActions` renders a wrapping footer row of
 buttons. All pass native `div` props through.
 
@@ -45,8 +46,8 @@ background contrast to rely on.
 
 ### Header + actions
 
-Compose `SectionHeading` and `CardActions` inside the card, the way the source
-app builds its content cards.
+Compose `SectionHeading` and `CardActions` inside an explicit `Stack` so the
+content rhythm is clear at the usage site.
 
 <Canvas of={CardFeatures.WithHeaderAndActions} sourceState="hidden" />
 
@@ -63,7 +64,7 @@ confirmations. It composes with either variant.
 
 ## Usage guidance
 
-- Do compose the header with `SectionHeading` rather than hand-rolling a title row.
+- Do compose a header, body, and actions with `Stack` or another explicit layout primitive.
 - Do put the primary and secondary actions in a single `CardActions` footer.
 - Do reserve `tone="danger"` for genuinely destructive content.
 - Don’t nest cards inside cards — reach for `Panel` or a plain section for inner grouping.

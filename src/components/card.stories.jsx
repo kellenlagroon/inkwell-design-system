@@ -1,5 +1,6 @@
 import { Card, CardActions } from "./card";
 import { SectionHeading, Button } from "./ui.jsx";
+import { Stack } from "./layout";
 
 export default {
   title: "Components/Card",
@@ -17,12 +18,14 @@ export const Playground = {
   render: ({ variant, tone }) => (
     <div style={{ padding: 24, maxWidth: 420 }}>
       <Card variant={variant} tone={tone}>
-        <SectionHeading eyebrow="Review cycle" title="Quarterly Planning Review" compact />
-        <p className="subtle" style={{ margin: 0 }}>2026 Season · 25-slot submission · top 25</p>
-        <CardActions>
-          <Button variant="secondary">Close voting</Button>
-          <Button>Publish update</Button>
-        </CardActions>
+        <Stack>
+          <SectionHeading eyebrow="Overview" title="Project summary" compact />
+          <p className="subtle" style={{ margin: 0 }}>Last updated today</p>
+          <CardActions>
+            <Button variant="secondary">Cancel</Button>
+            <Button>Save changes</Button>
+          </CardActions>
+        </Stack>
       </Card>
     </div>
   ),

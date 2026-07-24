@@ -1,6 +1,6 @@
 import { Card, CardActions } from "./card";
 import { SectionHeading, Button, Pill } from "./ui.jsx";
-import { Grid } from "./layout";
+import { Grid, Stack } from "./layout";
 
 export default {
   title: "Components/Card/Features",
@@ -11,12 +11,16 @@ export const Variants = {
   render: () => (
     <div style={{ display: "grid", gap: 20, padding: 24, maxWidth: 420 }}>
       <Card>
-        <SectionHeading eyebrow="plain (default)" title="Borderless, raised" compact />
-        <p className="subtle" style={{ margin: 0 }}>The common app surface — no border, sits above the canvas.</p>
+        <Stack>
+          <SectionHeading eyebrow="plain (default)" title="Borderless, raised" compact />
+          <p className="subtle" style={{ margin: 0 }}>A raised surface with no visible border.</p>
+        </Stack>
       </Card>
       <Card variant="outlined">
-        <SectionHeading eyebrow="outlined" title="Subtle border" compact />
-        <p className="subtle" style={{ margin: 0 }}>A hard edge for when there's no background contrast to rely on.</p>
+        <Stack>
+          <SectionHeading eyebrow="outlined" title="Subtle border" compact />
+          <p className="subtle" style={{ margin: 0 }}>A defined edge for low-contrast surroundings.</p>
+        </Stack>
       </Card>
     </div>
   ),
@@ -27,12 +31,14 @@ export const WithHeaderAndActions = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420 }}>
       <Card>
-        <SectionHeading eyebrow="Review cycle" title="Quarterly Planning Review" compact />
-        <p className="subtle" style={{ margin: 0 }}>2026 Season · 25-slot submission · top 25</p>
-        <CardActions>
-          <Button variant="secondary">Close voting</Button>
-          <Button>Publish update</Button>
-        </CardActions>
+        <Stack>
+          <SectionHeading eyebrow="Overview" title="Project summary" compact />
+          <p className="subtle" style={{ margin: 0 }}>Last updated today</p>
+          <CardActions>
+            <Button variant="secondary">Cancel</Button>
+            <Button>Save changes</Button>
+          </CardActions>
+        </Stack>
       </Card>
     </div>
   ),
@@ -43,11 +49,13 @@ export const DangerTone = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420 }}>
       <Card tone="danger">
-        <SectionHeading title="Delete project" compact />
-        <p className="subtle" style={{ margin: 0 }}>This permanently removes the project and its associated content.</p>
-        <CardActions>
-          <Button variant="danger">Delete project</Button>
-        </CardActions>
+        <Stack>
+          <SectionHeading title="Remove item" compact />
+          <p className="subtle" style={{ margin: 0 }}>This action cannot be undone.</p>
+          <CardActions>
+            <Button variant="danger">Remove</Button>
+          </CardActions>
+        </Stack>
       </Card>
     </div>
   ),
@@ -59,14 +67,16 @@ export const InAGrid = {
     <div style={{ padding: 24, maxWidth: 640 }}>
       <Grid columns={2} gap="md">
         {[
-          ["Sample Project", "open"],
-          ["Sample Project", "closed"],
-          ["Rivalry Bowl", "open"],
-          ["Planning Review", "published"],
+          ["Workspace", "active"],
+          ["Design system", "draft"],
+          ["Product brief", "active"],
+          ["Content library", "published"],
         ].map(([name, status]) => (
           <Card key={name}>
-            <SectionHeading title={name} compact />
-            <Pill tone={status === "open" ? "success" : status === "published" ? "default" : "warning"}>{status}</Pill>
+            <Stack>
+              <SectionHeading title={name} compact />
+              <Pill tone={status === "active" ? "success" : status === "published" ? "default" : "warning"}>{status}</Pill>
+            </Stack>
           </Card>
         ))}
       </Grid>
