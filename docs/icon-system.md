@@ -33,8 +33,9 @@ When adding or replacing an icon:
 ### Solar Linear
 
 `IconArrowDown`, `IconAward`, `IconCheck`, `IconClose`, `IconCopy`,
-`IconDotsVertical`, `IconEye`, `IconList`, `IconLogout`, `IconRestart`,
-`IconSettings`, `IconShirt`, `IconTrophy`, `IconUsers`
+`IconDotsVertical`, `IconEye`, `IconFile`, `IconList`, `IconLogout`,
+`IconRestart`, `IconSettings`, `IconShirt`, `IconTrash`, `IconTrophy`,
+`IconUsers`
 
 ### Simple Icons
 

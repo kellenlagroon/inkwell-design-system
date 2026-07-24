@@ -31,7 +31,7 @@ export type { StatusBannerProps, StatusBannerTone } from "./components/statusBan
 export { ModalFrame } from "./components/modalFrame";
 export type { ModalFrameProps, ModalSize } from "./components/modalFrame";
 export { Drawer } from "./components/drawer";
-export type { DrawerProps, DrawerSide, DrawerSize } from "./components/drawer";
+export type { DrawerProps, DrawerSide, DrawerSize, DrawerBodyPadding } from "./components/drawer";
 export { Popover, PopoverGeneral } from "./components/popover";
 export type { PopoverProps, PopoverTriggerProps } from "./components/popover";
 export { CheckboxSelect } from "./components/checkboxSelect";

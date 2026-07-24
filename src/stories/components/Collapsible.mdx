@@ -7,14 +7,13 @@ import * as CollapsibleFeatures from "../../components/collapsible.features.stor
 # Collapsible
 
 A disclosure: a header that toggles a region of content, with a chevron that
-rotates when open. Generalizes the app's expandable result rows. Works
-controlled or uncontrolled.
+rotates when open. Works controlled or uncontrolled.
 
 **Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
 
 ## When to use
 
-- Use to let people expand a row or section for more detail (results breakdowns, advanced options).
+- Use to let people expand a row or section for more detail (summaries, advanced options).
 - Stack several for an accordion-style list where each opens independently.
 - For switching between peer views, use [Tabs](?path=/docs/components-tabs--docs) instead.
 
@@ -29,15 +28,14 @@ controlled or uncontrolled.
 Uncontrolled by default (`defaultOpen`); pass `open` + `onOpenChange` to control
 it. `title`, optional `description`, and optional `meta` build the header, and the
 whole header is the toggle. The revealed content is `children`. Pass `divided` to
-add a hairline divider under the row — the treatment the app uses for stacked
-submission rows.
+add a hairline divider under the row.
 
 ## Features
 
 ### Stacked
 
 Each collapsible manages its own state, so any combination can be open. These use
-`divided` so the rows read as a list, matching the app's submission rows.
+`divided` so the rows read as a list.
 
 <Canvas of={CollapsibleFeatures.Stacked} sourceState="hidden" />
 

@@ -4,21 +4,28 @@ import { IconClose } from "./icons";
 
 export type DrawerSide = "left" | "right";
 export type DrawerSize = "sm" | "md" | "lg";
+export type DrawerBodyPadding = "none" | "sm" | "md";
 
 export interface DrawerProps {
   open: boolean;
   onClose: () => void;
   title?: ReactNode;
+  ariaLabel?: string;
+  header?: ReactNode;
   side?: DrawerSide;
   size?: DrawerSize;
   closeOnBackdrop?: boolean;
   closeOnEscape?: boolean;
   children?: ReactNode;
   footer?: ReactNode;
+  bodyPadding?: DrawerBodyPadding;
   mobileSheet?: boolean;
   height?: string;
   maxHeight?: string;
   className?: string;
+  headerClassName?: string;
+  bodyClassName?: string;
+  footerClassName?: string;
 }
 
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -27,16 +34,22 @@ export function Drawer({
   open,
   onClose,
   title,
+  ariaLabel,
+  header,
   side = "right",
   size = "md",
   closeOnBackdrop = true,
   closeOnEscape = true,
   children,
   footer,
+  bodyPadding = "md",
   mobileSheet = true,
   height,
   maxHeight,
   className = "",
+  headerClassName = "",
+  bodyClassName = "",
+  footerClassName = "",
 }: DrawerProps) {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -129,17 +142,20 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
-        aria-labelledby={title ? titleId : undefined}
+        aria-label={ariaLabel}
+        aria-labelledby={title && header === undefined ? titleId : undefined}
         tabIndex={-1}
       >
-        <header className="ink-drawer-header">
-          {title ? <h2 id={titleId}>{title}</h2> : <span />}
-          <button type="button" className="ink-drawer-close" aria-label="Close drawer" onClick={onClose}>
-            <IconClose />
-          </button>
-        </header>
-        <div className="ink-drawer-body">{children}</div>
-        {footer ? <footer className="ink-drawer-footer">{footer}</footer> : null}
+        {header === undefined ? (
+          <header className={["ink-drawer-header", headerClassName].filter(Boolean).join(" ")}>
+            {title ? <h2 id={titleId}>{title}</h2> : <span />}
+            <button type="button" className="ink-drawer-close" aria-label="Close drawer" onClick={onClose}>
+              <IconClose />
+            </button>
+          </header>
+        ) : header ? <header className={["ink-drawer-header", headerClassName].filter(Boolean).join(" ")}>{header}</header> : null}
+        <div className={["ink-drawer-body", `ink-drawer-body--padding-${bodyPadding}`, bodyClassName].filter(Boolean).join(" ")}>{children}</div>
+        {footer ? <footer className={["ink-drawer-footer", footerClassName].filter(Boolean).join(" ")}>{footer}</footer> : null}
       </section>
     </div>
   );

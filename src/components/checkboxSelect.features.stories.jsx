@@ -6,18 +6,18 @@ export default {
 };
 
 const OPTIONS = [
-  { value: "greenhouse", label: "Greenhouse" },
-  { value: "lever", label: "Lever" },
-  { value: "ashby", label: "Ashby" },
-  { value: "workday", label: "Workday" },
-  { value: "custom", label: "Custom source", disabled: true },
+  { value: "design", label: "Design" },
+  { value: "engineering", label: "Engineering" },
+  { value: "marketing", label: "Marketing" },
+  { value: "support", label: "Support" },
+  { value: "other", label: "Other", disabled: true },
 ];
 
 function Demo(props) {
-  const [value, setValue] = useState(["greenhouse", "lever"]);
+  const [value, setValue] = useState(["design", "engineering"]);
   return (
     <div style={{ padding: 80 }}>
-      <CheckboxSelect options={OPTIONS} value={value} onChange={setValue} label="Sources" placeholder="Sources" {...props} />
+      <CheckboxSelect options={OPTIONS} value={value} onChange={setValue} label="Categories" placeholder="Categories" {...props} />
     </div>
   );
 }

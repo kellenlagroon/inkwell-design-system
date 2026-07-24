@@ -19,7 +19,7 @@ export const Playground = {
     return (
       <div style={{ padding: 24 }}>
         <Button onClick={() => setOpen(true)}>Open drawer</Button>
-        <Drawer open={open} onClose={() => setOpen(false)} title="Application" side={side} size={size}>
+        <Drawer open={open} onClose={() => setOpen(false)} title="Edit profile" side={side} size={size}>
           <div style={{ display: "grid", gap: 16 }}>
             <FormField label="Company">
               <TextInput placeholder="Acme" />

@@ -6,8 +6,8 @@ import * as FileUploadFeatures from "../../components/fileUpload.features.storie
 
 # FileUpload
 
-A styled trigger around a native file input. The consuming app owns upload
-behavior, validation, and storage.
+A native file input with trigger, dropzone, removable file-item, and validation
+options. The consuming app owns upload behavior, validation, and storage.
 
 **Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
 
@@ -39,14 +39,32 @@ behavior, validation, and storage.
 
 <Canvas of={FileUploadFeatures.Disabled} sourceState="hidden" />
 
+### Styled file items
+
+Use `fileDisplay="item"` to show selected files as bordered rows with an
+accessible remove action. Use `defaultFiles` when the initial state already has
+attachments to display.
+
+<Canvas of={FileUploadFeatures.StyledFileItems} sourceState="hidden" />
+
+### Dropzone
+
+Use `variant="dropzone"` when drag and drop is an appropriate, discoverable
+shortcut alongside file browsing.
+
+<Canvas of={FileUploadFeatures.Dropzone} sourceState="hidden" />
+
 ## Usage guidance
 
 - Do pass `accept` when the workflow requires a specific file type.
 - Do leave upload side effects in the consuming app.
+- Use `onFilesChange` to keep selected-file state in sync with a consuming flow.
 - Don’t hide validation errors in helper copy.
 
 ## Keyboard and accessibility
 
 - The hidden input remains associated with the `FormField` label.
 - The visible trigger is a button and can be activated by keyboard.
-- Selected filename text is visible beside the trigger.
+- Dropzones support click, Enter, Space, and drag-and-drop selection.
+- Each styled file item has a named remove action; use `clearable={false}` when
+  the consuming workflow should prevent removal.

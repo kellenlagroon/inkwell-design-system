@@ -1,6 +1,6 @@
 import { createContext, useContext, useId, useRef, useState } from "react";
-import type { ChangeEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
-import { IconEye } from "./icons";
+import type { ChangeEvent, DragEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
+import { IconEye, IconFile, IconTrash } from "./icons";
 
 /**
  * Form primitives for Inkwell.
@@ -185,7 +185,7 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
 export function Checkbox({ id, label, invalid = false, className = "", ...props }: CheckboxProps) {
   const generatedId = useId();
   const resolvedId = id ?? generatedId;
-  const classes = ["checkbox", props.disabled ? "checkbox--disabled" : "", className].filter(Boolean).join(" ");
+  const classes = ["checkbox", invalid ? "checkbox--invalid" : "", props.disabled ? "checkbox--disabled" : "", className].filter(Boolean).join(" ");
 
   return (
     <label className={classes} htmlFor={resolvedId}>
@@ -196,6 +196,11 @@ export function Checkbox({ id, label, invalid = false, className = "", ...props 
         aria-invalid={invalid || undefined}
         {...props}
       />
+      <span className="checkbox-control" aria-hidden="true">
+        <svg viewBox="0 0 12 10" fill="none">
+          <path d="m1 5 3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
       {label ? <span className="checkbox-label">{label}</span> : null}
     </label>
   );
@@ -251,9 +256,21 @@ export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   describedBy?: string;
   /** Stack trigger and filename. `mobile` stacks only on narrow viewports. */
   layout?: "inline" | "stacked" | "mobile";
+  /** Render a bordered drag-and-drop target instead of a trigger button. */
+  variant?: "trigger" | "dropzone";
+  /** Show selected files as inline text or styled file rows. */
+  fileDisplay?: "inline" | "item";
+  /** Files shown on first render, useful for preselected or existing attachments. */
+  defaultFiles?: File[];
+  /** Show remove controls for selected files. */
+  clearable?: boolean;
+  /** Called whenever files are selected, removed, or cleared. */
+  onFilesChange?: (files: File[]) => void;
+  /** Called after all selected files are cleared. */
+  onClear?: () => void;
 }
 
-/** Hidden native file input with an Inkwell-styled trigger and filename display. */
+/** Native file input with trigger, dropzone, and selected-file display options. */
 export function FileUpload({
   id,
   label = "Choose file",
@@ -262,20 +279,68 @@ export function FileUpload({
   invalid = false,
   describedBy,
   layout = "mobile",
+  variant = "trigger",
+  fileDisplay = "inline",
+  defaultFiles = [],
+  clearable = true,
   className = "",
   onChange,
+  onFilesChange,
+  onClear,
   ...props
 }: FileUploadProps) {
   const field = useFieldContext();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [filename, setFilename] = useState<string>("");
+  const [files, setFiles] = useState<File[]>(defaultFiles);
+  const [isDragging, setIsDragging] = useState(false);
   const resolvedInvalid = invalid || field?.invalid || false;
   const resolvedId = id ?? field?.id;
 
+  function setSelectedFiles(nextFiles: File[]) {
+    setFiles(nextFiles);
+    onFilesChange?.(nextFiles);
+  }
+
+  function syncInputFiles(nextFiles: File[]) {
+    const input = inputRef.current;
+    if (!input) return;
+    if (nextFiles.length === 0) {
+      input.value = "";
+      return;
+    }
+    if (typeof DataTransfer === "undefined") return;
+    const transfer = new DataTransfer();
+    nextFiles.forEach((file) => transfer.items.add(file));
+    input.files = transfer.files;
+  }
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setFilename(event.target.files?.[0]?.name ?? "");
+    setSelectedFiles(Array.from(event.target.files ?? []));
     onChange?.(event);
   }
+
+  function removeFile(index: number) {
+    const nextFiles = files.filter((_, fileIndex) => fileIndex !== index);
+    syncInputFiles(nextFiles);
+    setSelectedFiles(nextFiles);
+    if (nextFiles.length === 0) onClear?.();
+  }
+
+  function clearFiles() {
+    syncInputFiles([]);
+    setSelectedFiles([]);
+    onClear?.();
+  }
+
+  function handleDrop(event: DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    if (props.disabled) return;
+    setIsDragging(false);
+    const droppedFiles = Array.from(event.dataTransfer.files);
+    setSelectedFiles(props.multiple ? droppedFiles : droppedFiles.slice(0, 1));
+  }
+
+  const filename = files.map((file) => file.name).join(", ");
 
   return (
     <div className={["file-upload", `file-upload--${layout}`, resolvedInvalid ? "file-upload--invalid" : "", className].filter(Boolean).join(" ")}>
@@ -290,14 +355,61 @@ export function FileUpload({
         required={field?.required}
         onChange={handleChange}
       />
-      <div className="file-upload-row">
-        <button type="button" className="secondary-button" onClick={() => inputRef.current?.click()} disabled={props.disabled}>
-          {label}
-        </button>
-        <span className={["file-upload-name", filename ? "" : "file-upload-name--empty"].filter(Boolean).join(" ")}>
-          {filename || placeholder}
-        </span>
-      </div>
+      {variant === "dropzone" ? (
+        <div
+          className={["file-upload-dropzone", isDragging ? "file-upload-dropzone--dragging" : "", props.disabled ? "file-upload-dropzone--disabled" : ""].filter(Boolean).join(" ")}
+          role="button"
+          tabIndex={props.disabled ? -1 : 0}
+          aria-label={typeof label === "string" ? label : "Choose files"}
+          onClick={() => inputRef.current?.click()}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
+          onDragEnter={(event) => {
+            event.preventDefault();
+            if (!props.disabled) setIsDragging(true);
+          }}
+          onDragOver={(event) => event.preventDefault()}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={handleDrop}
+        >
+          <IconFile className="file-upload-dropzone-icon" />
+          <span className="file-upload-dropzone-label">{label}</span>
+          <span className="file-upload-dropzone-hint">Drag and drop, or click to browse</span>
+        </div>
+      ) : (
+        <div className="file-upload-row">
+          <button type="button" className="secondary-button" onClick={() => inputRef.current?.click()} disabled={props.disabled}>
+            {label}
+          </button>
+          {fileDisplay === "inline" ? (
+            <span className={["file-upload-name", filename ? "" : "file-upload-name--empty"].filter(Boolean).join(" ")}>
+              {filename || placeholder}
+            </span>
+          ) : null}
+          {fileDisplay === "inline" && clearable && files.length > 0 ? (
+            <button type="button" className="file-upload-clear" onClick={clearFiles} disabled={props.disabled}>Clear</button>
+          ) : null}
+        </div>
+      )}
+      {fileDisplay === "item" && files.length > 0 ? (
+        <div className="file-upload-list" aria-label="Selected files">
+          {files.map((file, index) => (
+            <div className="file-upload-item" key={`${file.name}-${file.lastModified}-${index}`}>
+              <IconFile className="file-upload-item-icon" />
+              <span className="file-upload-item-name">{file.name}</span>
+              {clearable ? (
+                <button type="button" className="file-upload-remove" onClick={() => removeFile(index)} disabled={props.disabled} aria-label={`Remove ${file.name}`}>
+                  <IconTrash />
+                </button>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : null}
       {validationMessage ? <div className="file-upload-validation">{validationMessage}</div> : null}
     </div>
   );

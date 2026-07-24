@@ -72,6 +72,13 @@ describe("Checkbox", () => {
     fireEvent.click(box);
     expect(onChange).toHaveBeenCalledTimes(1);
   });
+
+  it("renders a custom visual control and exposes invalid state", () => {
+    const { container, getByLabelText } = render(<Checkbox label="Agree" invalid />);
+    expect(container.querySelector(".checkbox-control svg")).toBeTruthy();
+    expect(getByLabelText("Agree").getAttribute("aria-invalid")).toBe("true");
+    expect(container.firstElementChild?.className).toContain("checkbox--invalid");
+  });
 });
 
 describe("PasswordInput", () => {
@@ -104,6 +111,30 @@ describe("FileUpload", () => {
   it("uses the responsive stacked layout by default", () => {
     const { container } = render(<FileUpload aria-label="Attachment" />);
     expect(container.firstElementChild?.className).toContain("file-upload--mobile");
+  });
+
+  it("renders removable styled file items", () => {
+    const onFilesChange = vi.fn();
+    const { getByLabelText, getByRole, queryByText } = render(
+      <FileUpload aria-label="Attachment" fileDisplay="item" onFilesChange={onFilesChange} />,
+    );
+    const file = new File(["test"], "test.pdf", { type: "application/pdf" });
+    fireEvent.change(getByLabelText("Attachment"), { target: { files: [file] } });
+    expect(getByRole("button", { name: "Remove test.pdf" })).toBeTruthy();
+    fireEvent.click(getByRole("button", { name: "Remove test.pdf" }));
+    expect(queryByText("test.pdf")).toBeNull();
+    expect(onFilesChange).toHaveBeenLastCalledWith([]);
+  });
+
+  it("exposes an accessible dropzone option", () => {
+    const { getByRole } = render(<FileUpload variant="dropzone" label="Upload attachment" />);
+    expect(getByRole("button", { name: "Upload attachment" }).className).toContain("file-upload-dropzone");
+  });
+
+  it("renders initial styled file items", () => {
+    const file = new File(["test"], "test.pdf", { type: "application/pdf" });
+    const { getByText } = render(<FileUpload fileDisplay="item" defaultFiles={[file]} />);
+    expect(getByText("test.pdf")).toBeTruthy();
   });
 });
 

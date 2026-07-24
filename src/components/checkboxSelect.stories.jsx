@@ -6,10 +6,10 @@ export default {
 };
 
 const OPTIONS = [
-  { value: "greenhouse", label: "Greenhouse" },
-  { value: "lever", label: "Lever" },
-  { value: "ashby", label: "Ashby" },
-  { value: "workday", label: "Workday" },
+  { value: "design", label: "Design" },
+  { value: "engineering", label: "Engineering" },
+  { value: "marketing", label: "Marketing" },
+  { value: "support", label: "Support" },
 ];
 
 export const Playground = {
@@ -20,12 +20,12 @@ export const Playground = {
     searchable: { control: "boolean" },
   },
   render: ({ searchable }) => {
-    const [value, setValue] = useState(["greenhouse"]);
+    const [value, setValue] = useState(["design"]);
     return (
       <div style={{ padding: 80 }}>
         <CheckboxSelect
-          label="Sources"
-          placeholder="Sources"
+          label="Categories"
+          placeholder="Categories"
           options={OPTIONS}
           value={value}
           onChange={setValue}

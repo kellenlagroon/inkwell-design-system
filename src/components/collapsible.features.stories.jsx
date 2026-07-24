@@ -5,9 +5,9 @@ export default {
 };
 
 const CATEGORIES = [
-  { key: "offense", title: "Best offense", winner: "Northstar", count: 12 },
-  { key: "defense", title: "Best defense", winner: "Summit", count: 12 },
-  { key: "surprise", title: "Biggest surprise", winner: "Indiana", count: 11 },
+  { key: "overview", title: "Overview", description: "Summary and recent activity", count: 3 },
+  { key: "notifications", title: "Notifications", description: "Email and product preferences", count: 2 },
+  { key: "security", title: "Security", description: "Access and sign-in settings", count: 4 },
 ];
 
 export const Stacked = {
@@ -18,15 +18,15 @@ export const Stacked = {
         <Collapsible
           key={c.key}
           title={c.title}
-          description={`Winner: ${c.winner}`}
-          meta={`${c.count} submissions`}
+          description={c.description}
+          meta={`${c.count} items`}
           defaultOpen={i === 0}
           divided
         >
           <div style={{ display: "grid", gap: 8, color: "var(--color-text-primary)" }}>
-            <div>1. {c.winner} — 8 submissions</div>
-            <div>2. Cedar — 5 submissions</div>
-            <div>3. Atlas — 3 submissions</div>
+            <div>Item one</div>
+            <div>Item two</div>
+            <div>Item three</div>
           </div>
         </Collapsible>
       ))}
@@ -40,13 +40,13 @@ export const Divided = {
     <div style={{ padding: 24, maxWidth: 480, display: "grid", gap: 32 }}>
       <div>
         <p className="subtle" style={{ margin: "0 0 8px" }}>divided</p>
-        <Collapsible title="Best offense" meta="12 submissions" divided>
-          <p className="subtle" style={{ margin: 0 }}>Hairline divider under the row — matches the app.</p>
+        <Collapsible title="Project summary" meta="3 items" divided>
+          <p className="subtle" style={{ margin: 0 }}>Hairline divider under the row.</p>
         </Collapsible>
       </div>
       <div>
         <p className="subtle" style={{ margin: "0 0 8px" }}>plain (default)</p>
-        <Collapsible title="Best offense" meta="12 submissions">
+        <Collapsible title="Project summary" meta="3 items">
           <p className="subtle" style={{ margin: 0 }}>No divider.</p>
         </Collapsible>
       </div>

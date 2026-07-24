@@ -48,7 +48,7 @@ function FilterList({ selected, onToggle, query }) {
       {options.map((option) => {
         const checked = selected.includes(option.value);
         return (
-          <div className={checked ? "ink-filter-sheet-sandbox__row ink-filter-sheet-sandbox__row--selected" : "ink-filter-sheet-sandbox__row"} key={option.value}>
+          <div className="ink-filter-sheet-sandbox__row" key={option.value}>
             <Checkbox label={option.label} checked={checked} onChange={() => onToggle(option.value)} />
           </div>
         );

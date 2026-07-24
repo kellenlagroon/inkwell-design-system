@@ -63,15 +63,19 @@ export function CheckboxSelect({
           <TextInput value={query} onChange={(event) => setQuery(event.target.value)} placeholder={searchPlaceholder} aria-label={searchPlaceholder} />
         ) : null}
         <div className="checkbox-select-options">
-          {filtered.map((option) => (
-            <Checkbox
-              key={option.value}
-              label={option.label}
-              checked={selected.has(option.value)}
-              disabled={option.disabled}
-              onChange={() => toggle(option.value)}
-            />
-          ))}
+          {filtered.map((option) => {
+            const checked = selected.has(option.value);
+            return (
+              <div className="checkbox-select-option" key={option.value}>
+                <Checkbox
+                  label={option.label}
+                  checked={checked}
+                  disabled={option.disabled}
+                  onChange={() => toggle(option.value)}
+                />
+              </div>
+            );
+          })}
         </div>
         <Button variant="ghost" onClick={() => onChange([])} disabled={value.length === 0}>
           {clearLabel}

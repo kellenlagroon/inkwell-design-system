@@ -6,9 +6,9 @@ export default {
 
 export const Playground = {
   args: {
-    title: "Best offense",
-    description: "Winner: Northstar",
-    meta: "12 submissions",
+    title: "Project summary",
+    description: "Last updated today",
+    meta: "3 items",
     defaultOpen: false,
   },
   argTypes: {
@@ -21,9 +21,9 @@ export const Playground = {
     <div style={{ padding: 24, maxWidth: 480 }}>
       <Collapsible title={title} description={description} meta={meta} defaultOpen={defaultOpen}>
         <div className="results-list" style={{ display: "grid", gap: 8, color: "var(--color-text-primary)" }}>
-          <div>1. Northstar — 8 submissions</div>
-          <div>2. Summit — 6 submissions</div>
-          <div>3. Harbor — 4 submissions</div>
+          <div>Item one</div>
+          <div>Item two</div>
+          <div>Item three</div>
         </div>
       </Collapsible>
     </div>

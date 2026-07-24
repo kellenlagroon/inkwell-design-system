@@ -15,7 +15,7 @@ self-contained.
 
 ## When to use
 
-- Use for a single binary choice ("Lock submissions after the deadline").
+- Use for a single binary choice ("Receive email updates").
 - Stack several together for a set of independent toggles.
 - For one choice among many mutually exclusive options, use a radio group instead (not yet in Inkwell).
 
@@ -46,6 +46,12 @@ Several independent checkboxes stacked together.
 
 <Canvas of={CheckboxFeatures.Disabled} sourceState="hidden" />
 
+### Invalid
+
+Use `invalid` when the user must make a selection before continuing.
+
+<Canvas of={CheckboxFeatures.Invalid} sourceState="hidden" />
+
 ## Usage guidance
 
 - Do give every checkbox a `label`; the whole label is a click target.
@@ -57,4 +63,5 @@ Several independent checkboxes stacked together.
 
 - The control is a native checkbox, so Space toggles it and it participates in tab order.
 - The label is associated via `htmlFor`/`id`, so clicking the text toggles the box.
-- Disabled checkboxes are dimmed and removed from interaction.
+- Disabled checkboxes are dimmed and removed from interaction. Invalid checkboxes
+  expose both a visible danger treatment and `aria-invalid`.

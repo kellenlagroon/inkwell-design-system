@@ -3,6 +3,7 @@ import {
   IconArrowDown,
   IconAward,
   IconCheck,
+  IconFile,
   IconClose,
   IconCopy,
   IconDiscord,
@@ -15,6 +16,7 @@ import {
   IconSettings,
   IconShirt,
   IconTrophy,
+  IconTrash,
   IconUsers,
 } from "../../components/icons.jsx";
 
@@ -34,15 +36,15 @@ surrounding component.
 
 | Product icons (Solar Linear) | Brand icons (Simple Icons) |
 |---|---|
-| Arrow down, Award, Check, Close, Copy, More, Eye, List, Log out, Restart, Settings, Shirt, Trophy, Users | Google, Discord |
+| Arrow down, Award, Check, Close, Copy, More, Eye, File, List, Log out, Restart, Settings, Shirt, Trash, Trophy, Users | Google, Discord |
 
 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(132px, 1fr))", gap: "12px", margin: "20px 0" }}>
   {[
     ["Arrow down", IconArrowDown], ["Award", IconAward], ["Check", IconCheck],
     ["Close", IconClose], ["Copy", IconCopy], ["More", IconDotsVertical],
-    ["Eye", IconEye], ["List", IconList], ["Log out", IconLogout],
+    ["Eye", IconEye], ["File", IconFile], ["List", IconList], ["Log out", IconLogout],
     ["Restart", IconRestart], ["Settings", IconSettings], ["Shirt", IconShirt],
-    ["Trophy", IconTrophy], ["Users", IconUsers], ["Google", IconGoogle],
+    ["Trash", IconTrash], ["Trophy", IconTrophy], ["Users", IconUsers], ["Google", IconGoogle],
     ["Discord", IconDiscord],
   ].map(([name, Icon]) => (
     <div key={name} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "10px", border: "1px solid var(--line-soft)", borderRadius: "6px" }}>

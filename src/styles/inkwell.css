@@ -2080,7 +2080,7 @@ input[type="search"].input--lg {
 .checkbox {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   width: auto;
   padding: 0;
   border: 0;
@@ -2090,10 +2090,58 @@ input[type="search"].input--lg {
 }
 
 .checkbox-input {
-  width: auto;
+  position: absolute;
+  width: 1px;
+  height: 1px;
   margin: 0;
-  cursor: pointer;
-  accent-color: var(--color-danger);
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox-control {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  flex: 0 0 18px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+  color: var(--neutral-0);
+  transition: border-color var(--duration-fast) var(--ease-default), background-color var(--duration-fast) var(--ease-default);
+}
+
+.checkbox-control svg {
+  display: block;
+  width: 12px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-default);
+}
+
+.checkbox-input:checked + .checkbox-control {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+}
+
+.checkbox-input:checked + .checkbox-control svg {
+  opacity: 1;
+}
+
+.checkbox-input:focus-visible + .checkbox-control {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.checkbox--invalid .checkbox-control {
+  border-color: var(--color-danger);
+}
+
+.checkbox--invalid .checkbox-input:checked + .checkbox-control {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
 }
 
 .checkbox-label {
@@ -2175,6 +2223,127 @@ input[type="search"].input--lg {
 .file-upload-name--empty,
 .file-upload-validation {
   color: var(--muted);
+}
+
+.file-upload-clear,
+.file-upload-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: var(--radius-sharp);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.file-upload-clear {
+  min-height: 36px;
+  padding: 0 var(--space-2);
+}
+
+.file-upload-remove {
+  width: 32px;
+  height: 32px;
+}
+
+.file-upload-remove svg {
+  width: 18px;
+  height: 18px;
+}
+
+.file-upload-clear:hover,
+.file-upload-clear:focus-visible,
+.file-upload-remove:hover,
+.file-upload-remove:focus-visible {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.file-upload-clear:focus-visible,
+.file-upload-remove:focus-visible,
+.file-upload-dropzone:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.file-upload-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.file-upload-item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+}
+
+.file-upload-item-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: var(--space-3);
+  color: var(--color-text-secondary);
+}
+
+.file-upload-item-name {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.file-upload-dropzone {
+  display: grid;
+  place-items: center;
+  min-height: 144px;
+  padding: var(--space-5) var(--space-4);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color var(--duration-fast) var(--ease-default), background-color var(--duration-fast) var(--ease-default);
+}
+
+.file-upload-dropzone:hover,
+.file-upload-dropzone--dragging {
+  border-color: var(--color-brand);
+  background: var(--color-surface-active);
+}
+
+.file-upload-dropzone--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.file-upload-dropzone-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.file-upload-dropzone-label { font-weight: 600; }
+
+.file-upload-dropzone-hint {
+  margin-top: var(--space-1);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.file-upload--invalid .file-upload-dropzone {
+  border-color: var(--color-danger);
 }
 
 .file-upload--invalid .file-upload-validation {
@@ -4192,8 +4361,11 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
-  padding: var(--space-4);
 }
+
+.ink-drawer-body--padding-none { padding: 0; }
+.ink-drawer-body--padding-sm { padding: var(--space-3); }
+.ink-drawer-body--padding-md { padding: var(--space-4); }
 
 .ink-popover {
   position: relative;
@@ -4225,9 +4397,20 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
 
 .checkbox-select-options {
   display: grid;
-  gap: var(--space-2);
+  gap: 0;
   max-height: 260px;
   overflow: auto;
+}
+
+.checkbox-select-option {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.checkbox-select-option .checkbox {
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-3) var(--space-4);
 }
 
 .ink-pagination,
@@ -5619,7 +5802,6 @@ body[data-preview-mode="mobile"] .preview-mode-button {
 .checkbox-label,
 .file-upload-validation { min-width: 0; overflow-wrap: anywhere; }
 .checkbox { min-height: 44px; }
-.checkbox-input { flex: 0 0 auto; }
 .password-input-toggle { width: 44px; height: 44px; right: 0; }
 .password-input-control { padding-right: calc(44px + var(--space-2)); }
 .file-upload-row { width: 100%; }
@@ -5836,8 +6018,6 @@ body[data-preview-mode="mobile"] .preview-mode-button {
 .ink-filter-sheet-sandbox__row {
   border-bottom: 1px solid var(--color-border-subtle);
 }
-
-.ink-filter-sheet-sandbox__row--selected { background: var(--color-surface-active); }
 
 .ink-filter-sheet-sandbox__row .checkbox {
   display: flex;

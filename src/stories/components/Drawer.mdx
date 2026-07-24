@@ -34,11 +34,21 @@ A side sheet for focused workflows that should keep page context visible.
 
 <Canvas of={DrawerFeatures.LeftSide} sourceState="hidden" />
 
+### Custom layout
+
+Use `header` to replace the default title-and-close header and `bodyPadding="none"`
+when the content needs to own its edge spacing. Provide `ariaLabel` when a custom
+header does not include the default title.
+
+<Canvas of={DrawerFeatures.CustomLayout} sourceState="hidden" />
+
 ## Usage guidance
 
 - Do provide a specific title.
 - Do keep close behavior predictable: Escape, backdrop, and close button.
 - Don’t put app-specific workflow state in the drawer shell.
+- Use `headerClassName`, `bodyClassName`, and `footerClassName` for targeted layout
+  hooks rather than overriding Drawer internals.
 
 ## Keyboard and accessibility
 

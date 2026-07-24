@@ -7,9 +7,9 @@ export default {
 export const Horizontal = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 420, color: "var(--color-text-primary)" }}>
-      <p style={{ margin: "0 0 12px" }}>Final submissions are locked.</p>
+      <p style={{ margin: "0 0 12px" }}>Profile information is complete.</p>
       <Divider />
-      <p style={{ margin: "12px 0 0" }}>Results publish at noon.</p>
+      <p style={{ margin: "12px 0 0" }}>Changes save automatically.</p>
     </div>
   ),
 };
@@ -30,9 +30,9 @@ export const Vertical = {
       <div style={{ display: "flex", alignItems: "center", gap: 12, height: 24 }}>
         <span>Overview</span>
         <Divider orientation="vertical" />
-        <span>Submissions</span>
+        <span>Activity</span>
         <Divider orientation="vertical" />
-        <span>Results</span>
+        <span>Settings</span>
       </div>
     </div>
   ),
