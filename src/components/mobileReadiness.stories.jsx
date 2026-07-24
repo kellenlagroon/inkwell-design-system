@@ -139,23 +139,6 @@ export const Width375 = {
   play: exerciseNarrowControls,
 };
 
-export const MobileDrawerSheet = {
-  globals: mobileViewport("mobile375"),
-  render: () => (
-    <MobileCanvas>
-      <Drawer
-        open
-        onClose={() => {}}
-        title="Filters and display options"
-        maxHeight="85dvh"
-        footer={<ActionGroup><Button variant="secondary">Clear</Button><Button>Apply filters</Button></ActionGroup>}
-      >
-        <Text>{Array.from({ length: 18 }, () => "Scrollable drawer content. ").join("")}</Text>
-      </Drawer>
-    </MobileCanvas>
-  ),
-};
-
 function DrawerInteractionFixture() {
   const [open, setOpen] = useState(false);
   return (
@@ -186,41 +169,6 @@ export const DrawerKeyboardBehavior = {
     await expect(canvas.queryByRole("dialog", { name: "Mobile keyboard check" })).not.toBeInTheDocument();
     await expect(trigger).toHaveFocus();
     await userEvent.click(trigger);
-  },
-};
-
-function MobileFilterFixture() {
-  const [filters, setFilters] = useState([]);
-  return (
-    <MobileCanvas>
-      <Container>
-        <Stack gap="lg">
-          <Heading level={1} size="md">Bottom-edge filter sheet</Heading>
-          <Text>The trigger stays near the viewport edge so the mobile sheet behavior is exercised.</Text>
-          <div style={{ minHeight: "58dvh" }} />
-          <CheckboxSelect
-            searchable
-            searchPlaceholder="Search programs"
-            label="Programs"
-            value={filters}
-            onChange={setFilters}
-            options={Array.from({ length: 8 }, (_, index) => ({ value: String(index), label: `Program option ${index + 1}` }))}
-          />
-        </Stack>
-      </Container>
-    </MobileCanvas>
-  );
-}
-
-export const BottomEdgeFilterSheet = {
-  globals: mobileViewport("mobile320"),
-  render: () => <MobileFilterFixture />,
-  play: async ({ canvas, userEvent }) => {
-    await userEvent.click(canvas.getByRole("button", { name: "Select" }));
-    await expect(canvas.getByRole("textbox", { name: "Search programs" })).toBeVisible();
-    const firstOption = canvas.getByRole("checkbox", { name: "Program option 1" });
-    await userEvent.click(firstOption);
-    await expect(firstOption).toBeChecked();
   },
 };
 

@@ -16,7 +16,7 @@ const PROGRAMS = Array.from({ length: 8 }, (_, index) => ({
 }));
 
 export default {
-  title: "Patterns/Mobile readiness/Filter sheet options",
+  title: "Patterns/Mobile readiness/Filter sheet",
   parameters: {
     layout: "fullscreen",
     viewport: { options: MOBILE_VIEWPORTS },
@@ -101,7 +101,7 @@ function FilterSheet({ mode }) {
 }
 
 export const ImmediateSelection = {
-  name: "Immediate selection · option 2",
+  name: "Immediate selection",
   globals: { viewport: { value: "mobile320", isRotated: false } },
   render: () => <FilterSheet mode="immediate" />,
   play: async ({ canvas, userEvent }) => {
@@ -115,7 +115,7 @@ export const ImmediateSelection = {
 };
 
 export const StagedSelection = {
-  name: "Staged selection · option 2",
+  name: "Staged selection",
   globals: { viewport: { value: "mobile320", isRotated: false } },
   render: () => <FilterSheet mode="staged" />,
   play: async ({ canvas, userEvent }) => {
