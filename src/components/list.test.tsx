@@ -31,6 +31,11 @@ describe("List", () => {
     expect(wrap.style.getPropertyValue("--ink-list-cols")).toBe("1fr auto");
   });
 
+  it("accepts scoped visual customization variables", () => {
+    const { getByRole } = render(<List columns="1fr" style={{ "--ink-list-divider-color": "rebeccapurple" }} />);
+    expect(getByRole("list").style.getPropertyValue("--ink-list-divider-color")).toBe("rebeccapurple");
+  });
+
   it("applies density and bordered modifiers", () => {
     const { container, rerender } = render(
       <List columns="1fr">

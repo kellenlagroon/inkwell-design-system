@@ -1,10 +1,12 @@
 import { useState } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { IconArrowDown } from "./icons";
 
 export type TableSortDirection = "asc" | "desc";
 export type TableDensity = "comfortable" | "compact";
 export type TableAlign = "start" | "center" | "end";
+/** CSS properties plus the Table's scoped visual customization variables. */
+export type TableStyle = CSSProperties & Record<`--ink-table-${string}`, string | number | undefined>;
 
 export interface TableColumn<T> {
   /** Stable id used for sort state and React keys. */
@@ -46,6 +48,8 @@ export interface TableProps<T> {
   caption?: ReactNode;
   /** Empty-state content shown when `data` is empty. */
   empty?: ReactNode;
+  /** Scoped visual customization, including `--ink-table-*` CSS variables. */
+  style?: TableStyle;
   id?: string;
   className?: string;
 }
@@ -70,6 +74,7 @@ export function Table<T>({
   hoverable = false,
   caption,
   empty,
+  style,
   id,
   className = "",
 }: TableProps<T>) {
@@ -99,7 +104,7 @@ export function Table<T>({
     .join(" ");
 
   return (
-    <table id={id} className={classes}>
+    <table id={id} className={classes} style={style}>
       {caption ? <caption className="ink-table-caption">{caption}</caption> : null}
       {columns.some((c) => c.width) ? (
         <colgroup>

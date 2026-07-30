@@ -50,6 +50,17 @@ Set `sortable: true` on any column; clicks toggle direction and call
 
 <Canvas of={TableFeatures.Compact} sourceState="hidden" />
 
+### Custom styling
+
+Table visuals are controlled with scoped `--ink-table-*` CSS variables passed
+through `style`. Useful hooks include `--ink-table-header-background`,
+`--ink-table-header-color`, `--ink-table-row-border-color`,
+`--ink-table-cell-border-inline-width`,
+`--ink-table-cell-border-inline-color`, `--ink-table-outer-border-width`,
+`--ink-table-outer-border-color`, and the cell-padding variables.
+
+<Canvas of={TableFeatures.CustomStyling} sourceState="hidden" />
+
 ### Sticky header
 
 Wrap the table in a scrolling container; the `<thead>` pins on scroll.
@@ -69,6 +80,7 @@ Wrap the table in a scrolling container; the `<thead>` pins on scroll.
 - Do use tables when users need to compare the same fields across many rows.
 - Do keep column headers short and specific.
 - Do manage sorting in the caller so the rendered row order matches the active sort state.
+- Do use scoped `--ink-table-*` variables for page-specific visual treatments.
 - Don’t put arbitrary card or form layouts inside table cells when List would be clearer.
 
 ## Keyboard and accessibility

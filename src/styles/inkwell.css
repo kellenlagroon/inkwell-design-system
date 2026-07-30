@@ -299,19 +299,32 @@ body[data-preview-mode="mobile"] .app-header {
 /* Tabs: segmented underline tab bar with a sliding indicator (see Tabs
    component). Namespaced ink- to avoid the seeded generic tab classes. */
 .ink-tabs {
+  --ink-tabs-gap: var(--space-2);
+  --ink-tabs-border-width: 1px;
+  --ink-tabs-border-color: var(--line);
+  --ink-tabs-tab-min-height: 42px;
+  --ink-tabs-tab-padding-block: var(--space-3);
+  --ink-tabs-tab-padding-inline: var(--space-4);
+  --ink-tabs-tab-background: transparent;
+  --ink-tabs-tab-color: var(--button-secondary-fg);
+  --ink-tabs-active-color: var(--color-text-strong);
+  --ink-tabs-indicator-height: 2px;
+  --ink-tabs-indicator-color: var(--accent);
+  --ink-tabs-mobile-tab-min-height: 44px;
+  --ink-tabs-mobile-tab-max-width: 18rem;
   position: relative;
   display: flex;
-  gap: var(--space-2);
-  border-bottom: 1px solid var(--line);
+  gap: var(--ink-tabs-gap);
+  border-bottom: var(--ink-tabs-border-width) solid var(--ink-tabs-border-color);
 }
 
 .ink-tab {
   position: relative;
-  min-height: 42px;
-  padding: var(--space-3) var(--space-4);
+  min-height: var(--ink-tabs-tab-min-height);
+  padding: var(--ink-tabs-tab-padding-block) var(--ink-tabs-tab-padding-inline);
   border: 0;
-  background: transparent;
-  color: var(--button-secondary-fg);
+  background: var(--ink-tabs-tab-background);
+  color: var(--ink-tabs-tab-color);
   font: inherit;
   font-weight: var(--font-weight-label);
   white-space: nowrap;
@@ -320,7 +333,7 @@ body[data-preview-mode="mobile"] .app-header {
 
 .ink-tab:hover,
 .ink-tab--active {
-  color: var(--color-text-strong);
+  color: var(--ink-tabs-active-color);
 }
 
 .ink-tab:focus-visible {
@@ -338,9 +351,8 @@ body[data-preview-mode="mobile"] .app-header {
   position: absolute;
   bottom: -1px;
   left: 0;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 1px 1px 0 0;
+  height: var(--ink-tabs-indicator-height);
+  background: var(--ink-tabs-indicator-color);
   transition: transform 200ms ease, width 200ms ease;
   pointer-events: none;
 }
@@ -348,13 +360,26 @@ body[data-preview-mode="mobile"] .app-header {
 /* Collapsible: a disclosure whose whole header is the toggle button. The
    chevron sits in a 36px box that carries the hover-surface fill, so the
    affordance reads as a contained control even though the full row is clickable. */
+.collapsible {
+  --ink-collapsible-trigger-gap: var(--space-3);
+  --ink-collapsible-trigger-min-height: 64px;
+  --ink-collapsible-trigger-padding-block: var(--space-3);
+  --ink-collapsible-chevron-size: 36px;
+  --ink-collapsible-chevron-hover-background: var(--hover-surface);
+  --ink-collapsible-divider-width: 1px;
+  --ink-collapsible-divider-color: var(--line-soft);
+  --ink-collapsible-main-gap: var(--space-1);
+  --ink-collapsible-meta-color: var(--muted);
+  --ink-collapsible-content-padding-bottom: var(--space-3);
+}
+
 .collapsible-trigger {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--ink-collapsible-trigger-gap);
   width: 100%;
-  min-height: 64px;
-  padding: var(--space-3) 0;
+  min-height: var(--ink-collapsible-trigger-min-height);
+  padding: var(--ink-collapsible-trigger-padding-block) 0;
   border: 0;
   background: transparent;
   color: inherit;
@@ -377,9 +402,9 @@ body[data-preview-mode="mobile"] .app-header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
+  width: var(--ink-collapsible-chevron-size);
+  min-width: var(--ink-collapsible-chevron-size);
+  height: var(--ink-collapsible-chevron-size);
   border-radius: var(--radius-sharp);
   color: var(--text);
   transition: background-color var(--duration-fast) var(--ease-default);
@@ -387,20 +412,20 @@ body[data-preview-mode="mobile"] .app-header {
 
 .collapsible-trigger:hover .collapsible-chevron-box,
 .collapsible-trigger:focus-visible .collapsible-chevron-box {
-  background: var(--hover-surface);
+  background: var(--ink-collapsible-chevron-hover-background);
 }
 
 /* Opt-in divider: mirrors the app's stacked submission rows, which carry a
    hairline border-bottom on the whole row (below any expanded content). */
 .collapsible--divided {
-  border-bottom: 1px solid var(--line-soft);
+  border-bottom: var(--ink-collapsible-divider-width) solid var(--ink-collapsible-divider-color);
 }
 
 .collapsible-main {
   flex: 1;
   min-width: 0;
   display: grid;
-  gap: var(--space-1);
+  gap: var(--ink-collapsible-main-gap);
 }
 
 .collapsible-main > * {
@@ -410,7 +435,7 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .collapsible-meta {
-  color: var(--muted);
+  color: var(--ink-collapsible-meta-color);
   white-space: nowrap;
 }
 
@@ -424,7 +449,7 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .collapsible-content {
-  padding-bottom: var(--space-3);
+  padding-bottom: var(--ink-collapsible-content-padding-bottom);
 }
 
 /* Tooltip: a trigger with a popover shown above it on hover/focus (see Tooltip
@@ -660,25 +685,41 @@ body[data-preview-mode="mobile"] .app-header {
 /* Table: semantic <table> primitive with sortable headers, sticky header, row
    hover, and density presets. Namespaced .ink-table (generic name). */
 .ink-table {
+  --ink-table-color: var(--text);
+  --ink-table-caption-color: var(--muted);
+  --ink-table-header-background: var(--color-surface-default);
+  --ink-table-header-color: var(--muted);
+  --ink-table-row-border-width: 1px;
+  --ink-table-row-border-color: var(--line-soft);
+  --ink-table-cell-border-inline-width: 0px;
+  --ink-table-cell-border-inline-color: transparent;
+  --ink-table-outer-border-width: 0px;
+  --ink-table-outer-border-color: transparent;
+  --ink-table-cell-padding-block: var(--space-3);
+  --ink-table-cell-padding-inline: var(--space-3);
+  --ink-table-compact-cell-padding-block: var(--space-2);
+  --ink-table-row-hover-background: var(--hover-surface);
+  --ink-table-empty-color: var(--muted);
   width: 100%;
   border-collapse: collapse;
-  color: var(--text);
+  border: var(--ink-table-outer-border-width) solid var(--ink-table-outer-border-color);
+  color: var(--ink-table-color);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-body);
 }
 
 .ink-table-caption {
-  padding: var(--space-2) var(--space-3);
-  color: var(--muted);
+  padding: var(--space-2) var(--ink-table-cell-padding-inline);
+  color: var(--ink-table-caption-color);
   font-size: var(--font-size-sm);
   text-align: start;
   caption-side: top;
 }
 
 .ink-table thead th {
-  background: var(--color-surface-default);
-  color: var(--muted);
+  background: var(--ink-table-header-background);
+  color: var(--ink-table-header-color);
   font-size: var(--font-size-sm);
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -686,15 +727,20 @@ body[data-preview-mode="mobile"] .app-header {
 
 .ink-table th,
 .ink-table td {
-  padding: var(--space-3) var(--space-3);
-  border-bottom: 1px solid var(--line-soft);
+  padding: var(--ink-table-cell-padding-block) var(--ink-table-cell-padding-inline);
+  border-bottom: var(--ink-table-row-border-width) solid var(--ink-table-row-border-color);
   text-align: start;
   vertical-align: middle;
 }
 
 .ink-table--compact th,
 .ink-table--compact td {
-  padding: var(--space-2) var(--space-3);
+  padding-block: var(--ink-table-compact-cell-padding-block);
+}
+
+.ink-table th:not(:last-child),
+.ink-table td:not(:last-child) {
+  border-inline-end: var(--ink-table-cell-border-inline-width) solid var(--ink-table-cell-border-inline-color);
 }
 
 .ink-table th[data-align="center"],
@@ -722,7 +768,7 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .ink-table--hoverable tbody tr:hover {
-  background: var(--hover-surface);
+  background: var(--ink-table-row-hover-background);
 }
 
 /* Sortable header: the whole header cell is a button. */
@@ -763,14 +809,21 @@ body[data-preview-mode="mobile"] .app-header {
 }
 
 .ink-table-empty-row td {
-  padding: var(--space-4) var(--space-3);
-  color: var(--muted);
+  padding: var(--space-4) var(--ink-table-cell-padding-inline);
+  color: var(--ink-table-empty-color);
   text-align: center;
 }
 
 /* List: a grid-based list of rows. Not a semantic table; content-flexible.
    Seeded from the app's .roster-table (grid rows with hairline dividers). */
 .ink-list {
+  --ink-list-row-gap: var(--space-2);
+  --ink-list-row-padding-block: var(--space-3);
+  --ink-list-row-padding-inline: var(--space-4);
+  --ink-list-compact-row-padding-block: var(--space-2);
+  --ink-list-compact-row-padding-inline: var(--space-3);
+  --ink-list-divider-width: 1px;
+  --ink-list-divider-color: var(--line-soft);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -780,16 +833,16 @@ body[data-preview-mode="mobile"] .app-header {
   display: grid;
   grid-template-columns: var(--ink-list-cols, 1fr);
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
+  gap: var(--ink-list-row-gap);
+  padding: var(--ink-list-row-padding-block) var(--ink-list-row-padding-inline);
 }
 
 .ink-list--compact .ink-list-row {
-  padding: var(--space-2) var(--space-3);
+  padding: var(--ink-list-compact-row-padding-block) var(--ink-list-compact-row-padding-inline);
 }
 
 .ink-list--bordered .ink-list-row {
-  border-bottom: 1px solid var(--line-soft);
+  border-bottom: var(--ink-list-divider-width) solid var(--ink-list-divider-color);
 }
 
 /* Last row's divider is redundant — the list itself sits inside a container. */
@@ -1248,16 +1301,36 @@ select option {
 
 /* Nav — product navigation with sliding indicator (horizontal / vertical). */
 .ink-nav {
+  --ink-nav-track-gap: 2px;
+  --ink-nav-track-padding: 3px;
+  --ink-nav-track-background: var(--color-surface-active);
+  --ink-nav-track-radius: var(--radius-sharp);
+  --ink-nav-slider-background: var(--nav-active-bg);
+  --ink-nav-item-gap: 10px;
+  --ink-nav-item-padding-block: 9px;
+  --ink-nav-item-padding-inline: 20px;
+  --ink-nav-item-color: var(--color-text-secondary);
+  --ink-nav-item-hover-color: var(--color-text-primary);
+  --ink-nav-active-color: var(--nav-active-fg);
+  --ink-nav-list-item-min-height: 40px;
+  --ink-nav-list-track-gap: var(--space-1);
+  --ink-nav-list-item-padding-block: 8px;
+  --ink-nav-list-item-padding-inline: 12px;
+  --ink-nav-list-item-gap: 12px;
+  --ink-nav-list-item-color: var(--muted);
+  --ink-nav-list-item-hover-background: var(--color-hover-surface, rgba(255, 255, 255, 0.04));
+  --ink-nav-list-active-background: color-mix(in srgb, var(--accent) 14%, transparent);
+  --ink-nav-list-active-color: var(--color-text-strong);
   display: block;
 }
 
 .ink-nav-track {
   position: relative;
   display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  background: var(--color-surface-active);
-  border-radius: var(--radius-sharp);
+  gap: var(--ink-nav-track-gap);
+  padding: var(--ink-nav-track-padding);
+  background: var(--ink-nav-track-background);
+  border-radius: var(--ink-nav-track-radius);
 }
 
 .ink-nav--horizontal .ink-nav-track {
@@ -1278,8 +1351,8 @@ select option {
   position: absolute;
   top: 0;
   left: 0;
-  background: var(--nav-active-bg);
-  border-radius: var(--radius-sharp);
+  background: var(--ink-nav-slider-background);
+  border-radius: var(--ink-nav-track-radius);
   pointer-events: none;
   z-index: 0;
   transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -1293,13 +1366,13 @@ select option {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px 20px;
+  gap: var(--ink-nav-item-gap);
+  padding: var(--ink-nav-item-padding-block) var(--ink-nav-item-padding-inline);
   min-height: 44px;
   border: 0;
   border-radius: var(--radius-sharp);
   background: transparent;
-  color: var(--color-text-secondary);
+  color: var(--ink-nav-item-color);
   font: inherit;
   font-weight: var(--font-weight-bold);
   text-decoration: none;
@@ -1382,7 +1455,7 @@ select option {
 
 .ink-nav--list .ink-nav-track {
   padding: 0;
-  gap: var(--space-1);
+  gap: var(--ink-nav-list-track-gap, var(--space-1));
   background: transparent;
   border-radius: 0;
   min-width: 0;
@@ -1390,22 +1463,22 @@ select option {
 }
 
 .ink-nav--list .ink-nav-item {
-  min-height: 40px;
-  padding: 8px 12px;
-  gap: 12px;
+  min-height: var(--ink-nav-list-item-min-height);
+  padding: var(--ink-nav-list-item-padding-block) var(--ink-nav-list-item-padding-inline);
+  gap: var(--ink-nav-list-item-gap);
   border-radius: var(--radius-sharp);
   color: var(--muted);
   font-weight: var(--font-weight-medium);
 }
 
 .ink-nav--list .ink-nav-item:hover {
-  background: var(--color-hover-surface, rgba(255, 255, 255, 0.04));
-  color: var(--color-text-primary);
+  background: var(--ink-nav-list-item-hover-background);
+  color: var(--ink-nav-item-hover-color);
 }
 
 .ink-nav--list .ink-nav-item--active {
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  color: var(--color-text-strong);
+  background: var(--ink-nav-list-active-background);
+  color: var(--ink-nav-list-active-color);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -5864,7 +5937,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   scrollbar-width: thin;
   scroll-snap-type: x proximity;
 }
-.ink-tab { flex: 0 0 auto; min-height: 44px; scroll-snap-align: start; text-overflow: ellipsis; overflow: hidden; max-width: 18rem; }
+.ink-tab { flex: 0 0 auto; min-height: var(--ink-tabs-mobile-tab-min-height); scroll-snap-align: start; text-overflow: ellipsis; overflow: hidden; max-width: var(--ink-tabs-mobile-tab-max-width); }
 
 .ink-pagination-item { min-width: 44px; min-height: 44px; }
 .ink-pagination-summary { display: none; overflow-wrap: anywhere; text-align: center; }

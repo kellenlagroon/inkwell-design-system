@@ -39,7 +39,7 @@ export type { CheckboxSelectProps, CheckboxSelectOption } from "./components/che
 export { SplitButton } from "./components/splitButton";
 export type { SplitButtonProps, SplitButtonItem } from "./components/splitButton";
 export { Nav } from "./components/nav";
-export type { NavProps, NavItem, NavOrientation, NavVariant } from "./components/nav";
+export type { NavProps, NavItem, NavOrientation, NavStyle, NavVariant } from "./components/nav";
 export { Sidebar } from "./components/sidebar";
 export type { SidebarProps, SidebarSize, SidebarSide } from "./components/sidebar";
 
@@ -60,9 +60,9 @@ export type { CardProps, CardActionsProps, CardTone, CardVariant, CardPadding } 
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
 export { Tabs } from "./components/tabs";
-export type { TabsProps, TabItem } from "./components/tabs";
+export type { TabsProps, TabItem, TabsStyle } from "./components/tabs";
 export { Collapsible } from "./components/collapsible";
-export type { CollapsibleProps } from "./components/collapsible";
+export type { CollapsibleProps, CollapsibleStyle } from "./components/collapsible";
 export { Tooltip } from "./components/tooltip";
 export type { TooltipProps, TooltipPlacement } from "./components/tooltip";
 export { Divider } from "./components/divider";
@@ -76,9 +76,10 @@ export type {
   TableSortDirection,
   TableDensity,
   TableAlign,
+  TableStyle,
 } from "./components/table";
 export { List } from "./components/list";
-export type { ListProps, ListRowProps, ListDensity } from "./components/list";
+export type { ListProps, ListRowProps, ListDensity, ListStyle } from "./components/list";
 export { Spinner } from "./components/spinner";
 export type { SpinnerProps, SpinnerSize, SpinnerTone } from "./components/spinner";
 export { Skeleton } from "./components/skeleton";

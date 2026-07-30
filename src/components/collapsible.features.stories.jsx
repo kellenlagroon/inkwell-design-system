@@ -64,3 +64,24 @@ export const NoMeta = {
     </div>
   ),
 };
+
+export const CustomStyling = {
+  render: () => (
+    <div style={{ padding: 24, maxWidth: 480 }}>
+      <Collapsible
+        title="Advanced options"
+        description="A compact disclosure treatment"
+        meta="3 items"
+        divided
+        style={{
+          "--ink-collapsible-trigger-min-height": "48px",
+          "--ink-collapsible-trigger-padding-block": "var(--space-2)",
+          "--ink-collapsible-chevron-size": "28px",
+          "--ink-collapsible-divider-color": "var(--color-border-strong)",
+        }}
+      >
+        <p className="subtle" style={{ margin: 0 }}>Extra settings revealed on demand.</p>
+      </Collapsible>
+    </div>
+  ),
+};

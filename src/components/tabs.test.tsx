@@ -71,4 +71,20 @@ describe("Tabs", () => {
 
     expect(scrollIntoView).toHaveBeenCalledWith({ block: "nearest", inline: "nearest" });
   });
+
+  it("accepts a consumer class and scoped visual customization variables", () => {
+    const { getByRole } = render(
+      <Tabs
+        tabs={TABS}
+        value="poll"
+        onChange={() => {}}
+        aria-label="Views"
+        className="custom-tabs"
+        style={{ "--ink-tabs-indicator-color": "rebeccapurple" }}
+      />,
+    );
+    const tablist = getByRole("tablist");
+    expect(tablist.className).toContain("custom-tabs");
+    expect(tablist.style.getPropertyValue("--ink-tabs-indicator-color")).toBe("rebeccapurple");
+  });
 });

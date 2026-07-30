@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import type { KeyboardEvent, ReactNode } from "react";
+import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
+
+/** CSS properties plus the Tabs' scoped visual customization variables. */
+export type TabsStyle = CSSProperties & Record<`--ink-tabs-${string}`, string | number | undefined>;
 
 export interface TabItem {
   value: string;
@@ -22,6 +25,9 @@ export interface TabsProps {
    * that id, `role="tabpanel"`, and `aria-labelledby` the tab id.
    */
   id?: string;
+  /** Scoped visual customization, including `--ink-tabs-*` CSS variables. */
+  style?: TabsStyle;
+  className?: string;
 }
 
 function firstEnabled(tabs: TabItem[]): number {
@@ -48,7 +54,7 @@ function nextEnabled(tabs: TabItem[], from: number, dir: 1 | -1): number {
  * yourself. Fully keyboard operable (Left/Right/Up/Down move and activate,
  * Home/End jump to the ends, disabled tabs are skipped).
  */
-export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id }: TabsProps) {
+export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style, className = "" }: TabsProps) {
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
@@ -93,7 +99,7 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id }: Tab
   }
 
   return (
-    <div className="ink-tabs" role="tablist" aria-label={ariaLabel} onKeyDown={onKeyDown}>
+    <div className={["ink-tabs", className].filter(Boolean).join(" ")} style={style} role="tablist" aria-label={ariaLabel} onKeyDown={onKeyDown}>
       {tabs.map((tab, index) => {
         const selected = tab.value === value;
         return (

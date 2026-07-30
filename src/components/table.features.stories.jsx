@@ -47,6 +47,29 @@ export const Compact = {
   ),
 };
 
+export const CustomStyling = {
+  name: "Custom styling",
+  render: () => (
+    <div style={{ padding: 24, maxWidth: 480, color: "var(--color-text-primary)" }}>
+      <Table
+        columns={COLUMNS}
+        data={ROWS}
+        getRowKey={(r) => r.id}
+        hoverable
+        style={{
+          "--ink-table-header-background": "var(--color-surface-active)",
+          "--ink-table-header-color": "var(--color-text-primary)",
+          "--ink-table-row-border-color": "var(--color-border-strong)",
+          "--ink-table-cell-border-inline-width": "1px",
+          "--ink-table-cell-border-inline-color": "var(--color-border-subtle)",
+          "--ink-table-outer-border-width": "1px",
+          "--ink-table-outer-border-color": "var(--color-border-strong)",
+        }}
+      />
+    </div>
+  ),
+};
+
 export const StickyHeader = {
   name: "Sticky header",
   render: () => (

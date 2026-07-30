@@ -55,3 +55,25 @@ export const Unbordered = {
     </div>
   ),
 };
+
+export const CustomStyling = {
+  render: () => (
+    <div style={{ padding: 24, maxWidth: 480, color: "var(--color-text-primary)" }}>
+      <List
+        columns="minmax(0, 1fr) auto"
+        style={{
+          "--ink-list-row-padding-block": "var(--space-2)",
+          "--ink-list-row-padding-inline": "var(--space-3)",
+          "--ink-list-divider-color": "var(--color-border-strong)",
+        }}
+      >
+        {ROWS.map((r) => (
+          <List.Row key={r.id}>
+            <span>{r.primary}</span>
+            <span className="subtle">{r.meta}</span>
+          </List.Row>
+        ))}
+      </List>
+    </div>
+  ),
+};

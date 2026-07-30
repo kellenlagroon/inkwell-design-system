@@ -12,10 +12,10 @@ const APP_ITEMS = [
   { value: "administrator", label: "Administrator", icon: <IconSettings /> },
 ];
 
-function ControlledNav({ items, orientation = "horizontal", variant, initial }) {
+function ControlledNav({ items, orientation = "horizontal", variant, initial, ...props }) {
   const [value, setValue] = useState(initial ?? items[0].value);
   return (
-    <Nav items={items} value={value} onChange={setValue} orientation={orientation} variant={variant} aria-label="Primary" />
+    <Nav items={items} value={value} onChange={setValue} orientation={orientation} variant={variant} aria-label="Primary" {...props} />
   );
 }
 
@@ -118,6 +118,22 @@ export const LabelOnly = {
           { value: "two", label: "Rounds" },
           { value: "three", label: "Directory" },
         ]}
+      />
+    </div>
+  ),
+};
+
+export const CustomStyling = {
+  render: () => (
+    <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
+      <ControlledNav
+        items={APP_ITEMS}
+        style={{
+          "--ink-nav-track-padding": "var(--space-1)",
+          "--ink-nav-item-padding-inline": "var(--space-3)",
+          "--ink-nav-slider-background": "color-mix(in srgb, var(--color-info) 16%, transparent)",
+          "--ink-nav-active-color": "var(--color-info)",
+        }}
       />
     </div>
   ),

@@ -57,6 +57,13 @@ describe("Collapsible (uncontrolled)", () => {
     rerender(<Collapsible title="Divided" divided>x</Collapsible>);
     expect(container.querySelector(".collapsible")!.classList.contains("collapsible--divided")).toBe(true);
   });
+
+  it("accepts scoped visual customization variables", () => {
+    const { container } = render(
+      <Collapsible title="Custom" style={{ "--ink-collapsible-chevron-size": "28px" }}>x</Collapsible>,
+    );
+    expect((container.querySelector(".collapsible") as HTMLElement).style.getPropertyValue("--ink-collapsible-chevron-size")).toBe("28px");
+  });
 });
 
 describe("Collapsible (controlled)", () => {

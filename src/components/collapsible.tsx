@@ -1,6 +1,9 @@
 import { useId, useState } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { IconArrowDown } from "./icons";
+
+export type CollapsibleStyle = CSSProperties &
+  Record<`--ink-collapsible-${string}`, string | number | undefined>;
 
 export interface CollapsibleProps {
   /** The trigger's main label. */
@@ -21,6 +24,8 @@ export interface CollapsibleProps {
   children?: ReactNode;
   id?: string;
   className?: string;
+  /** Scoped visual overrides using the `--ink-collapsible-*` CSS variables. */
+  style?: CollapsibleStyle;
 }
 
 /**
@@ -42,6 +47,7 @@ export function Collapsible({
   children,
   id,
   className = "",
+  style,
 }: CollapsibleProps) {
   const generatedId = useId();
   const baseId = id ?? generatedId;
@@ -59,7 +65,7 @@ export function Collapsible({
   }
 
   return (
-    <div className={["collapsible", divided ? "collapsible--divided" : "", className].filter(Boolean).join(" ")}>
+    <div className={["collapsible", divided ? "collapsible--divided" : "", className].filter(Boolean).join(" ")} style={style}>
       <button
         type="button"
         id={triggerId}

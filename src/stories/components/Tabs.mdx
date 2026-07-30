@@ -30,6 +30,10 @@ an `onChange`. Set `id` to wire the tabs to panels: each tab gets
 `${id}-tab-${value}` and `aria-controls="${id}-panel-${value}"` — give the panel
 that id, `role="tabpanel"`, and `aria-labelledby` the tab id.
 
+Visual customization is exposed through `className` and scoped `--ink-tabs-*`
+variables passed with `style`. Use these for page-specific spacing, rule, tab,
+and indicator treatments without changing tab behavior.
+
 ## Features
 
 ### Basic
@@ -42,10 +46,19 @@ Disabled tabs are skipped by keyboard navigation and can't be selected.
 
 <Canvas of={TabsFeatures.WithDisabledTab} sourceState="hidden" />
 
+### Custom styling
+
+Useful variables include `--ink-tabs-gap`, `--ink-tabs-border-color`,
+`--ink-tabs-tab-padding-inline`, `--ink-tabs-tab-color`,
+`--ink-tabs-active-color`, and `--ink-tabs-indicator-color`.
+
+<Canvas of={TabsFeatures.CustomStyling} sourceState="hidden" />
+
 ## Usage guidance
 
 - Do keep tab labels to one or two words.
 - Do render a `role="tabpanel"` region for the selected content and wire it with `id`.
+- Do use scoped `--ink-tabs-*` variables for page-specific visual treatments.
 - Don’t use Tabs for primary navigation between pages — that's a nav pattern.
 
 ## Keyboard and accessibility

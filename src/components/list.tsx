@@ -1,6 +1,8 @@
 import type { CSSProperties, ReactNode } from "react";
 
 export type ListDensity = "comfortable" | "compact";
+export type ListStyle = CSSProperties &
+  Record<`--ink-list-${string}`, string | number | undefined>;
 
 export interface ListProps {
   /**
@@ -16,6 +18,8 @@ export interface ListProps {
   children?: ReactNode;
   id?: string;
   className?: string;
+  /** Scoped visual overrides using the `--ink-list-*` CSS variables. */
+  style?: ListStyle;
 }
 
 export interface ListRowProps {
@@ -36,6 +40,7 @@ export function List({
   children,
   id,
   className = "",
+  style: consumerStyle,
 }: ListProps) {
   const classes = [
     "ink-list",
@@ -46,7 +51,10 @@ export function List({
     .filter(Boolean)
     .join(" ");
 
-  const style = { "--ink-list-cols": columns } as CSSProperties;
+  const style = {
+    ...consumerStyle,
+    "--ink-list-cols": columns,
+  } as ListStyle;
 
   return (
     <div id={id} className={classes} style={style} role="list">

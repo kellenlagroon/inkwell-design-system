@@ -1,6 +1,15 @@
 import { useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent, ReactNode } from "react";
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+} from "react";
 import { NavVariantContext } from "./navContext";
+
+export type NavStyle = CSSProperties &
+  Record<`--ink-nav-${string}`, string | number | undefined>;
 
 export type NavOrientation = "horizontal" | "vertical";
 export type NavVariant = "chip" | "list";
@@ -35,6 +44,8 @@ export interface NavProps {
   "aria-label"?: string;
   /** Optional class name appended to the root. */
   className?: string;
+  /** Scoped visual overrides using the `--ink-nav-*` CSS variables. */
+  style?: NavStyle;
 }
 
 /**
@@ -55,6 +66,7 @@ export function Nav({
   mobileDocked = false,
   "aria-label": ariaLabel,
   className,
+  style,
 }: NavProps) {
   const contextVariant = useContext(NavVariantContext);
   const resolvedVariant: NavVariant = variant ?? contextVariant ?? "chip";
@@ -131,7 +143,7 @@ export function Nav({
     .join(" ");
 
   return (
-    <nav className={classes} aria-label={ariaLabel}>
+    <nav className={classes} aria-label={ariaLabel} style={style}>
       <div className="ink-nav-track" ref={trackRef}>
         {usesSlider ? (
           <span

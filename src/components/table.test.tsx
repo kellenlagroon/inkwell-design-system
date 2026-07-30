@@ -82,4 +82,16 @@ describe("Table", () => {
     expect(table.classList.contains("ink-table--sticky")).toBe(true);
     expect(table.classList.contains("ink-table--hoverable")).toBe(true);
   });
+
+  it("accepts scoped visual customization variables", () => {
+    const { getByRole } = render(
+      <Table
+        columns={COLUMNS}
+        data={ROWS}
+        getRowKey={(r) => r.id}
+        style={{ "--ink-table-header-background": "rebeccapurple" }}
+      />,
+    );
+    expect(getByRole("table").style.getPropertyValue("--ink-table-header-background")).toBe("rebeccapurple");
+  });
 });

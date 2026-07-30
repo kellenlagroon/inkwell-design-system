@@ -79,6 +79,19 @@ describe("Nav", () => {
     expect(getByRole("navigation").className).toContain("ink-nav--list");
   });
 
+  it("accepts scoped visual customization variables", () => {
+    const { getByRole } = render(
+      <Nav
+        items={ITEMS}
+        value="ballot"
+        onChange={() => {}}
+        aria-label="Primary"
+        style={{ "--ink-nav-track-padding": "6px" }}
+      />,
+    );
+    expect(getByRole("navigation").style.getPropertyValue("--ink-nav-track-padding")).toBe("6px");
+  });
+
   it("only opts into mobile docking when requested", () => {
     const { getByRole, rerender } = render(<Harness />);
     expect(getByRole("navigation").className).not.toContain("ink-nav--mobile-docked");
