@@ -4270,7 +4270,6 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
 
 .ink-surface--raised {
   background: var(--color-surface-raised);
-  box-shadow: var(--shadow);
 }
 
 .ink-surface--muted {
