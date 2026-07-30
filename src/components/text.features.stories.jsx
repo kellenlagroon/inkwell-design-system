@@ -1,7 +1,7 @@
 import { Heading, Link, Text } from "./text";
 
 export default {
-  title: "Components/Text/Features",
+  title: "Tokens/Typography/Utilities/Features",
 };
 
 export const TextTones = {

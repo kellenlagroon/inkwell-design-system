@@ -238,3 +238,38 @@ export const LineHeights = {
     </div>
   ),
 };
+
+// ── Applying typography ──────────────────────────────────────────────────────
+
+export const ApplyingTypography = {
+  name: "Applying typography",
+  render: () => (
+    <div style={{ padding: 32, maxWidth: 680, display: "grid", gap: 28 }}>
+      <section>
+        <SectionLabel>Start with semantic HTML</SectionLabel>
+        <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: "var(--font-size-body)", lineHeight: "var(--line-height-body)" }}>
+          Use paragraphs, headings, strong text, and links for meaning. Apply typography tokens when a surface needs an intentional treatment.
+        </p>
+      </section>
+
+      <section style={{ display: "grid", gap: 16 }}>
+        <div>
+          <h2 style={{ margin: 0, fontFamily: "'League Spartan', sans-serif", fontSize: "var(--font-size-heading)", fontWeight: "var(--font-weight-display)", lineHeight: "var(--line-height-heading)", color: "var(--color-text-primary)" }}>
+            Section heading
+          </h2>
+          <code style={{ color: "var(--color-text-secondary)", fontSize: "var(--font-size-label-sm)" }}>heading + display family/weight + --line-height-heading</code>
+        </div>
+        <p style={{ margin: 0, fontSize: "var(--font-size-body)", fontWeight: "var(--font-weight-ui)", lineHeight: "var(--line-height-body)", color: "var(--color-text-primary)" }}>
+          Body copy uses the semantic body size, the UI weight, and the body line height.
+        </p>
+        <p style={{ margin: 0, fontSize: "var(--font-size-label)", fontWeight: "var(--font-weight-label)", lineHeight: "var(--line-height-label)", color: "var(--color-text-secondary)" }}>
+          Label and helper text uses the label recipe and a semantic text color.
+        </p>
+      </section>
+
+      <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: "var(--font-size-label)", lineHeight: "var(--line-height-label)" }}>
+        Use status colors only when the text communicates status. Wrapping, truncation, and line clamping are layout constraints—not default typography.
+      </p>
+    </div>
+  ),
+};

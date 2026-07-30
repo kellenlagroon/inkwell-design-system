@@ -4,23 +4,26 @@ import * as TextFeatures from "../../components/text.features.stories.jsx";
 
 <Meta of={TextStories} name="Docs" />
 
-# Text
+# Typography utilities
 
-Text primitives for app copy: `Text`, `Heading`, and `Link`.
+Typography tokens and semantic HTML are the default path for app copy. `Text`,
+`Heading`, and `Link` remain optional utilities where their small conveniences
+are useful.
 
-**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+These utilities are not part of the primary component catalog.
 
 ## When to use
 
-- Use `Text` for common body, muted, strong, and semantic text.
-- Use `Heading` for local content hierarchy.
-- Use `Link` for inline navigation and external anchors.
+- Start with semantic HTML: `<p>`, heading elements, `<strong>`, and `<a>`.
+- Apply the documented typography and semantic color tokens directly.
+- Use `Text` only for optional tone, safe wrapping, truncation, or line clamping.
+- Use `Heading` and `Link` when their small API is more convenient than direct HTML.
 
 ## Primary example
 
 <Canvas of={TextStories.Playground} sourceState="hidden" />
 
-## API
+## Optional utilities
 
 <ArgTypes of={TextStories} />
 
@@ -38,8 +41,10 @@ Text primitives for app copy: `Text`, `Heading`, and `Link`.
 
 <Canvas of={TextFeatures.InlineLinks} sourceState="hidden" />
 
-## Usage guidance
+## Token-first usage
 
-- Do use these primitives when consumers would otherwise reach for raw CSS.
-- Do keep headings proportional to their surrounding surface.
+- Body copy: `--font-size-body`, `--font-weight-ui`, and `--line-height-body`.
+- Labels and helper text: `--font-size-label`, `--font-weight-label`, and `--line-height-label`.
+- Headings: a heading-scale size with the display family/weight and `--line-height-heading`.
+- Use semantic color tokens such as `--color-text-primary` and `--color-text-secondary`; reserve status colors for status meaning.
 - Don’t use heading-scale text inside compact controls or panels.

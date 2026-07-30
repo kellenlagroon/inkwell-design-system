@@ -1,7 +1,7 @@
 import { Text, Heading, Link } from "./text";
 
 export default {
-  title: "Components/Text",
+  title: "Tokens/Typography/Utilities",
 };
 
 export const Playground = {
