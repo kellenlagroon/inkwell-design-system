@@ -25,15 +25,15 @@ export type { ButtonProps, ButtonLinkProps, ButtonVariant, ButtonSize, ButtonSpi
 export { IconButton } from "./components/iconButton";
 export type { IconButtonProps, IconButtonSize } from "./components/iconButton";
 export { Pill } from "./components/pill";
-export type { PillProps, PillTone } from "./components/pill";
+export type { PillProps, PillTone, PillAppearance, PillColors } from "./components/pill";
 export { StatusBanner } from "./components/statusBanner";
 export type { StatusBannerProps, StatusBannerTone } from "./components/statusBanner";
 export { ModalFrame } from "./components/modalFrame";
 export type { ModalFrameProps, ModalSize } from "./components/modalFrame";
 export { Drawer } from "./components/drawer";
 export type { DrawerProps, DrawerSide, DrawerSize, DrawerBodyPadding } from "./components/drawer";
-export { Popover, PopoverGeneral } from "./components/popover";
-export type { PopoverProps, PopoverTriggerProps } from "./components/popover";
+export { Popover, PopoverGeneral, PopoverMenuItem } from "./components/popover";
+export type { PopoverProps, PopoverTriggerProps, PopoverMode, PopoverPlacement, PopoverMenuItemProps } from "./components/popover";
 export { CheckboxSelect } from "./components/checkboxSelect";
 export type { CheckboxSelectProps, CheckboxSelectOption } from "./components/checkboxSelect";
 export { SplitButton } from "./components/splitButton";

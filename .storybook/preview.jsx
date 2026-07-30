@@ -30,7 +30,7 @@ const preview = {
     layout: "fullscreen",
     options: {
       storySort: {
-        order: ["Foundations", "Tokens", "Component Status", "Patterns", "Components"],
+        order: ["Foundations", "Tokens", "Component Status", "Patterns", "Layout", "Components"],
       },
     },
     controls: {

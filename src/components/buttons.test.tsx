@@ -101,12 +101,22 @@ describe("IconButton", () => {
 describe("Pill", () => {
   it("defaults to a neutral pill", () => {
     const { getByText } = render(<Pill>Draft</Pill>);
-    expect(classOf(getByText("Draft"))).toBe("pill");
+    expect(classOf(getByText("Draft"))).toBe("pill pill--bordered");
   });
 
-  it("appends the tone", () => {
+  it("uses the recommended borderless appearance for semantic tones", () => {
     const { getByText } = render(<Pill tone="success">Live</Pill>);
-    expect(classOf(getByText("Live"))).toBe("pill success");
+    expect(classOf(getByText("Live"))).toBe("pill pill--borderless success");
+  });
+
+  it("supports an explicit appearance and consumer-supplied colors", () => {
+    const { getByText } = render(
+      <Pill appearance="borderless" colors={{ foreground: "rebeccapurple", background: "lavender" }}>Research</Pill>,
+    );
+    const pill = getByText("Research");
+    expect(classOf(pill)).toBe("pill pill--borderless");
+    expect(pill.getAttribute("style")).toContain("--ink-pill-foreground: rebeccapurple");
+    expect(pill.getAttribute("style")).toContain("--ink-pill-background: lavender");
   });
 });
 

@@ -1,7 +1,7 @@
 import { Stack } from "./layout";
 
 export default {
-  title: "Components/Stack/Features",
+  title: "Layout/Stack/Features",
 };
 
 const Box = ({ children, w }) => (
@@ -9,7 +9,7 @@ const Box = ({ children, w }) => (
     style={{
       background: "var(--color-surface-raised)",
       border: "1px solid var(--color-border-default)",
-      borderRadius: "var(--radius-rounded)",
+      borderRadius: "var(--radius-sharp)",
       padding: "var(--space-2) var(--space-4)",
       color: "var(--color-text-primary)",
       fontSize: "0.84rem",

@@ -12,10 +12,10 @@ const APP_ITEMS = [
   { value: "administrator", label: "Administrator", icon: <IconSettings /> },
 ];
 
-function ControlledNav({ items, orientation = "horizontal", initial }) {
+function ControlledNav({ items, orientation = "horizontal", variant, initial }) {
   const [value, setValue] = useState(initial ?? items[0].value);
   return (
-    <Nav items={items} value={value} onChange={setValue} orientation={orientation} aria-label="Primary" />
+    <Nav items={items} value={value} onChange={setValue} orientation={orientation} variant={variant} aria-label="Primary" />
   );
 }
 

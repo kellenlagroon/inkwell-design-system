@@ -1,20 +1,22 @@
 import { describe, it, expect } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
-import { PopoverMenu } from "./popoverMenu";
+import { Popover, PopoverMenuItem } from "./popover";
 
 function renderMenu() {
   const utils = render(
-    <PopoverMenu
-      menuLabel="Account"
-      trigger={({ open, onToggle }) => (
-        <button aria-expanded={open} onClick={onToggle}>
+    <Popover
+      mode="menu"
+      placement="right"
+      ariaLabel="Account"
+      trigger={({ ref, open, onToggle, ...triggerProps }) => (
+        <button ref={ref} {...triggerProps} aria-expanded={open} onClick={onToggle}>
           Account
         </button>
       )}
     >
-      <button>Profile</button>
-      <button>Sign out</button>
-    </PopoverMenu>,
+      <PopoverMenuItem>Profile</PopoverMenuItem>
+      <PopoverMenuItem>Sign out</PopoverMenuItem>
+    </Popover>,
   );
   const trigger = utils.getByRole("button", { name: "Account" });
   return { trigger, ...utils };
@@ -22,11 +24,12 @@ function renderMenu() {
 
 const activeText = () => (document.activeElement as HTMLElement | null)?.textContent;
 
-describe("PopoverMenu keyboard navigation", () => {
+describe("Popover menu mode", () => {
   it("ArrowDown opens the menu and focuses the first item", () => {
-    const { trigger } = renderMenu();
+    const { trigger, getByRole } = renderMenu();
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
+    expect(getByRole("menu", { name: "Account" }).className).toContain("ink-popover-panel--right");
     expect(activeText()).toBe("Profile");
   });
 
@@ -43,11 +46,11 @@ describe("PopoverMenu keyboard navigation", () => {
   });
 
   it("Escape closes the menu and returns focus to the trigger", () => {
-    const { trigger, container } = renderMenu();
+    const { trigger, queryByRole } = renderMenu();
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
     fireEvent.keyDown(document.activeElement!, { key: "Escape" });
     expect(document.activeElement).toBe(trigger);
-    expect(container.querySelector(".ink-popover-menu")?.className.includes("open")).toBe(false);
+    expect(queryByRole("menu")).toBeNull();
   });
 });

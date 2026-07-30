@@ -9,6 +9,7 @@ export { IconButton } from "./iconButton";
 export { Pill } from "./pill";
 export { StatusBanner } from "./statusBanner";
 export { Select } from "./select";
+export { Popover, PopoverMenuItem } from "./popover";
 export { PopoverMenu } from "./popoverMenu";
 
 export function Panel({ children, className = "panel", ...props }) {

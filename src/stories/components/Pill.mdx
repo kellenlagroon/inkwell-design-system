@@ -6,14 +6,15 @@ import * as PillFeatures from "../../components/pill.features.stories.jsx";
 
 # Pill
 
-A compact semantic status token for short labels such as role, publication state, or warning state.
+A compact label primitive for short metadata, categories, and states. It owns the
+shape and spacing; consumers can choose the visual treatment and colors.
 
 **Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
 
 ## When to use
 
-- Use pills for short, scan-friendly state labels.
-- Use them when a full banner or toast would be too heavy.
+- Use bordered pills for neutral or informational metadata such as roles and categories.
+- Use borderless pills for lightweight state labels, including the recommended semantic tones.
 - Keep the label concise and avoid sentence-length copy.
 
 ## Primary example
@@ -32,6 +33,12 @@ The default pill works for neutral classification such as roles or categories.
 
 <Canvas of={PillFeatures.PillDefault} sourceState="hidden" />
 
+### Bordered information
+
+Information can remain quiet and structured with the bordered appearance.
+
+<Canvas of={PillFeatures.BorderedInformation} sourceState="hidden" />
+
 ### Semantic tones
 
 Use semantic tones to communicate positive, cautionary, or urgent state at a glance.
@@ -39,6 +46,15 @@ Use semantic tones to communicate positive, cautionary, or urgent state at a gla
 <Canvas of={PillFeatures.PillSuccess} sourceState="hidden" />
 <Canvas of={PillFeatures.PillWarning} sourceState="hidden" />
 <Canvas of={PillFeatures.PillDanger} sourceState="hidden" />
+
+### Custom colors
+
+Use `colors` when product context calls for a color outside the recommended
+presets. Provide foreground, background, and border values independently; the
+component applies only the values supplied. Check the resulting foreground and
+background contrast in both themes.
+
+<Canvas of={PillFeatures.CustomColors} sourceState="hidden" />
 
 ### Variant set
 
@@ -49,7 +65,8 @@ Review the full tone set together when validating hierarchy and readability in d
 ## Usage guidance
 
 - Do use pills for short state tokens, not long explanations.
-- Do prefer semantic tone conventions over ad hoc color meaning.
+- Do use the recommended semantic tones when they communicate genuine status.
+- Do use `appearance` and `colors` for product-specific metadata where a preset does not fit.
 - Don’t overload pills with large amounts of text.
 - Don’t use pills as the only way to communicate critical information.
 

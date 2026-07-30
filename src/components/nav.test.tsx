@@ -72,6 +72,13 @@ describe("Nav", () => {
     expect(getByRole("navigation").className).toContain("ink-nav--vertical");
   });
 
+  it("applies the requested visual variant", () => {
+    const { getByRole } = render(
+      <Nav items={ITEMS} value="ballot" onChange={() => {}} orientation="vertical" variant="list" aria-label="Primary" />,
+    );
+    expect(getByRole("navigation").className).toContain("ink-nav--list");
+  });
+
   it("only opts into mobile docking when requested", () => {
     const { getByRole, rerender } = render(<Harness />);
     expect(getByRole("navigation").className).not.toContain("ink-nav--mobile-docked");

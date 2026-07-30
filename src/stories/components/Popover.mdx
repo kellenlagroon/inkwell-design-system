@@ -6,14 +6,14 @@ import * as PopoverFeatures from "../../components/popover.features.stories.jsx"
 
 # Popover
 
-A general positioned surface for non-menu content.
+An anchored surface for compact content and action menus.
 
-**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
 
 ## When to use
 
-- Use for filter panels, compact forms, and supporting controls.
-- Use `PopoverMenu` when the content is a menu of actions.
+- Use the default `content` mode for filter panels, compact forms, and supporting controls.
+- Use `mode="menu"` with `PopoverMenuItem` for a small set of actions.
 - Use `Drawer` when the content needs persistent space or mobile full-height treatment.
 
 ## Primary example
@@ -26,21 +26,37 @@ A general positioned surface for non-menu content.
 
 ## Features
 
-### Positioned surface
+### Content
 
-<Canvas of={PopoverFeatures.PositionedSurface} sourceState="hidden" />
+<Canvas of={PopoverFeatures.Content} sourceState="hidden" />
 
-### Top placement
+### Menu
 
-<Canvas of={PopoverFeatures.TopPlacement} sourceState="hidden" />
+<Canvas of={PopoverFeatures.Menu} sourceState="hidden" />
+
+### Placement
+
+<Canvas of={PopoverFeatures.AllSides} sourceState="hidden" />
+
+`placement` accepts `top`, `right`, `bottom`, and `left`, each with optional `-start` or `-end` alignment. The default is `bottom-start`.
+
+### Mobile sheet
+
+<Canvas of={PopoverFeatures.MobileSheet} sourceState="hidden" />
+
+Set `mobileSheet` when a compact popover should become a focus-contained bottom sheet on narrow screens.
 
 ## Usage guidance
 
 - Do provide a trigger with a clear label.
 - Do keep content compact.
-- Don’t use it for menu semantics; use `PopoverMenu`.
+- Do use `mode="menu"` only for a list of immediate actions.
+- Don’t bury multi-step work inside a popover.
 
 ## Keyboard and accessibility
 
-- Escape closes the popover and returns focus to the trigger.
-- Outside pointer interaction closes uncontrolled popovers.
+- Escape closes the popover and returns focus to the trigger; outside pointer interaction closes it too.
+- Menu mode exposes `role="menu"`; Arrow keys, Home, and End move between its items, and Tab closes it.
+- Mobile sheet mode uses a labelled dialog, a backdrop, initial focus, and a contained Tab sequence.
+
+`PopoverMenu` remains exported as a deprecated compatibility wrapper. New work should use `Popover`.

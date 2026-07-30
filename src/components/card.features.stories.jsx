@@ -75,7 +75,7 @@ export const InAGrid = {
           <Card key={name}>
             <Stack>
               <SectionHeading title={name} compact />
-              <Pill tone={status === "active" ? "success" : status === "published" ? "default" : "warning"}>{status}</Pill>
+              <Pill tone={status === "active" ? "success" : status === "published" ? "neutral" : "warning"}>{status}</Pill>
             </Stack>
           </Card>
         ))}
