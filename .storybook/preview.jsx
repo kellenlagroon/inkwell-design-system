@@ -1,5 +1,7 @@
 import "../src/styles/tokens.css";
 import "../src/styles/inkwell.css";
+// Seed-app markup used by some stories/docs. Not published — see seed-app.css.
+import "../src/styles/seed-app.css";
 import "./docs-theme.css";
 
 /** @type { import('@storybook/react-vite').Preview } */
@@ -23,6 +25,10 @@ const preview = {
   decorators: [
     (Story, context) => {
       document.documentElement.dataset.theme = context.globals.theme;
+      // The page baseline is opt-in (see .inkwell-page in inkwell.css) so the
+      // published stylesheet doesn't restyle a consumer's <body>. Storybook
+      // opts in so stories render on the Inkwell canvas.
+      document.body.classList.add("inkwell-page");
       return <Story />;
     },
   ],

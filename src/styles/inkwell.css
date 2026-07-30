@@ -1,11 +1,19 @@
 /* Design tokens are generated into tokens.css from tokens/inkwell.tokens.json.
    tokens.css is imported before this file (see .storybook/preview.jsx). Run: npm run tokens */
 
-* {
+/* border-box is kept global: every component's sizing assumes it, and it is the
+   one reset that virtually every host app already applies. */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-body {
+/* Opt-in page baseline. This stylesheet ships to consumers, so the page-level
+   background, color, and font go on an explicit `.inkwell-page` root rather
+   than on `body`, which would silently restyle the host application. Apply it
+   to your app root (or to <body>) to adopt the Inkwell canvas. */
+.inkwell-page {
   margin: 0;
   min-height: 100vh;
   background: var(--color-bg-canvas);
@@ -1985,17 +1993,15 @@ select option {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/* Shared forms / controls */
-label {
-  display: grid;
-  gap: var(--space-2);
-  font-weight: var(--font-weight-bold);
-  color: var(--text);
-}
+/* Shared forms / controls.
 
-input,
-select,
-textarea {
+   These are class selectors, not bare `input`/`select`/`textarea`/`label`
+   element selectors. This stylesheet ships to consumers, and element selectors
+   restyled every native control on their page — a bare checkbox inherited
+   `width: 100%` and became as wide as its container. Inkwell's own controls
+   carry .input / .textarea, so they are unaffected by the change. */
+.input,
+.textarea {
   width: 100%;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-rounded);
@@ -2005,45 +2011,29 @@ textarea {
   font: inherit;
 }
 
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: var(--space-11);
-  background:
-    var(--chevron-icon) calc(100% - 16px) center / 14px 9px no-repeat,
-    var(--input-bg);
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
+.input:focus,
+.textarea:focus {
   outline: none;
   border-color: var(--input-focus-border);
   box-shadow: inset 0 0 0 1px var(--input-focus-border);
 }
 
-input[type="search"] {
+input[type="search"].input {
   padding-left: 38px;
   background:
     var(--search-icon) var(--space-3) center / 16px 16px no-repeat,
     var(--input-bg);
 }
 
-input[type="search"]:hover {
+input[type="search"].input:hover {
   border-color: var(--control-border-hover);
   background:
     var(--search-icon) var(--space-3) center / 16px 16px no-repeat,
     color-mix(in srgb, var(--input-bg) 88%, var(--hover-surface));
 }
 
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
+.input:focus-visible,
+.textarea:focus-visible {
   outline: 0;
   border-color: var(--color-focus-ring);
   box-shadow:
@@ -2051,7 +2041,7 @@ textarea:focus-visible {
     0 0 0 2px var(--color-focus-outline-soft);
 }
 
-textarea {
+.textarea {
   resize: vertical;
 }
 
@@ -2996,10 +2986,12 @@ input[type="search"].input--lg {
   justify-content: center;
 }
 
-/* Icon button component */
+/* Icon button component. 44px is the real rendered size at every breakpoint —
+   a later rule used to override a 36px declaration here, which also made the
+   removed `lg` variant identical to `md`. */
 .icon-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; font-size: 17px;
+  width: 44px; height: 44px; font-size: 17px;
   background: transparent; border: 0; border-radius: var(--radius-sharp);
   color: var(--muted);
   cursor: pointer; flex-shrink: 0;
@@ -3016,8 +3008,7 @@ input[type="search"].input--lg {
 }
 .icon-btn:disabled { opacity: 0.28; cursor: default; }
 
-.icon-btn--sm { width: 28px; height: 28px; font-size: 15px; }
-.icon-btn--lg { width: 44px; height: 44px; font-size: 19px; }
+.icon-btn--sm { width: 32px; height: 32px; font-size: 15px; }
 
 /* Icon inside a text button scales with the button font */
 .primary-button svg,
@@ -5930,12 +5921,9 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   overscroll-behavior: contain;
 }
 
-.icon-btn { width: 44px; height: 44px; }
-.icon-btn--sm { width: 32px; height: 32px; }
 .password-input-toggle,
 .ink-drawer-close,
-.banner-dismiss,
-.toast button { min-width: 44px; min-height: 44px; }
+.banner-dismiss { min-width: 44px; min-height: 44px; }
 
 .status-banner > span,
 .toast > div { min-width: 0; overflow-wrap: anywhere; }
@@ -5969,16 +5957,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   margin-left: auto;
 }
 
-.ink-tabs {
-  max-width: 100%;
-  min-height: 44px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: thin;
-  scroll-snap-type: x proximity;
-}
-.ink-tab { flex: 0 0 auto; min-height: var(--ink-tabs-mobile-tab-min-height); scroll-snap-align: start; text-overflow: ellipsis; overflow: hidden; max-width: var(--ink-tabs-mobile-tab-max-width); }
+.ink-tabs { max-width: 100%; }
 
 .ink-pagination-item { min-width: 44px; min-height: 44px; }
 /* The summary is the live region that announces page changes, so it must stay
@@ -6064,6 +6043,24 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   .field-group--collapse-md { flex-direction: column; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
   .ink-action-group--stack-md > :is(button, a),
   .ink-action-group--stack-md > * > :is(button, a) { width: 100%; }
+  /* Phone-only: let a wide tab bar scroll sideways and cap label width, rather
+     than letting it force the page wider. On desktop tabs show full labels. */
+  .ink-tabs {
+    min-height: 44px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+  }
+  .ink-tab {
+    flex: 0 0 auto;
+    min-height: var(--ink-tabs-mobile-tab-min-height);
+    max-width: var(--ink-tabs-mobile-tab-max-width);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    scroll-snap-align: start;
+  }
   .ink-pagination--auto-compact .ink-pagination-list { display: none; }
   .ink-pagination--auto-compact .ink-pagination-summary {
     position: static;
@@ -6148,78 +6145,6 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   justify-content: flex-start;
 }
 
-/* Storybook sandbox: alternative compositions for immediate and staged filters. */
-.ink-filter-sheet-sandbox {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 100dvh;
-  background: var(--color-surface-default);
-}
-
-.ink-filter-sheet-sandbox__context {
-  display: grid;
-  gap: var(--space-1);
-  padding: var(--space-4);
-  margin-bottom: auto;
-}
-
-.ink-filter-sheet-sandbox__sheet {
-  overflow: hidden;
-  max-height: min(76dvh, 28rem);
-  border: 1px solid var(--color-border-subtle);
-  border-bottom: 0;
-  border-radius: var(--radius-rounded) var(--radius-rounded) 0 0;
-  background: var(--color-surface-raised);
-  box-shadow: var(--popover-shadow);
-}
-
-.ink-filter-sheet-sandbox__header {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-4);
-}
-
-.ink-filter-sheet-sandbox__heading-row,
-.ink-filter-sheet-sandbox__summary,
-.ink-filter-sheet-sandbox__footer {
-  display: flex;
-  align-items: center;
-}
-
-.ink-filter-sheet-sandbox__heading-row { justify-content: space-between; }
-.ink-filter-sheet-sandbox__summary { margin-top: calc(-1 * var(--space-2)); }
-
-.ink-filter-sheet-sandbox__list {
-  overflow-y: auto;
-  max-height: min(15.5rem, calc(76dvh - 11rem));
-  border-top: 1px solid var(--color-border-subtle);
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.ink-filter-sheet-sandbox__list::-webkit-scrollbar { display: none; }
-
-.ink-filter-sheet-sandbox__row {
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-
-.ink-filter-sheet-sandbox__row .checkbox {
-  display: flex;
-  width: 100%;
-  min-height: 52px;
-  padding: var(--space-3) var(--space-4);
-}
-
-.ink-filter-sheet-sandbox__footer {
-  justify-content: space-between;
-  gap: var(--space-3);
-  min-height: 60px;
-  padding: var(--space-3) var(--space-4) max(var(--space-3), env(safe-area-inset-bottom));
-  border-top: 1px solid var(--color-border-subtle);
-}
-
-.ink-filter-sheet-sandbox__footer .primary-button { min-width: 7.5rem; }
   .file-upload--mobile .file-upload-row { align-items: stretch; flex-direction: column; }
   .file-upload--mobile .file-upload-row .secondary-button { width: 100%; }
   .toast button { min-width: 44px; min-height: 44px; }

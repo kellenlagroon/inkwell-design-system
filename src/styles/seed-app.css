@@ -1,0 +1,149 @@
+/* Seed-app styles — NOT part of the published package.
+ *
+ * Inkwell was seeded from the CFB Coaches Poll app, and a number of stories and
+ * docs pages still render that app's raw markup (native <label>/<select>, the
+ * preview chrome, the login screen, results boards, roster rows). Those rules
+ * live here so they keep working in Storybook without shipping to consumers in
+ * dist/styles.css.
+ *
+ * Nothing in this file should be needed by an Inkwell component. If a component
+ * depends on a rule here, that rule belongs in inkwell.css instead.
+ *
+ * Imported by .storybook/preview.jsx only — see scripts/bundle-css.mjs, which
+ * deliberately excludes it from the published bundle.
+ */
+
+/* Native form elements used by raw seed markup in stories. Inkwell's own
+   controls use .input / .textarea / .cselect and do not rely on these. */
+label {
+  display: grid;
+  gap: var(--space-2);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-rounded);
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--color-text-primary);
+  font: inherit;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: var(--space-11);
+  background:
+    var(--chevron-icon) calc(100% - 16px) center / 14px 9px no-repeat,
+    var(--input-bg);
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: inset 0 0 0 1px var(--input-focus-border);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 0;
+  border-color: var(--color-focus-ring);
+  box-shadow:
+    inset 0 0 0 1px var(--input-focus-border),
+    0 0 0 2px var(--color-focus-outline-soft);
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+/* Storybook-only sandbox for the filter-sheet pattern story
+   (src/components/filterSheet.stories.jsx). Was previously nested inside a
+   max-width:759px media query in inkwell.css, so it never applied on desktop.
+   Not part of the component library. */
+/* Storybook sandbox: alternative compositions for immediate and staged filters. */
+.ink-filter-sheet-sandbox {
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+min-height: 100dvh;
+background: var(--color-surface-default);
+}
+
+.ink-filter-sheet-sandbox__context {
+display: grid;
+gap: var(--space-1);
+padding: var(--space-4);
+margin-bottom: auto;
+}
+
+.ink-filter-sheet-sandbox__sheet {
+overflow: hidden;
+max-height: min(76dvh, 28rem);
+border: 1px solid var(--color-border-subtle);
+border-bottom: 0;
+border-radius: var(--radius-rounded) var(--radius-rounded) 0 0;
+background: var(--color-surface-raised);
+box-shadow: var(--popover-shadow);
+}
+
+.ink-filter-sheet-sandbox__header {
+display: grid;
+gap: var(--space-3);
+padding: var(--space-4);
+}
+
+.ink-filter-sheet-sandbox__heading-row,
+.ink-filter-sheet-sandbox__summary,
+.ink-filter-sheet-sandbox__footer {
+display: flex;
+align-items: center;
+}
+
+.ink-filter-sheet-sandbox__heading-row { justify-content: space-between; }
+.ink-filter-sheet-sandbox__summary { margin-top: calc(-1 * var(--space-2)); }
+
+.ink-filter-sheet-sandbox__list {
+overflow-y: auto;
+max-height: min(15.5rem, calc(76dvh - 11rem));
+border-top: 1px solid var(--color-border-subtle);
+scrollbar-width: none;
+-ms-overflow-style: none;
+}
+
+.ink-filter-sheet-sandbox__list::-webkit-scrollbar { display: none; }
+
+.ink-filter-sheet-sandbox__row {
+border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.ink-filter-sheet-sandbox__row .checkbox {
+display: flex;
+width: 100%;
+min-height: 52px;
+padding: var(--space-3) var(--space-4);
+}
+
+.ink-filter-sheet-sandbox__footer {
+justify-content: space-between;
+gap: var(--space-3);
+min-height: 60px;
+padding: var(--space-3) var(--space-4) max(var(--space-3), env(safe-area-inset-bottom));
+border-top: 1px solid var(--color-border-subtle);
+}
+
+.ink-filter-sheet-sandbox__footer .primary-button { min-width: 7.5rem; }
