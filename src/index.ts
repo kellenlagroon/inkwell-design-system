@@ -94,7 +94,7 @@ export type { PaginationProps } from "./components/pagination";
 export { RichTextSafe } from "./components/richTextSafe";
 export type { RichTextSafeProps } from "./components/richTextSafe";
 export { StatusSummaryCompact } from "./components/statusSummaryCompact";
-export type { StatusSummaryCompactProps, StatusSummaryCompactItem } from "./components/statusSummaryCompact";
+export type { StatusSummaryCompactProps } from "./components/statusSummaryCompact";
 
 // Layout primitives
 export { Stack, Inline, Grid, ActionGroup } from "./components/layout";

@@ -6,14 +6,15 @@ import * as StatusSummaryFeatures from "../../components/statusSummaryCompact.fe
 
 # StatusSummaryCompact
 
-A compact row of labelled status values, optionally paired with expandable detail.
+A compact, wrapping layout region for status metadata. It intentionally does not
+prescribe item structure or disclosure behavior.
 
 **Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
 
 ## When to use
 
 - Use for small health/status summaries.
-- Use neutral item labels and semantic tones.
+- Compose items with `Inline` and `Pill`, using the status treatment that fits the page.
 - Keep domain-specific meaning in the consuming app.
 
 ## Primary example
@@ -30,12 +31,12 @@ A compact row of labelled status values, optionally paired with expandable detai
 
 <Canvas of={StatusSummaryFeatures.SummaryOnly} sourceState="hidden" />
 
-### With detail
+### Composed disclosure
 
 <Canvas of={StatusSummaryFeatures.WithDetail} sourceState="hidden" />
 
 ## Usage guidance
 
-- Do keep labels short.
-- Do use detail for secondary diagnostic context.
-- Don’t encode app-specific statuses into the component API.
+- Do keep labels short and use token-backed layout primitives for each item.
+- Do wrap the summary in `Collapsible` when the page needs expandable detail.
+- Don’t encode app-specific statuses or disclosure behavior into this layout primitive.
