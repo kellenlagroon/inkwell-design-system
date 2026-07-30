@@ -127,13 +127,14 @@ export function Drawer({
   const panelStyle = { "--ink-drawer-height": height, "--ink-drawer-max-height": maxHeight } as CSSProperties;
 
   return (
-    <div className="ink-drawer-root" data-state={animationState} role="presentation">
-      <button
-        type="button"
+    <div className="ink-drawer-root" data-state={animationState}>
+      {/* Not a button: the header close control is the labeled affordance, and a
+          second control with the same name (that does nothing when
+          `closeOnBackdrop` is false) only adds noise for AT users. */}
+      <div
         className="ink-drawer-backdrop"
-        aria-label="Close drawer"
-        tabIndex={open ? 0 : -1}
-        onClick={() => closeOnBackdrop && onClose()}
+        aria-hidden="true"
+        onClick={closeOnBackdrop ? onClose : undefined}
       />
       <section
         ref={panelRef}

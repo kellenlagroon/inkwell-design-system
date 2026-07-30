@@ -1,4 +1,4 @@
-import { Button, IconButton } from "./ui.jsx";
+import { Button, IconButton } from "./ui";
 import {
   IconArrowDown,
   IconAward,

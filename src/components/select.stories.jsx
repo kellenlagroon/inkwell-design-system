@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Select } from "./ui.jsx";
+import { Select } from "./ui";
 
 export default {
   title: "Components/Select",

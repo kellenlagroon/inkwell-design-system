@@ -1,4 +1,4 @@
-import { Button } from "./ui.jsx";
+import { Button } from "./ui";
 
 export default {
   title: "Components/Button",

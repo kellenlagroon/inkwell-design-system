@@ -75,15 +75,15 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style
     tabRefs.current[index]?.focus();
   }
 
+  // Horizontal tablist: Left/Right move, per the WAI-ARIA tabs pattern.
+  // Up/Down are left alone so they keep scrolling the page.
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     switch (event.key) {
       case "ArrowRight":
-      case "ArrowDown":
         event.preventDefault();
         selectAt(nextEnabled(tabs, activeIndex < 0 ? -1 : activeIndex, 1));
         break;
       case "ArrowLeft":
-      case "ArrowUp":
         event.preventDefault();
         selectAt(nextEnabled(tabs, activeIndex < 0 ? 0 : activeIndex, -1));
         break;
@@ -99,7 +99,14 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style
   }
 
   return (
-    <div className={["ink-tabs", className].filter(Boolean).join(" ")} style={style} role="tablist" aria-label={ariaLabel} onKeyDown={onKeyDown}>
+    <div
+      className={["ink-tabs", className].filter(Boolean).join(" ")}
+      style={style}
+      role="tablist"
+      aria-orientation="horizontal"
+      aria-label={ariaLabel}
+      onKeyDown={onKeyDown}
+    >
       {tabs.map((tab, index) => {
         const selected = tab.value === value;
         return (

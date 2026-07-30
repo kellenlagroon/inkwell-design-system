@@ -39,7 +39,8 @@ export interface PopoverTriggerProps {
   onClick: () => void;
   onToggle: () => void;
   "aria-expanded": boolean;
-  "aria-controls": string;
+  /** Only set while open — the panel isn't in the DOM to point at otherwise. */
+  "aria-controls"?: string;
   "aria-haspopup"?: "menu" | "dialog";
 }
 
@@ -54,12 +55,10 @@ export interface PopoverProps {
   onOpenChange?: (open: boolean) => void;
   /** Anchor side and alignment. */
   placement?: PopoverPlacement;
-  /** Additional class on the surface. */
-  className?: string;
+  /** Additional class on the popover surface. */
+  panelClassName?: string;
   /** Additional class on the positioned trigger wrapper. */
   rootClassName?: string;
-  /** Additional class on the surface. Preferred over the legacy `className` alias. */
-  panelClassName?: string;
   /** Accessible name for a menu or mobile sheet dialog. */
   ariaLabel?: string;
   /** Render as a bottom sheet on narrow screens. */
@@ -78,9 +77,8 @@ export function Popover({
   defaultOpen = false,
   onOpenChange,
   placement = "bottom-start",
-  className = "",
-  rootClassName = "",
   panelClassName = "",
+  rootClassName = "",
   ariaLabel,
   mobileSheet = false,
 }: PopoverProps) {
@@ -221,7 +219,7 @@ export function Popover({
     onClick: () => setOpen(!isOpen),
     onToggle: () => setOpen(!isOpen),
     "aria-expanded": isOpen,
-    "aria-controls": id,
+    "aria-controls": isOpen ? id : undefined,
     "aria-haspopup": mode === "menu" ? "menu" : mobileSheet ? "dialog" : undefined,
   };
 
@@ -230,7 +228,6 @@ export function Popover({
     `ink-popover-panel--${resolvedPlacement}`,
     `ink-popover-panel--${mode}`,
     mobileSheet ? "ink-popover-panel--mobile-sheet" : "",
-    className,
     panelClassName,
   ].filter(Boolean).join(" ");
 
@@ -268,6 +265,3 @@ export function PopoverMenuItem({ className = "", type = "button", children, ...
     </button>
   );
 }
-
-/** @deprecated Use `Popover` directly. */
-export const PopoverGeneral = Popover;

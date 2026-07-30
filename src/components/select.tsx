@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { IconArrowDown, IconCheck } from "./icons";
 import { useFieldContext } from "./forms";
@@ -20,6 +20,8 @@ export interface SelectProps {
   describedBy?: string;
   className?: string;
   "aria-label"?: string;
+  /** id of a visible element that labels the control. Takes precedence over `aria-label`. */
+  "aria-labelledby"?: string;
   id?: string;
 }
 
@@ -57,9 +59,13 @@ export function Select({
   describedBy,
   className = "",
   "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   id,
 }: SelectProps) {
   const field = useFieldContext();
+  const generatedId = useId();
+  const triggerId = id ?? field?.id ?? generatedId;
+  const listboxId = `${triggerId}-listbox`;
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -184,10 +190,12 @@ export function Select({
         disabled={disabled}
         aria-haspopup="listbox"
         aria-expanded={open ? "true" : "false"}
-        aria-label={ariaLabel}
+        aria-controls={open ? listboxId : undefined}
+        aria-label={ariaLabelledBy ? undefined : ariaLabel}
+        aria-labelledby={ariaLabelledBy}
         aria-invalid={resolvedInvalid || undefined}
         aria-describedby={describedBy ?? field?.describedBy}
-        id={id ?? field?.id}
+        id={triggerId}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onTriggerKeyDown}
       >
@@ -197,7 +205,14 @@ export function Select({
         <IconArrowDown className="cselect-chevron" />
       </button>
       {open && (
-        <div className="cselect-dropdown" role="listbox" onKeyDown={onListKeyDown}>
+        <div
+          id={listboxId}
+          className="cselect-dropdown"
+          role="listbox"
+          aria-labelledby={ariaLabelledBy ?? (ariaLabel ? undefined : triggerId)}
+          aria-label={ariaLabelledBy ? undefined : ariaLabel}
+          onKeyDown={onListKeyDown}
+        >
           {options.map((option, index) => (
             <button
               key={option.value}
@@ -215,7 +230,9 @@ export function Select({
                 .join(" ")}
               role="option"
               aria-selected={option.value === value ? "true" : "false"}
-              disabled={option.disabled}
+              // aria-disabled, not `disabled`: a disabled option must stay
+              // perceivable and reachable by arrow keys per the listbox pattern.
+              aria-disabled={option.disabled || undefined}
               onClick={() => commit(index)}
             >
               <span>{option.label}</span>

@@ -32,16 +32,65 @@ describe("ModalFrame accessibility", () => {
   });
 
   it("Escape closes, restores scroll, and returns focus to the opener", () => {
-    const { getByText, getByRole } = render(<Harness />);
+    const { getByText, getByRole, queryByRole } = render(<Harness />);
     const opener = getByText("Open");
     opener.focus();
     fireEvent.click(opener);
 
-    fireEvent.keyDown(getByRole("dialog"), { key: "Escape" });
+    const dialog = getByRole("dialog");
+    fireEvent.keyDown(dialog, { key: "Escape" });
 
-    expect(getByRole("dialog", { hidden: true }).className).toContain("hidden");
+    // A closed modal stops advertising itself as a dialog, so it no longer
+    // shows up in the a11y tree even with `hidden: true`.
+    expect(queryByRole("dialog", { hidden: true })).toBeNull();
+    expect(dialog.className).toContain("hidden");
+    expect(dialog.getAttribute("aria-hidden")).toBe("true");
     expect(document.body.style.overflow).toBe("");
     expect(document.activeElement).toBe(opener);
+  });
+
+  it("names itself from `title` without a caller-supplied titleId", () => {
+    const { getByRole } = render(
+      <ModalFrame title="Settings" open onClose={() => {}}>
+        <button>First</button>
+      </ModalFrame>,
+    );
+    const dialog = getByRole("dialog");
+    const labelId = dialog.getAttribute("aria-labelledby")!;
+    expect(labelId).toBeTruthy();
+    expect(document.getElementById(labelId)?.textContent).toBe("Settings");
+  });
+
+  it("falls back to ariaLabel when there is no visible title", () => {
+    const { getByRole } = render(
+      <ModalFrame ariaLabel="Quick actions" open onClose={() => {}}>
+        <button>First</button>
+      </ModalFrame>,
+    );
+    expect(getByRole("dialog").getAttribute("aria-label")).toBe("Quick actions");
+  });
+
+  it("hides sibling content from assistive tech while open, and restores it on close", () => {
+    const { getByText, container } = render(<Harness />);
+    const sibling = document.createElement("div");
+    sibling.textContent = "Behind the modal";
+    container.parentElement!.appendChild(sibling);
+
+    fireEvent.click(getByText("Open"));
+    expect(sibling.getAttribute("aria-hidden")).toBe("true");
+
+    fireEvent.click(getByText("Open").ownerDocument.querySelector(".modal-backdrop")!);
+    expect(sibling.hasAttribute("aria-hidden")).toBe(false);
+    sibling.remove();
+  });
+
+  it("omits the close button when showCloseButton is false", () => {
+    const { queryByLabelText } = render(
+      <ModalFrame title="Settings" open showCloseButton={false} onClose={() => {}}>
+        <button>First</button>
+      </ModalFrame>,
+    );
+    expect(queryByLabelText("Close")).toBeNull();
   });
 
   it("traps Tab within the dialog and wraps at both ends", () => {

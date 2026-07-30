@@ -16,10 +16,17 @@ export {
   Toast,
   ToastRegion,
 } from "./components/ui";
+export type {
+  PanelProps,
+  SectionHeadingProps,
+  EmptyStateProps,
+  ToastProps,
+  ToastTone,
+  ToastItem,
+  ToastRegionProps,
+} from "./components/ui";
 export { Select } from "./components/select";
 export type { SelectProps, SelectOption } from "./components/select";
-export { PopoverMenu } from "./components/popoverMenu";
-export type { PopoverMenuProps, PopoverMenuTriggerProps } from "./components/popoverMenu";
 export { Button, ButtonLink } from "./components/button";
 export type { ButtonProps, ButtonLinkProps, ButtonVariant, ButtonSize, ButtonSpinnerPlacement } from "./components/button";
 export { IconButton } from "./components/iconButton";
@@ -32,7 +39,7 @@ export { ModalFrame } from "./components/modalFrame";
 export type { ModalFrameProps, ModalSize } from "./components/modalFrame";
 export { Drawer } from "./components/drawer";
 export type { DrawerProps, DrawerSide, DrawerSize, DrawerBodyPadding } from "./components/drawer";
-export { Popover, PopoverGeneral, PopoverMenuItem } from "./components/popover";
+export { Popover, PopoverMenuItem } from "./components/popover";
 export type { PopoverProps, PopoverTriggerProps, PopoverMode, PopoverPlacement, PopoverMenuItemProps } from "./components/popover";
 export { CheckboxSelect } from "./components/checkboxSelect";
 export type { CheckboxSelectProps, CheckboxSelectOption } from "./components/checkboxSelect";

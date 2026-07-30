@@ -1,4 +1,4 @@
-import { StatusBanner } from "./ui.jsx";
+import { StatusBanner } from "./ui";
 
 export default {
   title: "Components/StatusBanner",

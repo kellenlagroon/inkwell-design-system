@@ -1753,13 +1753,12 @@ select option {
 }
 .split-button-chevron:hover { background: var(--button-primary-bg-hover); }
 .split-button-chevron svg { transition: transform 150ms ease; width: 20px; height: 20px; }
-.split-dropdown {
-  position: absolute; top: calc(100% + 6px); right: 0;
-  background: var(--ink-860, #131313);
-  border: 1px solid var(--popover-border);
-  border-radius: var(--radius-sharp); box-shadow: var(--popover-shadow);
-  min-width: 280px; z-index: 50;
-  padding: var(--space-1); display: grid; gap: 2px;
+/* The menu is a Popover in `menu` mode, so positioning, border, radius, and
+   shadow come from .ink-popover-panel. The panel overrides live next to that
+   rule (search .split-dropdown) so they aren't lost to source order. */
+.split-button-menu {
+  display: flex;
+  align-self: stretch;
 }
 .split-dropdown-item {
   display: flex; align-items: flex-start; gap: var(--space-3);
@@ -2206,6 +2205,23 @@ input[type="search"].input--lg {
   opacity: 1;
 }
 
+/* Indeterminate reads as filled-with-a-dash, like the checked state. The DOM
+   `indeterminate` property has no attribute selector, so the component also
+   sets a class. */
+.checkbox-input:indeterminate + .checkbox-control {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+}
+
+.checkbox-input:indeterminate + .checkbox-control svg {
+  opacity: 1;
+}
+
+.checkbox:not(.checkbox--disabled):not(.checkbox--invalid):hover .checkbox-input:indeterminate + .checkbox-control {
+  border-color: var(--color-brand-hover);
+  background: var(--color-brand-hover);
+}
+
 .checkbox-input:focus-visible + .checkbox-control {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
@@ -2520,7 +2536,7 @@ input[type="search"].input--lg {
   cursor: pointer; text-align: left; width: 100%;
   transition: background 80ms ease;
 }
-.cselect-option:hover { background: var(--menu-item-bg-hover); }
+.cselect-option:not(.cselect-option--disabled):hover { background: var(--menu-item-bg-hover); }
 .cselect-option.selected { color: var(--color-text-strong); }
 .cselect-option .check-icon { font-size: 15px; color: var(--color-info); flex-shrink: 0; }
 .cselect-option--disabled,
@@ -4226,6 +4242,7 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   width: min(360px, calc(100% - 24px));
 }
 
+
 .toast {
   display: flex;
   align-items: center;
@@ -4356,7 +4373,7 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
 .ink-drawer-root {
   position: fixed;
   inset: 0;
-  z-index: var(--z-modal, 1000);
+  z-index: var(--z-modal-host);
   pointer-events: auto;
 }
 
@@ -4476,6 +4493,17 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
 .ink-popover-panel--left-start { top: 0; right: calc(100% + var(--space-2)); }
 .ink-popover-panel--left { top: 50%; right: calc(100% + var(--space-2)); transform: translateY(-50%); }
 .ink-popover-panel--left-end { right: calc(100% + var(--space-2)); bottom: 0; }
+
+/* SplitButton's menu panel. Must follow .ink-popover-panel — these are
+   overrides at equal specificity, so source order decides. The surface is set
+   via the scoped variable the panel already reads, not a competing
+   `background` declaration. */
+.split-dropdown {
+  --popover-surface: var(--ink-860, #131313);
+  min-width: 280px;
+  padding: var(--space-1);
+  gap: 2px;
+}
 
 .checkbox-select {
   display: grid;
@@ -5953,9 +5981,30 @@ body[data-preview-mode="mobile"] .preview-mode-button {
 .ink-tab { flex: 0 0 auto; min-height: var(--ink-tabs-mobile-tab-min-height); scroll-snap-align: start; text-overflow: ellipsis; overflow: hidden; max-width: var(--ink-tabs-mobile-tab-max-width); }
 
 .ink-pagination-item { min-width: 44px; min-height: 44px; }
-.ink-pagination-summary { display: none; overflow-wrap: anywhere; text-align: center; }
+/* The summary is the live region that announces page changes, so it must stay
+   in the accessibility tree at every breakpoint — `display: none` would silence
+   it. It is visually hidden instead, and revealed in compact layouts. */
+.ink-pagination-summary {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
 .ink-pagination--compact .ink-pagination-list { display: none; }
-.ink-pagination--compact .ink-pagination-summary { display: inline; }
+.ink-pagination--compact .ink-pagination-summary {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
 
 .ink-text,
 .ink-heading,
@@ -5999,7 +6048,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   .ink-popover-scrim {
     position: fixed;
     inset: 0;
-    z-index: calc(var(--z-modal, 1000) - 1);
+    z-index: calc(var(--z-modal-host) - 1);
     display: block;
     background: var(--color-overlay-strong);
   }
@@ -6016,7 +6065,15 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   .ink-action-group--stack-md > :is(button, a),
   .ink-action-group--stack-md > * > :is(button, a) { width: 100%; }
   .ink-pagination--auto-compact .ink-pagination-list { display: none; }
-  .ink-pagination--auto-compact .ink-pagination-summary { display: inline; }
+  .ink-pagination--auto-compact .ink-pagination-summary {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
   .ink-pagination-page-size { flex-basis: 100%; margin-left: 0; }
   .ink-drawer--mobile-sheet {
     top: auto;
@@ -6032,7 +6089,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   .ink-popover-panel--mobile-sheet {
     position: fixed;
     inset: auto 0 0;
-    z-index: var(--z-modal, 1000);
+    z-index: var(--z-modal-host);
     width: auto;
     max-width: none;
     max-height: min(70dvh, 36rem);

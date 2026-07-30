@@ -1,4 +1,4 @@
-import { Pill } from "./ui.jsx";
+import { Pill } from "./ui";
 
 export default {
   title: "Components/Pill/Features",

@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
+import type { HTMLAttributes, MouseEvent, ReactNode } from "react";
 
 export type AvatarSize = "sm" | "md" | "lg";
 export type AvatarShape = "circle" | "square";
 
-export interface AvatarProps {
+export interface AvatarProps extends Omit<HTMLAttributes<HTMLElement>, "onClick"> {
   /** Person/entity name. Drives the initials fallback and the accessible label. */
   name?: string;
   /** Image URL. When set (and it loads), shows the image instead of initials. */
@@ -24,11 +24,9 @@ export interface AvatarProps {
    */
   interactive?: boolean;
   /** Click handler when `interactive` is set. */
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Accessible label for the interactive button. Defaults to `name`. */
   buttonLabel?: string;
-  id?: string;
-  className?: string;
 }
 
 /** Up to two uppercase initials from a name. */
@@ -61,6 +59,7 @@ export function Avatar({
   buttonLabel,
   id,
   className = "",
+  ...props
 }: AvatarProps) {
   const avatarClasses = [
     "ink-avatar",
@@ -94,7 +93,7 @@ export function Avatar({
         : { "aria-hidden": true };
 
   const avatar = (
-    <span id={interactive ? undefined : id} className={avatarClasses} {...labelProps}>
+    <span id={interactive ? undefined : id} className={avatarClasses} {...labelProps} {...(interactive ? {} : props)}>
       {body}
     </span>
   );
@@ -108,6 +107,7 @@ export function Avatar({
       className={["ink-avatar-button", className].filter(Boolean).join(" ")}
       aria-label={buttonLabel ?? label ?? "Account"}
       onClick={onClick}
+      {...props}
     >
       {avatar}
     </button>

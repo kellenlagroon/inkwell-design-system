@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "./ui.jsx";
+import { Button } from "./ui";
 import { ModalFrame } from "./modalFrame";
 
 export default {

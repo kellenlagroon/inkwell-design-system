@@ -1,10 +1,10 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 export type ListDensity = "comfortable" | "compact";
 export type ListStyle = CSSProperties &
   Record<`--ink-list-${string}`, string | number | undefined>;
 
-export interface ListProps {
+export interface ListProps extends Omit<HTMLAttributes<HTMLDivElement>, "style"> {
   /**
    * Grid template for row columns (e.g. `"1fr 1fr auto"`,
    * `"minmax(0, 1.1fr) minmax(0, 1fr) auto"`). Applied to every child row via
@@ -16,16 +16,12 @@ export interface ListProps {
   /** Hide the hairline divider between rows. */
   bordered?: boolean;
   children?: ReactNode;
-  id?: string;
-  className?: string;
   /** Scoped visual overrides using the `--ink-list-*` CSS variables. */
   style?: ListStyle;
 }
 
-export interface ListRowProps {
+export interface ListRowProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
-  id?: string;
-  className?: string;
 }
 
 /**
@@ -38,9 +34,9 @@ export function List({
   density = "comfortable",
   bordered = true,
   children,
-  id,
   className = "",
   style: consumerStyle,
+  ...props
 }: ListProps) {
   const classes = [
     "ink-list",
@@ -57,16 +53,16 @@ export function List({
   } as ListStyle;
 
   return (
-    <div id={id} className={classes} style={style} role="list">
+    <div className={classes} style={style} role="list" {...props}>
       {children}
     </div>
   );
 }
 
 /** A row in a `List`. Wraps `children` in a grid using the parent's `columns`. */
-List.Row = function ListRow({ children, id, className = "" }: ListRowProps) {
+List.Row = function ListRow({ children, className = "", ...props }: ListRowProps) {
   return (
-    <div id={id} role="listitem" className={["ink-list-row", className].filter(Boolean).join(" ")}>
+    <div role="listitem" className={["ink-list-row", className].filter(Boolean).join(" ")} {...props}>
       {children}
     </div>
   );

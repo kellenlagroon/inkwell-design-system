@@ -1,3 +1,4 @@
+import { useId } from "react";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { Select } from "./select";
 
@@ -69,6 +70,9 @@ export function Pagination({
   onPageSizeChange,
   pageSizeLabel = "Results per page",
 }: PaginationProps) {
+  const baseId = useId();
+  const pageSizeLabelId = `${baseId}-page-size-label`;
+  const pageSizeSelectId = `${baseId}-page-size`;
   const selectedPageSize = String(pageSize ?? pageSizeOptions[0] ?? 10);
   const effectivePageSize = Number(selectedPageSize);
   const resolvedPageCount = totalResults === undefined
@@ -119,13 +123,17 @@ export function Pagination({
           </li>
         ))}
       </ol>
-      <span className="ink-pagination-summary" aria-live="polite">{summary}</span>
+      {/* Doubles as the live region that announces page changes — it stays in
+          the a11y tree at every breakpoint and is only visually revealed in
+          compact layouts (see .ink-pagination-summary). */}
+      <span className="ink-pagination-summary" role="status" aria-live="polite">{summary}</span>
       {renderNavigationAction(current + 1, "next", !canNext, nextLabel)}
       {showPageSizeSelector && (
         <div className="ink-pagination-page-size">
-          <span>{pageSizeLabel}</span>
+          <span id={pageSizeLabelId}>{pageSizeLabel}</span>
           <Select
-            aria-label="Results per page"
+            id={pageSizeSelectId}
+            aria-labelledby={pageSizeLabelId}
             variant="control"
             value={selectedPageSize}
             options={pageSizeOptions.map((size) => ({ value: String(size), label: String(size) }))}
