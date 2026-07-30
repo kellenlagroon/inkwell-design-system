@@ -20,6 +20,19 @@ export const BannerWithDismiss = {
   render: () => <StatusBanner message="Joined Sample Project. Finish setup to get started." tone="success" onDismiss={() => {}} />,
 };
 
+export const BannerWithWrappedMessage = {
+  name: "Wrapped message",
+  render: () => (
+    <div style={{ maxWidth: 360 }}>
+      <StatusBanner
+        message="The workspace invitation could not be sent. Review the recipient’s permissions and try again."
+        tone="warning"
+        onDismiss={() => {}}
+      />
+    </div>
+  ),
+};
+
 export const BannerNoMessage = {
   render: () => <StatusBanner message="" tone="success" />,
 };

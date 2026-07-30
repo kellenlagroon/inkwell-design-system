@@ -497,7 +497,7 @@ body[data-preview-mode="mobile"] .app-header {
   border-radius: var(--radius-sharp);
   background: var(--color-surface-raised);
   color: var(--text);
-  box-shadow: var(--shadow);
+  box-shadow: var(--popover-shadow);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-body);
@@ -4228,15 +4228,15 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
 
 .toast {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-4);
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sharp);
   border: 1px solid var(--color-border-strong);
   background: var(--toast-bg);
   color: var(--toast-fg);
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .toast.success {
@@ -5913,7 +5913,20 @@ body[data-preview-mode="mobile"] .preview-mode-button {
 .toast > div { min-width: 0; overflow-wrap: anywhere; }
 .banner-dismiss,
 .toast button { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.toast button {
+  font: inherit;
+  align-items: center;
+  padding-top: 0;
+  min-width: 32px;
+  min-height: 32px;
+}
 .status-banner .banner-dismiss {
+  align-self: center;
+}
+.status-banner--multiline {
+  align-items: flex-start;
+}
+.status-banner--multiline .banner-dismiss {
   align-self: start;
   align-items: flex-start;
   justify-content: flex-end;
@@ -6152,7 +6165,7 @@ body[data-preview-mode="mobile"] .preview-mode-button {
 .ink-filter-sheet-sandbox__footer .primary-button { min-width: 7.5rem; }
   .file-upload--mobile .file-upload-row { align-items: stretch; flex-direction: column; }
   .file-upload--mobile .file-upload-row .secondary-button { width: 100%; }
-  .status-banner { align-items: flex-start; }
+  .toast button { min-width: 44px; min-height: 44px; }
 }
 
 @media (max-width: 479px) {
