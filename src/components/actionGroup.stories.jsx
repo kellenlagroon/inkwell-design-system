@@ -1,173 +1,166 @@
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ActionGroup, Inline } from "./layout";
 import { Button } from "./ui";
 
-export default {
-  title: "Layout/ActionGroup",
-  parameters: { layout: "fullscreen" },
+const VIEWPORTS = {
+  narrow420: { name: "420px — below sm", styles: { width: "420px", height: "760px" }, type: "mobile" },
+  narrow479: { name: "479px — just below sm", styles: { width: "479px", height: "760px" }, type: "mobile" },
+  wide520: { name: "520px — above sm", styles: { width: "520px", height: "760px" }, type: "tablet" },
+  wide900: { name: "900px — wide", styles: { width: "900px", height: "760px" }, type: "desktop" },
 };
 
-/**
- * Renders children inside a real iframe of a fixed width.
- *
- * ActionGroup's stacking is driven by a viewport media query, so a narrow *div*
- * on a wide screen would not stack. An iframe gives the content its own viewport,
- * which lets both widths sit side by side on one page — no viewport toolbar
- * needed, and nothing locked.
- */
-function Viewport({ width, height = 150, children }) {
-  const frameRef = useRef(null);
-  const [body, setBody] = useState(null);
+export default {
+  title: "Layout/ActionGroup",
+  parameters: {
+    layout: "fullscreen",
+    viewport: { options: VIEWPORTS },
+  },
+};
 
-  useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) return undefined;
+/** Live width readout, so the difference is legible as numbers, not just shape. */
+function Measured({ label, children }) {
+  const ref = useRef(null);
+  const [widths, setWidths] = useState([]);
+  const [stacked, setStacked] = useState(false);
 
-    const sync = () => {
-      const doc = frame.contentDocument;
-      if (!doc) return;
-      doc.head.innerHTML = "";
-      // Copy the preview's stylesheets so tokens and component CSS apply inside.
-      document.querySelectorAll('style, link[rel="stylesheet"]').forEach((node) => {
-        doc.head.appendChild(node.cloneNode(true));
-      });
-      doc.documentElement.dataset.theme = document.documentElement.dataset.theme || "dark";
-      doc.body.style.margin = "0";
-      doc.body.className = "inkwell-page";
-      setBody(doc.body);
+  useLayoutEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+    const measure = () => {
+      const group = node.querySelector(".ink-inline");
+      const buttons = [...node.querySelectorAll("button")];
+      setWidths(buttons.map((b) => Math.round(b.getBoundingClientRect().width)));
+      setStacked(group ? getComputedStyle(group).flexDirection === "column" : false);
     };
-
-    sync();
-    frame.addEventListener("load", sync);
-    // Keep the iframe in step with the theme toolbar and with Vite HMR style updates.
-    const observer = new MutationObserver(sync);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    observer.observe(document.head, { childList: true });
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    observer.observe(document.documentElement);
+    window.addEventListener("resize", measure);
     return () => {
-      frame.removeEventListener("load", sync);
       observer.disconnect();
+      window.removeEventListener("resize", measure);
     };
   }, []);
 
   return (
-    <iframe
-      ref={frameRef}
-      title={`${width}px viewport`}
-      style={{
-        width,
-        height,
-        border: "1px dashed var(--color-border-default)",
-        borderRadius: "var(--radius-sharp)",
-        background: "var(--color-surface-raised)",
-        display: "block",
-      }}
-    >
-      {body ? createPortal(<div style={{ padding: 16 }}>{children}</div>, body) : null}
-    </iframe>
-  );
-}
-
-const Label = ({ children }) => (
-  <p
-    style={{
-      margin: 0,
-      fontSize: "0.72rem",
-      letterSpacing: "0.06em",
-      textTransform: "uppercase",
-      color: "var(--color-text-secondary)",
-    }}
-  >
-    {children}
-  </p>
-);
-
-const Note = ({ children }) => (
-  <p style={{ margin: 0, maxWidth: "64ch", color: "var(--color-text-secondary)", fontSize: "0.84rem", lineHeight: 1.55 }}>
-    {children}
-  </p>
-);
-
-const Actions = ({ Component, wrapped }) =>
-  wrapped ? (
-    <Component>
-      <span>
-        <Button variant="secondary">Cancel</Button>
-      </span>
-      <span>
-        <Button>Save changes</Button>
-      </span>
-    </Component>
-  ) : (
-    <Component>
-      <Button variant="secondary">Cancel</Button>
-      <Button>Save changes</Button>
-    </Component>
-  );
-
-/** Both components at 420px (stacked) and 900px (inline), side by side. */
-function Row({ title, wrapped }) {
-  return (
-    <div style={{ display: "grid", gap: "var(--space-3)" }}>
-      <Label>{title}</Label>
-      <div style={{ display: "flex", gap: "var(--space-4)", flexWrap: "wrap", alignItems: "flex-start" }}>
-        <div style={{ display: "grid", gap: "var(--space-2)" }}>
-          <Label>ActionGroup · 420px</Label>
-          <Viewport width={420}>
-            <Actions Component={ActionGroup} wrapped={wrapped} />
-          </Viewport>
-        </div>
-        <div style={{ display: "grid", gap: "var(--space-2)" }}>
-          <Label>Inline stackBelow=&quot;sm&quot; · 420px</Label>
-          <Viewport width={420}>
-            <Actions Component={(p) => <Inline stackBelow="sm" {...p} />} wrapped={wrapped} />
-          </Viewport>
-        </div>
+    <div style={{ display: "grid", gap: "var(--space-2)", minWidth: 0 }}>
+      <p
+        style={{
+          margin: 0,
+          fontSize: "0.72rem",
+          letterSpacing: "0.05em",
+          textTransform: "uppercase",
+          color: "var(--color-text-secondary)",
+        }}
+      >
+        {label}
+      </p>
+      <div
+        ref={ref}
+        style={{
+          padding: "var(--space-4)",
+          border: "1px dashed var(--color-border-default)",
+          borderRadius: "var(--radius-sharp)",
+          background: "var(--color-surface-raised)",
+        }}
+      >
+        {children}
       </div>
+      <p style={{ margin: 0, fontSize: "0.72rem", fontFamily: "ui-monospace, monospace", color: "var(--color-text-secondary)" }}>
+        {stacked ? "stacked" : "inline"} · buttons {widths.join(" × ") || "—"} px
+      </p>
     </div>
   );
 }
 
+function ViewportBadge() {
+  const [w, setW] = useState(typeof window === "undefined" ? 0 : window.innerWidth);
+  useEffect(() => {
+    const onResize = () => setW(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    const id = window.setInterval(onResize, 300);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.clearInterval(id);
+    };
+  }, []);
+  const stacking = w < 480;
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "var(--space-2)",
+        padding: "var(--space-2) var(--space-3)",
+        borderRadius: "var(--radius-sharp)",
+        background: stacking ? "var(--color-brand-soft)" : "var(--color-info-soft)",
+        color: "var(--color-text-primary)",
+        fontSize: "0.78rem",
+        fontFamily: "ui-monospace, monospace",
+      }}
+    >
+      viewport {w}px — {stacking ? "below 480px, both stack" : "above 480px, both inline"}
+    </div>
+  );
+}
+
+const Note = ({ children }) => (
+  <p style={{ margin: 0, maxWidth: "66ch", color: "var(--color-text-secondary)", fontSize: "0.84rem", lineHeight: 1.55 }}>
+    {children}
+  </p>
+);
+
+const Pair = ({ wrapped }) => {
+  const kids = wrapped
+    ? [
+        <span key="a"><Button variant="secondary">Cancel</Button></span>,
+        <span key="b"><Button>Save changes</Button></span>,
+      ]
+    : [
+        <Button key="a" variant="secondary">Cancel</Button>,
+        <Button key="b">Save changes</Button>,
+      ];
+  return (
+    <div style={{ display: "grid", gap: "var(--space-4)", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+      <Measured label="ActionGroup"><ActionGroup>{kids}</ActionGroup></Measured>
+      <Measured label={'Inline stackBelow="sm"'}><Inline stackBelow="sm">{kids}</Inline></Measured>
+    </div>
+  );
+};
+
+/**
+ * Responds to the Viewport toolbar. Presets either side of the 480px breakpoint
+ * are registered; the readout under each box reports the live measurement.
+ */
 export const ComparedWithInline = {
   name: "Compared with Inline",
   render: () => (
     <div style={{ padding: "var(--space-5)", display: "grid", gap: "var(--space-6)" }}>
-      <Note>
-        Each box below is a real 420px viewport, so both components stack here
-        regardless of your window size. Nothing to change in the toolbar.
-      </Note>
-
-      <Row title="1 · Buttons as direct children — identical" />
-
-      <Note>
-        Identical. Stacking already stretches direct children, so ActionGroup&apos;s
-        extra <code>width: 100%</code> rule changes nothing.
-      </Note>
-
-      <Row title="2 · Buttons wrapped in a span — the only difference" wrapped />
-
-      <Note>
-        This is the entire difference between the two components: when a button sits
-        inside another element, ActionGroup still forces it to full width and Inline
-        leaves it at its natural width.
-      </Note>
+      <div style={{ display: "grid", gap: "var(--space-3)", justifyItems: "start" }}>
+        <ViewportBadge />
+        <Note>
+          Use the <strong>Viewport</strong> toolbar above — the presets sit either side of the
+          480px breakpoint. Watch the numbers under each box, not just the shape.
+        </Note>
+      </div>
 
       <div style={{ display: "grid", gap: "var(--space-3)" }}>
-        <Label>3 · Above the breakpoint (900px) — all identical</Label>
-        <div style={{ display: "flex", gap: "var(--space-4)", flexWrap: "wrap", alignItems: "flex-start" }}>
-          <div style={{ display: "grid", gap: "var(--space-2)" }}>
-            <Label>ActionGroup · 900px</Label>
-            <Viewport width={900} height={110}>
-              <Actions Component={ActionGroup} />
-            </Viewport>
-          </div>
-          <div style={{ display: "grid", gap: "var(--space-2)" }}>
-            <Label>Inline · 900px</Label>
-            <Viewport width={900} height={110}>
-              <Actions Component={(p) => <Inline stackBelow="sm" {...p} />} />
-            </Viewport>
-          </div>
-        </div>
+        <Note>
+          <strong>1 · Buttons as direct children.</strong> These two stay identical at every
+          width. Stacking already stretches direct children, so ActionGroup&apos;s extra rule
+          changes nothing here.
+        </Note>
+        <Pair />
+      </div>
+
+      <div style={{ display: "grid", gap: "var(--space-3)" }}>
+        <Note>
+          <strong>2 · Buttons wrapped in a span.</strong> Below 480px these diverge — and this
+          is the only case where they do. ActionGroup still forces full width; Inline leaves the
+          buttons at their natural size.
+        </Note>
+        <Pair wrapped />
       </div>
     </div>
   ),
@@ -178,22 +171,24 @@ export const StackBelowOptions = {
   name: "stackBelow options",
   render: () => (
     <div style={{ padding: "var(--space-5)", display: "grid", gap: "var(--space-5)" }}>
-      <Note>
-        <code>stackBelow</code> picks the breakpoint, or <code>&quot;never&quot;</code> to stay
-        horizontal at every width. <code>Inline</code> has no equivalent of{" "}
-        <code>&quot;never&quot;</code>. Each box is a 420px viewport.
-      </Note>
-      {["sm", "md", "never"].map((value) => (
-        <div key={value} style={{ display: "grid", gap: "var(--space-2)" }}>
-          <Label>stackBelow=&quot;{value}&quot;</Label>
-          <Viewport width={420}>
+      <div style={{ display: "grid", gap: "var(--space-3)", justifyItems: "start" }}>
+        <ViewportBadge />
+        <Note>
+          <code>stackBelow</code> picks the breakpoint, or <code>&quot;never&quot;</code> to stay
+          horizontal at every width. <code>Inline</code> has no equivalent of{" "}
+          <code>&quot;never&quot;</code>. Narrow the viewport below 480px to separate them.
+        </Note>
+      </div>
+      <div style={{ display: "grid", gap: "var(--space-4)", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+        {["sm", "md", "never"].map((value) => (
+          <Measured key={value} label={`stackBelow="${value}"`}>
             <ActionGroup stackBelow={value}>
               <Button variant="secondary">Cancel</Button>
               <Button>Save changes</Button>
             </ActionGroup>
-          </Viewport>
-        </div>
-      ))}
+          </Measured>
+        ))}
+      </div>
     </div>
   ),
 };
