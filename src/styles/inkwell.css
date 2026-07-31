@@ -1,6 +1,30 @@
 /* Design tokens are generated into tokens.css from tokens/inkwell.tokens.json.
    tokens.css is imported before this file (see .storybook/preview.jsx). Run: npm run tokens */
 
+/* ---------------------------------------------------------------------------
+   Cascade layers.
+
+   Everything Inkwell ships lives inside a layer, and UNLAYERED CSS BEATS ALL
+   LAYERED CSS regardless of specificity. That is the point: a consumer's own
+   stylesheet overrides Inkwell by default, with no specificity war and no
+   !important. It also means a consumer who organises their own CSS into layers
+   is no longer beaten by ours — which is what happened while this file was
+   unlayered.
+
+   Names are namespaced under `inkwell` so they cannot collide with a layer the
+   consuming app happens to call "base" or "components". Consumers can position
+   the whole system in their own order with `@layer inkwell`, or import it into
+   a layer of their choosing:
+
+     @layer reset, vendor, app;
+     @import url("@lagroon/inkwell-design-system/styles.css") layer(vendor);
+
+   Rules below are NOT re-indented for the wrapper — the diff would be the whole
+   file for no behavioural gain.
+   --------------------------------------------------------------------------- */
+@layer inkwell.base, inkwell.components;
+
+@layer inkwell.base {
 /* border-box is kept global: every component's sizing assumes it, and it is the
    one reset that virtually every host app already applies. */
 *,
@@ -20,6 +44,9 @@
   color: var(--color-text-primary);
   font-family: "Source Sans 3", sans-serif;
 }
+}
+
+@layer inkwell.components {
 
 body[data-preview-mode="tablet"],
 body[data-preview-mode="mobile"] {
@@ -3764,4 +3791,5 @@ a.ink-pagination-action[aria-disabled="true"] {
   .field-group--collapse-sm { grid-template-columns: minmax(0, 1fr); }
   .ink-heading--xl { font-size: var(--font-size-2xl, 1.75rem); }
   .ink-heading--lg { font-size: var(--font-size-xl); }
+}
 }

@@ -1,0 +1,78 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Overriding Inkwell" />
+
+# Overriding Inkwell
+
+Everything Inkwell ships lives inside a **cascade layer**. That one detail is
+what makes the system straightforward to override, so it is worth understanding.
+
+## The rule
+
+**Unlayered CSS beats layered CSS, whatever the specificity.**
+
+Inkwell is layered. Your application CSS, if you write it normally, is not. So
+your rules win by default:
+
+```css
+/* Your app. One class. No !important. Beats Inkwell. */
+.primary-button { border-radius: 999px; }
+.card { padding: 40px; }
+```
+
+You do not need to out-specify the design system, and you should not need
+`!important` to restyle a component. If you find yourself reaching for either,
+something else is wrong — say so rather than escalating.
+
+## If your app uses layers too
+
+Layer order is decided by first declaration, and Inkwell declares its own before
+any of your rules load. Position it explicitly in your own order:
+
+```css
+@layer reset, vendor, app;
+@import url("@lagroon/inkwell-design-system/styles.css") layer(vendor);
+```
+
+Anything in your `app` layer now beats Inkwell, and your `reset` layer loses to
+it — which is usually what you want from a reset.
+
+Without the explicit import, Inkwell's layers still sort before yours as long as
+your layers are declared after its stylesheet loads.
+
+## The layers
+
+| Layer | Holds |
+|---|---|
+| `inkwell.tokens` | the generated custom properties, both themes |
+| `inkwell.base` | `box-sizing`, and the opt-in `.inkwell-page` canvas |
+| `inkwell.components` | every component rule |
+
+They are namespaced so they cannot collide with a layer your app happens to call
+`base` or `components`. You can also address the whole system at once with
+`@layer inkwell`.
+
+## Theming
+
+Overriding a token is the intended way to re-skin the system, and it works from
+plain CSS or from inside your own layer:
+
+```css
+:root { --color-brand: rebeccapurple; }
+```
+
+Prefer this over restyling components one by one — a token change reaches every
+component that uses it, including ones you have not adopted yet. See
+[Using Tokens In Code](?path=/docs/tokens-using-in-code--docs).
+
+## The page canvas is opt-in
+
+Inkwell does not style your `<body>`. To adopt the Inkwell background, text
+color, and font, put `.inkwell-page` on your app root:
+
+```html
+<body class="inkwell-page">
+```
+
+Leave it off and only the components you use are styled — the rest of your page
+is untouched.

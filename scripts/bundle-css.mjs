@@ -6,7 +6,8 @@ import { resolve } from "node:path";
  * consumers import once: `import "inkwell/styles.css"`.
  *
  * Order matters: generated tokens first (they define the custom properties),
- * then the component/base styles that consume them.
+ * then the component/base styles that consume them. tokens.css also declares the
+ * cascade-layer order for the whole system, so it must stay first.
 
  */
 const root = resolve(process.cwd());

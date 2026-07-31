@@ -1,5 +1,8 @@
 /* Generated from tokens/inkwell.tokens.json — do not edit by hand. Run: npm run tokens */
 
+@layer inkwell.tokens, inkwell.base, inkwell.components;
+
+@layer inkwell.tokens {
 :root {
   /* Ink scale — dark backgrounds and surfaces */
   --ink-950: #040404;
@@ -402,4 +405,5 @@
   --danger: var(--color-danger);
   --focus-ring: var(--color-focus-ring);
   --hover-surface: var(--color-hover-surface);
+}
 }
