@@ -95,3 +95,32 @@ describe("Table", () => {
     expect(getByRole("table").style.getPropertyValue("--ink-table-header-background")).toBe("rebeccapurple");
   });
 });
+
+describe("Table scroll container", () => {
+  it("wraps the table in a focusable horizontal scroll container", () => {
+    const { container } = render(
+      <Table columns={COLUMNS} data={ROWS} getRowKey={(r) => r.id} />,
+    );
+    const scroller = container.querySelector(".ink-table-scroll")!;
+    expect(scroller).toBeTruthy();
+    expect(scroller.getAttribute("tabindex")).toBe("0");
+    expect(scroller.querySelector("table")).toBeTruthy();
+    // No name available, so no region role (a nameless region is invalid).
+    expect(scroller.getAttribute("role")).toBeNull();
+  });
+
+  it("names the scroll region from the caption, or from scrollAreaLabel", () => {
+    const { container, rerender } = render(
+      <Table columns={COLUMNS} data={ROWS} getRowKey={(r) => r.id} caption="Team roster" />,
+    );
+    let scroller = container.querySelector(".ink-table-scroll")!;
+    expect(scroller.getAttribute("role")).toBe("region");
+    expect(scroller.getAttribute("aria-label")).toBe("Team roster");
+
+    rerender(
+      <Table columns={COLUMNS} data={ROWS} getRowKey={(r) => r.id} scrollAreaLabel="Results" />,
+    );
+    scroller = container.querySelector(".ink-table-scroll")!;
+    expect(scroller.getAttribute("aria-label")).toBe("Results");
+  });
+});

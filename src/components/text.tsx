@@ -10,12 +10,17 @@ export interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
   tone?: TextTone;
   size?: TextSize;
   clamp?: 1 | 2 | 3;
+  /**
+   * `anywhere` breaks mid-word rather than overflowing. Use it for
+   * user-generated strings with no break opportunities — emails, URLs, ids.
+   * Defaults to `normal`, matching a plain paragraph.
+   */
   wrap?: "normal" | "anywhere";
   truncate?: boolean;
   children?: ReactNode;
 }
 
-export function Text({ as: Component = "p", tone = "primary", size = "md", clamp, wrap = "anywhere", truncate = false, className = "", children, ...props }: TextProps) {
+export function Text({ as: Component = "p", tone = "primary", size = "md", clamp, wrap = "normal", truncate = false, className = "", children, ...props }: TextProps) {
   const classes = [
     "ink-text",
     tone !== "primary" ? `ink-text--${tone}` : "",

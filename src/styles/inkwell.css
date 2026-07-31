@@ -295,6 +295,7 @@ body[data-preview-mode="mobile"] .app-header {
 
 .badge--danger {
   background: var(--color-danger);
+  color: var(--badge-danger-fg);
 }
 
 .badge--dot {
@@ -692,6 +693,19 @@ body[data-preview-mode="mobile"] .app-header {
 
 /* Table: semantic <table> primitive with sortable headers, sticky header, row
    hover, and density presets. Namespaced .ink-table (generic name). */
+/* Scroll container for Table. A wide table has no intrinsic max width, so it
+   scrolls within this box instead of widening the page. */
+.ink-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.ink-table-scroll:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
+
 .ink-table {
   --ink-table-color: var(--text);
   --ink-table-caption-color: var(--muted);
@@ -1143,10 +1157,17 @@ body[data-preview-mode="mobile"] .app-header {
   cursor: pointer;
 }
 
-.ink-popover-item:hover,
+.ink-popover-item:hover {
+  background: var(--color-overlay-strong);
+}
+
+/* Keyboard focus needs its own indicator. The hover fill alone is a ~1.1:1
+   change against the popover surface, so a menu driven entirely by arrow keys
+   gave no visible sign of where focus was. */
 .ink-popover-item:focus-visible {
   background: var(--color-overlay-strong);
-  outline: none;
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
 }
 
 .ink-popover-item-icon {
@@ -1776,6 +1797,11 @@ select option {
   transition: background 100ms ease;
 }
 .split-dropdown-item:hover { background: var(--menu-item-bg-hover); }
+.split-dropdown-item:focus-visible {
+  background: var(--menu-item-bg-hover);
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
 .split-dropdown-icon {
   width: 30px; height: 30px; flex-shrink: 0; margin-top: 1px;
   border-radius: var(--radius-sharp);
@@ -2367,7 +2393,7 @@ input[type="search"].input--lg {
 .file-upload-clear:focus-visible,
 .file-upload-remove:hover,
 .file-upload-remove:focus-visible {
-  background: var(--color-surface-hover);
+  background: var(--color-hover-surface);
   color: var(--color-text-primary);
 }
 
@@ -5985,13 +6011,21 @@ body[data-preview-mode="mobile"] .preview-mode-button {
   white-space: normal;
 }
 
+/* min-width: 0 keeps these from forcing a flex/grid parent wider than its
+   track. Word breaking is deliberately NOT applied here — it is opt-in via
+   Text's `wrap` prop (.ink-wrap-anywhere); a blanket rule here silently
+   overrode that prop and broke ordinary prose mid-word. */
 .ink-text,
 .ink-heading,
 .ink-link,
+.ink-rich-text { min-width: 0; }
+
+/* Rich text is consumer-supplied HTML that can contain unbroken URLs and
+   tokens, so it keeps the aggressive breaking. */
 .ink-rich-text,
 .ink-rich-text a,
 .ink-rich-text code,
-.ink-rich-text pre { min-width: 0; overflow-wrap: anywhere; word-break: break-word; }
+.ink-rich-text pre { overflow-wrap: anywhere; word-break: break-word; }
 .ink-rich-text pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; }
 .ink-rich-text img,
 .ink-rich-text video,
