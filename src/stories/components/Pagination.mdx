@@ -55,3 +55,7 @@ its visual treatment as final.
 - The wrapper is a labelled `nav`.
 - Current page uses `aria-current="page"`.
 - Disabled previous/next controls expose disabled state.
+- The result summary doubles as a polite live region, so a page change is announced
+  at every breakpoint. It stays in the accessibility tree even when visually hidden.
+- The page-size control is labelled by the visible `pageSizeLabel` text rather than a
+  separate hidden string, so what is announced matches what is on screen.

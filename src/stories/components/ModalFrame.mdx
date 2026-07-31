@@ -65,4 +65,8 @@ Use the settings variant for taller, denser configuration surfaces that need mor
 - `Escape` calls `onClose`, as does clicking the backdrop or the close button.
 - Background scroll is locked while the dialog is open.
 - On close, focus returns to the element that was focused before opening.
-- The dialog is `role="dialog"` with `aria-modal`; pass `titleId` (applied to the heading) so `aria-labelledby` names the dialog, and `describedBy` for supporting copy.
+- The dialog is `role="dialog"` with `aria-modal` while open, and drops both when closed.
+- `title` is wired to `aria-labelledby` automatically. Pass `titleId` only to point at a heading you render yourself, or `ariaLabel` for a dialog with no visible title.
+- While open, sibling content is hidden from assistive tech so the virtual cursor cannot leave the dialog.
+- `showCloseButton={false}` omits the header close control; `closeLabel` renames it.
+- `describedBy` associates supporting copy.

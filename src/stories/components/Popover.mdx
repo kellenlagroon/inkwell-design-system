@@ -56,7 +56,10 @@ Set `mobileSheet` when a compact popover should become a focus-contained bottom 
 ## Keyboard and accessibility
 
 - Escape closes the popover and returns focus to the trigger; outside pointer interaction closes it too.
-- Menu mode exposes `role="menu"`; Arrow keys, Home, and End move between its items, and Tab closes it.
+- Menu mode exposes `role="menu"`; Arrow keys, Home, and End move between its items, and Tab closes it. The focused item takes a visible ring distinct from the hover fill.
 - Mobile sheet mode uses a labelled dialog, a backdrop, initial focus, and a contained Tab sequence.
 
-`PopoverMenu` remains exported as a deprecated compatibility wrapper. New work should use `Popover`.
+## Styling hooks
+
+- `panelClassName` adds classes to the popover surface; `rootClassName` targets the positioned trigger wrapper.
+- `aria-controls` is set on the trigger only while the popover is open, since the panel is not in the DOM otherwise.

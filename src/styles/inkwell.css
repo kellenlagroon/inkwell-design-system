@@ -1063,7 +1063,7 @@ select option {
   font-weight: var(--font-weight-bold);
   text-decoration: none;
   cursor: pointer;
-  transition: color 200ms ease, background 200ms ease;
+  transition: color 200ms ease, background-color 200ms ease;
 }
 
 .ink-nav--vertical .ink-nav-item {
@@ -1381,7 +1381,7 @@ select option {
   font-weight: var(--font-weight-bold); line-height: 1;
   border: 0; border-radius: var(--radius-sharp) 0 0 var(--radius-sharp);
   cursor: pointer; white-space: nowrap;
-  transition: background 120ms ease;
+  transition: background-color 120ms ease;
 }
 .split-button-primary:hover { background: var(--button-primary-bg-hover); }
 .split-button-divider {
@@ -1394,7 +1394,7 @@ select option {
   background: var(--button-primary-bg); color: var(--button-primary-fg);
   border: 0; border-radius: 0 var(--radius-sharp) var(--radius-sharp) 0;
   cursor: pointer; font-size: 15px;
-  transition: background 120ms ease;
+  transition: background-color 120ms ease;
 }
 .split-button-chevron:hover { background: var(--button-primary-bg-hover); }
 .split-button-chevron svg { transition: transform 150ms ease; width: 20px; height: 20px; }
@@ -1405,12 +1405,15 @@ select option {
   display: flex;
   align-self: stretch;
 }
+/* No background transition here. The menu mounts with focus already on the
+   first item, so a transition on this element starts from `transparent` and
+   never advances — the focused item rendered with no fill at all. Matches
+   .ink-popover-item, which is untransitioned for the same reason. */
 .split-dropdown-item {
   display: flex; align-items: flex-start; gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   background: transparent; border: 0; border-radius: var(--radius-sharp);
   cursor: pointer; text-align: left; width: 100%;
-  transition: background 100ms ease;
 }
 .split-dropdown-item:hover { background: var(--menu-item-bg-hover); }
 .split-dropdown-item:focus-visible {
@@ -2025,7 +2028,7 @@ input[type="search"].input--lg {
   color: var(--color-text-primary);
   font: inherit; font-size: var(--font-size-base);
   cursor: pointer; text-align: left;
-  transition: border-color 100ms ease, background 100ms ease, box-shadow 100ms ease;
+  transition: border-color 100ms ease, background-color 100ms ease, box-shadow 100ms ease;
 }
 .cselect-trigger:hover {
   border-color: var(--control-border-hover);
@@ -2073,7 +2076,7 @@ input[type="search"].input--lg {
   color: var(--color-text-primary);
   font: inherit; font-size: var(--font-size-base);
   cursor: pointer; text-align: left; width: 100%;
-  transition: background 80ms ease;
+  transition: background-color 80ms ease;
 }
 .cselect-option:not(.cselect-option--disabled):hover { background: var(--menu-item-bg-hover); }
 .cselect-option.selected { color: var(--color-text-strong); }
@@ -2225,7 +2228,7 @@ input[type="search"].input--lg {
   background: transparent; border: 0; border-radius: var(--radius-sharp);
   color: var(--muted);
   cursor: pointer; flex-shrink: 0;
-  transition: background 100ms ease, color 100ms ease;
+  transition: background-color 100ms ease, color 100ms ease;
 }
 .icon-btn:hover {
   background: var(--color-overlay-strong);
