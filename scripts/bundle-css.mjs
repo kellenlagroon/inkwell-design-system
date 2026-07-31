@@ -7,12 +7,7 @@ import { resolve } from "node:path";
  *
  * Order matters: generated tokens first (they define the custom properties),
  * then the component/base styles that consume them.
- *
- * src/styles/seed-app.css is deliberately NOT included. It holds styles for the
- * seed application's raw markup (bare input/select/textarea/label rules, the
- * preview chrome, story sandboxes) which Storybook needs but consumers must not
- * receive — those element selectors would restyle every native control in the
- * host app.
+
  */
 const root = resolve(process.cwd());
 const inputs = [

@@ -1,7 +1,5 @@
 import "../src/styles/tokens.css";
 import "../src/styles/inkwell.css";
-// Seed-app markup used by some stories/docs. Not published — see seed-app.css.
-import "../src/styles/seed-app.css";
 import "./docs-theme.css";
 
 /** @type { import('@storybook/react-vite').Preview } */

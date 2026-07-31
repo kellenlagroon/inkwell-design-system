@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui";
+import { FormField, TextInput } from "./forms";
+import { Stack } from "./layout";
 import { ModalFrame } from "./modalFrame";
 
 export default {
@@ -30,12 +32,13 @@ export const ModalFrameOpen = {
   name: "Default",
   render: () => (
     <ModalTrigger triggerLabel="Create a review cycle" title="Create a review cycle" id="storybookModal">
-      <form className="stacked-form" onSubmit={(e) => e.preventDefault()}>
-        <label>
-          Cycle name
-          <input type="text" placeholder="Quarterly Planning Review" />
-        </label>
-        <Button type="submit">Create round</Button>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <Stack>
+          <FormField label="Cycle name">
+            <TextInput placeholder="Quarterly Planning Review" />
+          </FormField>
+          <Button type="submit">Create round</Button>
+        </Stack>
       </form>
     </ModalTrigger>
   ),
