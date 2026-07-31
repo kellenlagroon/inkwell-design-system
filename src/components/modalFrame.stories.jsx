@@ -17,7 +17,7 @@ export const ModalFramePlayground = {
     size: {
       control: { type: "select" },
       name: "Size",
-      options: ["default", "compact", "picker", "settings"],
+      options: ["default", "compact", "settings"],
     },
   },
   render: ({ title, size }) => {

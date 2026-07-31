@@ -67,6 +67,23 @@ surface rather than pushing them into a separate page.
 
 <Canvas of={SurfaceFeatures.EmptyStateDefault} sourceState="hidden" />
 
+## Structure primitives
+
+`Panel`, `SectionHeading`, and `EmptyState` ship alongside `Surface` and are
+documented here rather than as separate entries. All three accept `className`
+(appended, not replacing the base class) and spread any remaining props onto
+their root element.
+
+| Component | Element | Props |
+|---|---|---|
+| `Panel` | `<section>` | `children` |
+| `SectionHeading` | `<div>` | `title`, `titleId`, `eyebrow`, `copy`, `compact`, `children` (trailing actions) |
+| `EmptyState` | `<div>` | `children` |
+
+`SectionHeading`'s `titleId` is applied to the rendered `<h2>`, which is how
+`ModalFrame` resolves `aria-labelledby`. Set it when something outside the
+heading needs to reference it.
+
 ## Usage guidance
 
 - Do use `Card` for repeated content items and `Panel` for a page's main

@@ -126,10 +126,12 @@ body[data-preview-mode="mobile"] {
 
 .badge--info {
   background: var(--color-info, var(--color-brand));
+  color: var(--badge-info-fg);
 }
 
 .badge--success {
   background: var(--color-success, var(--color-brand));
+  color: var(--badge-success-fg);
 }
 
 .badge--warning {
@@ -3454,11 +3456,6 @@ a.ink-pagination-action[aria-disabled="true"] {
   .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-item {
     padding: var(--space-3) var(--space-4);
   }
-}
-
-@keyframes login-float {
-  0%, 100% { transform: rotate(var(--item-tilt, 0deg)) translateY(0); }
-  50% { transform: rotate(var(--item-tilt, 0deg)) translateY(-14px); }
 }
 
 /* Production mobile-readiness layer. These rules intentionally live after the

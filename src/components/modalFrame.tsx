@@ -4,12 +4,11 @@ import { Button } from "./button";
 import { IconClose } from "./icons";
 import { SectionHeading } from "./ui";
 
-export type ModalSize = "default" | "compact" | "picker" | "settings";
+export type ModalSize = "default" | "compact" | "settings";
 
 const MODAL_SIZE_CLASSES: Record<ModalSize, string> = {
   default: "modal-card panel modal-panel modal-panel--wide",
   compact: "modal-card panel modal-panel modal-panel--compact",
-  picker: "modal-card panel modal-panel modal-panel--compact",
   settings: "modal-card panel modal-panel--settings",
 };
 

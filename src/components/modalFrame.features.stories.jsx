@@ -54,15 +54,6 @@ export const ModalFrameCompact = {
   ),
 };
 
-export const ModalFramePicker = {
-  name: "Picker",
-  render: () => (
-    <ModalTrigger triggerLabel="Select an item" title="Select an item" size="picker" id="storybookPickerModal">
-      <p className="subtle">Picker modals share the compact sizing (app-specific bottom-sheet styling is not part of Inkwell).</p>
-    </ModalTrigger>
-  ),
-};
-
 export const ModalFrameSettings = {
   name: "Settings",
   render: () => (
