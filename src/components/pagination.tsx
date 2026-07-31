@@ -14,7 +14,12 @@ export interface PaginationProps {
   nextLabel?: string;
   "aria-label"?: string;
   className?: string;
-  /** Use the compact result-summary layout. Defaults to false. */
+  /**
+   * Compact layout: replaces the page-number list with a short summary.
+   * Defaults to `"auto"` — full numbers on wide screens, summary below 760px,
+   * where a full row of 44px tap targets cannot fit. `false` keeps the numbers
+   * at every width (they wrap onto multiple rows rather than overflow).
+   */
   compact?: boolean | "auto";
   /** Show a control for choosing how many results appear on each page. */
   showPageSizeSelector?: boolean;
@@ -62,7 +67,7 @@ export function Pagination({
   nextLabel = "Next",
   "aria-label": ariaLabel = "Pagination",
   className = "",
-  compact = false,
+  compact = "auto",
   showPageSizeSelector = false,
   pageSize,
   totalResults,

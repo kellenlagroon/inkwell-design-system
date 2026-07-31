@@ -3039,6 +3039,10 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   margin: 0;
   padding: 0;
   list-style: none;
+  /* Safety net for compact={false}: page numbers wrap onto another row rather
+     than forcing the page wider. .ink-pagination already wraps; without this the
+     inner list stays a single unbreakable row. */
+  flex-wrap: wrap;
 }
 
 .ink-pagination-item,
@@ -3625,6 +3629,11 @@ a.ink-pagination-action[aria-disabled="true"] {
     flex-direction: column-reverse;
     align-items: stretch;
     justify-content: flex-start;
+    /* column-reverse puts the primary on top but leaves tab order following the
+       DOM. reading-flow makes sequential focus follow visual order, which fixes
+       that. Progressive enhancement: unsupported browsers keep DOM order, which
+       is the previous behaviour, so nothing regresses. */
+    reading-flow: flex-visual;
   }
   .ink-action-group--stack-md > :is(button, a),
   .ink-action-group--stack-md > * > :is(button, a) { width: 100%; }
@@ -3744,6 +3753,11 @@ a.ink-pagination-action[aria-disabled="true"] {
     flex-direction: column-reverse;
     align-items: stretch;
     justify-content: flex-start;
+    /* column-reverse puts the primary on top but leaves tab order following the
+       DOM. reading-flow makes sequential focus follow visual order, which fixes
+       that. Progressive enhancement: unsupported browsers keep DOM order, which
+       is the previous behaviour, so nothing regresses. */
+    reading-flow: flex-visual;
   }
   .ink-action-group--stack-sm > :is(button, a),
   .ink-action-group--stack-sm > * > :is(button, a) { width: 100%; }
