@@ -1,0 +1,79 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ActionGroupStories from "../../components/actionGroup.stories.jsx";
+
+<Meta of={ActionGroupStories} name="Docs" />
+
+# ActionGroup
+
+A row of actions — for a form, a card, or a dialog — with Inkwell's action
+conventions built in. It is the one place those conventions live, so changing how
+action rows behave is a single edit rather than a search for every `Inline` that
+happens to contain buttons.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## The one rule
+
+**Write the primary action last.**
+
+```jsx
+<ActionGroup>
+  <Button variant="secondary">Cancel</Button>
+  <Button>Save changes</Button>
+</ActionGroup>
+```
+
+From that single markup order, ActionGroup places it:
+
+| | Primary sits |
+|---|---|
+| Wide screens | rightmost |
+| Below the breakpoint | topmost, full width |
+
+Don't reorder your markup per breakpoint — the flip is handled for you.
+
+## When to use
+
+- Use `ActionGroup` whenever the children are the actions for a form, card, or dialog.
+- Use `Inline` for any other horizontal grouping — chips, metadata, icons alongside text.
+- Don't hand-roll a flex row of buttons: `Button` is `inline-flex` with no margin, so
+  bare buttons touch, and their spacing ends up depending on source whitespace.
+
+## Conventions
+
+<Canvas of={ActionGroupStories.Conventions} sourceState="hidden" />
+
+**Dialog footers right-align.** An ActionGroup inside a modal card or drawer footer
+picks that up with no configuration. Setting `align` explicitly opts out.
+
+## API
+
+<ArgTypes of={ActionGroupStories} />
+
+`align` is deliberately optional rather than defaulting to `"start"`. Left unset it
+resolves contextually — start normally, end inside a dialog footer. An explicit
+`align="start"` stays start everywhere.
+
+## Compared with Inline
+
+<Canvas of={ActionGroupStories.ComparedWithInline} sourceState="hidden" />
+
+## Breakpoint options
+
+<Canvas of={ActionGroupStories.StackBelowOptions} sourceState="hidden" />
+
+`stackBelow` accepts `"sm"` (default, 480px), `"md"` (760px), or `"never"` to stay
+horizontal at every width. `Inline` has no equivalent of `"never"`.
+
+## Keyboard and accessibility
+
+- The stacked flip is CSS-only (`flex-direction: column-reverse`), so the DOM order
+  you author is preserved — nothing is reordered in markup.
+- **Known trade-off:** because of that, tab order and visual order disagree while
+  stacked. The primary reads topmost but is still focused last, since it is last in
+  the DOM. This is the usual cost of the primary-right / primary-top convention, and
+  it is why the rule is "primary last" rather than a per-breakpoint reorder. Worth a
+  proper decision if action rows ever grow past two or three items — see
+  [Component status](?path=/docs/component-status-status--docs).
+- `ActionGroup` is a layout wrapper and adds no roles of its own; the buttons inside
+  carry their own semantics.

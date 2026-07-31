@@ -185,10 +185,11 @@ export const LoadingAndDisabledActions = {
         <Card>
           <Stack gap="lg">
             <Heading level={1} size="md">Loading and disabled actions</Heading>
+            {/* Primary last, per the ActionGroup convention. */}
             <ActionGroup>
-              <Button loading loadingLabel="Saving changes">Save changes</Button>
               <Button variant="secondary" disabled>Unavailable action</Button>
               <ButtonLink href="#mobile-readiness" disabled>Disabled link action</ButtonLink>
+              <Button loading loadingLabel="Saving changes">Save changes</Button>
             </ActionGroup>
           </Stack>
         </Card>

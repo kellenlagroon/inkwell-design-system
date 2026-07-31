@@ -75,4 +75,34 @@ describe("ActionGroup", () => {
     const el = rootOf(render(<ActionGroup>x</ActionGroup>));
     expect(el.className).toContain("ink-action-group--stack-sm");
   });
+
+  it("opts out of stacking with stackBelow=never", () => {
+    const el = rootOf(render(<ActionGroup stackBelow="never">x</ActionGroup>));
+    expect(el.className).not.toContain("ink-action-group--stack");
+  });
+
+  it("marks alignment as auto when unset, so a dialog footer can supply the default", () => {
+    const el = rootOf(render(<ActionGroup>x</ActionGroup>));
+    expect(el.className).toContain("ink-action-group--align-auto");
+  });
+
+  it("keeps an explicit alignment distinct from the auto default", () => {
+    for (const align of ["start", "end", "between"] as const) {
+      const el = rootOf(render(<ActionGroup align={align}>x</ActionGroup>));
+      expect(el.className).toContain(`ink-action-group--align-${align}`);
+      expect(el.className).not.toContain("ink-action-group--align-auto");
+    }
+  });
+
+  it("preserves author order — the primary action is written last", () => {
+    const { container } = render(
+      <ActionGroup>
+        <button>Cancel</button>
+        <button>Save</button>
+      </ActionGroup>,
+    );
+    // DOM order stays as authored; the stacked flip is CSS-only (column-reverse),
+    // so nothing here should be reordering children.
+    expect([...container.querySelectorAll("button")].map((b) => b.textContent)).toEqual(["Cancel", "Save"]);
+  });
 });

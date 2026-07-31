@@ -1501,6 +1501,20 @@ select option {
   flex-wrap: var(--ink-inline-wrap, wrap);
 }
 
+/* ActionGroup — a row of actions with Inkwell's conventions baked in. Author the
+   primary action LAST: it sits rightmost on wide screens, and column-reverse
+   lifts it to the top once the row stacks. */
+.ink-action-group--align-auto,
+.ink-action-group--align-start { justify-content: flex-start; }
+.ink-action-group--align-end { justify-content: flex-end; }
+.ink-action-group--align-between { justify-content: space-between; }
+
+/* Dialog and drawer footers right-align their actions by convention, so an
+   ActionGroup dropped into one needs no configuration. Only `auto` (no `align`
+   prop) is redirected — an explicit align="start" still wins. */
+.ink-drawer-footer .ink-action-group--align-auto,
+.modal-card .ink-action-group--align-auto { justify-content: flex-end; }
+
 .ink-grid {
   display: grid;
   gap: var(--ink-grid-gap, var(--space-3));
@@ -3603,8 +3617,15 @@ a.ink-pagination-action[aria-disabled="true"] {
   .ink-padding--lg,
   .card--padding-lg { padding: var(--space-4); }
   .ink-inline--stack-md,
-  .ink-action-group--stack-md,
   .field-group--collapse-md { flex-direction: column; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+  .ink-action-group--stack-md,
+  .ink-action-group--stack-md.ink-action-group--align-auto,
+  .ink-action-group--stack-md.ink-action-group--align-end,
+  .ink-action-group--stack-md.ink-action-group--align-between {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
   .ink-action-group--stack-md > :is(button, a),
   .ink-action-group--stack-md > * > :is(button, a) { width: 100%; }
   /* Phone-only: let a wide tab bar scroll sideways and cap label width, rather
@@ -3715,8 +3736,15 @@ a.ink-pagination-action[aria-disabled="true"] {
 }
 
 @media (max-width: 479px) {
-  .ink-inline--stack-sm,
-  .ink-action-group--stack-sm { flex-direction: column; align-items: stretch; }
+  .ink-inline--stack-sm { flex-direction: column; align-items: stretch; }
+  .ink-action-group--stack-sm,
+  .ink-action-group--stack-sm.ink-action-group--align-auto,
+  .ink-action-group--stack-sm.ink-action-group--align-end,
+  .ink-action-group--stack-sm.ink-action-group--align-between {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
   .ink-action-group--stack-sm > :is(button, a),
   .ink-action-group--stack-sm > * > :is(button, a) { width: 100%; }
   .field-group--collapse-sm { grid-template-columns: minmax(0, 1fr); }

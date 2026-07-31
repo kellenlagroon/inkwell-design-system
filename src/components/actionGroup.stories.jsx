@@ -22,6 +22,7 @@ function Measured({ label, children }) {
   const ref = useRef(null);
   const [widths, setWidths] = useState([]);
   const [stacked, setStacked] = useState(false);
+  const [order, setOrder] = useState([]);
 
   useLayoutEffect(() => {
     const node = ref.current;
@@ -30,7 +31,16 @@ function Measured({ label, children }) {
       const group = node.querySelector(".ink-inline");
       const buttons = [...node.querySelectorAll("button")];
       setWidths(buttons.map((b) => Math.round(b.getBoundingClientRect().width)));
-      setStacked(group ? getComputedStyle(group).flexDirection === "column" : false);
+      const dir = group ? getComputedStyle(group).flexDirection : "row";
+      setStacked(dir.startsWith("column"));
+      // Visual order (top-to-bottom, then left-to-right) — the whole point of the
+      // primary-last convention, and not visible from the DOM order alone.
+      const sorted = [...buttons].sort((a, b) => {
+        const ra = a.getBoundingClientRect();
+        const rb = b.getBoundingClientRect();
+        return ra.top - rb.top || ra.left - rb.left;
+      });
+      setOrder(sorted.map((b) => b.textContent));
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -68,7 +78,8 @@ function Measured({ label, children }) {
         {children}
       </div>
       <p style={{ margin: 0, fontSize: "0.72rem", fontFamily: "ui-monospace, monospace", color: "var(--color-text-secondary)" }}>
-        {stacked ? "stacked" : "inline"} · buttons {widths.join(" × ") || "—"} px
+        {stacked ? "stacked" : "inline"} · {widths.join(" × ") || "—"} px
+        {order.length ? " · order: " + order.join(" → ") : ""}
       </p>
     </div>
   );
@@ -161,6 +172,75 @@ export const ComparedWithInline = {
           buttons at their natural size.
         </Note>
         <Pair wrapped />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * The two conventions ActionGroup encodes. Author the primary action last in the
+ * markup; the component places it.
+ */
+export const Conventions = {
+  name: "Conventions",
+  render: () => (
+    <div style={{ padding: "var(--space-5)", display: "grid", gap: "var(--space-6)" }}>
+      <div style={{ display: "grid", gap: "var(--space-3)", justifyItems: "start" }}>
+        <ViewportBadge />
+        <Note>
+          Both rows below are authored the same way — <code>Cancel</code> then{" "}
+          <code>Save changes</code>, primary last. Cross 480px and watch the{" "}
+          <strong>order</strong> readout flip: primary is rightmost when inline, topmost
+          when stacked.
+        </Note>
+      </div>
+
+      <div style={{ display: "grid", gap: "var(--space-3)" }}>
+        <Note>
+          <strong>Primary placement.</strong> Right on desktop, top on mobile.
+        </Note>
+        <Measured label="ActionGroup — primary written last">
+          <ActionGroup>
+            <Button variant="secondary">Cancel</Button>
+            <Button>Save changes</Button>
+          </ActionGroup>
+        </Measured>
+      </div>
+
+      <div style={{ display: "grid", gap: "var(--space-3)" }}>
+        <Note>
+          <strong>Dialog footers right-align</strong> with no configuration — an
+          ActionGroup inside a modal card or drawer footer picks it up. Set{" "}
+          <code>align</code> explicitly to opt out.
+        </Note>
+        <div style={{ display: "grid", gap: "var(--space-4)", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          <Measured label="Inside a dialog footer (align unset)">
+            <div className="modal-card" style={{ padding: "var(--space-4)" }}>
+              <ActionGroup>
+                <Button variant="secondary">Cancel</Button>
+                <Button>Save changes</Button>
+              </ActionGroup>
+            </div>
+          </Measured>
+          <Measured label="Outside a dialog (align unset)">
+            <ActionGroup>
+              <Button variant="secondary">Cancel</Button>
+              <Button>Save changes</Button>
+            </ActionGroup>
+          </Measured>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: "var(--space-3)" }}>
+        <Note>
+          <strong>align=&quot;between&quot;</strong> separates a destructive action from the rest.
+        </Note>
+        <Measured label={'align="between"'}>
+          <ActionGroup align="between">
+            <Button variant="danger">Delete project</Button>
+            <Button>Save changes</Button>
+          </ActionGroup>
+        </Measured>
       </div>
     </div>
   ),
