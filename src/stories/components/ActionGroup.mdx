@@ -67,14 +67,11 @@ horizontal at every width. `Inline` has no equivalent of `"never"`.
 
 ## Keyboard and accessibility
 
-- The stacked flip is CSS-only (`flex-direction: column-reverse`), so the DOM order
-  you author is preserved — nothing is reordered in markup.
-- Sequential focus follows the *visual* order, not the DOM order, via
-  `reading-flow: flex-visual` on the stacked row. So when the primary moves to the
-  top it is also focused first. Verified with real Tab presses.
-- `reading-flow` is progressive enhancement. Where it isn't supported, focus falls
-  back to DOM order — the primary reads topmost but is focused last. That is the
-  usual cost of the primary-right / primary-top convention, and it is why the rule
-  is "primary last" rather than a per-breakpoint reorder.
+- Stacking is CSS-only, so the DOM order you author is preserved — nothing is
+  reordered in markup.
+- Where `reading-flow: flex-visual` is supported, sequential focus follows visual
+  order: the primary moves to the top and is focused first.
+- Where it isn't supported, ActionGroup keeps DOM and visual order together: the
+  primary remains last in the stacked row and is focused last.
 - `ActionGroup` is a layout wrapper and adds no roles of its own; the buttons inside
   carry their own semantics.

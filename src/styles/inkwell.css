@@ -48,32 +48,12 @@
 
 @layer inkwell.components {
 
-body[data-preview-mode="tablet"],
-body[data-preview-mode="mobile"] {
-  background:
-    radial-gradient(circle at top, rgba(111, 143, 181, 0.12), transparent 32%),
-    var(--color-bg-canvas-alt);
-}
-
-body[data-preview-mode="mobile"] {
-  font-size: var(--font-size-md);
-}
-
-.preview-mode-button.active {
-  background: var(--nav-active-bg);
-  color: var(--nav-active-fg);
-}
-
 .modal-host > .modal {
   pointer-events: auto;
 }
 
 .inline-actions,
-.card-actions,
-.workspace-meta,
-.ballot-meta,
-.results-meta,
-.danger-actions {
+.card-actions {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -996,7 +976,6 @@ body[data-preview-mode="mobile"] {
   line-height: var(--line-height-display);
 }
 
-.context-pill,
 .pill {
   display: inline-flex;
   align-items: center;
@@ -1007,11 +986,6 @@ body[data-preview-mode="mobile"] {
   background: var(--ink-pill-background, var(--pill-tone-background, var(--control-surface)));
   color: var(--ink-pill-foreground, var(--pill-tone-foreground, var(--color-text-secondary)));
   font-weight: var(--font-weight-bold);
-}
-
-select option {
-  background: var(--color-surface-active);
-  color: var(--color-text-primary);
 }
 
 /* Nav — product navigation with sliding indicator (horizontal / vertical). */
@@ -2159,12 +2133,6 @@ input[type="search"].input--lg {
   color: var(--color-text-primary);
 }
 
-.preview-mode-button:hover:not(.active) {
-  border-color: var(--control-border-hover);
-  background: var(--color-hover-surface);
-  color: var(--color-text-primary);
-}
-
 .ghost-button:hover {
   background: var(--color-hover-surface);
   color: var(--color-text-primary);
@@ -2183,10 +2151,6 @@ input[type="search"].input--lg {
 .split-button-chevron:disabled {
   opacity: 0.28;
   cursor: default;
-}
-
-.preview-mode-button.active:hover {
-  filter: brightness(0.96);
 }
 
 .selector-button.active strong {
@@ -2299,42 +2263,6 @@ input[type="search"].input--lg {
   flex-shrink: 0;
 }
 
-.top-gap {
-  margin-top: var(--space-6);
-}
-
-.league-selector-row.active {
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.admin-sidebar .top-gap {
-  margin-top: var(--space-2);
-}
-
-.admin-sidebar .secondary-button.full-width-button {
-  padding-block: var(--space-3);
-}
-
-.sidebar-demo-group .eyebrow {
-  margin-bottom: 0;
-}
-
-.admin-sidebar .stacked-form {
-  gap: var(--space-3);
-}
-
-.hidden {
-  display: none !important;
-}
-
-.view.active {
-  display: block;
-}
-
-.admin-shell.hidden {
-  display: none !important;
-}
-
 .status-banner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -2431,7 +2359,6 @@ input[type="search"].input--lg {
 .primary-button:focus-visible,
 .secondary-button:focus-visible,
 .ghost-button:focus-visible,
-.preview-mode-button:focus-visible,
 .inline-utility-button:focus-visible,
 .selector-button:focus-visible,
 .danger-button:focus-visible,
@@ -2616,116 +2543,6 @@ input[type="search"].input--lg {
 }
 
 /* Preview-only modal constraints */
-body[data-preview-mode="mobile"] .modal {
-  position: absolute;
-  inset: 12px 0 0;
-  display: flex;
-  align-items: flex-start;
-  padding: var(--space-11) 0 0;
-  --modal-shell-width: min(358px, calc(100% - 32px));
-  --modal-shell-max-height: calc(100% - 56px);
-  --modal-shell-padding: var(--space-3);
-  --modal-heading-gap: var(--space-3);
-  --modal-heading-margin: var(--space-3);
-  --modal-heading-compact-margin: var(--space-3);
-  --modal-eyebrow-margin: var(--space-2);
-  --modal-grid-gap: var(--space-3);
-  --modal-card-padding: var(--space-3);
-  --modal-label-gap: var(--space-2);
-  --modal-control-padding: var(--space-3) var(--space-3);
-}
-
-body[data-preview-mode="mobile"] #dangerModal .modal-card {
-  width: min(330px, calc(100% - 40px));
-  max-height: min(420px, calc(100% - 48px));
-  margin: auto;
-}
-
-body[data-preview-mode="mobile"] #roundModal .modal-card,
-body[data-preview-mode="mobile"] #teamModal .modal-card,
-body[data-preview-mode="mobile"] #ballotPickerModal .modal-card {
-  width: min(358px, calc(100% - 16px));
-  align-self: flex-end;
-  margin: 0 auto 0;
-  border-radius: var(--radius-sheet-top);
-}
-
-body[data-preview-mode="mobile"] #roundModal .modal-card,
-body[data-preview-mode="mobile"] #ballotPickerModal .modal-card {
-  max-height: min(82%, calc(100% - 56px));
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-
-body[data-preview-mode="mobile"] #teamModal .modal-card {
-  display: flex;
-  flex-direction: column;
-  max-height: min(84%, calc(100% - 52px));
-}
-
-body[data-preview-mode="mobile"] #settingsModal .wide-modal,
-body[data-preview-mode="mobile"] .modal-panel--settings {
-  --modal-wide-width: calc(100% - 8px);
-  height: calc(100% - 24px);
-  max-height: calc(100% - 24px);
-  display: flex;
-  flex-direction: column;
-}
-
-body[data-preview-mode="mobile"] #settingsModal .modal-card {
-  width: calc(100% - 8px);
-  max-height: calc(100% - 24px);
-  align-self: flex-end;
-  margin: 0 auto 0;
-  border-radius: var(--radius-sheet-top);
-}
-
-body[data-preview-mode="mobile"] #teamModalForm .primary-button {
-  margin-top: auto;
-}
-
-body[data-preview-mode="mobile"] .modal .section-heading {
-  position: relative;
-  align-items: flex-start;
-  padding-right: var(--space-7);
-}
-
-body[data-preview-mode="mobile"] .modal .section-heading h2 {
-  font-size: clamp(1.08rem, 4.8vw, 1.38rem);
-  line-height: var(--line-height-compact);
-  letter-spacing: 0.01em;
-  font-weight: var(--font-weight-semibold);
-}
-
-body[data-preview-mode="mobile"] .modal .dashboard-grid,
-body[data-preview-mode="mobile"] .modal .field-grid {
-  grid-template-columns: 1fr;
-}
-
-body[data-preview-mode="mobile"] .modal .dashboard-grid {
-  gap: var(--space-3);
-}
-
-body[data-preview-mode="mobile"] #settingsModalBody::-webkit-scrollbar,
-body[data-preview-mode="mobile"] .modal .ballot-picker-list::-webkit-scrollbar,
-body[data-preview-mode="mobile"] .modal .team-selection-list::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-body[data-preview-mode="mobile"] .modal .ballot-picker-list,
-body[data-preview-mode="mobile"] .modal .team-selection-list,
-body[data-preview-mode="mobile"] #settingsModalBody {
-  scrollbar-width: none;
-  overscroll-behavior: contain;
-}
-
-body[data-preview-mode="mobile"] .modal .modal-close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 @media (max-width: 760px) {
   .modal {
     display: flex;
@@ -3647,14 +3464,18 @@ a.ink-pagination-action[aria-disabled="true"] {
   .ink-action-group--stack-md.ink-action-group--align-auto,
   .ink-action-group--stack-md.ink-action-group--align-end,
   .ink-action-group--stack-md.ink-action-group--align-between {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    /* column-reverse puts the primary on top but leaves tab order following the
-       DOM. reading-flow makes sequential focus follow visual order, which fixes
-       that. Progressive enhancement: unsupported browsers keep DOM order, which
-       is the previous behaviour, so nothing regresses. */
-    reading-flow: flex-visual;
+  }
+  @supports (reading-flow: flex-visual) {
+    .ink-action-group--stack-md,
+    .ink-action-group--stack-md.ink-action-group--align-auto,
+    .ink-action-group--stack-md.ink-action-group--align-end,
+    .ink-action-group--stack-md.ink-action-group--align-between {
+      flex-direction: column-reverse;
+      reading-flow: flex-visual;
+    }
   }
   .ink-action-group--stack-md > :is(button, a),
   .ink-action-group--stack-md > * > :is(button, a) { width: 100%; }
@@ -3771,14 +3592,18 @@ a.ink-pagination-action[aria-disabled="true"] {
   .ink-action-group--stack-sm.ink-action-group--align-auto,
   .ink-action-group--stack-sm.ink-action-group--align-end,
   .ink-action-group--stack-sm.ink-action-group--align-between {
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    /* column-reverse puts the primary on top but leaves tab order following the
-       DOM. reading-flow makes sequential focus follow visual order, which fixes
-       that. Progressive enhancement: unsupported browsers keep DOM order, which
-       is the previous behaviour, so nothing regresses. */
-    reading-flow: flex-visual;
+  }
+  @supports (reading-flow: flex-visual) {
+    .ink-action-group--stack-sm,
+    .ink-action-group--stack-sm.ink-action-group--align-auto,
+    .ink-action-group--stack-sm.ink-action-group--align-end,
+    .ink-action-group--stack-sm.ink-action-group--align-between {
+      flex-direction: column-reverse;
+      reading-flow: flex-visual;
+    }
   }
   .ink-action-group--stack-sm > :is(button, a),
   .ink-action-group--stack-sm > * > :is(button, a) { width: 100%; }

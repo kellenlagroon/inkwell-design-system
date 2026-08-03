@@ -49,7 +49,7 @@ Before changing anything, read `references/storybook-structure.md` and the neare
 
 - Export every newly shipped component and its public types from `src/index.ts`.
 - Do not export internal helpers.
-- Add a row to `src/stories/componentStatus/Status.mdx` for every barrel export, including ones documented inside another component's page.
+- Add a row to `src/stories/componentStatus/Status.mdx` for every non-icon component barrel export, including ones documented inside another component's page. Keep public icon exports catalogued in Foundations/Icons instead.
 - Ensure library consumers continue to need one stylesheet import: `@lagroon/inkwell-design-system/styles.css`.
 
 ## Review gate

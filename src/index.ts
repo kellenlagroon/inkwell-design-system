@@ -111,6 +111,7 @@ export type {
   InlineProps,
   GridProps,
   ActionGroupProps,
+  ActionGroupAlign,
   ResponsiveColumns,
   SpaceScale,
   AlignItems,

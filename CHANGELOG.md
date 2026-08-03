@@ -72,8 +72,9 @@ snapshots, at several viewport widths, in both themes.
 
 - `ActionGroup` now encodes the action-row conventions: write the primary
   action last and it sits rightmost on wide screens, topmost when stacked.
-  Sequential focus follows visual order via `reading-flow`. New `align` prop,
-  which resolves to end-alignment inside dialog and drawer footers.
+  In browsers with `reading-flow`, sequential focus follows visual order; other
+  browsers preserve matching DOM and visual order. New `align` prop, which
+  resolves to end-alignment inside dialog and drawer footers.
 - `Foundations/Overriding Inkwell` documents the override, theming, and layer
   positioning paths.
 - `Layout/ActionGroup` stories and docs page.

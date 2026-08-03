@@ -11,6 +11,7 @@ import {
   IconEye,
   IconGoogle,
   IconList,
+  IconLogin,
   IconLogout,
   IconRestart,
   IconSettings,
@@ -36,13 +37,13 @@ surrounding component.
 
 | Product icons (Solar Linear) | Brand icons (Simple Icons) |
 |---|---|
-| Arrow down, Award, Check, Close, Copy, More, Eye, File, List, Log out, Restart, Settings, Shirt, Trash, Trophy, Users | Google, Discord |
+| Arrow down, Award, Check, Close, Copy, More, Eye, File, List, Log in, Log out, Restart, Settings, Shirt, Trash, Trophy, Users | Google, Discord |
 
 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(132px, 1fr))", gap: "12px", margin: "20px 0" }}>
   {[
     ["Arrow down", IconArrowDown], ["Award", IconAward], ["Check", IconCheck],
     ["Close", IconClose], ["Copy", IconCopy], ["More", IconDotsVertical],
-    ["Eye", IconEye], ["File", IconFile], ["List", IconList], ["Log out", IconLogout],
+    ["Eye", IconEye], ["File", IconFile], ["List", IconList], ["Log in", IconLogin], ["Log out", IconLogout],
     ["Restart", IconRestart], ["Settings", IconSettings], ["Shirt", IconShirt],
     ["Trash", IconTrash], ["Trophy", IconTrophy], ["Users", IconUsers], ["Google", IconGoogle],
     ["Discord", IconDiscord],
@@ -53,6 +54,11 @@ surrounding component.
     </div>
   ))}
 </div>
+
+`BrandIcon` is the small compatibility chooser for a known sign-in provider:
+`<BrandIcon id="google" />` renders Google, `<BrandIcon id="discord" />` renders
+Discord, and other values fall back to the log-in icon. Prefer the named icon
+exports in new code.
 
 ## Size and alignment
 
