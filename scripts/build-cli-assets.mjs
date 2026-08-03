@@ -15,12 +15,6 @@ for (const file of readdirSync(componentSource)) {
 }
 cpSync(resolve(root, "src", "styles", "tokens.css"), resolve(out, "tokens.css"));
 
-// Forms are still maintained in one contiguous CSS section. Preserve that
-// source-of-truth slice verbatim rather than hand-copying a drifting subset.
 const inkwellCss = readFileSync(resolve(root, "src", "styles", "inkwell.css"), "utf8");
-const formsStart = inkwellCss.indexOf("/* Shared forms / controls.");
-const formsEnd = inkwellCss.indexOf("/* Custom Select component", formsStart);
-if (formsStart < 0 || formsEnd < 0) throw new Error("Could not locate the Inkwell forms CSS section.");
-writeFileSync(resolve(root, "cli", "styles", "forms.css"), `@layer inkwell.components {\n${inkwellCss.slice(formsStart, formsEnd)}\n}\n`, "utf8");
 writeFileSync(resolve(root, "cli", "styles", "all-components.css"), `/* Canonical Inkwell component stylesheet; generated from src/styles/inkwell.css. */\n${inkwellCss}`, "utf8");
 console.log("Generated CLI source assets.");
