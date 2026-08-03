@@ -1,0 +1,10 @@
+@layer inkwell.base {
+  *, *::before, *::after { box-sizing: border-box; }
+  .inkwell-page {
+    min-height: 100%;
+    margin: 0;
+    background: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+}

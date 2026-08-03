@@ -20,12 +20,13 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "node scripts/build-cli-assets.mjs && vitest run && node scripts/test-cli.mjs",
     "test:watch": "vitest",
     "tokens": "node scripts/generate-tokens.mjs",
     "storybook": "npm run tokens && storybook dev -p 6100",
     "build-storybook": "npm run tokens && storybook build",
-    "build": "npm run tokens && vite build --config vite.lib.config.ts && node scripts/bundle-css.mjs"
+    "build": "npm run tokens && node scripts/build-cli-assets.mjs && vite build --config vite.lib.config.ts && node scripts/bundle-css.mjs",
+    "cli:build": "node scripts/build-cli-assets.mjs"
   },
   "peerDependencies": {
     "react": ">=19",

@@ -42,6 +42,30 @@ be edited by hand.
 
 ## Install
 
+### Source-owned CLI (personal projects)
+
+For a project that should own and freely edit its Inkwell component source, use
+the companion CLI package:
+
+```bash
+npx inkwell init
+npx inkwell add button card action-group
+```
+
+`init` creates `inkwell.json` and a single layered stylesheet at
+`src/components/inkwell/inkwell.css`. `add` copies only production `.tsx`
+source (plus declared source dependencies such as Button's Spinner) into
+`src/components/inkwell`; it never writes tests or Storybook files. Import that
+stylesheet once at the application root. The configuration can change both
+paths before the first `add`.
+
+Installed component files are yours. The CLI refuses to overwrite an existing
+component or configuration; it only appends new, registry-owned CSS fragments
+to the stylesheet it created. See [CLI distribution](docs/cli.md) for migration
+guidance and limitations.
+
+### npm package (versioned dependency)
+
 ```bash
 npm install @lagroon/inkwell-design-system
 ```

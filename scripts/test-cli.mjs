@@ -1,0 +1,46 @@
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+
+const root = resolve(process.cwd());
+const fixture = resolve(root, ".tmp-inkwell-cli-fixture");
+rmSync(fixture, { recursive: true, force: true });
+mkdirSync(resolve(fixture, "src"), { recursive: true });
+writeFileSync(resolve(fixture, "package.json"), JSON.stringify({ name: "inkwell-cli-fixture", private: true, type: "module", scripts: { build: "vite build" }, dependencies: { react: "^19.0.0", "react-dom": "^19.0.0" }, devDependencies: { vite: "^8.0.0", "@vitejs/plugin-react": "^6.0.0" } }, null, 2));
+writeFileSync(resolve(fixture, "index.html"), '<div id="root"></div><script type="module" src="/src/main.jsx"></script>');
+const cli = resolve(root, "cli/bin/inkwell.mjs");
+const { registry } = await import(pathToFileURL(resolve(root, "cli/registry.mjs")).href);
+for (const args of [["init"], ["add", ...Object.keys(registry)]]) {
+  const result = spawnSync(process.execPath, [cli, ...args], { cwd: fixture, encoding: "utf8" });
+  if (result.status !== 0) throw new Error(`CLI ${args.join(" ")} failed:\n${result.stderr}`);
+}
+for (const file of ["avatar.tsx", "badge.tsx", "button.tsx", "spinner.tsx", "card.tsx", "divider.tsx", "layout.tsx", "forms.tsx", "icons.jsx", "pill.tsx", "surface.tsx", "text.tsx", "inkwell.css"]) if (!existsSync(resolve(fixture, "src/components/inkwell", file))) throw new Error(`Expected installed file: ${file}`);
+const installedModules = readdirSync(resolve(fixture, "src/components/inkwell")).filter((file) => /\.(tsx|ts|jsx)$/.test(file)).map((file) => `import "./components/inkwell/${file}";`).join("\n");
+writeFileSync(resolve(fixture, "src/main.jsx"), `${installedModules}\nimport { createRoot } from "react-dom/client"; import { Button } from "./components/inkwell/button"; import "./components/inkwell/inkwell.css"; createRoot(document.getElementById("root")).render(<main className="inkwell-page"><Button>Save</Button></main>);`);
+const duplicate = spawnSync(process.execPath, [cli, "add", "card"], { cwd: fixture, encoding: "utf8" });
+if (duplicate.status === 0 || !duplicate.stderr.includes("Refusing to overwrite")) throw new Error("CLI did not refuse to overwrite an installed component.");
+const build = spawnSync(process.execPath, [resolve(root, "node_modules/vite/bin/vite.js"), "build"], { cwd: fixture, encoding: "utf8" });
+if (build.status !== 0) throw new Error(`Fixture build failed:\n${build.stderr}\n${build.stdout}`);
+if (!readFileSync(resolve(fixture, "src/components/inkwell/inkwell.css"), "utf8").includes("inkwell.components")) throw new Error("Generated stylesheet lost its cascade layers.");
+const configured = resolve(root, ".tmp-inkwell-cli-configured-fixture");
+rmSync(configured, { recursive: true, force: true });
+mkdirSync(configured, { recursive: true });
+writeFileSync(resolve(configured, "package.json"), JSON.stringify({ name: "inkwell-cli-configured-fixture", private: true, dependencies: { react: "^19.0.0" } }, null, 2));
+let configuredInit = spawnSync(process.execPath, [cli, "init"], { cwd: configured, encoding: "utf8" });
+if (configuredInit.status !== 0) throw new Error(`Configured fixture init failed:\n${configuredInit.stderr}`);
+const configPath = resolve(configured, "inkwell.json");
+const config = JSON.parse(readFileSync(configPath, "utf8"));
+config.components = "src/ui/inkwell";
+config.stylesheet = "src/ui/inkwell/inkwell.css";
+writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`);
+const originalStyle = resolve(configured, "src/components/inkwell/inkwell.css");
+const configuredStyle = resolve(configured, config.stylesheet);
+mkdirSync(resolve(configuredStyle, ".."), { recursive: true });
+writeFileSync(configuredStyle, readFileSync(originalStyle));
+rmSync(resolve(configured, "src/components"), { recursive: true, force: true });
+configuredInit = spawnSync(process.execPath, [cli, "add", "card"], { cwd: configured, encoding: "utf8" });
+if (configuredInit.status !== 0 || !existsSync(resolve(configured, "src/ui/inkwell/card.tsx"))) throw new Error(`Configured destination add failed:\n${configuredInit.stderr}`);
+rmSync(fixture, { recursive: true, force: true });
+rmSync(configured, { recursive: true, force: true });
+console.log("CLI fixture: init, add, no-overwrite, and Vite build passed.");
