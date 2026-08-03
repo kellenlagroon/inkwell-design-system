@@ -52,8 +52,11 @@ npx @lagroon/inkwell-design-system init
 npx @lagroon/inkwell-design-system add button card action-group
 ```
 
-`init` creates `inkwell.json` and a single layered stylesheet at
-`src/components/inkwell/inkwell.css`. `add` copies only production `.tsx`
+`init` creates `inkwell.json`, a single layered stylesheet at
+`src/components/inkwell/inkwell.css`, and `inkwell.ai.md`: compact guidance
+for coding agents. Reference that user-owned file from your project's
+`AGENTS.md`, `CLAUDE.md`, Cursor rules, or equivalent; the CLI never alters
+those project instruction files. `add` copies only production `.tsx`
 source (plus declared source dependencies such as Button's Spinner) into
 `src/components/inkwell`; it never writes tests or Storybook files. Import that
 stylesheet once at the application root. The configuration can change both
@@ -125,5 +128,9 @@ Storybook under **Foundations → Overriding Inkwell**.
 
 Run `npm run storybook` and start at **Foundations → Overview**. Token structure
 is under **Tokens → Getting Started**; component APIs are under **Components**.
+
+For AI coding tools, the versioned guidance is also available in the installed
+package at `@lagroon/inkwell-design-system/ai.md`. Source-owned installations
+receive the same content as `inkwell.ai.md` at the project root.
 
 Release history and breaking changes are in [CHANGELOG.md](CHANGELOG.md).

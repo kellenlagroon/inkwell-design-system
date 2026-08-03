@@ -14,6 +14,7 @@ for (const file of readdirSync(componentSource)) {
   cpSync(resolve(componentSource, file), resolve(out, "components", file));
 }
 cpSync(resolve(root, "src", "styles", "tokens.css"), resolve(out, "tokens.css"));
+cpSync(resolve(root, "docs", "inkwell.ai.md"), resolve(out, "inkwell.ai.md"));
 
 const inkwellCss = readFileSync(resolve(root, "src", "styles", "inkwell.css"), "utf8");
 writeFileSync(resolve(root, "cli", "styles", "all-components.css"), `/* Canonical Inkwell component stylesheet; generated from src/styles/inkwell.css. */\n${inkwellCss}`, "utf8");

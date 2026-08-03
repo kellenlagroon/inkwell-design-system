@@ -7,6 +7,7 @@ import { registry } from "../registry.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const configName = "inkwell.json";
+const guidanceName = "inkwell.ai.md";
 const defaultConfig = { $schema: "https://inkwell.design/schema.json", components: "src/components/inkwell", stylesheet: "src/components/inkwell/inkwell.css", installed: [] };
 
 function fail(message) { throw new Error(message); }
@@ -45,10 +46,14 @@ function init(cwd) {
   if (existsSync(configFile)) fail(`${configName} already exists; Inkwell will not overwrite configuration.`);
   const config = structuredClone(defaultConfig);
   const stylesheet = resolve(cwd, config.stylesheet);
+  const guidance = resolve(cwd, guidanceName);
   validateDestination(cwd, stylesheet, "Stylesheet");
+  validateDestination(cwd, guidance, "Guidance file");
   writeNew(stylesheet, `${styleHeader()}\n${readFileSync(join(root, "generated", "tokens.css"), "utf8")}\n${readFileSync(join(root, "styles", "base.css"), "utf8")}\n`);
+  writeNew(guidance, readFileSync(join(root, "generated", "inkwell.ai.md"), "utf8"));
   writeNew(configFile, `${JSON.stringify(config, null, 2)}\n`);
-  console.log(`Created ${configName} and ${config.stylesheet}.`);
+  console.log(`Created ${configName}, ${config.stylesheet}, and ${guidanceName}.`);
+  console.log(`For an AI coding assistant, reference ${guidanceName} from your project's AGENTS.md, CLAUDE.md, or equivalent instructions.`);
   console.log("Next: npx @lagroon/inkwell-design-system add button");
 }
 function add(cwd, requested) {

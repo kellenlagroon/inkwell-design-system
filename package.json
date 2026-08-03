@@ -20,7 +20,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./ai.md": "./cli/generated/inkwell.ai.md"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

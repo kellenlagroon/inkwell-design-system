@@ -18,6 +18,9 @@ for (const args of [["init"], ["add", ...Object.keys(registry)]]) {
   if (result.status !== 0) throw new Error(`CLI ${args.join(" ")} failed:\n${result.stderr}`);
 }
 for (const file of ["avatar.tsx", "badge.tsx", "button.tsx", "spinner.tsx", "card.tsx", "divider.tsx", "layout.tsx", "forms.tsx", "icons.jsx", "pill.tsx", "surface.tsx", "text.tsx", "inkwell.css"]) if (!existsSync(resolve(fixture, "src/components/inkwell", file))) throw new Error(`Expected installed file: ${file}`);
+if (!existsSync(resolve(fixture, "inkwell.ai.md"))) throw new Error("Expected generated LLM guidance file.");
+if (!readFileSync(resolve(fixture, "inkwell.ai.md"), "utf8").includes("Inkwell guidance for coding agents")) throw new Error("Generated LLM guidance file has unexpected contents.");
+if (packageManifest.exports?.["./ai.md"] !== "./cli/generated/inkwell.ai.md") throw new Error("Root package must export its LLM guidance file.");
 const installedModules = readdirSync(resolve(fixture, "src/components/inkwell")).filter((file) => /\.(tsx|ts|jsx)$/.test(file)).map((file) => `import "./components/inkwell/${file}";`).join("\n");
 writeFileSync(resolve(fixture, "src/main.jsx"), `${installedModules}\nimport { createRoot } from "react-dom/client"; import { Button } from "./components/inkwell/button"; import "./components/inkwell/inkwell.css"; createRoot(document.getElementById("root")).render(<main className="inkwell-page"><Button>Save</Button></main>);`);
 const duplicate = spawnSync(process.execPath, [cli, "add", "card"], { cwd: fixture, encoding: "utf8" });

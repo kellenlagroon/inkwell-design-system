@@ -14,6 +14,9 @@ npx @lagroon/inkwell-design-system add button card action-group
 - `inkwell.json`, containing the configurable component destination and stylesheet path.
 - `src/components/inkwell/inkwell.css`, a single stylesheet with the generated
   token layer and opt-in base layer.
+- `inkwell.ai.md`, a compact, user-owned guide for coding agents. Reference it
+  from a project's `AGENTS.md`, `CLAUDE.md`, Cursor rules, or equivalent; the
+  CLI never changes those instruction files.
 
 `add` copies production TypeScript source only. It follows registry-declared
 source dependencies (for example, Button brings Spinner), appends the matching
