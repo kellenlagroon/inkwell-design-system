@@ -91,7 +91,7 @@ export const TypeScale = {
         <table style={{ borderCollapse: "collapse", width: "100%", fontSize: "var(--font-size-label)" }}>
           <thead>
             <tr>
-              {["Tier 0 (scale)", "Tier 1 (semantic)", "Value", "Used for"].map(h => (
+              {["Tier 1 (scale)", "Tier 2 (semantic)", "Value", "Used for"].map(h => (
                 <th key={h} style={{
                   textAlign: "left",
                   padding: "8px 12px",

@@ -41,6 +41,13 @@ These utilities are not part of the primary component catalog.
 
 <Canvas of={TextFeatures.InlineLinks} sourceState="hidden" />
 
+## Wrapping
+
+`Text` wraps at word boundaries like a normal paragraph. Set `wrap="anywhere"` for
+strings with no break opportunities — emails, URLs, ids — where overflow is a real
+risk. Applying it everywhere breaks ordinary prose mid-word, and it also changes how
+the element contributes to a flex or grid track's minimum size.
+
 ## Token-first usage
 
 - Body copy: `--font-size-body`, `--font-weight-ui`, and `--line-height-body`.

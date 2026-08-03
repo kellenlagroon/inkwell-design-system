@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 export type ProgressTone = "info" | "success" | "warning" | "danger" | "neutral" | "brand";
 export type ProgressSize = "sm" | "md";
@@ -25,7 +25,7 @@ const WAVY_RING_MOTION_PATH = createWavyRingPath(Math.PI / 2);
 const WAVY_RING_MOTION_VALUES = `${WAVY_RING_PATH};${WAVY_RING_MOTION_PATH};${WAVY_RING_PATH}`;
 const SMOOTH_RING_PATH = "M50 6.2 A43.8 43.8 0 1 1 50 93.8 A43.8 43.8 0 1 1 50 6.2";
 
-export interface ProgressProps {
+export interface ProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** Current progress (0–100). Omit for an indeterminate bar. */
   value?: number;
   /** Fill color. Defaults to "brand". */
@@ -38,8 +38,6 @@ export interface ProgressProps {
   valueFormatter?: (value: number) => string;
   /** Fallback accessible name when `label` isn't set. */
   ariaLabel?: string;
-  id?: string;
-  className?: string;
 }
 
 /** Clamp a raw value into the 0–100 range and round to a whole percent. */
@@ -62,6 +60,7 @@ export function Progress({
   ariaLabel,
   id,
   className = "",
+  ...props
 }: ProgressProps) {
   const generatedId = useId();
   const baseId = id ?? generatedId;
@@ -85,7 +84,7 @@ export function Progress({
   const fillStyle = { strokeDasharray, stroke: "var(--ink-progress-color)" } as CSSProperties;
 
   return (
-    <div id={id} className={classes}>
+    <div id={id} className={classes} {...props}>
       <div
         className="ink-progress-ring"
         role="progressbar"

@@ -53,5 +53,14 @@ its visual treatment as final.
 ## Keyboard and accessibility
 
 - The wrapper is a labelled `nav`.
+- `compact` defaults to `"auto"`: full page numbers on wide screens, a short
+  summary below 760px. A full row of 44px tap targets cannot fit a phone — seven
+  of them need ~322px — so the numbers would otherwise push the page sideways.
+- With `compact={false}` the numbers stay at every width and wrap onto extra rows
+  rather than overflowing.
 - Current page uses `aria-current="page"`.
 - Disabled previous/next controls expose disabled state.
+- The result summary doubles as a polite live region, so a page change is announced
+  at every breakpoint. It stays in the accessibility tree even when visually hidden.
+- The page-size control is labelled by the visible `pageSizeLabel` text rather than a
+  separate hidden string, so what is announced matches what is on screen.

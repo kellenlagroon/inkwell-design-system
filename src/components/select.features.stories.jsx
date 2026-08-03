@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Select } from "./ui.jsx";
+import { Button, Select } from "./ui";
+import { FormField } from "./forms";
+import { Stack } from "./layout";
 
 const SEASON_OPTIONS = [
   { value: "2026", label: "2026 Season" },
@@ -43,16 +45,14 @@ export default {
 export const FormVariant = {
   name: "Form variant",
   render: () => (
-    <div style={{ padding: 24, maxWidth: 400, display: "grid", gap: 16 }}>
-      <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Active season
+    <Stack gap="lg" style={{ padding: 24, maxWidth: 400 }}>
+      <FormField label="Active season">
         <Controlled options={SEASON_OPTIONS} variant="form" />
-      </label>
-      <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Administrator item
+      </FormField>
+      <FormField label="Administrator item">
         <Controlled options={TEAM_OPTIONS} placeholder="Choose an item…" variant="form" />
-      </label>
-    </div>
+      </FormField>
+    </Stack>
   ),
 };
 
@@ -60,8 +60,7 @@ export const DisabledOptions = {
   name: "Disabled options",
   render: () => (
     <div style={{ padding: 24, maxWidth: 400 }}>
-      <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Choose an existing item
+      <FormField label="Choose an existing item">
         <Controlled
           options={[
             { value: "", label: "Create a custom item below instead" },
@@ -69,7 +68,7 @@ export const DisabledOptions = {
           ]}
           variant="form"
         />
-      </label>
+      </FormField>
     </div>
   ),
 };
@@ -80,7 +79,7 @@ export const ControlVariant = {
     <div style={{ background: "var(--color-surface-base, #0d0d0d)", padding: "12px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
       <strong style={{ fontFamily: "League Spartan, sans-serif", fontSize: 14, color: "var(--color-text-primary)", letterSpacing: "0.03em" }}>INKWELL</strong>
       <Controlled options={LEAGUE_OPTIONS} variant="control" />
-      <button className="secondary-button button--sm">Sign in</button>
+      <Button variant="secondary" size="sm">Sign in</Button>
     </div>
   ),
 };
@@ -88,15 +87,13 @@ export const ControlVariant = {
 export const DisabledState = {
   name: "Disabled state",
   render: () => (
-    <div style={{ padding: 24, display: "grid", gap: 24, maxWidth: 400 }}>
-      <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Form — disabled
+    <Stack gap="xl" style={{ padding: 24, maxWidth: 400 }}>
+      <FormField label="Form — disabled">
         <Select variant="form" value="" placeholder="No seasons yet" options={[]} disabled />
-      </label>
-      <label style={{ display: "grid", gap: 6, fontSize: "0.78rem", fontWeight: 600, color: "var(--muted)" }}>
-        Control — disabled
+      </FormField>
+      <FormField label="Control — disabled">
         <Select variant="control" value="" placeholder="No projects yet" options={[]} disabled />
-      </label>
-    </div>
+      </FormField>
+    </Stack>
   ),
 };

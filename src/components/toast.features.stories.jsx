@@ -1,4 +1,4 @@
-import { Toast, ToastRegion } from "./ui.jsx";
+import { Toast, ToastRegion } from "./ui";
 
 export default {
   title: "Components/Toast/Features",

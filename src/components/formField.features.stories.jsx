@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormField, TextInput, Textarea } from "./forms";
-import { Select } from "./ui.jsx";
+import { Select } from "./ui";
 
 export default {
   title: "Components/FormField/Features",

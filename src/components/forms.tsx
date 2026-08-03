@@ -1,4 +1,4 @@
-import { createContext, useContext, useId, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useId, useRef, useState } from "react";
 import type { ChangeEvent, DragEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
 import { IconEye, IconFile, IconTrash } from "./icons";
 
@@ -173,32 +173,67 @@ export function Textarea({
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** Inline label text. */
   label?: ReactNode;
-  /** Force the invalid state. */
+  /** Force the invalid state when used outside a `FormField`. */
   invalid?: boolean;
+  /** Explicit `aria-describedby`. Falls back to the FormField value. */
+  describedBy?: string;
+  /** Renders the mixed state, for a parent controlling a group of checkboxes. */
+  indeterminate?: boolean;
 }
 
 /**
  * Checkbox with an inline label. Unlike {@link TextInput}, the checkbox owns its
  * own label rather than pairing with a stacked `FormField` label, so it stays
- * self-contained.
+ * self-contained — but it still inherits a surrounding `FormField`'s error,
+ * description, and required wiring.
  */
-export function Checkbox({ id, label, invalid = false, className = "", ...props }: CheckboxProps) {
+export function Checkbox({
+  id,
+  label,
+  invalid = false,
+  describedBy,
+  indeterminate = false,
+  className = "",
+  ...props
+}: CheckboxProps) {
+  const field = useContext(FieldContext);
   const generatedId = useId();
-  const resolvedId = id ?? generatedId;
-  const classes = ["checkbox", invalid ? "checkbox--invalid" : "", props.disabled ? "checkbox--disabled" : "", className].filter(Boolean).join(" ");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const resolvedId = id ?? field?.id ?? generatedId;
+  const resolvedInvalid = invalid || field?.invalid || false;
+
+  // `indeterminate` has no HTML attribute — it only exists on the DOM node.
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.indeterminate = indeterminate;
+  }, [indeterminate]);
+
+  const classes = [
+    "checkbox",
+    resolvedInvalid ? "checkbox--invalid" : "",
+    props.disabled ? "checkbox--disabled" : "",
+    indeterminate ? "checkbox--indeterminate" : "",
+    className,
+  ].filter(Boolean).join(" ");
 
   return (
     <label className={classes} htmlFor={resolvedId}>
       <input
+        ref={inputRef}
         id={resolvedId}
         type="checkbox"
         className="checkbox-input"
-        aria-invalid={invalid || undefined}
+        aria-invalid={resolvedInvalid || undefined}
+        aria-describedby={describedBy ?? field?.describedBy}
+        required={field?.required}
         {...props}
       />
       <span className="checkbox-control" aria-hidden="true">
         <svg viewBox="0 0 12 10" fill="none">
-          <path d="m1 5 3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          {indeterminate ? (
+            <path d="M1 5h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          ) : (
+            <path d="m1 5 3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          )}
         </svg>
       </span>
       {label ? <span className="checkbox-label">{label}</span> : null}
@@ -396,9 +431,9 @@ export function FileUpload({
         </div>
       )}
       {fileDisplay === "item" && files.length > 0 ? (
-        <div className="file-upload-list" aria-label="Selected files">
+        <div className="file-upload-list" role="list" aria-label="Selected files">
           {files.map((file, index) => (
-            <div className="file-upload-item" key={`${file.name}-${file.lastModified}-${index}`}>
+            <div className="file-upload-item" role="listitem" key={`${file.name}-${file.lastModified}-${index}`}>
               <IconFile className="file-upload-item-icon" />
               <span className="file-upload-item-name">{file.name}</span>
               {clearable ? (

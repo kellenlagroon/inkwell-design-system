@@ -1,8 +1,8 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, HTMLAttributes } from "react";
 
 export type SkeletonVariant = "text" | "rect" | "circle";
 
-export interface SkeletonProps {
+export interface SkeletonProps extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
   /** Shape preset. `text` is a single-line placeholder; `circle` is 1:1; `rect` is generic. Defaults to "text". */
   variant?: SkeletonVariant;
   /** CSS width. Defaults to `100%` for text/rect, or `size` for circles. */
@@ -13,8 +13,6 @@ export interface SkeletonProps {
   size?: number | string;
   /** Number of stacked text lines. Only applies to `variant="text"`. */
   lines?: number;
-  id?: string;
-  className?: string;
 }
 
 function normalize(value: number | string | undefined): string | undefined {
@@ -28,7 +26,7 @@ function normalize(value: number | string | undefined): string | undefined {
  * `rect` is a generic block sized by width/height. Always decorative — a
  * surrounding region should announce the loading state.
  */
-export function Skeleton({ variant = "text", width, height, size = 40, lines, id, className = "" }: SkeletonProps) {
+export function Skeleton({ variant = "text", width, height, size = 40, lines, className = "", style, ...props }: SkeletonProps) {
   const classes = ["ink-skeleton", `ink-skeleton--${variant}`, className].filter(Boolean).join(" ");
 
   const styleFor = (index?: number): CSSProperties => {
@@ -50,7 +48,7 @@ export function Skeleton({ variant = "text", width, height, size = 40, lines, id
 
   if (variant === "text" && lines != null && lines > 1) {
     return (
-      <span id={id} className="ink-skeleton-lines" aria-hidden="true">
+      <span className="ink-skeleton-lines" aria-hidden="true" style={style} {...props}>
         {Array.from({ length: lines }, (_, i) => (
           <span key={i} className={classes} style={styleFor(i)} />
         ))}
@@ -58,5 +56,5 @@ export function Skeleton({ variant = "text", width, height, size = 40, lines, id
     );
   }
 
-  return <span id={id} className={classes} style={styleFor()} aria-hidden="true" />;
+  return <span className={classes} style={{ ...style, ...styleFor() }} aria-hidden="true" {...props} />;
 }

@@ -134,17 +134,46 @@ export function Grid({ gap = "md", columns = 2, align, className = "", style, ch
   );
 }
 
-export interface ActionGroupProps extends Omit<InlineProps, "stackBelow"> {
+export type ActionGroupAlign = "start" | "end" | "between";
+
+export interface ActionGroupProps extends Omit<InlineProps, "stackBelow" | "justify" | "align"> {
   /** Breakpoint below which actions stack and stretch. Defaults to `sm`. */
   stackBelow?: "sm" | "md" | "never";
+  /**
+   * Horizontal placement of the row on wide screens. Left unset, actions sit at
+   * the start — except inside a dialog or drawer footer, where they right-align
+   * by convention. Set it explicitly to opt out of that. `between` pushes a
+   * destructive action away from the rest. Ignored while stacked, where actions
+   * always fill the width.
+   */
+  align?: ActionGroupAlign;
 }
 
-/** Responsive action row: inline on wide screens, stacked and full-width when narrow. */
-export function ActionGroup({ stackBelow = "sm", className = "", ...props }: ActionGroupProps) {
+/**
+ * A row of actions with Inkwell's action conventions built in.
+ *
+ * **Order the children with the primary action last.** On wide screens it then
+ * sits rightmost; when the row stacks it moves to the top, which is the reachable
+ * end of a phone screen. The component handles the flip — do not reorder your
+ * markup per breakpoint.
+ *
+ * Use this rather than `Inline` whenever the children are the actions for a form,
+ * card, or dialog, so the convention stays in one place.
+ */
+export function ActionGroup({ stackBelow = "sm", align, className = "", ...props }: ActionGroupProps) {
   return (
     <Inline
       {...props}
-      className={["ink-action-group", stackBelow !== "never" ? `ink-action-group--stack-${stackBelow}` : "", className].filter(Boolean).join(" ")}
+      className={[
+        "ink-action-group",
+        // `auto` is a distinct class so a dialog footer can supply the default
+        // without overriding an explicit align="start".
+        `ink-action-group--align-${align ?? "auto"}`,
+        stackBelow !== "never" ? `ink-action-group--stack-${stackBelow}` : "",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     />
   );
 }

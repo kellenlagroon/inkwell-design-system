@@ -1,12 +1,10 @@
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
-export interface DividerProps {
+export interface DividerProps extends HTMLAttributes<HTMLElement> {
   /** Direction of the rule. Vertical needs a flex/grid parent to take height. */
   orientation?: "horizontal" | "vertical";
   /** Optional centered label (horizontal only), e.g. "or". */
   label?: ReactNode;
-  id?: string;
-  className?: string;
 }
 
 /**
@@ -15,25 +13,25 @@ export interface DividerProps {
  * separator with the text centered between two lines. Uses the app's hairline
  * (`--line-soft`) and carries no margins — space it with layout primitives.
  */
-export function Divider({ orientation = "horizontal", label, id, className = "" }: DividerProps) {
+export function Divider({ orientation = "horizontal", label, className = "", ...props }: DividerProps) {
   if (orientation === "vertical") {
     return (
       <div
-        id={id}
         role="separator"
         aria-orientation="vertical"
         className={["ink-divider", "ink-divider--vertical", className].filter(Boolean).join(" ")}
+        {...props}
       />
     );
   }
 
   if (label != null) {
     return (
-      <div id={id} role="separator" className={["ink-divider", "ink-divider--labeled", className].filter(Boolean).join(" ")}>
+      <div role="separator" aria-orientation="horizontal" className={["ink-divider", "ink-divider--labeled", className].filter(Boolean).join(" ")} {...props}>
         <span className="ink-divider-label">{label}</span>
       </div>
     );
   }
 
-  return <hr id={id} className={["ink-divider", className].filter(Boolean).join(" ")} />;
+  return <hr className={["ink-divider", className].filter(Boolean).join(" ")} {...props} />;
 }

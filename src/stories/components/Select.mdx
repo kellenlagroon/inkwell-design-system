@@ -66,4 +66,9 @@ Disabled state should make temporary unavailability clear without hiding the sur
 - Type-ahead: typing characters jumps to the option whose label starts with what you typed.
 - `Enter` / `Space` choose the active option; `Escape` closes and returns focus to the trigger; `Tab` closes.
 - The active selection remains legible without relying on color alone.
-- Use a meaningful `aria-label` when the surrounding text does not fully describe the control.
+- Use `aria-labelledby` to point at visible label text, or `aria-label` when there is
+  no visible label. Inside a `FormField` the field's label is wired up automatically.
+- The listbox carries an accessible name and the trigger references it with
+  `aria-controls` while open.
+- Disabled options use `aria-disabled` so they stay perceivable rather than being
+  removed from the list.

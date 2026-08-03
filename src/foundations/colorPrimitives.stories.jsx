@@ -15,12 +15,12 @@ function SwatchGroup({ heading, swatches }) {
 }
 
 export const Palette = {
-  name: "Tier 0 Palette",
+  name: "Tier 1 Palette",
   render: () => (
     <div style={{ padding: 32 }}>
-      <h2 style={{ margin: "0 0 8px", fontFamily: "inherit" }}>Color — Primitives (Tier 0)</h2>
+      <h2 style={{ margin: "0 0 8px", fontFamily: "inherit" }}>Color — Primitives (Tier 1)</h2>
       <p style={{ margin: "0 0 32px", color: "var(--color-text-secondary)", fontSize: "0.9rem" }}>
-        Raw palette tokens named by hue and scale, not by intent. All semantic tokens reference these.
+        Raw palette tokens named by hue and scale, not by intent. Tier 2 semantic tokens reference these; component rules should not.
       </p>
       <SwatchGroup heading="Ink" swatches={[
         { token: "--ink-950", value: "#040404" },

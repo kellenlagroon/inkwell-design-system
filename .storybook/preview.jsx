@@ -23,6 +23,10 @@ const preview = {
   decorators: [
     (Story, context) => {
       document.documentElement.dataset.theme = context.globals.theme;
+      // The page baseline is opt-in (see .inkwell-page in inkwell.css) so the
+      // published stylesheet doesn't restyle a consumer's <body>. Storybook
+      // opts in so stories render on the Inkwell canvas.
+      document.body.classList.add("inkwell-page");
       return <Story />;
     },
   ],

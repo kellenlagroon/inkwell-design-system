@@ -41,3 +41,28 @@ describe("Pagination", () => {
     expect(getByRole("button", { name: "Next" }).getAttribute("disabled")).not.toBeNull();
   });
 });
+
+describe("Pagination compact default", () => {
+  it("defaults to auto-compact, so a full row of tap targets can't overflow a phone", () => {
+    const { container } = render(<Pagination page={4} pageCount={18} onPageChange={() => {}} />);
+    expect(container.querySelector("nav")!.className).toContain("ink-pagination--auto-compact");
+  });
+
+  it("keeps the page numbers in the DOM when auto-compact — they are hidden by CSS, not removed", () => {
+    const { container } = render(<Pagination page={4} pageCount={18} onPageChange={() => {}} />);
+    expect(container.querySelectorAll(".ink-pagination-list button").length).toBeGreaterThan(0);
+  });
+
+  it("honours compact={false} and compact", () => {
+    const { container, rerender } = render(
+      <Pagination page={1} pageCount={18} onPageChange={() => {}} compact={false} />,
+    );
+    let cls = container.querySelector("nav")!.className;
+    expect(cls).not.toContain("ink-pagination--auto-compact");
+    expect(cls).not.toContain("ink-pagination--compact");
+
+    rerender(<Pagination page={1} pageCount={18} onPageChange={() => {}} compact />);
+    cls = container.querySelector("nav")!.className;
+    expect(cls).toContain("ink-pagination--compact");
+  });
+});

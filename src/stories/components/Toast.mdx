@@ -62,4 +62,9 @@ Use warnings for time-sensitive or cautionary information that should still stay
 
 - Toasts should remain understandable without color alone.
 - Dismiss actions should be reachable when present.
+- `ToastRegion` is the live region and must stay mounted even when empty — a live
+  region added at the same moment as its content is often not announced.
+- `aria-atomic` sits on each toast rather than the region, so adding or dismissing
+  one toast doesn't re-announce the whole queue.
+- `Toast` renders its dismiss control only when `onDismiss` is provided.
 - Region announcements should stay concise to avoid overwhelming assistive technology users.

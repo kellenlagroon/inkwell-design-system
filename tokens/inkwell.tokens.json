@@ -1,6 +1,7 @@
 {
   "root": [
     {
+      "tier": 1,
       "label": "Ink scale — dark backgrounds and surfaces",
       "tokens": {
         "ink-950": "#040404",
@@ -12,6 +13,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Cream scale — warm light text",
       "tokens": {
         "cream-97": "#fbf5ec",
@@ -19,12 +21,14 @@
       }
     },
     {
+      "tier": 1,
       "label": "Zinc — neutral secondary text",
       "tokens": {
         "zinc-600": "#a1a1aa"
       }
     },
     {
+      "tier": 1,
       "label": "Neutral scale — light theme surfaces and text",
       "tokens": {
         "neutral-0": "#ffffff",
@@ -37,6 +41,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Crimson — brand",
       "tokens": {
         "crimson-900": "#73000a",
@@ -45,6 +50,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Steel — info / focus",
       "tokens": {
         "steel-400": "#6f8fb5",
@@ -52,6 +58,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Sage — success",
       "tokens": {
         "sage-400": "#7ab089",
@@ -59,6 +66,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Coral — danger",
       "tokens": {
         "coral-500": "#d56d57",
@@ -67,6 +75,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Amber — warning",
       "tokens": {
         "amber-400": "#cfae43",
@@ -74,6 +83,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Alpha scales — overlays and borders (rgba literals; cannot reference other vars)",
       "tokens": {
         "white-a3": "rgba(255, 255, 255, 0.03)",
@@ -91,7 +101,8 @@
       }
     },
     {
-      "label": "Typography — Tier 0: raw scale",
+      "tier": 1,
+      "label": "Typography — raw scale",
       "tokens": {
         "font-size-2xs": "0.62rem",
         "font-size-xs": "0.72rem",
@@ -105,7 +116,8 @@
       }
     },
     {
-      "label": "Typography — Tier 1: semantic",
+      "tier": 2,
+      "label": "Typography — semantic roles",
       "tokens": {
         "font-size-badge": "var(--font-size-2xs)",
         "font-size-caption": "var(--font-size-xs)",
@@ -119,7 +131,8 @@
       }
     },
     {
-      "label": "Font weight — Tier 0: raw scale",
+      "tier": 1,
+      "label": "Font weight — raw scale",
       "tokens": {
         "font-weight-regular": "400",
         "font-weight-medium": "500",
@@ -129,7 +142,8 @@
       }
     },
     {
-      "label": "Font weight — Tier 1: semantic",
+      "tier": 2,
+      "label": "Font weight — semantic roles",
       "tokens": {
         "font-weight-label": "var(--font-weight-semibold)",
         "font-weight-ui": "var(--font-weight-bold)",
@@ -137,6 +151,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Line height",
       "tokens": {
         "line-height-none": "0",
@@ -149,6 +164,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Motion",
       "tokens": {
         "duration-fast": "120ms",
@@ -157,6 +173,7 @@
       }
     },
     {
+      "tier": 2,
       "label": "Z-index layers",
       "tokens": {
         "z-raised": "1",
@@ -170,6 +187,7 @@
       }
     },
     {
+      "tier": 1,
       "label": "Spacing — extended steps",
       "tokens": {
         "space-0-5": "2px",
@@ -208,7 +226,8 @@
   "themes": {
     "dark": [
       {
-        "label": "Tier 1: semantic tokens",
+        "tier": 2,
+        "label": "Color — semantic roles",
         "tokens": {
           "color-bg-base": "var(--ink-950)",
           "color-bg-canvas-alt": "var(--ink-940)",
@@ -236,8 +255,8 @@
           "color-danger": "var(--coral-500)",
           "color-danger-text": "var(--coral-200)",
           "color-warning": "var(--amber-400)",
-          "color-focus-outline-soft": "var(--steel-a22)",
-          "color-focus-outline": "var(--steel-a30)",
+          "color-focus-outline-soft": "var(--steel-a72)",
+          "color-focus-outline": "var(--color-focus-ring)",
           "color-focus-ring": "var(--steel-a72)",
           "color-brand-soft": "color-mix(in srgb, var(--crimson-900) 18%, transparent)",
           "color-success-soft": "color-mix(in srgb, var(--sage-400)    16%, transparent)",
@@ -247,7 +266,8 @@
         }
       },
       {
-        "label": "Tier 3: component tokens",
+        "tier": 3,
+        "label": "Component tokens",
         "tokens": {
           "button-primary-bg": "var(--color-brand)",
           "button-primary-bg-hover": "var(--color-brand-hover)",
@@ -260,6 +280,9 @@
           "button-danger-fg": "var(--color-text-strong)",
           "badge-filled-fg": "var(--color-text-strong)",
           "badge-warning-fg": "var(--ink-950)",
+          "badge-danger-fg": "var(--ink-950)",
+          "badge-success-fg": "var(--ink-950)",
+          "badge-info-fg": "var(--ink-950)",
           "nav-active-bg": "var(--color-text-strong)",
           "nav-active-fg": "var(--color-text-inverse)",
           "control-surface": "var(--color-surface-raised)",
@@ -290,7 +313,8 @@
         }
       },
       {
-        "label": "Tier 3 continued: card, popover, banner, toast surface, pill, rank",
+        "tier": 3,
+        "label": "Component tokens — card, popover, banner, toast, pill, rank",
         "tokens": {
           "color-surface-panel": "color-mix(in srgb, var(--steel-400) 8%, var(--color-bg-canvas))",
           "card-surface": "var(--color-surface-raised)",
@@ -346,7 +370,8 @@
     ],
     "light": [
       {
-        "label": "Tier 1: semantic tokens",
+        "tier": 2,
+        "label": "Color — semantic roles",
         "tokens": {
           "color-bg-base": "var(--neutral-0)",
           "color-bg-canvas-alt": "var(--neutral-25)",
@@ -374,7 +399,7 @@
           "color-danger": "var(--coral-700)",
           "color-danger-text": "var(--coral-700)",
           "color-warning": "var(--amber-700)",
-          "color-focus-outline-soft": "var(--steel-a22)",
+          "color-focus-outline-soft": "var(--steel-a72)",
           "color-focus-outline": "var(--steel-400)",
           "color-focus-ring": "var(--steel-400)",
           "color-brand-soft": "color-mix(in srgb, var(--crimson-900) 10%, var(--neutral-0))",
@@ -385,7 +410,8 @@
         }
       },
       {
-        "label": "Tier 3: component tokens",
+        "tier": 3,
+        "label": "Component tokens",
         "tokens": {
           "button-primary-bg": "var(--color-brand)",
           "button-primary-bg-hover": "var(--color-brand-hover)",
@@ -398,6 +424,9 @@
           "button-danger-fg": "var(--color-text-inverse)",
           "badge-filled-fg": "var(--color-text-inverse)",
           "badge-warning-fg": "var(--color-text-inverse)",
+          "badge-danger-fg": "var(--color-text-inverse)",
+          "badge-success-fg": "var(--color-text-inverse)",
+          "badge-info-fg": "var(--color-text-inverse)",
           "nav-active-bg": "var(--color-surface-raised)",
           "nav-active-fg": "var(--color-text-primary)",
           "control-surface": "var(--color-surface-active)",
@@ -428,7 +457,8 @@
         }
       },
       {
-        "label": "Tier 3 continued: card, popover, banner, toast surface, pill, rank",
+        "tier": 3,
+        "label": "Component tokens — card, popover, banner, toast, pill, rank",
         "tokens": {
           "color-surface-panel": "var(--color-surface-default)",
           "card-surface": "var(--color-surface-raised)",

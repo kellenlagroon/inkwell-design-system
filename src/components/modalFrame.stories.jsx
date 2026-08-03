@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "./ui.jsx";
+import { Button } from "./ui";
 import { ModalFrame } from "./modalFrame";
 
 export default {
@@ -17,7 +17,7 @@ export const ModalFramePlayground = {
     size: {
       control: { type: "select" },
       name: "Size",
-      options: ["default", "compact", "picker", "settings"],
+      options: ["default", "compact", "settings"],
     },
   },
   render: ({ title, size }) => {

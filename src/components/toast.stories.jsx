@@ -1,4 +1,4 @@
-import { Toast } from "./ui.jsx";
+import { Toast } from "./ui";
 
 export default {
   title: "Components/Toast",

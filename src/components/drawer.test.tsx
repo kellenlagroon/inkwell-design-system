@@ -23,6 +23,31 @@ describe("Drawer", () => {
     expect(document.body.style.overflow).toBe("");
   });
 
+  it("closes on backdrop click, and the backdrop is inert to assistive tech", () => {
+    const onClose = vi.fn();
+    const { container } = render(
+      <Drawer open onClose={onClose} title="Filters">
+        <button>First control</button>
+      </Drawer>,
+    );
+    const backdrop = container.querySelector(".ink-drawer-backdrop")!;
+    expect(backdrop.getAttribute("aria-hidden")).toBe("true");
+    expect(backdrop.tagName).toBe("DIV");
+    fireEvent.click(backdrop);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not close on backdrop click when closeOnBackdrop is false", () => {
+    const onClose = vi.fn();
+    const { container } = render(
+      <Drawer open onClose={onClose} closeOnBackdrop={false} title="Filters">
+        <button>First control</button>
+      </Drawer>,
+    );
+    fireEvent.click(container.querySelector(".ink-drawer-backdrop")!);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
   it("supports custom shell slots and a full-bleed body", () => {
     const { container, getByRole, getByText } = render(
       <Drawer

@@ -65,3 +65,7 @@ Use `invalid` when the user must make a selection before continuing.
 - The label is associated via `htmlFor`/`id`, so clicking the text toggles the box.
 - Disabled checkboxes are dimmed and removed from interaction. Invalid checkboxes
   expose both a visible danger treatment and `aria-invalid`.
+- Inside a `FormField`, the checkbox inherits that field's error, description, and
+  required state, so hint and error text are announced with the control.
+- `indeterminate` renders the mixed state and sets the DOM property, for a parent
+  checkbox controlling a group.

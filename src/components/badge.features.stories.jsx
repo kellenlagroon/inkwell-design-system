@@ -1,5 +1,5 @@
 import { Badge } from "./badge";
-import { IconButton } from "./ui.jsx";
+import { IconButton } from "./ui";
 import { IconTrophy } from "./icons.jsx";
 
 export default {

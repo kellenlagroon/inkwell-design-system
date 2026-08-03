@@ -1,5 +1,5 @@
 import { Card, CardActions } from "./card";
-import { SectionHeading, Button } from "./ui.jsx";
+import { SectionHeading, Button } from "./ui";
 import { Stack } from "./layout";
 
 export default {

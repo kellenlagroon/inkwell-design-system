@@ -48,5 +48,10 @@ Use hierarchy carefully when a split button appears near another strong action.
 
 ## Keyboard and accessibility
 
-- Keyboard users should be able to reach the primary action and menu trigger predictably.
+- The menu is a `Popover` in `menu` mode: ArrowDown opens it and focuses the first
+  item, Arrow keys and Home/End move between items, Escape closes and returns focus
+  to the trigger.
+- Name the trigger with `menuLabel` — it describes what the menu contains and is the
+  trigger's accessible name.
+- The focused item shows a ring distinct from the hover fill.
 - Alternate choices should remain understandable without relying on icon color alone.

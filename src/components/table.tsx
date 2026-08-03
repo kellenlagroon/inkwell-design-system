@@ -52,6 +52,11 @@ export interface TableProps<T> {
   style?: TableStyle;
   id?: string;
   className?: string;
+  /**
+   * Accessible name for the horizontal scroll region. Only announced when the
+   * table actually overflows. Defaults to the `caption` when it's a string.
+   */
+  scrollAreaLabel?: string;
 }
 
 /**
@@ -77,6 +82,7 @@ export function Table<T>({
   style,
   id,
   className = "",
+  scrollAreaLabel,
 }: TableProps<T>) {
   const isControlled = sortBy !== undefined;
   const [internalSort, setInternalSort] = useState<{ by?: string; direction: TableSortDirection }>({
@@ -103,7 +109,22 @@ export function Table<T>({
     .filter(Boolean)
     .join(" ");
 
+  const resolvedScrollLabel =
+    scrollAreaLabel ?? (typeof caption === "string" ? caption : undefined);
+
   return (
+    // A table has no intrinsic maximum width, so without this wrapper a wide
+    // table drags the whole page sideways on narrow screens. tabIndex makes the
+    // scroll region reachable by keyboard (WCAG 2.1.1); the wrapper is also what
+    // `stickyHeader` needs to stick against.
+    <div
+      className="ink-table-scroll"
+      tabIndex={0}
+      // A region with no accessible name is invalid, so the role is only
+      // applied when there's something to name it with.
+      role={resolvedScrollLabel ? "region" : undefined}
+      aria-label={resolvedScrollLabel}
+    >
     <table id={id} className={classes} style={style}>
       {caption ? <caption className="ink-table-caption">{caption}</caption> : null}
       {columns.some((c) => c.width) ? (
@@ -176,5 +197,6 @@ export function Table<T>({
         )}
       </tbody>
     </table>
+    </div>
   );
 }

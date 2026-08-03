@@ -51,7 +51,7 @@ export function CheckboxSelect({
   return (
     <Popover
       mobileSheet
-      className={["checkbox-select-panel", className].filter(Boolean).join(" ")}
+      panelClassName={["checkbox-select-panel", className].filter(Boolean).join(" ")}
       trigger={(triggerProps) => (
         <Button variant="secondary" {...triggerProps}>
           {triggerLabel}

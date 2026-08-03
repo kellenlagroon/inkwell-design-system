@@ -88,3 +88,9 @@ Wrap the table in a scrolling container; the `<thead>` pins on scroll.
 - Renders a native `<table>` with `<thead>`/`<tbody>` and `<th scope="col">` headers.
 - Sortable headers use `aria-sort` (`ascending` | `descending` | `none`) and expose the click as a native button.
 - Empty state renders as a single spanning `<td>` so the row still parses as a table row.
+- The table is wrapped in a horizontal scroll container so a wide table scrolls
+  itself instead of widening the page. The container is keyboard focusable so it
+  can be scrolled without a pointer.
+- Give the scroll region a name with `caption`, or with `scrollAreaLabel` when
+  there is no visible caption.
+- `stickyHeader` sticks against that container, so it needs no setup from the caller.

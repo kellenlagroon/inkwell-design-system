@@ -18,9 +18,9 @@ export const SemanticTokens = {
   name: "Semantic Tokens",
   render: () => (
     <div style={{ padding: 32 }}>
-      <h2 style={{ margin: "0 0 8px", fontFamily: "inherit" }}>Color — Semantic (Tier 1)</h2>
+      <h2 style={{ margin: "0 0 8px", fontFamily: "inherit" }}>Color — Semantic (Tier 2)</h2>
       <p style={{ margin: "0 0 32px", color: "var(--color-text-secondary)", fontSize: "0.9rem" }}>
-        Each token maps to a Tier 0 palette name and carries a role-based meaning. Use these — never raw Tier 0 tokens — in component rules.
+        Each token maps to a Tier 1 palette name and carries a role-based meaning. Use these — never raw Tier 1 palette tokens — in component rules.
       </p>
       <SwatchGroup heading="Backgrounds" swatches={[
         { token: "--color-bg-base",        value: "#040404" },

@@ -16,6 +16,13 @@ An inline feedback surface for success, warning, and error communication near th
 - Prefer it over a toast when the user needs the message to stay attached to nearby content.
 - Use dismissible behavior only when clearing the message is safe.
 
+## Announcements
+
+A banner that appears in response to a user action is announced automatically:
+`danger`, `error`, and `warning` use `role="alert"` (assertive), every other
+tone uses `role="status"` (polite). Set `live="off"` for a banner that is
+present on first render and so isn't a change worth interrupting for.
+
 ## Primary example
 
 <Canvas of={StatusStories.StatusBannerPlayground} sourceState="hidden" />

@@ -23,6 +23,11 @@ export interface NavItem {
   icon?: ReactNode;
   /** Optional trailing badge. `true` renders a small notification dot with no content; any other value renders as a pill containing that content. */
   badge?: ReactNode | true;
+  /**
+   * Text alternative for the badge, announced after the label. Required to make
+   * a `badge: true` dot mean anything to a screen reader — e.g. "3 unread".
+   */
+  badgeLabel?: string;
   /** If set, the item renders as an `<a>` for real navigation. */
   href?: string;
 }
@@ -173,9 +178,10 @@ export function Nav({
               {hasBadge ? (
                 <span
                   className={["ink-nav-badge", isDot ? "ink-nav-badge--dot" : ""].filter(Boolean).join(" ")}
-                  aria-hidden={isDot ? "true" : undefined}
+                  aria-hidden={isDot && !item.badgeLabel ? "true" : undefined}
                 >
                   {isDot ? null : item.badge}
+                  {item.badgeLabel ? <span className="sr-only">{item.badgeLabel}</span> : null}
                 </span>
               ) : null}
             </>
