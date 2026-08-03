@@ -45,11 +45,11 @@ be edited by hand.
 ### Source-owned CLI (personal projects)
 
 For a project that should own and freely edit its Inkwell component source, use
-the companion CLI package:
+the package's CLI command:
 
 ```bash
-npx inkwell init
-npx inkwell add button card action-group
+npx @lagroon/inkwell-design-system init
+npx @lagroon/inkwell-design-system add button card action-group
 ```
 
 `init` creates `inkwell.json` and a single layered stylesheet at

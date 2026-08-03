@@ -1,12 +1,12 @@
 # Inkwell CLI distribution
 
-The `inkwell` CLI is a source-owned distribution path for personal React
-projects. It sits alongside—not instead of—the versioned
+The `inkwell` command is a source-owned distribution path for personal React
+projects. It is shipped by—not instead of—the versioned
 `@lagroon/inkwell-design-system` npm package.
 
 ```bash
-npx inkwell init
-npx inkwell add button card action-group
+npx @lagroon/inkwell-design-system init
+npx @lagroon/inkwell-design-system add button card action-group
 ```
 
 `init` validates that the current directory is a React project, then creates:
@@ -60,7 +60,8 @@ any configured destination.
 ## Migrating between paths
 
 Choose one path for an individual component. To move from the npm package,
-remove that component's package import, run `inkwell add <component>`, import
+remove that component's package import, run
+`npx @lagroon/inkwell-design-system add <component>`, import
 from the copied local file, and replace the package stylesheet import with the
 generated local stylesheet. Keep the npm package when its versioned, complete
 catalog is the better fit; no existing package consumer needs to change.

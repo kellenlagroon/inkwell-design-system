@@ -8,8 +8,12 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "bin": {
+    "inkwell": "./cli/bin/inkwell.mjs"
+  },
   "files": [
-    "dist"
+    "dist",
+    "cli"
   ],
   "exports": {
     ".": {
@@ -26,7 +30,8 @@
     "storybook": "npm run tokens && storybook dev -p 6100",
     "build-storybook": "npm run tokens && storybook build",
     "build": "npm run tokens && node scripts/build-cli-assets.mjs && vite build --config vite.lib.config.ts && node scripts/bundle-css.mjs",
-    "cli:build": "node scripts/build-cli-assets.mjs"
+    "cli:build": "node scripts/build-cli-assets.mjs",
+    "prepack": "node scripts/build-cli-assets.mjs"
   },
   "peerDependencies": {
     "react": ">=19",

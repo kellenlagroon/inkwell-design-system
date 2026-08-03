@@ -2,7 +2,7 @@ import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } f
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// This also runs as the CLI package's `prepare` hook, where cwd is `cli/`.
+// This also runs as the root package's `prepack` hook.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = resolve(root, "cli", "generated");
 rmSync(out, { recursive: true, force: true });

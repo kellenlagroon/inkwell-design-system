@@ -13,7 +13,7 @@ function fail(message) { throw new Error(message); }
 function readJson(path, description) { try { return JSON.parse(readFileSync(path, "utf8")); } catch { fail(`Could not read ${description}: ${path}`); } }
 function writeNew(path, content) { if (existsSync(path)) fail(`Refusing to overwrite user-owned file: ${relative(process.cwd(), path)}`); mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, content, "utf8"); }
 function configPath(cwd) { return join(cwd, configName); }
-function loadConfig(cwd) { const path = configPath(cwd); if (!existsSync(path)) fail(`No ${configName} found. Run \`npx inkwell init\` first.`); return readJson(path, configName); }
+function loadConfig(cwd) { const path = configPath(cwd); if (!existsSync(path)) fail(`No ${configName} found. Run \`npx @lagroon/inkwell-design-system init\` first.`); return readJson(path, configName); }
 function validateProject(cwd) {
   const pkgPath = join(cwd, "package.json");
   if (!existsSync(pkgPath)) fail("No package.json found. Run init from a React project root.");
@@ -49,7 +49,7 @@ function init(cwd) {
   writeNew(stylesheet, `${styleHeader()}\n${readFileSync(join(root, "generated", "tokens.css"), "utf8")}\n${readFileSync(join(root, "styles", "base.css"), "utf8")}\n`);
   writeNew(configFile, `${JSON.stringify(config, null, 2)}\n`);
   console.log(`Created ${configName} and ${config.stylesheet}.`);
-  console.log("Next: npx inkwell add button");
+  console.log("Next: npx @lagroon/inkwell-design-system add button");
 }
 function add(cwd, requested) {
   if (!requested.length) fail("Specify at least one component, for example: inkwell add button card");
