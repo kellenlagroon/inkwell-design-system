@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.2 - 2026-08-03
+
+### Fixed
+
+- Corrected npm executable metadata so the published package exposes the
+  `inkwell` CLI command.
+
 ## v0.2.1 - 2026-08-03
 
 ### Added
