@@ -1,21 +1,23 @@
 # Inkwell
 
-Inkwell is a standalone design-system seed created from the strongest reusable UI in the current app.
+Inkwell is a React design system: typed components, a three-tier token pipeline,
+and one stylesheet. It is published as `@lagroon/inkwell-design-system` and is
+designed to sit inside an application without taking over its styling.
 
-This folder is intentionally isolated from the live app:
-
-- it has its own `package.json`
-- it has its own Storybook config
-- it has its own token source and styles
-- it does not change the current app's imports, routing, state, or runtime behavior
+- Components are typed and render against a global stylesheet — no CSS-in-JS.
+- Tokens are generated from a single JSON source and themed via `data-theme`.
+- All shipped CSS lives in cascade layers, so your own CSS overrides it without
+  a specificity fight. See [Overriding](#overriding-and-theming).
+- Nothing outside your own markup is styled unless you opt in.
 
 ## Commands
 
 ```bash
 npm install
-npm run tokens
-npm run storybook
-npm run build-storybook
+npm run tokens           # regenerate tokens.css from the JSON source
+npm run storybook        # dev server on port 6100
+npm run build-storybook  # static Storybook
+npm run build            # library build to dist/ (JS, types, bundled CSS)
 npm run typecheck
 npm run test
 ```
@@ -55,3 +57,49 @@ Then import components from the package entry point:
 ```tsx
 import { Button, TextInput } from "@lagroon/inkwell-design-system";
 ```
+
+That styles Inkwell's components and nothing else. The stylesheet deliberately
+does not touch your `<body>` or your native form controls. To adopt Inkwell's
+page canvas — its background, text colour, and font — opt in on your app root:
+
+```html
+<body class="inkwell-page">
+```
+
+Leave it off and the rest of your page is untouched.
+
+## Overriding and theming
+
+Everything Inkwell ships lives in a cascade layer, and unlayered CSS beats
+layered CSS whatever the specificity. Your application's own CSS therefore wins
+by default:
+
+```css
+/* One class. No !important. Beats Inkwell. */
+.primary-button { border-radius: 999px; }
+```
+
+If your app organises its own CSS into layers, position Inkwell explicitly:
+
+```css
+@layer reset, vendor, app;
+@import url("@lagroon/inkwell-design-system/styles.css") layer(vendor);
+```
+
+To re-skin rather than restyle, override a token — one change reaches every
+component that uses it:
+
+```css
+:root { --color-brand: rebeccapurple; }
+```
+
+The layers are `inkwell.tokens`, `inkwell.base`, and `inkwell.components`,
+namespaced so they cannot collide with layers of your own. Full detail is in
+Storybook under **Foundations → Overriding Inkwell**.
+
+## Documentation
+
+Run `npm run storybook` and start at **Foundations → Overview**. Token structure
+is under **Tokens → Getting Started**; component APIs are under **Components**.
+
+Release history and breaking changes are in [CHANGELOG.md](CHANGELOG.md).
