@@ -12,8 +12,48 @@ Tokens are the shared design decisions behind the interface.
 - Use foundation stories as the reference source for approved values.
 - Avoid hard-coded pixel or color values when a token already exists.
 
-## Token layers
+## The three tiers
 
-- Primitive values define raw scales and palette entries.
-- Semantic values define intended UI meaning.
-- Component usage should consume semantic values wherever possible.
+Every token sits in one of three tiers. `tokens.css` is emitted in tier order
+with a banner introducing each, so you can see which tier a token belongs to by
+where it appears.
+
+### Tier 1 · Primitives
+
+Raw values with no assigned meaning — the colour ramps (`--ink-900`,
+`--crimson-800`, `--steel-400`), the type and weight scales (`--font-size-lg`,
+`--font-weight-bold`), spacing, line height, and motion.
+
+A primitive says *what a value is*, never *what it is for*. **Components should
+not reference these directly**; a component using `--crimson-800` has hard-coded
+a brand decision that a theme can no longer change.
+
+### Tier 2 · Semantic
+
+Meaning and role, built from Tier 1 and swapped per theme —
+`--color-text-primary`, `--color-bg-canvas`, `--color-danger`,
+`--font-size-body`, `--z-modal-host`.
+
+**This is the tier components should reach for**, and the tier consumers should
+override to re-theme the system. It is also where light and dark diverge: the
+same semantic name resolves to a different primitive in each theme.
+
+### Tier 3 · Component
+
+Scoped to a single component and built from Tier 2 — `--button-primary-bg`,
+`--card-surface`, `--input-border`, `--badge-danger-fg`.
+
+Reach for a Tier 3 token when a component needs to diverge from the semantic
+default for a reason specific to it. `--badge-danger-fg` exists because a badge
+puts text *on* the danger colour rather than rendering text *in* it, so it needs
+a foreground the semantic tier does not provide.
+
+### Picking a tier
+
+Work down, not up. Use Tier 2 unless a component genuinely needs its own
+decision, and add a Tier 1 value only when no existing primitive fits. If you
+find yourself reaching for Tier 1 inside a component, the missing piece is
+usually a Tier 2 token that does not exist yet.
+
+Legacy aliases (`--accent`, `--muted`, `--line`) sit outside the model. They are
+retained for compatibility and should not be used in new work.

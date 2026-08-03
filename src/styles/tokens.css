@@ -4,6 +4,8 @@
 
 @layer inkwell.tokens {
 :root {
+  /* ─── Tier 1 · Primitives — raw values, no assigned meaning ─── */
+
   /* Ink scale — dark backgrounds and surfaces */
   --ink-950: #040404;
   --ink-940: #090909;
@@ -64,7 +66,7 @@
   --steel-a72: rgba(111, 143, 181, 0.72);
   --black-a58: rgba(0, 0, 0, 0.58);
 
-  /* Typography — Tier 0: raw scale */
+  /* Typography — raw scale */
   --font-size-2xs: 0.62rem;
   --font-size-xs: 0.72rem;
   --font-size-sm: 0.78rem;
@@ -75,28 +77,12 @@
   --font-size-2xl: 1.55rem;
   --font-size-3xl: 1.65rem;
 
-  /* Typography — Tier 1: semantic */
-  --font-size-badge: var(--font-size-2xs);
-  --font-size-caption: var(--font-size-xs);
-  --font-size-label-sm: var(--font-size-sm);
-  --font-size-label: var(--font-size-base);
-  --font-size-body: var(--font-size-md);
-  --font-size-heading-sm: var(--font-size-lg);
-  --font-size-heading: var(--font-size-xl);
-  --font-size-display: var(--font-size-2xl);
-  --font-size-rank: var(--font-size-3xl);
-
-  /* Font weight — Tier 0: raw scale */
+  /* Font weight — raw scale */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
-
-  /* Font weight — Tier 1: semantic */
-  --font-weight-label: var(--font-weight-semibold);
-  --font-weight-ui: var(--font-weight-bold);
-  --font-weight-display: var(--font-weight-extrabold);
 
   /* Line height */
   --line-height-none: 0;
@@ -112,16 +98,6 @@
   --duration-medium: 140ms;
   --ease-default: ease;
 
-  /* Z-index layers */
-  --z-raised: 1;
-  --z-tooltip: 20;
-  --z-sticky: 30;
-  --z-nav: 35;
-  --z-overlay: 40;
-  --z-float: 50;
-  --z-modal-front: 60;
-  --z-modal-host: 80;
-
   /* Spacing — extended steps */
   --space-0-5: 2px;
   --space-7: 28px;
@@ -131,6 +107,34 @@
   --space-12: 48px;
   --space-14: 56px;
   --space-15: 60px;
+
+  /* ─── Tier 2 · Semantic — meaning and role; these are what components should use ─── */
+
+  /* Typography — semantic roles */
+  --font-size-badge: var(--font-size-2xs);
+  --font-size-caption: var(--font-size-xs);
+  --font-size-label-sm: var(--font-size-sm);
+  --font-size-label: var(--font-size-base);
+  --font-size-body: var(--font-size-md);
+  --font-size-heading-sm: var(--font-size-lg);
+  --font-size-heading: var(--font-size-xl);
+  --font-size-display: var(--font-size-2xl);
+  --font-size-rank: var(--font-size-3xl);
+
+  /* Font weight — semantic roles */
+  --font-weight-label: var(--font-weight-semibold);
+  --font-weight-ui: var(--font-weight-bold);
+  --font-weight-display: var(--font-weight-extrabold);
+
+  /* Z-index layers */
+  --z-raised: 1;
+  --z-tooltip: 20;
+  --z-sticky: 30;
+  --z-nav: 35;
+  --z-overlay: 40;
+  --z-float: 50;
+  --z-modal-front: 60;
+  --z-modal-host: 80;
 
   /* Legacy aliases */
   --shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
@@ -154,7 +158,9 @@
 
 :root,
 [data-theme="dark"] {
-  /* Tier 1: semantic tokens */
+  /* ─── Tier 2 · Semantic — meaning and role; these are what components should use ─── */
+
+  /* Color — semantic roles */
   --color-bg-base: var(--ink-950);
   --color-bg-canvas-alt: var(--ink-940);
   --color-bg-canvas: var(--ink-930);
@@ -190,7 +196,9 @@
   --color-danger-soft: color-mix(in srgb, var(--coral-500)   18%, transparent);
   --color-info-soft: var(--steel-a20);
 
-  /* Tier 3: component tokens */
+  /* ─── Tier 3 · Component — scoped to one component, built from Tier 2 ─── */
+
+  /* Component tokens */
   --button-primary-bg: var(--color-brand);
   --button-primary-bg-hover: var(--color-brand-hover);
   --button-primary-fg: var(--color-text-strong);
@@ -233,7 +241,7 @@
   --preview-chrome-sheen: rgba(255, 255, 255, 0.035);
   --notification-dot-bg: var(--color-brand);
 
-  /* Tier 3 continued: card, popover, banner, toast surface, pill, rank */
+  /* Component tokens — card, popover, banner, toast, pill, rank */
   --color-surface-panel: color-mix(in srgb, var(--steel-400) 8%, var(--color-bg-canvas));
   --card-surface: var(--color-surface-raised);
   --card-border: var(--color-border-subtle);
@@ -283,7 +291,9 @@
 }
 
 [data-theme="light"] {
-  /* Tier 1: semantic tokens */
+  /* ─── Tier 2 · Semantic — meaning and role; these are what components should use ─── */
+
+  /* Color — semantic roles */
   --color-bg-base: var(--neutral-0);
   --color-bg-canvas-alt: var(--neutral-25);
   --color-bg-canvas: var(--neutral-50);
@@ -319,7 +329,9 @@
   --color-danger-soft: color-mix(in srgb, var(--coral-700) 12%, var(--neutral-0));
   --color-info-soft: color-mix(in srgb, var(--steel-700) 12%, var(--neutral-0));
 
-  /* Tier 3: component tokens */
+  /* ─── Tier 3 · Component — scoped to one component, built from Tier 2 ─── */
+
+  /* Component tokens */
   --button-primary-bg: var(--color-brand);
   --button-primary-bg-hover: var(--color-brand-hover);
   --button-primary-fg: var(--color-text-inverse);
@@ -362,7 +374,7 @@
   --preview-chrome-sheen: rgba(255, 255, 255, 0.6);
   --notification-dot-bg: var(--color-brand);
 
-  /* Tier 3 continued: card, popover, banner, toast surface, pill, rank */
+  /* Component tokens — card, popover, banner, toast, pill, rank */
   --color-surface-panel: var(--color-surface-default);
   --card-surface: var(--color-surface-raised);
   --card-border: transparent;
