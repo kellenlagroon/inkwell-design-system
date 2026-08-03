@@ -1,0 +1,4 @@
+interface:
+  display_name: "Storybook Design-System Guardrails"
+  short_description: "Safeguard Inkwell design-system changes"
+  default_prompt: "Use $storybook-design-system-guardrails to plan and implement this Inkwell design-system update."

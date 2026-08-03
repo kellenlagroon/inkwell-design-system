@@ -10,13 +10,18 @@ The current maturity of every Inkwell component. See
 definitions of each status.
 
 export const ROWS = [
+  { name: "ActionGroup", status: "Beta", a11y: "Meets standards", href: "?path=/docs/layout-actiongroup--docs" },
   { name: "Avatar", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-avatar--docs" },
   { name: "Badge", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-badge--docs" },
   { name: "Button", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-button--docs" },
+  { name: "ButtonLink", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-button--docs", noteHref: "In Button" },
   { name: "Card", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-card--docs" },
+  { name: "CardActions", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-card--docs", noteHref: "In Card" },
+  { name: "Center", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
   { name: "Checkbox", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-checkbox--docs" },
   { name: "CheckboxSelect", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-checkboxselect--docs" },
   { name: "Collapsible", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-collapsible--docs" },
+  { name: "Container", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
   { name: "Divider", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-divider--docs" },
   { name: "Drawer", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-drawer--docs" },
   { name: "EmptyState", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
@@ -24,17 +29,22 @@ export const ROWS = [
   { name: "FileUpload", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-fileupload--docs" },
   { name: "FormField", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-formfield--docs" },
   { name: "Grid", status: "Stable", a11y: "Meets standards", href: "?path=/docs/layout-grid--docs" },
+  { name: "Heading", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/tokens-typography-utilities--docs", noteHref: "In Typography utilities" },
   { name: "IconButton", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-button--docs", noteHref: "In Button" },
   { name: "Inline", status: "Stable", a11y: "Meets standards", href: "?path=/docs/layout-inline--docs" },
+  { name: "Link", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/tokens-typography-utilities--docs", noteHref: "In Typography utilities" },
   { name: "List", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-list--docs" },
   { name: "ModalFrame", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-modalframe--docs" },
   { name: "Nav", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-nav--docs" },
-  { name: "Panel", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
   { name: "Pagination", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-pagination--docs" },
+  { name: "Panel", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
+  { name: "Paper", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-surface--docs", noteHref: "Alias of Surface" },
   { name: "PasswordInput", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-passwordinput--docs" },
   { name: "Pill", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-pill--docs" },
   { name: "Popover", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-popover--docs" },
+  { name: "PopoverMenuItem", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-popover--docs", noteHref: "In Popover" },
   { name: "Progress", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-progress--docs" },
+  { name: "RichTextSafe", status: "Beta", a11y: "Not reviewed" },
   { name: "SectionHeading", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
   { name: "Select", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-select--docs" },
   { name: "Sidebar", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-sidebar--docs" },
@@ -47,6 +57,7 @@ export const ROWS = [
   { name: "Surface", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-surface--docs" },
   { name: "Table", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-table--docs" },
   { name: "Tabs", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-tabs--docs" },
+  { name: "Text", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/tokens-typography-utilities--docs", noteHref: "In Typography utilities" },
   { name: "Textarea", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-textarea--docs" },
   { name: "TextInput", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-textinput--docs" },
   { name: "Toast", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-toast--docs" },
@@ -130,12 +141,17 @@ export const COLUMNS = [
 
 ## Summary
 
-- **Stable:** 26 components — safe for production use; API stable.
-- **Beta:** 19 components — usable but expect API adjustments as we validate them in real consumers.
+- **Stable:** 27 components — safe for production use; API stable.
+- **Beta:** 26 components — usable but expect API adjustments as we validate them in real consumers.
+
+Every component exported from the package barrel appears here. A row with no
+docs link is exported but not yet documented.
 
 **Accessibility**
 
 - **Meets standards** — the component has been manually reviewed and passes Inkwell's accessibility criteria (keyboard navigation works, focus rings are visible, ARIA roles/labels are wired correctly). Safe to ship in an accessible experience.
 - **Not reviewed** — the component ships with reasonable ARIA and keyboard defaults, but has not been through a dedicated audit yet. It may or may not pass — use with more caution and expect a review before it moves to Stable.
 
-**Grouped docs pages** — some components share a docs page with a closely related one: `IconButton` sits inside the [Button](?path=/docs/components-button--docs) page, `EmptyState`, `Panel`, and `SectionHeading` live in [Surface](?path=/docs/components-surface--docs), and `ToastRegion` is documented alongside [Toast](?path=/docs/components-toast--docs). The "In X" links above jump straight to those parent pages.
+**Grouped docs pages** — some components share a docs page with a closely related one: `IconButton` and `ButtonLink` sit inside the [Button](?path=/docs/components-button--docs) page; `EmptyState`, `Panel`, `SectionHeading`, `Container`, `Center`, and `Paper` live in [Surface](?path=/docs/components-surface--docs); `CardActions` is in [Card](?path=/docs/components-card--docs); `PopoverMenuItem` is in [Popover](?path=/docs/components-popover--docs); and `ToastRegion` is documented alongside [Toast](?path=/docs/components-toast--docs). The "In X" links above jump straight to those parent pages.
+
+`Text`, `Heading`, and `Link` are deliberately filed under [Typography utilities](?path=/docs/tokens-typography-utilities--docs) rather than Components: semantic HTML plus the type tokens is the default path, and these are conveniences on top of it.
