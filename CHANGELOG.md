@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.1 - 2026-08-03
+
+### Added
+
+- `inkwell.ai.md`, a compact design-and-accessibility guide for coding agents.
+  `inkwell init` installs a user-owned copy at the adopter's project root, and
+  the package exports the versioned source at
+  `@lagroon/inkwell-design-system/ai.md`.
+- The source-owned CLI now exposes `text-button`, restoring coverage for every
+  public non-icon component export.
+
 ## v0.2.0 - 2026-08-02
 
 Design-system review: the package stops fighting the apps that install it.

@@ -12,7 +12,7 @@ const ui = ["ui.tsx", "button.tsx", "spinner.tsx", "iconButton.tsx", "pill.tsx",
 
 export const registry = {
   "action-group": item(["layout.tsx"]), avatar: item(["avatar.tsx"]), badge: item(["badge.tsx"]),
-  button: item(["button.tsx", "spinner.tsx"]), "button-link": item(["button.tsx", "spinner.tsx"]),
+  button: item(["button.tsx", "spinner.tsx"]), "button-link": item(["button.tsx", "spinner.tsx"]), "text-button": item(["button.tsx", "spinner.tsx"]),
   card: item(["card.tsx"]), "card-actions": item(["card.tsx"]), center: item(["surface.tsx"]),
   checkbox: item(forms), "checkbox-select": item(["checkboxSelect.tsx", "button.tsx", "spinner.tsx", "popover.tsx", ...forms]),
   collapsible: item(["collapsible.tsx", icons]), container: item(["surface.tsx"]), divider: item(["divider.tsx"]),
