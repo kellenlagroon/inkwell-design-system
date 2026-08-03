@@ -27,6 +27,15 @@ export const Horizontal = {
   ),
 };
 
+export const EqualWidth = {
+  name: "Equal-width horizontal",
+  render: () => (
+    <div style={{ padding: 32, maxWidth: 720, margin: "auto" }}>
+      <ControlledNav equalWidth items={APP_ITEMS} />
+    </div>
+  ),
+};
+
 export const ListVariant = {
   name: "List variant (sidebar-friendly)",
   render: () => (

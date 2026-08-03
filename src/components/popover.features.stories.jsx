@@ -83,6 +83,29 @@ export const Menu = {
   ),
 };
 
+export const ComposedFilterList = {
+  name: "Composed filter list",
+  render: () => (
+    <div style={{ padding: 80 }}>
+      <Popover
+        overflow="visible"
+        ariaLabel="Program filters"
+        trigger={({ ref, open, onToggle, ...triggerProps }) => (
+          <Trigger ref={ref} {...triggerProps} aria-expanded={open} onClick={onToggle} label="Filter programs" />
+        )}
+      >
+        <div style={{ display: "grid", gap: 8, width: 280 }}>
+          <Text size="sm" tone="secondary">The list owns its scroll area; the panel stays visible.</Text>
+          <div style={{ maxHeight: 180, overflow: "auto", display: "grid", gap: 4 }}>
+            {Array.from({ length: 12 }, (_, index) => <Checkbox key={index} label={`Program ${index + 1}`} />)}
+          </div>
+          <Button size="sm">Apply filters</Button>
+        </div>
+      </Popover>
+    </div>
+  ),
+};
+
 export const AllSides = {
   render: () => (
     <div style={{ display: "grid", placeItems: "center", padding: 48 }}>

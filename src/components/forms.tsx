@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useId, useRef, useState } from "react";
 import type { ChangeEvent, DragEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
 import { IconEye, IconFile, IconTrash } from "./icons";
+import { Button, type ButtonSize } from "./button";
 
 /**
  * Form primitives for Inkwell.
@@ -281,6 +282,8 @@ export function PasswordInput({
 export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "placeholder"> {
   /** Visible trigger label. */
   label?: ReactNode;
+  /** Button-system size used by the trigger variant. */
+  triggerSize?: ButtonSize;
   /** Placeholder shown before a file is selected. */
   placeholder?: ReactNode;
   /** Optional validation or helper slot rendered below the trigger row. */
@@ -309,6 +312,7 @@ export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputEleme
 export function FileUpload({
   id,
   label = "Choose file",
+  triggerSize = "md",
   placeholder = "No file selected",
   validationMessage,
   invalid = false,
@@ -417,9 +421,9 @@ export function FileUpload({
         </div>
       ) : (
         <div className="file-upload-row">
-          <button type="button" className="secondary-button" onClick={() => inputRef.current?.click()} disabled={props.disabled}>
+          <Button variant="secondary" size={triggerSize} onClick={() => inputRef.current?.click()} disabled={props.disabled}>
             {label}
-          </button>
+          </Button>
           {fileDisplay === "inline" ? (
             <span className={["file-upload-name", filename ? "" : "file-upload-name--empty"].filter(Boolean).join(" ")}>
               {filename || placeholder}

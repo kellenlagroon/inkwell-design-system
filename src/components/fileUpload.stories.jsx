@@ -11,6 +11,7 @@ export const Playground = {
     hint: "PDF or Word document.",
     error: "",
     disabled: false,
+    triggerSize: "md",
   },
   argTypes: {
     label: { control: "text" },
@@ -18,11 +19,12 @@ export const Playground = {
     hint: { control: "text" },
     error: { control: "text" },
     disabled: { control: "boolean" },
+    triggerSize: { control: "select", options: ["xs", "sm", "md", "lg", "xl"] },
   },
-  render: ({ label, accept, hint, error, disabled }) => (
+  render: ({ label, accept, hint, error, disabled, triggerSize }) => (
     <div style={{ padding: 24, maxWidth: 460 }}>
       <FormField label="Resume" hint={hint} error={error || undefined}>
-        <FileUpload label={label} accept={accept} disabled={disabled} />
+        <FileUpload label={label} accept={accept} disabled={disabled} triggerSize={triggerSize} />
       </FormField>
     </div>
   ),

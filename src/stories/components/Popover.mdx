@@ -34,6 +34,13 @@ An anchored surface for compact content and action menus.
 
 <Canvas of={PopoverFeatures.Menu} sourceState="hidden" />
 
+### Composed filter list
+
+Panels scroll by default. Set `overflow="visible"` when a child list owns the
+scroll area, which avoids nested scrollbars in composite filter controls.
+
+<Canvas of={PopoverFeatures.ComposedFilterList} sourceState="hidden" />
+
 ### Placement
 
 <Canvas of={PopoverFeatures.AllSides} sourceState="hidden" />

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
-import { Button, ButtonLink } from "./button";
+import { Button, ButtonLink, TextButton } from "./button";
 import { IconButton } from "./iconButton";
 import { Pill } from "./pill";
 import { StatusBanner } from "./statusBanner";
@@ -8,9 +8,9 @@ import { StatusBanner } from "./statusBanner";
 const classOf = (el: Element) => el.getAttribute("class") ?? "";
 
 describe("Button", () => {
-  it("defaults to primary md with no size modifier", () => {
+  it("defaults to primary md", () => {
     const { getByRole } = render(<Button>Save</Button>);
-    expect(classOf(getByRole("button"))).toBe("primary-button");
+    expect(classOf(getByRole("button"))).toBe("primary-button button--md");
   });
 
   it("maps variant and size to classes", () => {
@@ -28,7 +28,7 @@ describe("Button", () => {
         x
       </Button>,
     );
-    expect(classOf(getByRole("button"))).toBe("ghost-button modal-close-button");
+    expect(classOf(getByRole("button"))).toBe("ghost-button button--md modal-close-button");
   });
 
   it("passes through native button props", () => {
@@ -49,7 +49,7 @@ describe("Button", () => {
       </Button>,
     );
     const link = getByRole("link") as HTMLAnchorElement;
-    expect(link.className).toBe("primary-button");
+    expect(link.className).toBe("primary-button button--md");
     expect(link.rel).toContain("noopener");
     expect(link.rel).toContain("noreferrer");
   });
@@ -83,6 +83,13 @@ describe("Button", () => {
   it("supports full-width button and link actions", () => {
     expect(classOf(render(<Button fullWidth>Save</Button>).getByRole("button"))).toContain("button--full-width");
     expect(classOf(render(<ButtonLink fullWidth href="/next">Next</ButtonLink>).getByRole("link"))).toContain("button--full-width");
+  });
+});
+
+describe("TextButton", () => {
+  it("uses button semantics with link-like styling", () => {
+    const { getByRole } = render(<TextButton>Show full description</TextButton>);
+    expect(getByRole("button", { name: "Show full description" }).className).toContain("text-button");
   });
 });
 

@@ -208,6 +208,7 @@
   --button-secondary-border: var(--color-border-strong);
   --button-secondary-border-hover: var(--button-secondary-border);
   --button-danger-fg: var(--color-text-strong);
+  --badge-brand-bg: var(--color-brand);
   --badge-filled-fg: var(--color-text-strong);
   --badge-warning-fg: var(--ink-950);
   --badge-danger-fg: var(--ink-950);
@@ -215,6 +216,8 @@
   --badge-info-fg: var(--ink-950);
   --nav-active-bg: var(--color-text-strong);
   --nav-active-fg: var(--color-text-inverse);
+  --nav-notification-bg: var(--color-brand);
+  --link-fg: var(--color-info);
   --control-surface: var(--color-surface-raised);
   --control-surface-active: var(--color-surface-active);
   --control-overlay: var(--color-overlay-soft);
@@ -248,6 +251,7 @@
   --popover-surface: var(--color-surface-raised);
   --popover-border: var(--color-border-default);
   --popover-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  --text-button-fg: var(--link-fg);
   --banner-radius: var(--radius-sharp);
   --banner-padding: 14px 16px;
   --toast-bg: var(--color-surface-default);
@@ -297,7 +301,7 @@
   --color-bg-base: var(--neutral-0);
   --color-bg-canvas-alt: var(--neutral-25);
   --color-bg-canvas: var(--neutral-50);
-  --color-surface-default: var(--neutral-50);
+  --color-surface-default: var(--neutral-0);
   --color-surface-raised: var(--neutral-0);
   --color-surface-active: var(--neutral-100);
   --color-text-primary: var(--neutral-900);
@@ -341,6 +345,7 @@
   --button-secondary-border: transparent;
   --button-secondary-border-hover: var(--button-secondary-border);
   --button-danger-fg: var(--color-text-inverse);
+  --badge-brand-bg: var(--color-brand);
   --badge-filled-fg: var(--color-text-inverse);
   --badge-warning-fg: var(--color-text-inverse);
   --badge-danger-fg: var(--color-text-inverse);
@@ -348,6 +353,8 @@
   --badge-info-fg: var(--color-text-inverse);
   --nav-active-bg: var(--color-surface-raised);
   --nav-active-fg: var(--color-text-primary);
+  --nav-notification-bg: var(--color-brand);
+  --link-fg: var(--color-info);
   --control-surface: var(--color-surface-active);
   --control-surface-active: var(--neutral-200);
   --control-overlay: var(--color-overlay-soft);
@@ -381,6 +388,7 @@
   --popover-surface: var(--color-surface-raised);
   --popover-border: var(--color-border-subtle);
   --popover-shadow: 0 18px 40px rgba(17, 17, 17, 0.16);
+  --text-button-fg: var(--link-fg);
   --banner-radius: var(--radius-sharp);
   --banner-padding: 14px 16px;
   --toast-bg: var(--color-surface-raised);

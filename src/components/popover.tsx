@@ -27,6 +27,7 @@ function oppositePlacement(placement: PopoverPlacement): PopoverPlacement {
 }
 
 export type PopoverMode = "content" | "menu";
+export type PopoverOverflow = "auto" | "visible";
 export type PopoverPlacement =
   | "top-start" | "top" | "top-end"
   | "right-start" | "right" | "right-end"
@@ -63,6 +64,8 @@ export interface PopoverProps {
   ariaLabel?: string;
   /** Render as a bottom sheet on narrow screens. */
   mobileSheet?: boolean;
+  /** `auto` scrolls a tall panel; `visible` delegates scrolling to a composed child list. */
+  overflow?: PopoverOverflow;
 }
 
 /**
@@ -81,6 +84,7 @@ export function Popover({
   rootClassName = "",
   ariaLabel,
   mobileSheet = false,
+  overflow = "auto",
 }: PopoverProps) {
   const id = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -228,6 +232,7 @@ export function Popover({
     `ink-popover-panel--${resolvedPlacement}`,
     `ink-popover-panel--${mode}`,
     mobileSheet ? "ink-popover-panel--mobile-sheet" : "",
+    `ink-popover-panel--overflow-${overflow}`,
     panelClassName,
   ].filter(Boolean).join(" ");
 

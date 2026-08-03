@@ -34,6 +34,16 @@ export const Disabled = {
   ),
 };
 
+export const TriggerSizes = {
+  render: () => (
+    <div style={{ padding: 24, display: "grid", gap: 12 }}>
+      {["xs", "sm", "md", "lg", "xl"].map((triggerSize) => (
+        <FileUpload key={triggerSize} aria-label={`Attachment ${triggerSize}`} label={`Choose file (${triggerSize})`} triggerSize={triggerSize} layout="inline" />
+      ))}
+    </div>
+  ),
+};
+
 function FileItemDemo() {
   return (
     <div style={{ padding: 24, maxWidth: 620 }}>

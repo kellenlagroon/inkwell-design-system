@@ -1,4 +1,5 @@
 import { Button, IconButton } from "./ui";
+import { TextButton } from "./button";
 import {
   IconArrowDown,
   IconAward,
@@ -36,6 +37,11 @@ export const DangerButton = {
 
 export const DisabledButton = {
   render: () => <Button disabled>Save changes</Button>,
+};
+
+export const TextButtonStory = {
+  name: "Text button",
+  render: () => <TextButton>Show full description</TextButton>,
 };
 
 export const ButtonSizes = {

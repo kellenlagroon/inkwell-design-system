@@ -12,7 +12,7 @@ export type ButtonSpinnerPlacement = "start" | "end";
 interface ButtonOwnProps {
   /** Visual role in the action hierarchy. */
   variant?: ButtonVariant;
-  /** Control height/density. `md` is the default and adds no modifier. */
+  /** Control height/density. Every size has an explicit height, padding, gap, and type size. */
   size?: ButtonSize;
   /** Render a spinner and lock the action while work is in progress. */
   loading?: boolean;
@@ -61,7 +61,7 @@ export function Button({
   const disabled = Boolean(props.disabled || loading);
   const classes = [
     `${variant}-button`,
-    size !== "md" ? `button--${size}` : "",
+    `button--${size}`,
     loading ? "button--loading" : "",
     fullWidth ? "button--full-width" : "",
     className,
@@ -131,4 +131,14 @@ export function Button({
 
 export function ButtonLink(props: ButtonLinkProps) {
   return <Button {...props} as="a" />;
+}
+
+export interface TextButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Compact text action for disclosures and secondary inline actions. */
+  children?: ReactNode;
+}
+
+/** A semantic button styled like an inline text link. */
+export function TextButton({ type = "button", className = "", children, ...props }: TextButtonProps) {
+  return <button type={type} className={["text-button", className].filter(Boolean).join(" ")} {...props}>{children}</button>;
 }

@@ -45,6 +45,8 @@ export interface NavProps {
   variant?: NavVariant;
   /** Dock a horizontal Nav to the bottom of a narrow app container. Defaults to `false`. */
   mobileDocked?: boolean;
+  /** Give horizontal items equal widths so both the item and its label center reliably. */
+  equalWidth?: boolean;
   /** Accessible name for the wrapping `<nav>`. Required for a11y when the surrounding page has more than one nav. */
   "aria-label"?: string;
   /** Optional class name appended to the root. */
@@ -69,6 +71,7 @@ export function Nav({
   orientation = "horizontal",
   variant,
   mobileDocked = false,
+  equalWidth = false,
   "aria-label": ariaLabel,
   className,
   style,
@@ -142,6 +145,7 @@ export function Nav({
     `ink-nav--${orientation}`,
     `ink-nav--${resolvedVariant}`,
     mobileDocked ? "ink-nav--mobile-docked" : "",
+    equalWidth ? "ink-nav--equal-width" : "",
     className,
   ]
     .filter(Boolean)

@@ -107,4 +107,11 @@ describe("Nav", () => {
     );
     expect(getByRole("navigation").className).toContain("ink-nav--mobile-docked");
   });
+
+  it("adds equal-width mode only when requested", () => {
+    const { getByRole, rerender } = render(<Harness />);
+    expect(getByRole("navigation").className).not.toContain("ink-nav--equal-width");
+    rerender(<Nav items={ITEMS} value="ballot" onChange={() => {}} equalWidth aria-label="Primary" />);
+    expect(getByRole("navigation").className).toContain("ink-nav--equal-width");
+  });
 });

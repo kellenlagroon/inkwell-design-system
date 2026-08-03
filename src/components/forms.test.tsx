@@ -113,6 +113,11 @@ describe("FileUpload", () => {
     expect(container.firstElementChild?.className).toContain("file-upload--mobile");
   });
 
+  it("applies the requested Button size to its trigger", () => {
+    const { getByRole } = render(<FileUpload label="Choose file" triggerSize="sm" />);
+    expect(getByRole("button", { name: "Choose file" }).className).toContain("button--sm");
+  });
+
   it("renders removable styled file items", () => {
     const onFilesChange = vi.fn();
     const { getByLabelText, getByRole, queryByText } = render(

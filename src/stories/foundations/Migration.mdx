@@ -1,0 +1,35 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Migrating to Inkwell" />
+
+# Migrating to Inkwell
+
+Use component tokens to preserve a product's intent while adopting Inkwell's
+structure. Avoid broad `--color-brand` overrides when only one component role
+should change.
+
+| Common library convention | Inkwell mapping | Migration note |
+|---|---|---|
+| Mantine/Chakra `Button size` | `Button size="xs"…"xl"` | Every size defines height, padding, gap, and font size. `FileUpload triggerSize` follows the same contract. |
+| Radix/Mantine links | `Link` or `TextButton` | Use `Link` for navigation; use `TextButton` for disclosures and in-place actions. |
+| Theme accent / primary | `--button-primary-*`, `--badge-brand-bg`, `--nav-*`, `--link-fg` | Override the role token, so green actions can coexist with neutral navigation. |
+| Popover content | `Popover overflow="auto"` | Default panel scrolling. Use `overflow="visible"` when a child filter list should be the only scroll region. |
+| Drawer / mobile modal | `Drawer` or `Popover mobileSheet` | Use a Drawer for persistent or tall workflows; `mobileSheet` promotes a compact popover at narrow widths. |
+| Form control sizes | `TextInput size`, `Button size`, `FileUpload triggerSize` | Keep controls in the same density family rather than setting application CSS. |
+
+## Token override example
+
+```css
+/* Green calls to action, neutral tabs, blue links. */
+:root {
+  --button-primary-bg: seagreen;
+  --button-primary-bg-hover: #187a4a;
+  --nav-active-bg: var(--color-surface-raised);
+  --nav-active-fg: var(--color-text-primary);
+  --link-fg: #2463a4;
+}
+```
+
+See [Overriding Inkwell](?path=/docs/foundations-overriding-inkwell--docs) for
+cascade-layer details and the [Filter bar pattern](?path=/story/patterns-filter-bar--responsive-composition)
+for a composed Select, multi-select popover, and responsive action row.

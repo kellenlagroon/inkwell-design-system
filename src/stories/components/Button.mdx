@@ -60,6 +60,13 @@ Icons should reinforce the action, not replace clear button language.
 
 <Canvas of={ButtonFeatures.IconButtonStory} sourceState="hidden" />
 
+### Text button
+
+Use `TextButton` for an in-place action that should read visually as a link,
+such as a disclosure. It keeps native button semantics; use `Link` for navigation.
+
+<Canvas of={ButtonFeatures.TextButtonStory} sourceState="hidden" />
+
 ### Disabled state
 
 Disabled actions should be used sparingly and only when the user can infer what prerequisite is missing.
