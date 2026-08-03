@@ -9,7 +9,7 @@
     "**/*.css"
   ],
   "bin": {
-    "inkwell": "./cli/bin/inkwell.mjs"
+    "inkwell": "./cli/bin/inkwell.js"
   },
   "files": [
     "dist",
