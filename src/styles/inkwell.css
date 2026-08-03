@@ -1840,18 +1840,19 @@ input[type="search"].input--lg {
 }
 
 .password-input-control {
-  padding-right: var(--space-10);
+  /* Clears the 44px toggle plus a gap. */
+  padding-right: calc(44px + var(--space-2));
 }
 
 .password-input-toggle {
   position: absolute;
   top: 50%;
-  right: var(--space-2);
+  right: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: var(--radius-sharp);
@@ -2114,6 +2115,7 @@ input[type="search"].input--lg {
 
 .cselect-option {
   display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: 44px;
   padding: 10px var(--space-4);
   background: transparent; border: 0; border-radius: var(--radius-sharp);
   color: var(--color-text-primary);
@@ -2755,12 +2757,15 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
 
 .toast-region {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  right: max(var(--space-3), env(safe-area-inset-right));
+  bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  left: max(var(--space-3), env(safe-area-inset-left));
   z-index: var(--z-float);
   display: grid;
   gap: var(--space-3);
-  width: min(360px, calc(100% - 24px));
+  width: auto;
+  max-width: 360px;
+  margin-left: auto;
 }
 
 .toast {
@@ -2976,6 +2981,7 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .ink-drawer-body--padding-none { padding: 0; }
@@ -3090,6 +3096,9 @@ body[data-preview-mode="mobile"] .modal .modal-close-button {
   font-weight: var(--font-weight-bold);
   text-decoration: none;
 }
+
+/* The item is a tap target; the ellipsis is decorative and stays compact. */
+.ink-pagination-item { min-width: 44px; min-height: 44px; }
 
 .ink-pagination-item[aria-current="page"] {
   background: var(--nav-active-bg);
@@ -3458,8 +3467,10 @@ a.ink-pagination-action[aria-disabled="true"] {
   }
 }
 
-/* Production mobile-readiness layer. These rules intentionally live after the
-   seeded app CSS so exported primitives keep their guarantees for consumers. */
+/* Responsive and overflow-safety rules for the exported primitives. These are
+   ordinary component rules — nothing here needs to outrank anything, and a rule
+   that conflicts with a component's own definition belongs merged into it, not
+   restated down here. */
 .button--full-width { width: 100%; }
 .button-content { min-width: 0; }
 .button-label,
@@ -3501,15 +3512,11 @@ a.ink-pagination-action[aria-disabled="true"] {
 .checkbox-label,
 .file-upload-validation { min-width: 0; overflow-wrap: anywhere; }
 .checkbox { min-height: 44px; }
-.password-input-toggle { width: 44px; height: 44px; right: 0; }
-.password-input-control { padding-right: calc(44px + var(--space-2)); }
 .file-upload-row { width: 100%; }
 .file-upload-row .secondary-button { flex: 0 0 auto; }
 .file-upload--stacked .file-upload-row { align-items: stretch; flex-direction: column; }
 .file-upload--stacked .file-upload-row .secondary-button { width: 100%; }
 
-.cselect-trigger,
-.cselect-option { min-height: 44px; }
 .cselect-value,
 .cselect-option > span { min-width: 0; overflow-wrap: anywhere; }
 .cselect-dropdown {
@@ -3546,18 +3553,9 @@ a.ink-pagination-action[aria-disabled="true"] {
   justify-content: flex-end;
   padding-top: 2px;
 }
-.toast-region {
-  right: max(var(--space-3), env(safe-area-inset-right));
-  bottom: max(var(--space-3), env(safe-area-inset-bottom));
-  left: max(var(--space-3), env(safe-area-inset-left));
-  width: auto;
-  max-width: 360px;
-  margin-left: auto;
-}
 
 .ink-tabs { max-width: 100%; }
 
-.ink-pagination-item { min-width: 44px; min-height: 44px; }
 /* The summary is the live region that announces page changes, so it must stay
    in the accessibility tree at every breakpoint — `display: none` would silence
    it. It is visually hidden instead, and revealed in compact layouts. */
@@ -3610,7 +3608,6 @@ a.ink-pagination-action[aria-disabled="true"] {
 
 .ink-drawer { height: var(--ink-drawer-height, 100%); max-height: var(--ink-drawer-max-height, 100dvh); }
 .ink-drawer-header { padding-top: max(var(--space-4), env(safe-area-inset-top)); }
-.ink-drawer-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .ink-drawer-footer {
   flex: 0 0 auto;
   padding: var(--space-4);
