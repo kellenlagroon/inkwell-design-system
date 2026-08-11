@@ -29,6 +29,11 @@ exact component API.
 - Use `Button` for an action and `ButtonLink` or `Link` for navigation. Do not
   use a click handler on a non-interactive element when a semantic control
   exists.
+- Use `TextButton` for a low-emphasis inline action and `TextDisclosure` for a
+  controlled show/hide action. Point `controls` at content that remains in the
+  DOM so the disclosure relationship resolves.
+- `Badge` is neutral by default. Use `tone="brand"` only when brand emphasis is
+  intentional; changing the app brand should not recolor ordinary statuses.
 - Use `IconButton` only when its accessible name is clear. A text-labelled
   `Button` is preferred for important or unfamiliar actions.
 - Use `FormField` with `TextInput`, `Textarea`, `Select`, `Checkbox`,

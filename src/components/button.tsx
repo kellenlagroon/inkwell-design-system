@@ -142,3 +142,41 @@ export interface TextButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
 export function TextButton({ type = "button", className = "", children, ...props }: TextButtonProps) {
   return <button type={type} className={["text-button", className].filter(Boolean).join(" ")} {...props}>{children}</button>;
 }
+
+export interface TextDisclosureProps extends Omit<TextButtonProps, "children" | "aria-expanded" | "aria-controls"> {
+  /** Controlled expanded state of the content named by `controls`. */
+  expanded: boolean;
+  /** Id of the disclosure content. */
+  controls: string;
+  /** Visible label while the content is collapsed. */
+  collapsedLabel: ReactNode;
+  /** Visible label while the content is expanded. */
+  expandedLabel: ReactNode;
+  /** Reports the requested next state. The parent remains responsible for showing the content. */
+  onExpandedChange: (expanded: boolean) => void;
+}
+
+/** A controlled text-style disclosure trigger with complete ARIA wiring. */
+export function TextDisclosure({
+  expanded,
+  controls,
+  collapsedLabel,
+  expandedLabel,
+  onExpandedChange,
+  onClick,
+  ...props
+}: TextDisclosureProps) {
+  return (
+    <TextButton
+      {...props}
+      aria-expanded={expanded}
+      aria-controls={controls}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) onExpandedChange(!expanded);
+      }}
+    >
+      {expanded ? expandedLabel : collapsedLabel}
+    </TextButton>
+  );
+}

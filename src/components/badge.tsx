@@ -3,7 +3,7 @@ import type { HTMLAttributes, ReactNode } from "react";
 export type BadgeTone = "info" | "success" | "warning" | "danger" | "neutral" | "brand";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  /** Color tone. Defaults to `brand` (the notification color). */
+  /** Color tone. Defaults to `neutral`; use `brand` only for intentional brand emphasis. */
   tone?: BadgeTone;
   /**
    * Render a bare dot with no content — a presence indicator (generalizes the
@@ -19,11 +19,11 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
  * or set `dot` for a bare indicator. For inline status labels use `Pill`
  * instead.
  */
-export function Badge({ tone = "brand", dot = false, className = "", children, ...props }: BadgeProps) {
+export function Badge({ tone = "neutral", dot = false, className = "", children, ...props }: BadgeProps) {
   const classes = [
     "badge",
     dot ? "badge--dot" : "",
-    tone !== "brand" ? `badge--${tone}` : "",
+    tone !== "neutral" ? `badge--${tone}` : "",
     className,
   ]
     .filter(Boolean)

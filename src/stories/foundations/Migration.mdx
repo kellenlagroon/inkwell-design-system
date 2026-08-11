@@ -10,12 +10,51 @@ should change.
 
 | Common library convention | Inkwell mapping | Migration note |
 |---|---|---|
-| Mantine/Chakra `Button size` | `Button size="xs"…"xl"` | Every size defines height, padding, gap, and font size. `FileUpload triggerSize` follows the same contract. |
+| Mantine `Button size` | `Button size="xs"…"xl"` | Every size defines height, padding, gap, and font size. See the stock mapping below. |
 | Radix/Mantine links | `Link` or `TextButton` | Use `Link` for navigation; use `TextButton` for disclosures and in-place actions. |
 | Theme accent / primary | `--button-primary-*`, `--badge-brand-bg`, `--nav-*`, `--link-fg` | Override the role token, so green actions can coexist with neutral navigation. |
 | Popover content | `Popover overflow="auto"` | Default panel scrolling. Use `overflow="visible"` when a child filter list should be the only scroll region. |
 | Drawer / mobile modal | `Drawer` or `Popover mobileSheet` | Use a Drawer for persistent or tall workflows; `mobileSheet` promotes a compact popover at narrow widths. |
 | Form control sizes | `TextInput size`, `Button size`, `FileUpload triggerSize` | Keep controls in the same density family rather than setting application CSS. |
+
+## Mantine button density
+
+Mantine's stock regular heights are `30 / 36 / 42 / 50 / 60px`; its compact
+heights are `22 / 26 / 30 / 34 / 40px`. Inkwell intentionally prioritizes its
+own density and target-size contract instead of preserving every pixel. The
+closest regular mapping is:
+
+| Mantine size | Mantine height / type | Inkwell size | Inkwell height / type |
+|---|---:|---|---:|
+| `xs` | 30px / 12px | `xs` | 28px / 11.52px |
+| `sm` | 36px / 14px | `sm` | 36px / 12.48px |
+| `md` | 42px / 16px | `md` | 44px / 13.44px |
+| `lg` | 50px / 18px | `lg` | 52px / 17.28px |
+| `xl` | 60px / 20px | `xl` | 60px / 17.28px |
+
+For compact Mantine buttons, map `compact-xs`, `compact-sm`, and `compact-md`
+to Inkwell `xs`; map `compact-lg` to `sm`; and map `compact-xl` to `md` when a
+44px target is appropriate. Do not recreate 22–26px controls with consumer CSS.
+The source values are documented in Mantine's
+[Variants and sizes](https://mantine.dev/styles/variants-sizes/) reference.
+
+`FileUpload triggerSize` uses this same Inkwell Button contract.
+
+## Common component mappings
+
+| Mantine | Inkwell | Notes |
+|---|---|---|
+| `Anchor` or navigational `Text` | `Link` | Keeps anchor semantics and the dedicated `--link-fg` role. |
+| Link-styled action | `TextButton` | Native button for an in-place action. |
+| Show/hide text action | `TextDisclosure` | Controlled label switching with `aria-expanded` and `aria-controls`. |
+| `Button leftSection/rightSection` | `Button` children | Place the icon before or after the label. |
+| `ActionIcon` | `IconButton` | Provide an accessible `aria-label`; sizes do not map one-to-one. |
+| `TextInput` | `FormField` + `TextInput` | FormField owns label, hint, error, and required wiring. |
+| `Select` | `Select` | Use `variant="control"` only in compact toolbar/filter contexts. |
+| `MultiSelect` | `CheckboxSelect` | Controlled string-array value rendered in a Popover/mobile sheet. |
+| `Group` containing actions | `ActionGroup` | Encodes primary-last placement and responsive stacking. |
+| `Drawer opened/onClose/position` | `Drawer open/onClose/side` | Use `footer` for actions and `bodyPadding` instead of consumer padding CSS. |
+| `Popover` | `Popover` | Choose `mode="menu"` only for actions; use `overflow="visible"` when a child owns scrolling. |
 
 ## Token override example
 
@@ -33,3 +72,6 @@ should change.
 See [Overriding Inkwell](?path=/docs/foundations-overriding-inkwell--docs) for
 cascade-layer details and the [Filter bar pattern](?path=/story/patterns-filter-bar--responsive-composition)
 for a composed Select, multi-select popover, and responsive action row.
+
+The pattern's [light/dark override example](?path=/story/patterns-filter-bar--theme-token-overrides)
+shows the same component-role overrides scoped under both themes.

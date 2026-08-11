@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
-import { Button, ButtonLink, TextButton } from "./button";
+import { Button, ButtonLink, TextButton, TextDisclosure } from "./button";
 import { IconButton } from "./iconButton";
 import { Pill } from "./pill";
 import { StatusBanner } from "./statusBanner";
@@ -90,6 +90,53 @@ describe("TextButton", () => {
   it("uses button semantics with link-like styling", () => {
     const { getByRole } = render(<TextButton>Show full description</TextButton>);
     expect(getByRole("button", { name: "Show full description" }).className).toContain("text-button");
+  });
+});
+
+describe("TextDisclosure", () => {
+  it("wires controlled disclosure state and reports the requested next value", () => {
+    const onExpandedChange = vi.fn();
+    const { getByRole, rerender } = render(
+      <TextDisclosure
+        expanded={false}
+        controls="description"
+        collapsedLabel="Show full description"
+        expandedLabel="Show less"
+        onExpandedChange={onExpandedChange}
+      />,
+    );
+    const trigger = getByRole("button", { name: "Show full description" });
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(trigger.getAttribute("aria-controls")).toBe("description");
+    fireEvent.click(trigger);
+    expect(onExpandedChange).toHaveBeenCalledWith(true);
+
+    rerender(
+      <TextDisclosure
+        expanded
+        controls="description"
+        collapsedLabel="Show full description"
+        expandedLabel="Show less"
+        onExpandedChange={onExpandedChange}
+      />,
+    );
+    expect(getByRole("button", { name: "Show less" }).getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("honors a consumer click cancellation", () => {
+    const onExpandedChange = vi.fn();
+    const { getByRole } = render(
+      <TextDisclosure
+        expanded={false}
+        controls="description"
+        collapsedLabel="Show"
+        expandedLabel="Hide"
+        onExpandedChange={onExpandedChange}
+        onClick={(event) => event.preventDefault()}
+      />,
+    );
+    fireEvent.click(getByRole("button", { name: "Show" }));
+    expect(onExpandedChange).not.toHaveBeenCalled();
   });
 });
 

@@ -27,8 +27,8 @@ export type {
 } from "./components/ui";
 export { Select } from "./components/select";
 export type { SelectProps, SelectOption } from "./components/select";
-export { Button, ButtonLink, TextButton } from "./components/button";
-export type { ButtonProps, ButtonLinkProps, TextButtonProps, ButtonVariant, ButtonSize, ButtonSpinnerPlacement } from "./components/button";
+export { Button, ButtonLink, TextButton, TextDisclosure } from "./components/button";
+export type { ButtonProps, ButtonLinkProps, TextButtonProps, TextDisclosureProps, ButtonVariant, ButtonSize, ButtonSpinnerPlacement } from "./components/button";
 export { IconButton } from "./components/iconButton";
 export type { IconButtonProps, IconButtonSize } from "./components/iconButton";
 export { Pill } from "./components/pill";

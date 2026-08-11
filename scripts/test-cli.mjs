@@ -11,7 +11,7 @@ writeFileSync(resolve(fixture, "package.json"), JSON.stringify({ name: "inkwell-
 writeFileSync(resolve(fixture, "index.html"), '<div id="root"></div><script type="module" src="/src/main.jsx"></script>');
 const cli = resolve(root, "cli/bin/inkwell.js");
 const packageManifest = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
-if (packageManifest.bin?.inkwell !== "./cli/bin/inkwell.js") throw new Error("Root package must expose the inkwell CLI binary.");
+if (packageManifest.bin?.inkwell !== "cli/bin/inkwell.js") throw new Error("Root package must expose the inkwell CLI binary.");
 const { registry } = await import(pathToFileURL(resolve(root, "cli/registry.mjs")).href);
 for (const args of [["init"], ["add", ...Object.keys(registry)]]) {
   const result = spawnSync(process.execPath, [cli, ...args], { cwd: fixture, encoding: "utf8" });

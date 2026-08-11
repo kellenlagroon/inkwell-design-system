@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- `Badge` now defaults to the neutral tone; branded badges require
+  `tone="brand"`, so ordinary statuses and counts no longer inherit app brand.
+- Nav active surfaces default to `--color-overlay-strong`; list Nav uses the
+  same dedicated Nav role instead of the legacy brand accent.
+- Pagination current-page colors now use dedicated pagination tokens instead
+  of Nav tokens.
+
+### Added
+
+- `TextDisclosure`, a controlled text-style disclosure trigger with label
+  switching and `aria-expanded` / `aria-controls` wiring.
+- Stock Mantine migration mappings and live light/dark token-override examples.
+
+### Fixed
+
+- CLI verification now expects the npm-compatible binary path shipped in
+  v0.2.2.
+
+### Removed
+
+- Unused `--notification-dot-bg`; Nav notification badges use
+  `--nav-notification-bg`.
+
 ## v0.2.2 - 2026-08-03
 
 ### Fixed

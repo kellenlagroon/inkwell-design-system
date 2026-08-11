@@ -54,3 +54,21 @@ describe("Popover menu mode", () => {
     expect(queryByRole("menu")).toBeNull();
   });
 });
+
+describe("Popover overflow", () => {
+  it("marks a panel that delegates scrolling to its content", () => {
+    const { getByRole } = render(
+      <Popover
+        defaultOpen
+        overflow="visible"
+        trigger={({ ref, onToggle, ...triggerProps }) => (
+          <button ref={ref} {...triggerProps} onClick={onToggle}>Filters</button>
+        )}
+      >
+        <div>Scrollable list</div>
+      </Popover>,
+    );
+    expect(getByRole("button", { name: "Filters" }).nextElementSibling?.className)
+      .toContain("ink-popover-panel--overflow-visible");
+  });
+});

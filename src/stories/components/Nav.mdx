@@ -71,6 +71,11 @@ the same width and its label is centered inside that item.
 
 <Canvas of={NavFeatures.EqualWidth} sourceState="hidden" />
 
+Equal-width mode also constrains long labels so icon and badge content cannot
+force one item wider than its siblings.
+
+<Canvas of={NavFeatures.EqualWidthStress} sourceState="hidden" />
+
 ### Vertical
 
 Sidebar layout. Items stack; the indicator slides on the Y axis and takes the

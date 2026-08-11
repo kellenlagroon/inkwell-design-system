@@ -67,6 +67,15 @@ such as a disclosure. It keeps native button semantics; use `Link` for navigatio
 
 <Canvas of={ButtonFeatures.TextButtonStory} sourceState="hidden" />
 
+### Text disclosure
+
+Use `TextDisclosure` for a controlled show/hide action. It switches labels and
+wires `aria-expanded` plus `aria-controls`; the parent owns the target content
+and expanded state. Use `Collapsible` instead when Inkwell should own a complete
+header-and-content disclosure region.
+
+<Canvas of={ButtonFeatures.TextDisclosureStory} sourceState="hidden" />
+
 ### Disabled state
 
 Disabled actions should be used sparingly and only when the user can infer what prerequisite is missing.
@@ -93,4 +102,5 @@ surface options across default, hover, focus, loading, and disabled states.
 - `Enter` activates the focused button.
 - `Space` activates the focused button.
 - Icon-only buttons should always provide an accessible name.
+- `TextDisclosure` names the controlled content and exposes its current state.
 - `IconButton` has two sizes: `md` (44px, the default) and `sm` (32px).

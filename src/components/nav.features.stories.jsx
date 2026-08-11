@@ -36,6 +36,22 @@ export const EqualWidth = {
   ),
 };
 
+export const EqualWidthStress = {
+  name: "Equal-width with mixed content",
+  render: () => (
+    <div style={{ padding: 32, maxWidth: 620, margin: "auto" }}>
+      <ControlledNav
+        equalWidth
+        items={[
+          { value: "overview", label: "Overview", icon: <IconList /> },
+          { value: "applications", label: "Application review queue", icon: <IconAward />, badge: 12 },
+          { value: "settings", label: "Settings", icon: <IconSettings /> },
+        ]}
+      />
+    </div>
+  ),
+};
+
 export const ListVariant = {
   name: "List variant (sidebar-friendly)",
   render: () => (

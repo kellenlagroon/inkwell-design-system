@@ -284,9 +284,11 @@
           "badge-danger-fg": "var(--ink-950)",
           "badge-success-fg": "var(--ink-950)",
           "badge-info-fg": "var(--ink-950)",
-          "nav-active-bg": "var(--color-text-strong)",
-          "nav-active-fg": "var(--color-text-inverse)",
+          "nav-active-bg": "var(--color-overlay-strong)",
+          "nav-active-fg": "var(--color-text-primary)",
           "nav-notification-bg": "var(--color-brand)",
+          "pagination-current-bg": "var(--color-text-strong)",
+          "pagination-current-fg": "var(--color-text-inverse)",
           "link-fg": "var(--color-info)",
           "control-surface": "var(--color-surface-raised)",
           "control-surface-active": "var(--color-surface-active)",
@@ -311,8 +313,7 @@
           "toast-danger-border": "rgba(198, 93, 52, 0.32)",
           "toast-warning-border": "rgba(216, 166, 75, 0.34)",
           "preview-chrome-highlight": "rgba(255, 238, 223, 0.02)",
-          "preview-chrome-sheen": "rgba(255, 255, 255, 0.035)",
-          "notification-dot-bg": "var(--color-brand)"
+          "preview-chrome-sheen": "rgba(255, 255, 255, 0.035)"
         }
       },
       {
@@ -432,9 +433,11 @@
           "badge-danger-fg": "var(--color-text-inverse)",
           "badge-success-fg": "var(--color-text-inverse)",
           "badge-info-fg": "var(--color-text-inverse)",
-          "nav-active-bg": "var(--color-surface-raised)",
+          "nav-active-bg": "var(--color-overlay-strong)",
           "nav-active-fg": "var(--color-text-primary)",
           "nav-notification-bg": "var(--color-brand)",
+          "pagination-current-bg": "var(--color-surface-raised)",
+          "pagination-current-fg": "var(--color-text-primary)",
           "link-fg": "var(--color-info)",
           "control-surface": "var(--color-surface-active)",
           "control-surface-active": "var(--neutral-200)",
@@ -459,8 +462,7 @@
           "toast-danger-border": "rgba(161, 67, 51, 0.32)",
           "toast-warning-border": "rgba(109, 87, 0, 0.34)",
           "preview-chrome-highlight": "rgba(17, 17, 17, 0.02)",
-          "preview-chrome-sheen": "rgba(255, 255, 255, 0.6)",
-          "notification-dot-bg": "var(--color-brand)"
+          "preview-chrome-sheen": "rgba(255, 255, 255, 0.6)"
         }
       },
       {

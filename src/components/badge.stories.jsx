@@ -7,12 +7,12 @@ export default {
 export const Playground = {
   args: {
     children: "3",
-    tone: "brand",
+    tone: "neutral",
     dot: false,
   },
   argTypes: {
     children: { control: "text", name: "Content" },
-    tone: { control: { type: "select" }, options: ["brand", "neutral", "danger"] },
+    tone: { control: { type: "select" }, options: ["neutral", "brand", "info", "success", "warning", "danger"] },
     dot: { control: "boolean" },
   },
   render: ({ children, tone, dot }) => (

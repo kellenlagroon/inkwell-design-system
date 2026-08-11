@@ -5,14 +5,15 @@ import { Badge } from "./badge";
 const rootOf = (markup: ReturnType<typeof render>) => markup.container.firstChild as HTMLElement;
 
 describe("Badge", () => {
-  it("defaults to the brand tone and shows its content", () => {
+  it("defaults to the neutral tone and shows its content", () => {
     const el = rootOf(render(<Badge>3</Badge>));
     expect(el.className).toBe("badge");
     expect(el.textContent).toBe("3");
   });
 
   it("applies semantic tones", () => {
-    expect(rootOf(render(<Badge tone="neutral">9</Badge>)).className).toBe("badge badge--neutral");
+    expect(rootOf(render(<Badge tone="neutral">9</Badge>)).className).toBe("badge");
+    expect(rootOf(render(<Badge tone="brand">9</Badge>)).className).toBe("badge badge--brand");
     expect(rootOf(render(<Badge tone="success">9</Badge>)).className).toBe("badge badge--success");
     expect(rootOf(render(<Badge tone="warning">9</Badge>)).className).toBe("badge badge--warning");
     expect(rootOf(render(<Badge tone="danger">9</Badge>)).className).toBe("badge badge--danger");

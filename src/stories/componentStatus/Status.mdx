@@ -59,6 +59,7 @@ export const ROWS = [
   { name: "Tabs", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-tabs--docs" },
   { name: "Text", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/tokens-typography-utilities--docs", noteHref: "In Typography utilities" },
   { name: "TextButton", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-button--docs", noteHref: "In Button" },
+  { name: "TextDisclosure", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-button--docs", noteHref: "In Button" },
   { name: "Textarea", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-textarea--docs" },
   { name: "TextInput", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-textinput--docs" },
   { name: "Toast", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-toast--docs" },
@@ -143,7 +144,7 @@ export const COLUMNS = [
 ## Summary
 
 - **Stable:** 27 components — safe for production use; API stable.
-- **Beta:** 26 components — usable but expect API adjustments as we validate them in real consumers.
+- **Beta:** 28 components — usable but expect API adjustments as we validate them in real consumers.
 
 Every non-icon component exported from the package barrel appears here. The
 public icon exports are catalogued in [Foundations/Icons](?path=/docs/foundations-icons--docs).
@@ -154,6 +155,6 @@ A row with no docs link is exported but not yet documented.
 - **Meets standards** — the component has been manually reviewed and passes Inkwell's accessibility criteria (keyboard navigation works, focus rings are visible, ARIA roles/labels are wired correctly). Safe to ship in an accessible experience.
 - **Not reviewed** — the component ships with reasonable ARIA and keyboard defaults, but has not been through a dedicated audit yet. It may or may not pass — use with more caution and expect a review before it moves to Stable.
 
-**Grouped docs pages** — some components share a docs page with a closely related one: `IconButton` and `ButtonLink` sit inside the [Button](?path=/docs/components-button--docs) page; `EmptyState`, `Panel`, `SectionHeading`, `Container`, `Center`, and `Paper` live in [Surface](?path=/docs/components-surface--docs); `CardActions` is in [Card](?path=/docs/components-card--docs); `PopoverMenuItem` is in [Popover](?path=/docs/components-popover--docs); and `ToastRegion` is documented alongside [Toast](?path=/docs/components-toast--docs). The "In X" links above jump straight to those parent pages.
+**Grouped docs pages** — some components share a docs page with a closely related one: `IconButton`, `ButtonLink`, `TextButton`, and `TextDisclosure` sit inside the [Button](?path=/docs/components-button--docs) page; `EmptyState`, `Panel`, `SectionHeading`, `Container`, `Center`, and `Paper` live in [Surface](?path=/docs/components-surface--docs); `CardActions` is in [Card](?path=/docs/components-card--docs); `PopoverMenuItem` is in [Popover](?path=/docs/components-popover--docs); and `ToastRegion` is documented alongside [Toast](?path=/docs/components-toast--docs). The "In X" links above jump straight to those parent pages.
 
 `Text`, `Heading`, and `Link` are deliberately filed under [Typography utilities](?path=/docs/tokens-typography-utilities--docs) rather than Components: semantic HTML plus the type tokens is the default path, and these are conveniences on top of it.

@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Button, IconButton } from "./ui";
-import { TextButton } from "./button";
+import { TextButton, TextDisclosure } from "./button";
 import {
   IconArrowDown,
   IconAward,
@@ -42,6 +43,30 @@ export const DisabledButton = {
 export const TextButtonStory = {
   name: "Text button",
   render: () => <TextButton>Show full description</TextButton>,
+};
+
+function DescriptionDisclosure() {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div style={{ display: "grid", gap: 8, maxWidth: 520 }}>
+      <p id="review-description" hidden={!expanded} style={{ margin: 0 }}>
+        Reviewers compare the complete application, supporting materials, and
+        scoring history before recording a recommendation.
+      </p>
+      <TextDisclosure
+        expanded={expanded}
+        controls="review-description"
+        collapsedLabel="Show full description"
+        expandedLabel="Show less"
+        onExpandedChange={setExpanded}
+      />
+    </div>
+  );
+}
+
+export const TextDisclosureStory = {
+  name: "Text disclosure",
+  render: () => <DescriptionDisclosure />,
 };
 
 export const ButtonSizes = {
