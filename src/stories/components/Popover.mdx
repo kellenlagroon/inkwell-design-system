@@ -53,6 +53,10 @@ scroll area, which avoids nested scrollbars in composite filter controls.
 
 Set `mobileSheet` when a compact popover should become a focus-contained bottom sheet on narrow screens.
 
+On narrow screens, `mobileSheet` owns viewport-safe width, safe-area spacing,
+internal scrolling, and trigger stretching. Use `rootClassName` to opt into a
+custom width only when the full-width default is not appropriate.
+
 ## Usage guidance
 
 - Do provide a trigger with a clear label.

@@ -13,6 +13,7 @@ export type NavStyle = CSSProperties &
 
 export type NavOrientation = "horizontal" | "vertical";
 export type NavVariant = "chip" | "list";
+export type NavFit = "content" | "equal" | "scroll" | "wrap";
 
 export interface NavItem {
   /** Stable identifier used to detect the active item. */
@@ -45,8 +46,11 @@ export interface NavProps {
   variant?: NavVariant;
   /** Dock a horizontal Nav to the bottom of a narrow app container. Defaults to `false`. */
   mobileDocked?: boolean;
+  /** @deprecated Use `fit="equal"` instead. */
   /** Give horizontal items equal widths so both the item and its label center reliably. */
   equalWidth?: boolean;
+  /** Horizontal fitting and overflow behavior. `equalWidth` is a deprecated alias. */
+  fit?: NavFit;
   /** Accessible name for the wrapping `<nav>`. Required for a11y when the surrounding page has more than one nav. */
   "aria-label"?: string;
   /** Optional class name appended to the root. */
@@ -72,6 +76,7 @@ export function Nav({
   variant,
   mobileDocked = false,
   equalWidth = false,
+  fit,
   "aria-label": ariaLabel,
   className,
   style,
@@ -83,6 +88,7 @@ export function Nav({
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
   const [indicator, setIndicator] = useState<{ left: number; top: number; width: number; height: number } | null>(null);
   const activeIndex = items.findIndex((item) => item.value === value);
+  const resolvedFit: NavFit = fit ?? (equalWidth ? "equal" : "content");
 
   const measure = useCallback(() => {
     const el = itemRefs.current[activeIndex];
@@ -145,7 +151,8 @@ export function Nav({
     `ink-nav--${orientation}`,
     `ink-nav--${resolvedVariant}`,
     mobileDocked ? "ink-nav--mobile-docked" : "",
-    equalWidth ? "ink-nav--equal-width" : "",
+    `ink-nav--fit-${resolvedFit}`,
+    equalWidth && !fit ? "ink-nav--equal-width" : "",
     className,
   ]
     .filter(Boolean)

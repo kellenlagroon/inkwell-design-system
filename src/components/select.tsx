@@ -2,6 +2,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { IconArrowDown, IconCheck } from "./icons";
 import { useFieldContext } from "./forms";
+import { ControlTrigger } from "./controlTrigger";
+import type { ControlDensity } from "./controlDensity";
 
 export interface SelectOption {
   value: string;
@@ -23,6 +25,8 @@ export interface SelectProps {
   /** id of a visible element that labels the control. Takes precedence over `aria-label`. */
   "aria-labelledby"?: string;
   id?: string;
+  /** Shared control density. */
+  density?: ControlDensity;
 }
 
 function firstEnabled(options: SelectOption[]): number {
@@ -61,6 +65,7 @@ export function Select({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   id,
+  density,
 }: SelectProps) {
   const field = useFieldContext();
   const generatedId = useId();
@@ -183,8 +188,7 @@ export function Select({
 
   return (
     <div className={containerClass} ref={containerRef}>
-      <button
-        type="button"
+      <ControlTrigger
         ref={triggerRef}
         className="cselect-trigger"
         disabled={disabled}
@@ -198,12 +202,12 @@ export function Select({
         id={triggerId}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onTriggerKeyDown}
+        density={density}
+        invalid={resolvedInvalid}
+        value={<span className={isPlaceholder ? "placeholder" : ""}>{displayLabel}</span>}
+        trailing={<IconArrowDown className="cselect-chevron" />}
       >
-        <span className={["cselect-value", isPlaceholder ? "placeholder" : ""].filter(Boolean).join(" ")}>
-          {displayLabel}
-        </span>
-        <IconArrowDown className="cselect-chevron" />
-      </button>
+      </ControlTrigger>
       {open && (
         <div
           id={listboxId}

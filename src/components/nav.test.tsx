@@ -114,4 +114,12 @@ describe("Nav", () => {
     rerender(<Nav items={ITEMS} value="ballot" onChange={() => {}} equalWidth aria-label="Primary" />);
     expect(getByRole("navigation").className).toContain("ink-nav--equal-width");
   });
+
+  it("supports explicit fitting modes and gives fit precedence over equalWidth", () => {
+    const { getByRole, rerender } = render(<Nav items={ITEMS} value="ballot" equalWidth fit="scroll" aria-label="Primary" />);
+    expect(getByRole("navigation").className).toContain("ink-nav--fit-scroll");
+    expect(getByRole("navigation").className).not.toContain("ink-nav--equal-width");
+    rerender(<Nav items={ITEMS} value="ballot" fit="wrap" aria-label="Primary" />);
+    expect(getByRole("navigation").className).toContain("ink-nav--fit-wrap");
+  });
 });

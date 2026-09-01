@@ -27,6 +27,12 @@ application CSS with:
 @import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");
 ```
 
+In Next.js, use `next/font/google` with `variable: "--font-source-sans"` and
+`variable: "--font-league-spartan"`, then apply
+both generated class names to the document root. Confirm the computed family
+in devtools before shipping; Inkwell's semantic `--font-family-body` and
+`--font-family-display` variables resolve those consumer-owned variables.
+
 Self-hosting is also supported when the same family names and weights are
 declared.
 

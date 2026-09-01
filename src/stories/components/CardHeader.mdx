@@ -1,0 +1,39 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CardHeaderStories from '../../components/cardHeader.stories';
+import * as CardHeaderFeatures from '../../components/cardHeader.features.stories';
+
+<Meta of={CardHeaderStories} name="Docs" />
+
+# CardHeader
+
+Responsive card title composition with title, metadata, badges, and actions slots.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+Use `CardHeader` at the top of a content card when title, metadata, badges, and
+actions must stay associated as the layout narrows. It is a standalone
+composition documented here; `CardActions` remains grouped with `Card`.
+
+<Canvas of={CardHeaderStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={CardHeaderStories} />
+
+## Features
+
+<Canvas of={CardHeaderFeatures.LongTitle} sourceState="hidden" />
+
+## Usage guidance
+
+- Keep badges in the title row so they do not appear to divide the card body.
+- Put supporting metadata in `metadata`; use `actions` for card-level actions.
+- Keep title content meaningful and avoid relying on visual placement for hierarchy.
+
+## Keyboard and accessibility
+
+`CardHeader` is a non-landmark layout wrapper. Provide heading semantics in the
+`title` slot when the card participates in document navigation, and ensure
+action controls have accessible names.

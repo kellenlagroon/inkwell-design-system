@@ -22,6 +22,13 @@ afterEach(() => {
 });
 
 describe("Tabs", () => {
+  it("exposes the shared control density contract", () => {
+    const { getByRole } = render(
+      <Tabs tabs={TABS} value="poll" onChange={() => {}} density="compact" aria-label="Views" />,
+    );
+    expect(getByRole("tablist").className).toContain("ink-control-density--compact");
+  });
+
   it("renders a tablist with the selected tab and roving tabindex", () => {
     const { getByRole, getAllByRole } = render(<Harness />);
     expect(getByRole("tablist").getAttribute("aria-label")).toBe("Views");

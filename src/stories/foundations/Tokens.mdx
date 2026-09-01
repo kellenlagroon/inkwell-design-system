@@ -34,6 +34,12 @@ Meaning and role, built from Tier 1 and swapped per theme —
 `--color-text-primary`, `--color-bg-canvas`, `--color-danger`,
 `--font-size-body`, `--z-modal-host`.
 
+Interactive controls use the shared density tokens (`--control-md-*`,
+`--control-compact-*`, and `--control-comfortable-*`) and semantic families
+(`--font-family-body`, `--font-family-display`). The default `md` density is
+40px; comfortable is 44px for touch-first surfaces. `--font-weight-control`
+is 550 for variable fonts.
+
 **This is the tier components should reach for**, and the tier consumers should
 override to re-theme the system. It is also where light and dark diverge: the
 same semantic name resolves to a different primitive in each theme.

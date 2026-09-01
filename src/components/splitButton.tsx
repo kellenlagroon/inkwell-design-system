@@ -1,6 +1,8 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { IconArrowDown } from "./icons.jsx";
 import { Popover, PopoverMenuItem } from "./popover";
+import type { ControlDensity } from "./controlDensity";
+export type SplitButtonDensity = ControlDensity;
 
 export interface SplitButtonItem {
   /** Item label. Also the React key, so keep it unique within the menu. */
@@ -28,6 +30,8 @@ export interface SplitButtonProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   menuLabel?: string;
   /** Disables the primary action and the menu trigger. */
   disabled?: boolean;
+  /** Shared control density for the paired actions. */
+  density?: SplitButtonDensity;
 }
 
 /**
@@ -41,12 +45,13 @@ export function SplitButton({
   items = [],
   menuLabel = "More actions",
   disabled = false,
+  density,
   className = "",
   ...props
 }: SplitButtonProps) {
   return (
     <div className={["split-button", className].filter(Boolean).join(" ")} {...props}>
-      <button type="button" className="split-button-primary" onClick={onPrimaryClick} disabled={disabled}>
+      <button type="button" className={['split-button-primary', density && density !== "default" ? `ink-control-density--${density}` : ""].filter(Boolean).join(" ")} onClick={onPrimaryClick} disabled={disabled}>
         {primaryLabel}
       </button>
       <div className="split-button-divider" />
@@ -61,7 +66,7 @@ export function SplitButton({
             ref={ref as (node: HTMLButtonElement | null) => void}
             {...triggerProps}
             type="button"
-            className="split-button-chevron"
+            className={['split-button-chevron', density && density !== "default" ? `ink-control-density--${density}` : ""].filter(Boolean).join(" ")}
             aria-label={menuLabel}
             disabled={disabled}
             onClick={onToggle}

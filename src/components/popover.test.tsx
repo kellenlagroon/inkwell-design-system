@@ -71,4 +71,20 @@ describe("Popover overflow", () => {
     expect(getByRole("button", { name: "Filters" }).nextElementSibling?.className)
       .toContain("ink-popover-panel--overflow-visible");
   });
+
+  it("marks mobile-sheet roots and keeps the panel as the scroll owner", () => {
+    const { container, getByRole } = render(
+      <Popover
+        mobileSheet
+        defaultOpen
+        trigger={({ ref, onToggle, ...triggerProps }) => <button ref={ref} {...triggerProps} onClick={onToggle}>Filters</button>}
+      >
+        <div className="ink-popover-mobile-sheet__body">Long filter list</div>
+      </Popover>,
+    );
+    expect(container.firstElementChild?.className).toContain("ink-popover--mobile-sheet-capable");
+    expect(getByRole("button", { name: "Filters" }).tagName).toBe("BUTTON");
+    expect(container.querySelector(".ink-popover-panel--mobile-sheet")).not.toBeNull();
+    expect(container.querySelectorAll(".ink-popover-mobile-sheet__body")).toHaveLength(1);
+  });
 });

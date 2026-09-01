@@ -17,11 +17,14 @@ export const ROWS = [
   { name: "ButtonLink", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-button--docs", noteHref: "In Button" },
   { name: "Card", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-card--docs" },
   { name: "CardActions", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-card--docs", noteHref: "In Card" },
+  { name: "CardHeader", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-cardheader--docs" },
   { name: "Center", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
   { name: "Checkbox", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-checkbox--docs" },
   { name: "CheckboxSelect", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-checkboxselect--docs" },
   { name: "Collapsible", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-collapsible--docs" },
   { name: "Container", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
+  { name: "ControlGroup", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/layout-controlgroup--docs" },
+  { name: "ControlTrigger", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-controltrigger--docs" },
   { name: "Divider", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-divider--docs" },
   { name: "Drawer", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-drawer--docs" },
   { name: "EmptyState", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
@@ -44,7 +47,7 @@ export const ROWS = [
   { name: "Popover", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-popover--docs" },
   { name: "PopoverMenuItem", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-popover--docs", noteHref: "In Popover" },
   { name: "Progress", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-progress--docs" },
-  { name: "RichTextSafe", status: "Beta", a11y: "Not reviewed" },
+  { name: "RichTextSafe", status: "Beta", a11y: "Not reviewed", href: "?path=/docs/components-richtextsafe--docs" },
   { name: "SectionHeading", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-surface--docs", noteHref: "In Surface" },
   { name: "Select", status: "Stable", a11y: "Meets standards", href: "?path=/docs/components-select--docs" },
   { name: "Sidebar", status: "Beta", a11y: "Meets standards", href: "?path=/docs/components-sidebar--docs" },
@@ -144,7 +147,7 @@ export const COLUMNS = [
 ## Summary
 
 - **Stable:** 27 components — safe for production use; API stable.
-- **Beta:** 28 components — usable but expect API adjustments as we validate them in real consumers.
+- **Beta:** 31 components — usable but expect API adjustments as we validate them in real consumers.
 
 Every non-icon component exported from the package barrel appears here. The
 public icon exports are catalogued in [Foundations/Icons](?path=/docs/foundations-icons--docs).
@@ -155,6 +158,6 @@ A row with no docs link is exported but not yet documented.
 - **Meets standards** — the component has been manually reviewed and passes Inkwell's accessibility criteria (keyboard navigation works, focus rings are visible, ARIA roles/labels are wired correctly). Safe to ship in an accessible experience.
 - **Not reviewed** — the component ships with reasonable ARIA and keyboard defaults, but has not been through a dedicated audit yet. It may or may not pass — use with more caution and expect a review before it moves to Stable.
 
-**Grouped docs pages** — some components share a docs page with a closely related one: `IconButton`, `ButtonLink`, `TextButton`, and `TextDisclosure` sit inside the [Button](?path=/docs/components-button--docs) page; `EmptyState`, `Panel`, `SectionHeading`, `Container`, `Center`, and `Paper` live in [Surface](?path=/docs/components-surface--docs); `CardActions` is in [Card](?path=/docs/components-card--docs); `PopoverMenuItem` is in [Popover](?path=/docs/components-popover--docs); and `ToastRegion` is documented alongside [Toast](?path=/docs/components-toast--docs). The "In X" links above jump straight to those parent pages.
+**Grouped docs pages** — some components share a docs page with a closely related one: `IconButton`, `ButtonLink`, `TextButton`, and `TextDisclosure` sit inside the [Button](?path=/docs/components-button--docs) page; `EmptyState`, `Panel`, `SectionHeading`, `Container`, `Center`, and `Paper` live in [Surface](?path=/docs/components-surface--docs); `CardActions` is in [Card](?path=/docs/components-card--docs); `PopoverMenuItem` is in [Popover](?path=/docs/components-popover--docs); and `ToastRegion` is documented alongside [Toast](?path=/docs/components-toast--docs). `CardHeader` and `ControlTrigger` have standalone component pages; `ControlGroup` is documented with the layout primitives. The "In X" links above jump straight to those parent pages.
 
 `Text`, `Heading`, and `Link` are deliberately filed under [Typography utilities](?path=/docs/tokens-typography-utilities--docs) rather than Components: semantic HTML plus the type tokens is the default path, and these are conveniences on top of it.

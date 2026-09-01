@@ -148,6 +148,22 @@ export const LabelOnly = {
   ),
 };
 
+export const FittingModes = {
+  name: "Fitting modes at 320px",
+  render: () => <div style={{ display: "grid", gap: 16, width: 320 }}>
+    {(["content", "equal", "scroll", "wrap"]).map((fit) => (
+      <div key={fit} style={{ minWidth: 0 }}>
+        <small>{fit} · four items</small>
+        <ControlledNav fit={fit} items={[{ value: "one", label: "Overview" }, { value: "two", label: "Interviewing" }, { value: "three", label: "Results" }, { value: "four", label: "Settings" }]} />
+      </div>
+    ))}
+    <div style={{ minWidth: 0 }}>
+      <small>wrap · five items</small>
+      <ControlledNav fit="wrap" items={[{ value: "one", label: "Overview" }, { value: "two", label: "Interviewing" }, { value: "three", label: "Results" }, { value: "four", label: "Settings" }, { value: "five", label: "Archived" }]} />
+    </div>
+  </div>,
+};
+
 export const CustomStyling = {
   render: () => (
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>

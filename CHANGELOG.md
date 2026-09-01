@@ -4,6 +4,13 @@
 
 ### Changed
 
+- Standardize interactive controls on a shared 40px `md` density with compact
+  and comfortable variants, semantic font-family/weight tokens, and explicit
+  Button icon slots.
+- Add `ControlTrigger`, `CardHeader`, and `ControlGroup` primitives; add Nav
+  `fit` modes with `equalWidth` compatibility and strengthen mobileSheet sizing.
+- Make RichText typography defensive and document Google Fonts plus Next.js
+  `next/font` loading and computed-style verification.
 - Package and source-owned installation guidance now explicitly loads Source
   Sans 3 and League Spartan before Inkwell's stylesheet; `inkwell init` also
   calls out the requirement.

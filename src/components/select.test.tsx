@@ -20,6 +20,15 @@ function renderSelect(overrides: Partial<React.ComponentProps<typeof Select>> = 
 
 const activeText = () => (document.activeElement as HTMLElement | null)?.textContent;
 
+describe("Select density", () => {
+  it("exposes the shared control density contract", () => {
+    const { trigger, rerender } = renderSelect({ density: "comfortable", variant: "control" });
+    expect(trigger.className).toContain("ink-control-density--comfortable");
+    rerender(<Select value="a" onChange={() => {}} options={OPTIONS} aria-label="pick" density="compact" variant="control" />);
+    expect(trigger.className).toContain("ink-control-density--compact");
+  });
+});
+
 describe("Select keyboard navigation", () => {
   it("opens on ArrowDown with the selected option active", () => {
     const { trigger, getByRole } = renderSelect();

@@ -66,7 +66,7 @@ Default. Items sit in a row; the indicator slides on the X axis.
 
 ### Equal-width horizontal
 
-Set `equalWidth` when a horizontal Nav fills its container. Each item receives
+Set `fit="equal"` when a horizontal Nav fills its container. Each item receives
 the same width and its label is centered inside that item.
 
 <Canvas of={NavFeatures.EqualWidth} sourceState="hidden" />
@@ -75,6 +75,15 @@ Equal-width mode also constrains long labels so icon and badge content cannot
 force one item wider than its siblings.
 
 <Canvas of={NavFeatures.EqualWidthStress} sourceState="hidden" />
+
+### Fitting modes
+
+<Canvas of={NavFeatures.FittingModes} sourceState="hidden" />
+
+Use `fit="content"` for intrinsic labels, `fit="scroll"` for contained
+horizontal overflow, or `fit="wrap"` for multi-row navigation. The legacy
+`equalWidth` boolean remains supported as a compatibility alias; `fit` takes
+precedence when both are provided.
 
 ### Vertical
 

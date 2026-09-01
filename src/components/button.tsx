@@ -4,6 +4,7 @@ import type {
   ReactNode,
 } from "react";
 import { Spinner } from "./spinner";
+import type { ControlDensity } from "./controlDensity";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -22,6 +23,12 @@ interface ButtonOwnProps {
   spinnerPlacement?: ButtonSpinnerPlacement;
   /** Stretch the action to the width of its container. Useful for narrow layouts. */
   fullWidth?: boolean;
+  /** Shared control density. Defaults to `default`; use `comfortable` for touch-first surfaces. */
+  density?: ControlDensity;
+  /** Optional leading icon/content slot. */
+  startIcon?: ReactNode;
+  /** Optional trailing icon/content slot. */
+  endIcon?: ReactNode;
   children?: ReactNode;
 }
 
@@ -55,6 +62,9 @@ export function Button({
   loadingLabel,
   spinnerPlacement = "start",
   fullWidth = false,
+  density,
+  startIcon,
+  endIcon,
   ...props
 }: ButtonProps) {
   const isAnchor = as === "a";
@@ -64,6 +74,7 @@ export function Button({
     `button--${size}`,
     loading ? "button--loading" : "",
     fullWidth ? "button--full-width" : "",
+    density && density !== "default" ? `ink-control-density--${density}` : "",
     className,
   ]
     .filter(Boolean)
@@ -72,12 +83,12 @@ export function Button({
   const spinner = loading ? <Spinner size="sm" tone="current" label={loadingLabel ?? "Loading"} decorative /> : null;
   const inner = (
     <>
-      {spinnerPlacement === "start" ? spinner : null}
+      {loading && spinnerPlacement === "start" ? spinner : !loading && startIcon ? <span className="button-icon button-icon--start" aria-hidden="true">{startIcon}</span> : null}
       <span className="button-content">
         <span className={loading && loadingLabel ? "button-label button-label--hidden" : "button-label"}>{children}</span>
         {loading && loadingLabel ? <span className="button-loading-label">{loadingLabel}</span> : null}
       </span>
-      {spinnerPlacement === "end" ? spinner : null}
+      {loading && spinnerPlacement === "end" ? spinner : !loading && endIcon ? <span className="button-icon button-icon--end" aria-hidden="true">{endIcon}</span> : null}
     </>
   );
 

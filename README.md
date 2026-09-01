@@ -70,6 +70,23 @@ For example, add this as the first line of your application CSS:
 @import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");
 ```
 
+For Next.js, load the same variable fonts with `next/font` and expose the
+semantic variables expected by Inkwell:
+
+```ts
+// app/fonts.ts
+import { League_Spartan, Source_Sans_3 } from "next/font/google";
+export const sourceSans = Source_Sans_3({ subsets: ["latin"], variable: "--font-source-sans" });
+export const leagueSpartan = League_Spartan({ subsets: ["latin"], variable: "--font-league-spartan" });
+// Add `${sourceSans.variable} ${leagueSpartan.variable}` to your html/body className.
+```
+
+Verify the contract in browser devtools: the computed `font-family` for an
+Inkwell control should include `var(--font-source-sans)` resolving to Source
+Sans 3, and headings should resolve to League Spartan. Static self-hosted fonts
+may map weight 550 to their nearest available weight; the variable-font recipes
+above provide the intended intermediate control weight.
+
 You may self-host the fonts instead, provided those family names and weights
 are available. Inkwell does not bundle font files.
 

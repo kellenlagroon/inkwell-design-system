@@ -1,0 +1,37 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ControlGroupStories from '../../components/controlGroup.stories';
+import * as ControlGroupFeatures from '../../components/controlGroup.features.stories';
+
+<Meta of={ControlGroupStories} name="Docs" />
+
+# ControlGroup
+
+Responsive start/end alignment for form controls and actions. It is a layout primitive, not an ARIA toolbar.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+Use `ControlGroup` for a filter or form row with fields at the start and actions
+at the end. Use `ActionGroup` when the row contains actions only.
+
+<Canvas of={ControlGroupStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={ControlGroupStories} />
+
+## Features
+
+<Canvas of={ControlGroupFeatures.Responsive} sourceState="hidden" />
+
+## Usage guidance
+
+- Keep related fields in `start` and commit/reset actions in `end`.
+- Choose `stackBelow` based on the layout breakpoint, including `lg` for tablet-sized widths.
+- This primitive does not add toolbar roles or toolbar keyboard shortcuts.
+
+## Keyboard and accessibility
+
+The group is a layout wrapper and does not change the semantics of its children.
+Inputs and buttons remain in source order and retain their native keyboard behavior.

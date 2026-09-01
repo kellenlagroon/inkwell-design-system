@@ -39,6 +39,11 @@ Use variant styling to create action hierarchy between save, manage, cancel, and
 
 Scale button density based on surrounding UI, not just label length.
 
+The default `md` control is 40px high, 14px text, 16px inline padding, 8px
+content gap, and a 550 control weight. Use `density="comfortable"` when a
+touch-first surface needs a 44px target. Use `startIcon` and `endIcon` for
+leading/trailing icons; icon-only actions should use `IconButton`.
+
 <Canvas of={ButtonFeatures.ButtonSizes} sourceState="hidden" />
 
 ### Hierarchy
@@ -53,6 +58,7 @@ Icons should reinforce the action, not replace clear button language.
 
 <Canvas of={ButtonFeatures.TextIconLeft} sourceState="hidden" />
 <Canvas of={ButtonFeatures.TextIconRight} sourceState="hidden" />
+<Canvas of={ButtonStories.IconSlots} sourceState="hidden" />
 
 ### Icon button
 

@@ -119,12 +119,15 @@
       "tier": 2,
       "label": "Typography — semantic roles",
       "tokens": {
-        "font-size-badge": "var(--font-size-2xs)",
-        "font-size-caption": "var(--font-size-xs)",
-        "font-size-label-sm": "var(--font-size-sm)",
-        "font-size-label": "var(--font-size-base)",
-        "font-size-body": "var(--font-size-md)",
-        "font-size-heading-sm": "var(--font-size-lg)",
+        "font-size-supporting": "0.75rem",
+        "font-size-meta": "0.8125rem",
+        "font-size-body": "0.875rem",
+        "font-size-title-sm": "1rem",
+        "font-size-badge": "var(--font-size-supporting)",
+        "font-size-caption": "var(--font-size-supporting)",
+        "font-size-label-sm": "var(--font-size-meta)",
+        "font-size-label": "var(--font-size-body)",
+        "font-size-heading-sm": "var(--font-size-title-sm)",
         "font-size-heading": "var(--font-size-xl)",
         "font-size-display": "var(--font-size-2xl)",
         "font-size-rank": "var(--font-size-3xl)"
@@ -146,8 +149,45 @@
       "label": "Font weight — semantic roles",
       "tokens": {
         "font-weight-label": "var(--font-weight-semibold)",
-        "font-weight-ui": "var(--font-weight-bold)",
+        "font-weight-control": "550",
+        "font-weight-ui": "var(--font-weight-control)",
+        "font-weight-strong": "var(--font-weight-bold)",
         "font-weight-display": "var(--font-weight-extrabold)"
+      }
+    },
+    {
+      "tier": 2,
+      "label": "Typography — font families",
+      "tokens": {
+        "font-family-body": "var(--font-source-sans, \"Source Sans 3\"), sans-serif",
+        "font-family-display": "var(--font-league-spartan, \"League Spartan\"), sans-serif"
+      }
+    },
+    {
+      "tier": 2,
+      "label": "Control density",
+      "tokens": {
+        "control-md-height": "40px",
+        "control-md-font-size": "var(--font-size-body)",
+        "control-md-padding-block": "8px",
+        "control-md-padding-inline": "16px",
+        "control-md-icon-size": "16px",
+        "control-md-content-gap": "8px",
+        "control-md-font-weight": "var(--font-weight-control)",
+        "control-compact-height": "32px",
+        "control-compact-font-size": "var(--font-size-meta)",
+        "control-compact-padding-block": "4px",
+        "control-compact-padding-inline": "12px",
+        "control-compact-icon-size": "14px",
+        "control-compact-content-gap": "6px",
+        "control-compact-font-weight": "var(--font-weight-control)",
+        "control-comfortable-height": "44px",
+        "control-comfortable-font-size": "var(--font-size-body)",
+        "control-comfortable-padding-block": "10px",
+        "control-comfortable-padding-inline": "16px",
+        "control-comfortable-icon-size": "18px",
+        "control-comfortable-content-gap": "8px",
+        "control-comfortable-font-weight": "var(--font-weight-control)"
       }
     },
     {

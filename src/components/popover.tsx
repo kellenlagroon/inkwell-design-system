@@ -237,7 +237,7 @@ export function Popover({
   ].filter(Boolean).join(" ");
 
   return (
-    <div ref={rootRef} className={["ink-popover", isOpen ? "ink-popover--open" : "", rootClassName].filter(Boolean).join(" ")} onKeyDown={onKeyDown}>
+    <div ref={rootRef} className={["ink-popover", mobileSheet ? "ink-popover--mobile-sheet-capable" : "", isOpen ? "ink-popover--open" : "", rootClassName].filter(Boolean).join(" ")} onKeyDown={onKeyDown}>
       {trigger(triggerProps)}
       {isOpen ? (
         <>

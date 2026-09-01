@@ -1,0 +1,44 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as RichTextStories from '../../components/richTextSafe.stories';
+import * as RichTextFeatures from '../../components/richTextSafe.features.stories';
+
+<Meta of={RichTextStories} name="Docs" />
+
+# RichTextSafe
+
+Defensive typography for consumer-sanitized rich HTML. It styles content but does not sanitize or repair it.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+Use for HTML that has already been sanitized by the consuming application. Do
+not use it as a sanitizer or as a way to repair missing whitespace around
+inline tags.
+
+## Primary example
+
+<Canvas of={RichTextStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={RichTextStories} />
+
+## Features
+
+<Canvas of={RichTextFeatures.DefensiveNesting} sourceState="hidden" />
+
+Nested paragraphs, lists, list items, and blockquotes reset to body typography;
+links inherit normal weight and `strong`/`b` use explicit strong weight.
+
+## Usage guidance
+
+- Sanitize and normalize HTML in ingestion or application code before rendering.
+- Whitespace repair is a content responsibility; CSS cannot safely invent missing textual spaces.
+- Keep links meaningful and preserve heading hierarchy.
+
+## Keyboard and accessibility
+
+Links retain native keyboard behavior. Ensure consumer-supplied headings and
+landmarks form a sensible document outline; this styling container adds no
+landmark role.

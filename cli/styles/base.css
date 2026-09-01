@@ -5,6 +5,6 @@
     margin: 0;
     background: var(--color-bg-canvas);
     color: var(--color-text-primary);
-    font-family: "Source Sans 3", sans-serif;
+    font-family: var(--font-family-body);
   }
 }

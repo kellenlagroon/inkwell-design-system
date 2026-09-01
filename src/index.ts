@@ -30,6 +30,9 @@ export { Select } from "./components/select";
 export type { SelectProps, SelectOption } from "./components/select";
 export { Button, ButtonLink, TextButton, TextDisclosure } from "./components/button";
 export type { ButtonProps, ButtonLinkProps, TextButtonProps, TextDisclosureProps, ButtonVariant, ButtonSize, ButtonSpinnerPlacement } from "./components/button";
+export type { ControlDensity } from "./components/controlDensity";
+export { ControlTrigger } from "./components/controlTrigger";
+export type { ControlTriggerProps } from "./components/controlTrigger";
 export { IconButton } from "./components/iconButton";
 export type { IconButtonProps, IconButtonSize } from "./components/iconButton";
 export { Pill } from "./components/pill";
@@ -47,7 +50,7 @@ export type { CheckboxSelectProps, CheckboxSelectOption } from "./components/che
 export { SplitButton } from "./components/splitButton";
 export type { SplitButtonProps, SplitButtonItem } from "./components/splitButton";
 export { Nav } from "./components/nav";
-export type { NavProps, NavItem, NavOrientation, NavStyle, NavVariant } from "./components/nav";
+export type { NavProps, NavItem, NavOrientation, NavStyle, NavVariant, NavFit } from "./components/nav";
 export { Sidebar } from "./components/sidebar";
 export type { SidebarProps, SidebarSize, SidebarSide } from "./components/sidebar";
 
@@ -65,10 +68,14 @@ export type {
 
 export { Card, CardActions } from "./components/card";
 export type { CardProps, CardActionsProps, CardTone, CardVariant, CardPadding } from "./components/card";
+export { CardHeader } from "./components/cardHeader";
+export type { CardHeaderProps } from "./components/cardHeader";
+export { ControlGroup } from "./components/controlGroup";
+export type { ControlGroupProps } from "./components/controlGroup";
 export { Badge } from "./components/badge";
 export type { BadgeProps, BadgeTone } from "./components/badge";
 export { Tabs } from "./components/tabs";
-export type { TabsProps, TabItem, TabsStyle } from "./components/tabs";
+export type { TabsProps, TabItem, TabsStyle, TabsDensity } from "./components/tabs";
 export { Collapsible } from "./components/collapsible";
 export type { CollapsibleProps, CollapsibleStyle } from "./components/collapsible";
 export { Tooltip } from "./components/tooltip";

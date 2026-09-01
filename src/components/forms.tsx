@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useId, useRef, useState } from "r
 import type { ChangeEvent, DragEvent, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
 import { IconEye, IconFile, IconTrash } from "./icons";
 import { Button, type ButtonSize } from "./button";
+import type { ControlDensity } from "./controlDensity";
 
 /**
  * Form primitives for Inkwell.
@@ -99,6 +100,8 @@ export interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   describedBy?: string;
   /** Control height/density. `md` is the default and adds no modifier. */
   size?: "sm" | "md" | "lg";
+  /** Shared control density. Defaults to `default`. */
+  density?: ControlDensity;
 }
 
 /**
@@ -111,6 +114,7 @@ export function TextInput({
   invalid = false,
   describedBy,
   size = "md",
+  density,
   className = "",
   ...props
 }: TextInputProps) {
@@ -119,6 +123,7 @@ export function TextInput({
   const classes = [
     "input",
     size !== "md" ? `input--${size}` : "",
+    density && density !== "default" ? `ink-control-density--${density}` : "",
     resolvedInvalid ? "input--invalid" : "",
     className,
   ].filter(Boolean).join(" ");
@@ -180,6 +185,8 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
   describedBy?: string;
   /** Renders the mixed state, for a parent controlling a group of checkboxes. */
   indeterminate?: boolean;
+  /** Shared control density for the row and hit area. */
+  density?: ControlDensity;
 }
 
 /**
@@ -194,6 +201,7 @@ export function Checkbox({
   invalid = false,
   describedBy,
   indeterminate = false,
+  density,
   className = "",
   ...props
 }: CheckboxProps) {
@@ -213,6 +221,7 @@ export function Checkbox({
     resolvedInvalid ? "checkbox--invalid" : "",
     props.disabled ? "checkbox--disabled" : "",
     indeterminate ? "checkbox--indeterminate" : "",
+    density && density !== "default" ? `ink-control-density--${density}` : "",
     className,
   ].filter(Boolean).join(" ");
 
@@ -284,6 +293,8 @@ export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   label?: ReactNode;
   /** Button-system size used by the trigger variant. */
   triggerSize?: ButtonSize;
+  /** Shared control density for the upload trigger. */
+  density?: ControlDensity;
   /** Placeholder shown before a file is selected. */
   placeholder?: ReactNode;
   /** Optional validation or helper slot rendered below the trigger row. */
@@ -313,6 +324,7 @@ export function FileUpload({
   id,
   label = "Choose file",
   triggerSize = "md",
+  density,
   placeholder = "No file selected",
   validationMessage,
   invalid = false,
@@ -421,7 +433,7 @@ export function FileUpload({
         </div>
       ) : (
         <div className="file-upload-row">
-          <Button variant="secondary" size={triggerSize} onClick={() => inputRef.current?.click()} disabled={props.disabled}>
+          <Button variant="secondary" size={triggerSize} density={density} onClick={() => inputRef.current?.click()} disabled={props.disabled}>
             {label}
           </Button>
           {fileDisplay === "inline" ? (

@@ -55,6 +55,10 @@ export const Content = {
         <div style={{ display: "grid", gap: 10 }}>
           <Checkbox label="Remote" />
           <Checkbox label="Recently updated" />
+          <Checkbox label="Has interview availability" />
+          <Checkbox label="Requires portfolio review" />
+          <Checkbox label="Open to relocation" />
+          <Checkbox label="Posted this week" />
         </div>
       </Popover>
     </div>

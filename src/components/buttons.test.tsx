@@ -4,6 +4,7 @@ import { Button, ButtonLink, TextButton, TextDisclosure } from "./button";
 import { IconButton } from "./iconButton";
 import { Pill } from "./pill";
 import { StatusBanner } from "./statusBanner";
+import { IconArrowDown, IconList } from "./icons";
 
 const classOf = (el: Element) => el.getAttribute("class") ?? "";
 
@@ -83,6 +84,35 @@ describe("Button", () => {
   it("supports full-width button and link actions", () => {
     expect(classOf(render(<Button fullWidth>Save</Button>).getByRole("button"))).toContain("button--full-width");
     expect(classOf(render(<ButtonLink fullWidth href="/next">Next</ButtonLink>).getByRole("link"))).toContain("button--full-width");
+  });
+
+  it("supports shared control densities", () => {
+    const comfortable = render(<Button density="comfortable">Save</Button>);
+    expect(classOf(comfortable.getByRole("button"))).toContain("ink-control-density--comfortable");
+    comfortable.unmount();
+    const compact = render(<Button density="compact">Save</Button>);
+    expect(classOf(compact.getByRole("button"))).toContain("ink-control-density--compact");
+  });
+
+  it("renders explicit icon slots by default", () => {
+    const { container } = render(<Button startIcon={<IconList />} endIcon={<IconArrowDown />}>Search</Button>);
+    expect(container.querySelector(".button-icon--start svg")).not.toBeNull();
+    expect(container.querySelector(".button-icon--end svg")).not.toBeNull();
+  });
+
+  it("replaces icons with the loading spinner while loading", () => {
+    const { container, rerender } = render(<Button loading startIcon={<IconList />} endIcon={<IconArrowDown />}>Search</Button>);
+    expect(container.querySelector(".button-icon--start")).toBeNull();
+    expect(container.querySelector(".button-icon--end")).toBeNull();
+    expect(container.querySelector(".ink-spinner")).not.toBeNull();
+    rerender(<Button loading spinnerPlacement="end" startIcon={<IconList />} endIcon={<IconArrowDown />}>Search</Button>);
+    expect(container.querySelector(".button-icon--start")).toBeNull();
+    expect(container.querySelector(".button-icon--end")).toBeNull();
+  });
+
+  it("lets explicit density override size metrics", () => {
+    const { getByRole } = render(<Button size="xl" density="compact">Dense</Button>);
+    expect(classOf(getByRole("button"))).toContain("ink-control-density--compact");
   });
 });
 

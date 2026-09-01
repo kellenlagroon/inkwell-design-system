@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
-import { resolve } from "node:path";
+import { dirname, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const root = resolve(process.cwd());
@@ -13,6 +13,26 @@ const cli = resolve(root, "cli/bin/inkwell.js");
 const packageManifest = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
 if (packageManifest.bin?.inkwell !== "cli/bin/inkwell.js") throw new Error("Root package must expose the inkwell CLI binary.");
 const { registry } = await import(pathToFileURL(resolve(root, "cli/registry.mjs")).href);
+function resolveLocalImport(fromFile, specifier) {
+  const target = resolve(dirname(fromFile), specifier);
+  const candidates = [target, `${target}.tsx`, `${target}.ts`, `${target}.jsx`, `${target}.js`];
+  return candidates.find((candidate) => existsSync(candidate));
+}
+function assertLocalImportClosure(directory, command) {
+  const files = readdirSync(directory).filter((file) => /\.(tsx|ts|jsx|js)$/.test(file));
+  for (const file of files) {
+    const path = resolve(directory, file);
+    const source = readFileSync(path, "utf8");
+    const imports = source.matchAll(/(?:import|export)\s+(?:type\s+)?(?:[\s\S]*?\sfrom\s+)?["'](\.[^"']+)["']/g);
+    for (const match of imports) {
+      const specifier = match[1];
+      const dependency = resolveLocalImport(path, specifier);
+      if (!dependency || relative(directory, dependency).startsWith("..")) {
+        throw new Error(`CLI ${command} fixture has an incomplete local import closure: ${file} -> ${specifier}`);
+      }
+    }
+  }
+}
 let initOutput = "";
 for (const args of [["init"], ["add", ...Object.keys(registry)]]) {
   const result = spawnSync(process.execPath, [cli, ...args], { cwd: fixture, encoding: "utf8" });
@@ -34,7 +54,24 @@ const build = spawnSync(process.execPath, [resolve(root, "node_modules/vite/bin/
 if (build.status !== 0) throw new Error(`Fixture build failed:\n${build.stderr}\n${build.stdout}`);
 const generatedStylesheet = readFileSync(resolve(fixture, "src/components/inkwell/inkwell.css"), "utf8");
 if (!generatedStylesheet.includes("inkwell.components")) throw new Error("Generated stylesheet lost its cascade layers.");
-if (!generatedStylesheet.includes('font-family: "Source Sans 3", sans-serif')) throw new Error("Generated stylesheet must apply Inkwell's body font.");
+if (!generatedStylesheet.includes("font-family: var(--font-family-body)")) throw new Error("Generated stylesheet must apply Inkwell's semantic body font.");
+for (const command of ["button", "checkbox", "checkbox-select", "card-header", "control-group", "control-trigger", "file-upload", "field-group", "form-field", "password-input", "popover", "select", "split-button", "tabs", "text-input", "textarea"]) {
+  const independent = resolve(root, `.tmp-inkwell-cli-${command}`);
+  rmSync(independent, { recursive: true, force: true });
+  mkdirSync(resolve(independent, "src"), { recursive: true });
+  writeFileSync(resolve(independent, "package.json"), JSON.stringify({ name: `inkwell-${command}-fixture`, private: true, type: "module", scripts: { build: "vite build" }, dependencies: { react: "^19.0.0", "react-dom": "^19.0.0" }, devDependencies: { vite: "^8.0.0", "@vitejs/plugin-react": "^6.0.0" } }, null, 2));
+  writeFileSync(resolve(independent, "index.html"), '<div id="root"></div><script type="module" src="/src/main.jsx"></script>');
+  let result = spawnSync(process.execPath, [cli, "init"], { cwd: independent, encoding: "utf8" });
+  if (result.status !== 0) throw new Error(`CLI ${command} fixture init failed:\n${result.stderr}`);
+  result = spawnSync(process.execPath, [cli, "add", command], { cwd: independent, encoding: "utf8" });
+  if (result.status !== 0) throw new Error(`CLI ${command} fixture add failed:\n${result.stderr}`);
+  const files = readdirSync(resolve(independent, "src/components/inkwell")).filter((file) => /\.(tsx|ts|jsx)$/.test(file));
+  assertLocalImportClosure(resolve(independent, "src/components/inkwell"), command);
+  writeFileSync(resolve(independent, "src/main.jsx"), `${files.map((file) => `import "./components/inkwell/${file}";`).join("\n")}\n`);
+  result = spawnSync(process.execPath, [resolve(root, "node_modules/vite/bin/vite.js"), "build"], { cwd: independent, encoding: "utf8" });
+  if (result.status !== 0) throw new Error(`CLI ${command} independent fixture build failed:\n${result.stderr}`);
+  rmSync(independent, { recursive: true, force: true });
+}
 const configured = resolve(root, ".tmp-inkwell-cli-configured-fixture");
 rmSync(configured, { recursive: true, force: true });
 mkdirSync(configured, { recursive: true });

@@ -1,4 +1,5 @@
 import { Button } from "./ui";
+import { IconArrowDown, IconList } from "./icons";
 
 export default {
   title: "Components/Button",
@@ -31,4 +32,12 @@ export const ButtonPlayground = {
       {children}
     </Button>
   ),
+};
+
+export const IconSlots = {
+  name: "Leading and trailing icons",
+  render: () => <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+    <Button startIcon={<IconList />}>Search</Button>
+    <Button variant="secondary" endIcon={<IconArrowDown />}>More</Button>
+  </div>,
 };

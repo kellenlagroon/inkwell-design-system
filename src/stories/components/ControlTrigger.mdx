@@ -1,0 +1,40 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ControlTriggerStories from '../../components/controlTrigger.stories';
+import * as ControlTriggerFeatures from '../../components/controlTrigger.features.stories';
+
+<Meta of={ControlTriggerStories} name="Docs" />
+
+# ControlTrigger
+
+Shared density-aware trigger foundation for selects, filters, and picker controls.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+Use `ControlTrigger` when an interactive control opens a popover, sheet, or
+picker and needs consistent leading content, value, count, and trailing
+affordances. Prefer `Select` or `CheckboxSelect` when their complete behavior
+already matches the task.
+
+<Canvas of={ControlTriggerStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={ControlTriggerStories} />
+
+## Features
+
+<Canvas of={ControlTriggerFeatures.Densities} sourceState="hidden" />
+
+## Usage guidance
+
+- Keep the visible value concise and provide an accessible name when it is not self-evident.
+- Set `aria-expanded` and `aria-controls` for popup relationships.
+- Use `density="comfortable"` on touch-first surfaces.
+
+## Keyboard and accessibility
+
+`ControlTrigger` renders a native button and forwards button keyboard and focus
+behavior. The owning popover or listbox is responsible for popup navigation;
+do not replace the button with a non-interactive element.

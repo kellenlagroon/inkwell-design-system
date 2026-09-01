@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
+import type { ControlDensity } from "./controlDensity";
 
 /** CSS properties plus the Tabs' scoped visual customization variables. */
 export type TabsStyle = CSSProperties & Record<`--ink-tabs-${string}`, string | number | undefined>;
+export type TabsDensity = ControlDensity;
 
 export interface TabItem {
   value: string;
@@ -28,6 +30,8 @@ export interface TabsProps {
   /** Scoped visual customization, including `--ink-tabs-*` CSS variables. */
   style?: TabsStyle;
   className?: string;
+  /** Shared control density for segmented controls. */
+  density?: TabsDensity;
 }
 
 function firstEnabled(tabs: TabItem[]): number {
@@ -54,7 +58,7 @@ function nextEnabled(tabs: TabItem[], from: number, dir: 1 | -1): number {
  * yourself. Fully keyboard operable (Left/Right/Up/Down move and activate,
  * Home/End jump to the ends, disabled tabs are skipped).
  */
-export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style, className = "" }: TabsProps) {
+export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style, className = "", density }: TabsProps) {
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
@@ -100,7 +104,7 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style
 
   return (
     <div
-      className={["ink-tabs", className].filter(Boolean).join(" ")}
+      className={["ink-tabs", density && density !== "default" ? `ink-control-density--${density}` : "", className].filter(Boolean).join(" ")}
       style={style}
       role="tablist"
       aria-orientation="horizontal"

@@ -12,6 +12,14 @@ exact component API.
   `@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");`
   as the first line of application CSS; self-hosting the same families is also
   supported.
+- For Next.js, expose the consumer-loaded variable fonts as
+  `--font-source-sans` and `--font-league-spartan` with `next/font/google` and
+  apply both generated class names to the document root. Verify computed
+  styles; Inkwell resolves typography through `--font-family-body` and
+  `--font-family-display`.
+- Controls default to the shared 40px `md` density. Use
+  `density="comfortable"` for 44px touch targets or `density="compact"` for
+  pointer-heavy dense layouts.
 - Import `@lagroon/inkwell-design-system/styles.css` once for package-based
   use. Source-owned installs instead import the stylesheet created by
   `inkwell init`.
@@ -35,6 +43,8 @@ exact component API.
 - Use `Button` for an action and `ButtonLink` or `Link` for navigation. Do not
   use a click handler on a non-interactive element when a semantic control
   exists.
+- Use `startIcon` and `endIcon` on `Button` for icon-and-label actions; keep
+  icons decorative when the visible label supplies the accessible name.
 - Use `TextButton` for a low-emphasis inline action and `TextDisclosure` for a
   controlled show/hide action. Point `controls` at content that remains in the
   DOM so the disclosure relationship resolves.
@@ -54,6 +64,11 @@ exact component API.
 - Use `Stack`, `Inline`, `Grid`, `Container`, `Center`, and `Surface` for
   layout before inventing one-off flex/grid spacing. Use `ActionGroup` for an
   action row; place the primary action last in source order.
+- Use `ControlTrigger` as the shared base for filter, select, and picker
+  triggers, and `ControlGroup` for start/end form alignment. Use `CardHeader`
+  for responsive title, metadata, badge, and action composition.
+- For `Nav`, choose an explicit `fit`: `content`, `equal`, `scroll`, or `wrap`.
+  `equalWidth` remains a compatibility alias and is overridden by `fit`.
 - Use `Table` for comparable tabular data and provide meaningful column
   headers. For a simple feed or set of selectable rows, prefer `List`.
 

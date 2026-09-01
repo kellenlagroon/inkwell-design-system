@@ -29,6 +29,13 @@ The font import must load **Source Sans 3** and **League Spartan** at weights
 400–800 before Inkwell renders. The package does not bundle font files; teams
 may self-host the same families instead of using Google Fonts.
 
+Next.js teams can use `next/font/google` with the variable font option and
+expose the generated classes as `--font-source-sans` and
+`--font-league-spartan`. Inkwell components consume the semantic
+`--font-family-body` and `--font-family-display` variables. Verify the computed
+family in browser devtools so a fallback font is not mistaken for the loaded
+design-system typeface.
+
 ## What's in the system
 
 Inkwell is built in four layers. Each one references the layer above.

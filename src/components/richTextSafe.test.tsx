@@ -33,4 +33,16 @@ describe("RichTextSafe", () => {
     );
     expect(container.querySelector("span[data-x='1']")!.textContent).toBe("kept");
   });
+
+  it("keeps browser-parseable nested blocks inside the rich-text boundary", () => {
+    const { container } = render(
+      <RichTextSafe dangerouslySetInnerHTML={{ __html: "<h2>Role</h2><ul><li><p>Item <strong>strong</strong> <a href='#x'>link</a></p></li></ul><blockquote><p>Quote</p></blockquote>" }} />,
+    );
+    const root = container.firstElementChild!;
+    expect(root.querySelector("h2")?.textContent).toBe("Role");
+    expect(root.querySelector("ul li p")?.textContent).toContain("Item");
+    expect(root.querySelector("blockquote p")).not.toBeNull();
+    expect(root.querySelector("strong")).not.toBeNull();
+    expect(root.querySelector("a")?.getAttribute("href")).toBe("#x");
+  });
 });
