@@ -4,6 +4,9 @@
 
 ### Changed
 
+- Package and source-owned installation guidance now explicitly loads Source
+  Sans 3 and League Spartan before Inkwell's stylesheet; `inkwell init` also
+  calls out the requirement.
 - `Badge` now defaults to the neutral tone; branded badges require
   `tone="brand"`, so ordinary statuses and counts no longer inherit app brand.
 - Nav active surfaces default to `--color-overlay-strong`; list Nav uses the

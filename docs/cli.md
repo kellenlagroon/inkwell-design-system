@@ -18,6 +18,18 @@ npx @lagroon/inkwell-design-system add button card action-group
   from a project's `AGENTS.md`, `CLAUDE.md`, Cursor rules, or equivalent; the
   CLI never changes those instruction files.
 
+The generated stylesheet references **Source Sans 3** for interface text and
+**League Spartan** for display text, but does not bundle font files. Load both
+families before the generated stylesheet. A Google Fonts setup can begin your
+application CSS with:
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");
+```
+
+Self-hosting is also supported when the same family names and weights are
+declared.
+
 `add` copies production TypeScript source only. It follows registry-declared
 source dependencies (for example, Button brings Spinner), appends the matching
 CSS fragment inside `inkwell.components`, and installs any declared npm

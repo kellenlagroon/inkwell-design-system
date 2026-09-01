@@ -53,6 +53,7 @@ function init(cwd) {
   writeNew(guidance, readFileSync(join(root, "generated", "inkwell.ai.md"), "utf8"));
   writeNew(configFile, `${JSON.stringify(config, null, 2)}\n`);
   console.log(`Created ${configName}, ${config.stylesheet}, and ${guidanceName}.`);
+  console.log("Required fonts: load Source Sans 3 and League Spartan (weights 400–800) before the Inkwell stylesheet. See inkwell.ai.md for an import example.");
   console.log(`For an AI coding assistant, reference ${guidanceName} from your project's AGENTS.md, CLAUDE.md, or equivalent instructions.`);
   console.log("Next: npx @lagroon/inkwell-design-system add button");
 }

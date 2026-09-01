@@ -8,6 +8,27 @@ Inkwell is a small, opinionated design system for internal apps in this
 project. It was seeded from the seed application and kept deliberately
 isolated: it ships its own tokens, styles, components, tests, and lib build.
 
+## Installation
+
+Install the package, load Inkwell's two font families, and then import its
+stylesheet once at the application root:
+
+```bash
+npm install @lagroon/inkwell-design-system
+```
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");
+```
+
+```tsx
+import "@lagroon/inkwell-design-system/styles.css";
+```
+
+The font import must load **Source Sans 3** and **League Spartan** at weights
+400–800 before Inkwell renders. The package does not bundle font files; teams
+may self-host the same families instead of using Google Fonts.
+
 ## What's in the system
 
 Inkwell is built in four layers. Each one references the layer above.

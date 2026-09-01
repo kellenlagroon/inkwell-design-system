@@ -62,6 +62,17 @@ source (plus declared source dependencies such as Button's Spinner) into
 stylesheet once at the application root. The configuration can change both
 paths before the first `add`.
 
+Inkwell uses **Source Sans 3** for interface text and **League Spartan** for
+display text. Load both families before importing the generated stylesheet.
+For example, add this as the first line of your application CSS:
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");
+```
+
+You may self-host the fonts instead, provided those family names and weights
+are available. Inkwell does not bundle font files.
+
 Installed component files are yours. The CLI refuses to overwrite an existing
 component or configuration; it only appends new, registry-owned CSS fragments
 to the stylesheet it created. See [CLI distribution](docs/cli.md) for migration
@@ -73,7 +84,15 @@ guidance and limitations.
 npm install @lagroon/inkwell-design-system
 ```
 
-Import the stylesheet once at your app root:
+Inkwell does not bundle its fonts. Load **Source Sans 3** and **League Spartan**
+before importing the stylesheet. For example, add this as the first line of
+your application CSS:
+
+```css
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");
+```
+
+Then import the Inkwell stylesheet once at your app root:
 
 ```tsx
 import "@lagroon/inkwell-design-system/styles.css";

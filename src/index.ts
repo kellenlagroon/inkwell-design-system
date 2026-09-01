@@ -1,9 +1,10 @@
 /**
  * Inkwell design system — public entry point.
  *
- * Components render against Inkwell's global stylesheet, so consumers must also
- * import the styles once at their app root:
+ * Components render against Inkwell's global stylesheet. Consumers must load
+ * Source Sans 3 and League Spartan, then import the styles once at their app root:
  *
+ *   // Load Source Sans 3 and League Spartan (weights 400–800) first.
  *   import "@lagroon/inkwell-design-system/styles.css";
  *   import { Button, TextInput } from "@lagroon/inkwell-design-system";
  */

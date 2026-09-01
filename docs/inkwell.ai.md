@@ -6,6 +6,12 @@ exact component API.
 
 ## System contract
 
+- Load `Source Sans 3` and `League Spartan` at weights 400–800 before the
+  Inkwell stylesheet. Inkwell references those family names but does not bundle
+  font files. For Google Fonts, use
+  `@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400..800&family=Source+Sans+3:wght@400..800&display=swap");`
+  as the first line of application CSS; self-hosting the same families is also
+  supported.
 - Import `@lagroon/inkwell-design-system/styles.css` once for package-based
   use. Source-owned installs instead import the stylesheet created by
   `inkwell init`.

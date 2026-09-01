@@ -13,13 +13,18 @@ const cli = resolve(root, "cli/bin/inkwell.js");
 const packageManifest = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
 if (packageManifest.bin?.inkwell !== "cli/bin/inkwell.js") throw new Error("Root package must expose the inkwell CLI binary.");
 const { registry } = await import(pathToFileURL(resolve(root, "cli/registry.mjs")).href);
+let initOutput = "";
 for (const args of [["init"], ["add", ...Object.keys(registry)]]) {
   const result = spawnSync(process.execPath, [cli, ...args], { cwd: fixture, encoding: "utf8" });
   if (result.status !== 0) throw new Error(`CLI ${args.join(" ")} failed:\n${result.stderr}`);
+  if (args[0] === "init") initOutput = result.stdout;
 }
 for (const file of ["avatar.tsx", "badge.tsx", "button.tsx", "spinner.tsx", "card.tsx", "divider.tsx", "layout.tsx", "forms.tsx", "icons.jsx", "pill.tsx", "surface.tsx", "text.tsx", "inkwell.css"]) if (!existsSync(resolve(fixture, "src/components/inkwell", file))) throw new Error(`Expected installed file: ${file}`);
 if (!existsSync(resolve(fixture, "inkwell.ai.md"))) throw new Error("Expected generated LLM guidance file.");
-if (!readFileSync(resolve(fixture, "inkwell.ai.md"), "utf8").includes("Inkwell guidance for coding agents")) throw new Error("Generated LLM guidance file has unexpected contents.");
+const generatedGuidance = readFileSync(resolve(fixture, "inkwell.ai.md"), "utf8");
+if (!generatedGuidance.includes("Inkwell guidance for coding agents")) throw new Error("Generated LLM guidance file has unexpected contents.");
+if (!generatedGuidance.includes("Source Sans 3") || !generatedGuidance.includes("League Spartan")) throw new Error("Generated LLM guidance must include required font setup.");
+if (!initOutput.includes("Required fonts: load Source Sans 3 and League Spartan")) throw new Error("CLI init must call out required font setup.");
 if (packageManifest.exports?.["./ai.md"] !== "./cli/generated/inkwell.ai.md") throw new Error("Root package must export its LLM guidance file.");
 const installedModules = readdirSync(resolve(fixture, "src/components/inkwell")).filter((file) => /\.(tsx|ts|jsx)$/.test(file)).map((file) => `import "./components/inkwell/${file}";`).join("\n");
 writeFileSync(resolve(fixture, "src/main.jsx"), `${installedModules}\nimport { createRoot } from "react-dom/client"; import { Button } from "./components/inkwell/button"; import "./components/inkwell/inkwell.css"; createRoot(document.getElementById("root")).render(<main className="inkwell-page"><Button>Save</Button></main>);`);
@@ -27,7 +32,9 @@ const duplicate = spawnSync(process.execPath, [cli, "add", "card"], { cwd: fixtu
 if (duplicate.status === 0 || !duplicate.stderr.includes("Refusing to overwrite")) throw new Error("CLI did not refuse to overwrite an installed component.");
 const build = spawnSync(process.execPath, [resolve(root, "node_modules/vite/bin/vite.js"), "build"], { cwd: fixture, encoding: "utf8" });
 if (build.status !== 0) throw new Error(`Fixture build failed:\n${build.stderr}\n${build.stdout}`);
-if (!readFileSync(resolve(fixture, "src/components/inkwell/inkwell.css"), "utf8").includes("inkwell.components")) throw new Error("Generated stylesheet lost its cascade layers.");
+const generatedStylesheet = readFileSync(resolve(fixture, "src/components/inkwell/inkwell.css"), "utf8");
+if (!generatedStylesheet.includes("inkwell.components")) throw new Error("Generated stylesheet lost its cascade layers.");
+if (!generatedStylesheet.includes('font-family: "Source Sans 3", sans-serif')) throw new Error("Generated stylesheet must apply Inkwell's body font.");
 const configured = resolve(root, ".tmp-inkwell-cli-configured-fixture");
 rmSync(configured, { recursive: true, force: true });
 mkdirSync(configured, { recursive: true });
