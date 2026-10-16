@@ -30,17 +30,11 @@ Verified locally: 12 handler tests pass under `node --test`, the dry run accepts
 
 GitHub Pages, built by `.github/workflows/storybook-pages.yml` on every push to `main` and on demand. The build command is `npm run build-storybook` and the artifact is `storybook-static` (9.4 MB, verified building clean). Storybook's output uses relative asset paths, so the project subpath needs no configuration.
 
-**Blocked.** `POST /repos/kellenlagroon/inkwell-design-system/pages` returns `422 Your current plan does not support GitHub Pages for this repository`. The repository is private, and Pages on a private repository requires GitHub Pro. Three ways forward:
+The site is <https://kellenlagroon.github.io/inkwell-design-system/>.
 
-- Make the repository public. Pages then works on the free plan.
-- Upgrade the account to GitHub Pro and keep the repository private.
-- Host Storybook on Cloudflare Pages instead, which needs the same Cloudflare account access as the Worker.
+Pages was initially refused with `422 Your current plan does not support GitHub Pages for this repository`, because Pages on a private repository requires GitHub Pro. The repository was made **public** instead, which is consistent with `@lagroon/inkwell-design-system` already being published on npm. Pages is now enabled with `build_type: workflow`, and `STORYBOOK_PAGES_ENABLED` is set to `true`.
 
-Because of that, the `deploy` job is gated on a repository variable so it skips instead of failing. The `build` job still runs on every push to `main` as a Storybook build check. Once the Pages source is set to **GitHub Actions**, enable the deploy:
-
-```bash
-gh variable set STORYBOOK_PAGES_ENABLED --body true
-```
+The `deploy` job stays gated on that variable so the workflow degrades to a build check rather than failing wherever Pages is not configured. Because the workflow triggers on pushes to `main`, Storybook deploys only once this work is on `main`.
 
 ## Button Code Connect
 
@@ -92,9 +86,12 @@ Each step needs a credential that cannot be created from a checkout. Do not comm
 5. **Seed the snapshot.** Run **Sync Figma library** once with **Run workflow**. A no-change result is expected, and it proves `FIGMA_TOKEN` can read the `Token Sync` probes.
 6. **End-to-end test.** Change one pilot variable in Figma and publish the library. Confirm, in order: a `202` in the Worker's logs, a **Sync Figma library** run triggered by `repository_dispatch`, a draft PR containing both the token JSON and the `src/styles/tokens.css` change, and, after merging, the new value live in the Pages Storybook.
 
-Step 6 also needs Storybook hosting resolved — see [Storybook hosting](#storybook-hosting) for the plan blocker and the three ways forward.
+Repository settings already configured:
 
-Repository settings already configured: **Allow GitHub Actions to create and approve pull requests** is enabled (`can_approve_pull_request_reviews: true`), so the sync workflow's short-lived `GITHUB_TOKEN` can open the draft PR. `default_workflow_permissions` is deliberately left at `read`; the workflow requests `contents: write` and `pull-requests: write` for itself, which is the safer pattern than widening the repository default.
+- **Allow GitHub Actions to create and approve pull requests** is enabled (`can_approve_pull_request_reviews: true`), so the sync workflow's short-lived `GITHUB_TOKEN` can open the draft PR. `default_workflow_permissions` is deliberately left at `read`; the workflow requests `contents: write` and `pull-requests: write` for itself, which is safer than widening the repository default.
+- The repository is **public**, Pages is enabled with the **GitHub Actions** build type, and `STORYBOOK_PAGES_ENABLED` is `true`. See [Storybook hosting](#storybook-hosting).
+
+What is still missing is only the Figma and Cloudflare credentials in steps 1 to 3.
 
 ## Scope and limits
 
