@@ -1,0 +1,16 @@
+{
+  "name": "inkwell-figma-webhook",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker that turns a Figma LIBRARY_PUBLISH webhook into a GitHub repository_dispatch",
+  "scripts": {
+    "test": "node --test figma-webhook.test.mjs",
+    "check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.1"
+  }
+}
