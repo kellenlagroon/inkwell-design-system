@@ -58,6 +58,19 @@ npx --yes @figma/code-connect@2.0.2 connect publish
 
 `parse` passes with no token: all four templates parse, and the CLI picks up label `React` and language `jsx` from `figma.config.json`. The dry run lists all four nodes (`7-84`, `7-42`, `7-126`, `7-168`) and then stops at `Couldn't find a Figma access token`. That token is the only thing missing.
 
+The four nodes were also checked against the published library through the Figma MCP server, which does not need a REST token:
+
+| Template | Node | Set | Variants |
+| --- | --- | --- | --- |
+| `ButtonPrimary` | `7:42` | `Button/Primary` | 20 |
+| `ButtonSecondary` | `7:84` | `Button/Secondary` | 20 |
+| `ButtonGhost` | `7:126` | `Button/Ghost` | 20 |
+| `ButtonDanger` | `7:168` | `Button/Danger` | 20 |
+
+Every set carries `Size` as `xs`, `sm`, `md`, `lg`, `xl` and `State` as `Default`, `Hover`, `Focused`, `Disabled`, which is exactly what the templates' `getEnum` maps expect. `get_variable_defs` on `7:42` returns Inkwell variables under their CSS names — `--button-primary-bg` (`#73000a`), `--button-primary-fg`, `--button-primary-bg-hover`, `--color-focus-ring`, `--color-bg-base`, `--radius-sharp`, and `--space-1` through `--space-6` — matching `tokens/figma-sync.snapshot.json`. So the variable layer the sync depends on is real and correctly named.
+
+One thing could not be checked from here: the MCP's page listing returns only the `Cover` page even though node `7:42` demonstrably lives elsewhere in the file, so the `Token Sync` page and its 146 probes could not be enumerated. The step 5 seeding run proves it either way — `extractProbeValues` throws on a missing page, an unexpected or duplicate probe name, or a detached binding rather than writing a stale value.
+
 The CLI is deliberately not a devDependency yet, because `package.json` currently carries an unrelated in-progress v0.3.0 change. Add `@figma/code-connect` as a devDependency and wrap `parse` in an npm script once that release work lands.
 
 ## Remaining setup
