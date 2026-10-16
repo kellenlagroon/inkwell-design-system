@@ -30,8 +30,13 @@ jobs:
         with:
           path: storybook-static
 
+  # GitHub Pages is unavailable on a private repository without GitHub Pro, so
+  # the deploy is gated on a repository variable. Once the Pages source is set
+  # to GitHub Actions, run `gh variable set STORYBOOK_PAGES_ENABLED --body true`.
+  # Until then the build job above still runs as a Storybook build check.
   deploy:
     needs: build
+    if: vars.STORYBOOK_PAGES_ENABLED == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
