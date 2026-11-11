@@ -88,3 +88,26 @@ describe("Popover overflow", () => {
     expect(container.querySelectorAll(".ink-popover-mobile-sheet__body")).toHaveLength(1);
   });
 });
+
+describe("Popover dialog content", () => {
+  it("names the desktop dialog, focuses its first control, and returns focus on Escape", () => {
+    const { getByRole, queryByRole } = render(
+      <Popover
+        dialog
+        ariaLabel="Status details"
+        trigger={({ ref, onToggle, ...props }) => <button ref={ref} {...props} onClick={onToggle}>Status</button>}
+      >
+        <button type="button">Action</button>
+      </Popover>,
+    );
+    const trigger = getByRole("button", { name: "Status" });
+    expect(trigger.getAttribute("aria-haspopup")).toBe("dialog");
+    fireEvent.click(trigger);
+    const dialog = getByRole("dialog", { name: "Status details" });
+    expect(dialog.getAttribute("aria-modal")).toBeNull();
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    fireEvent.keyDown(document.activeElement!, { key: "Escape" });
+    expect(queryByRole("dialog")).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+});

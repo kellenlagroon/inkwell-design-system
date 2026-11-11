@@ -7,13 +7,15 @@ import * as PopoverFeatures from "../../components/popover.features.stories.jsx"
 # Popover
 
 An anchored surface for compact content and action menus.
+Desktop panels use an 8 px frame. Mobile sheets round the top corners to 12 px.
 
-**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
 
 ## When to use
 
 - Use the default `content` mode for filter panels, compact forms, and supporting controls.
 - Use `mode="menu"` with `PopoverMenuItem` for a small set of actions.
+- Use `dialog` with content mode when interactive details need a named dialog and initial focus.
 - Use `Drawer` when the content needs persistent space or mobile full-height treatment.
 
 ## Primary example
@@ -69,6 +71,7 @@ custom width only when the full-width default is not appropriate.
 - Escape closes the popover and returns focus to the trigger; outside pointer interaction closes it too.
 - Menu mode exposes `role="menu"`; Arrow keys, Home, and End move between its items, and Tab closes it. The focused item takes a visible ring distinct from the hover fill.
 - Mobile sheet mode uses a labelled dialog, a backdrop, initial focus, and a contained Tab sequence.
+- `dialog` gives desktop content a dialog role and moves focus inside. Supply `ariaLabel`. Desktop dialogs are nonmodal; mobile sheets are modal.
 
 ## Styling hooks
 

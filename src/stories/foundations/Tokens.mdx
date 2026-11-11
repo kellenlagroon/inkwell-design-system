@@ -36,9 +36,15 @@ Meaning and role, built from Tier 1 and swapped per theme —
 
 Interactive controls use the shared density tokens (`--control-md-*`,
 `--control-compact-*`, and `--control-comfortable-*`) and semantic families
-(`--font-family-body`, `--font-family-display`). The default `md` density is
-40px; comfortable is 44px for touch-first surfaces. `--font-weight-control`
-is 550 for variable fonts.
+(`--font-family-body`, `--font-family-display`). The default density is
+40 px, compact is 36 px, and comfortable is 44 px. `--control-touch-height`
+sets the minimum for coarse pointers. `--font-weight-control` is 550.
+
+Use `--radius-control` (4 px) for controls, `--radius-card` (8 px) for
+outlined sections and anchored overlays, and `--radius-rounded` (12 px) for
+large panes. `--radius-sheet-top` rounds the top corners of a sheet.
+Set `--color-selection-surface` and `--color-selection-border` to theme
+selection independently of the brand accent.
 
 **This is the tier components should reach for**, and the tier consumers should
 override to re-theme the system. It is also where light and dark diverge: the

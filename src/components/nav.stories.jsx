@@ -23,6 +23,8 @@ export const NavPlayground = {
   name: "Playground",
   args: {
     orientation: "horizontal",
+    shape: "rounded",
+    fit: "content",
     withBadges: true,
     withIcons: true,
   },
@@ -34,8 +36,10 @@ export const NavPlayground = {
     },
     withBadges: { control: "boolean", name: "Show badges" },
     withIcons: { control: "boolean", name: "Show icons" },
+    shape: { control: "inline-radio", options: ["rounded", "pill"] },
+    fit: { control: "inline-radio", options: ["content", "equal", "scroll", "wrap"] },
   },
-  render: ({ orientation, withBadges, withIcons }) => {
+  render: ({ orientation, shape, fit, withBadges, withIcons }) => {
     function PlaygroundNav() {
       const source = orientation === "vertical" ? VERTICAL_ITEMS : ITEMS;
       const [value, setValue] = useState(source[0].value);
@@ -51,6 +55,8 @@ export const NavPlayground = {
             value={value}
             onChange={setValue}
             orientation={orientation}
+            shape={shape}
+            fit={fit}
             aria-label="Primary"
           />
         </div>

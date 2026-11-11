@@ -32,6 +32,10 @@ export interface TabsProps {
   className?: string;
   /** Shared control density for segmented controls. */
   density?: TabsDensity;
+  /** Keep the underline or use a bordered segmented track. */
+  variant?: "underline" | "segmented";
+  /** Corner shape for segmented tabs. */
+  shape?: "rounded" | "pill";
 }
 
 function firstEnabled(tabs: TabItem[]): number {
@@ -53,12 +57,11 @@ function nextEnabled(tabs: TabItem[], from: number, dir: 1 | -1): number {
 }
 
 /**
- * A segmented tab bar with a sliding underline indicator. Controlled: it renders
- * the tablist and reports selection via `onChange`; render the matching panel
- * yourself. Fully keyboard operable (Left/Right/Up/Down move and activate,
- * Home/End jump to the ends, disabled tabs are skipped).
+ * A controlled tablist with an underline or segmented track. Render the matching
+ * panel when `onChange` reports a new selection. Left/Right move and activate,
+ * Home/End jump to the ends, and disabled tabs are skipped.
  */
-export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style, className = "", density }: TabsProps) {
+export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style, className = "", density, variant = "underline", shape = "rounded" }: TabsProps) {
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
@@ -67,10 +70,10 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style
   useEffect(() => {
     const btn = tabRefs.current[activeIndex];
     if (btn) {
-      setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
+      if (variant === "underline") setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
       btn.scrollIntoView?.({ block: "nearest", inline: "nearest" });
     }
-  }, [activeIndex, tabs]);
+  }, [activeIndex, tabs, variant]);
 
   function selectAt(index: number) {
     const tab = tabs[index];
@@ -104,7 +107,13 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style
 
   return (
     <div
-      className={["ink-tabs", density && density !== "default" ? `ink-control-density--${density}` : "", className].filter(Boolean).join(" ")}
+      className={[
+        "ink-tabs",
+        variant === "segmented" ? "ink-tabs--segmented" : "",
+        variant === "segmented" && shape === "pill" ? "ink-tabs--pill" : "",
+        density && density !== "default" ? `ink-control-density--${density}` : "",
+        className,
+      ].filter(Boolean).join(" ")}
       style={style}
       role="tablist"
       aria-orientation="horizontal"
@@ -133,11 +142,13 @@ export function Tabs({ tabs, value, onChange, "aria-label": ariaLabel, id, style
           </button>
         );
       })}
-      <span
-        className="ink-tab-indicator"
-        aria-hidden="true"
-        style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px` }}
-      />
+      {variant === "underline" && (
+        <span
+          className="ink-tab-indicator"
+          aria-hidden="true"
+          style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px` }}
+        />
+      )}
     </div>
   );
 }

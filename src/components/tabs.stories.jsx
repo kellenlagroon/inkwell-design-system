@@ -12,12 +12,17 @@ const TABS = [
 ];
 
 export const Playground = {
-  render: () => {
+  args: { variant: "underline", shape: "rounded" },
+  argTypes: {
+    variant: { control: "inline-radio", options: ["underline", "segmented"] },
+    shape: { control: "inline-radio", options: ["rounded", "pill"] },
+  },
+  render: ({ variant, shape }) => {
     function Demo() {
       const [value, setValue] = useState("overview");
       return (
         <div style={{ padding: 24, maxWidth: 480 }}>
-          <Tabs tabs={TABS} value={value} onChange={setValue} aria-label="Active submission type" id="submission" />
+          <Tabs tabs={TABS} value={value} onChange={setValue} aria-label="Active submission type" id="submission" variant={variant} shape={shape} />
           <div
             id={`submission-panel-${value}`}
             role="tabpanel"

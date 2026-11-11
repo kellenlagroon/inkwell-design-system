@@ -44,7 +44,10 @@ header does not include the default title.
 
 ## Usage guidance
 
-- Do provide a specific title.
+- Use an outlined `Card` for a nested section. The drawer sits flush with the
+  viewport on desktop and uses 12 px top corners in mobile sheet mode.
+- Use a wrapping `ActionGroup` for multiple footer actions.
+- Do provide a specific title, or `ariaLabel` when using a custom header.
 - Do keep close behavior predictable: Escape, backdrop, and close button.
 - Don’t put app-specific workflow state in the drawer shell.
 - Use `headerClassName`, `bodyClassName`, and `footerClassName` for targeted layout
@@ -53,5 +56,7 @@ header does not include the default title.
 ## Keyboard and accessibility
 
 - The drawer uses `role="dialog"` and `aria-modal`.
-- Focus moves into the drawer on open and returns after close.
-- Tab focus is trapped while open.
+- Focus moves into the drawer after it mounts and returns to the opener on close.
+- Tab and Shift+Tab wrap at the edges. Escape dismisses a nested Select or
+  Popover first when it handles the key.
+- If the custom layout has no interactive controls, the panel itself receives focus.

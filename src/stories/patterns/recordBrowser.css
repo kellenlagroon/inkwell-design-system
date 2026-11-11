@@ -1,0 +1,133 @@
+/* Theme tokens for the example. Geometry and interaction styles come from Inkwell. */
+[data-theme="dark"] .record-browser {
+  --color-brand: #147a3e;
+  --color-brand-hover: #0d6130;
+  --color-brand-emphasis: #8ee5ab;
+  --color-brand-soft: color-mix(in srgb, var(--color-brand) 24%, transparent);
+  --color-focus-ring: #8ee5ab;
+  --color-info: #4dabf7;
+  --color-success: #8ee5ab;
+  --color-selection-border: var(--color-info);
+  --color-selection-surface: color-mix(in srgb, var(--color-info) 12%, var(--color-surface-default));
+  --button-primary-bg: var(--color-brand);
+  --button-primary-bg-hover: var(--color-brand-hover);
+  --badge-brand-bg: var(--color-brand);
+  --nav-notification-bg: var(--color-brand);
+  --input-focus-border: var(--color-focus-ring);
+  --status-success-fg: var(--color-success);
+  --pill-success-fg: var(--color-success);
+  --pill-info-fg: var(--color-info);
+  --pagination-current-bg: var(--color-selection-surface);
+}
+
+[data-theme="light"] .record-browser {
+  --color-brand: #147a3e;
+  --color-brand-hover: #0d6130;
+  --color-brand-emphasis: #0d6130;
+  --color-brand-soft: #e1f4e7;
+  --color-focus-ring: #147a3e;
+  --color-info: #1971c2;
+  --color-success: #147a3e;
+  --color-danger: #c92a2a;
+  --color-danger-text: var(--color-danger);
+  --color-selection-border: #3d8bd9;
+  --color-selection-surface: #f0f6fd;
+  --color-bg-canvas: #fff;
+  --color-surface-active: #f5f6f5;
+  --record-browser-header-switch-bg: #f1f3f2;
+  --color-text-secondary: #5f6662;
+  --control-border: #d8dcd9;
+  --card-border: #e3e6e4;
+  --color-border-default: var(--card-border);
+  --button-primary-bg: var(--color-brand);
+  --button-primary-bg-hover: var(--color-brand-hover);
+  --button-secondary-border: var(--control-border);
+  --button-secondary-bg-hover: var(--color-surface-active);
+  --badge-brand-bg: var(--color-brand);
+  --nav-notification-bg: var(--color-brand);
+  --input-border: var(--control-border);
+  --input-focus-border: var(--color-focus-ring);
+  --popover-border: var(--control-border);
+  --pill-success-fg: var(--color-success);
+  --pill-info-fg: var(--color-info);
+  --status-success-fg: var(--color-success);
+  --status-danger-fg: var(--color-danger-text);
+  --button-danger-bg: var(--color-danger);
+  --pagination-current-bg: var(--color-selection-surface);
+}
+
+.record-browser {
+  --muted: var(--color-text-secondary);
+  --record-browser-header-switch-bg: var(--color-overlay-soft);
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-bg-canvas);
+}
+
+.record-browser-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  min-height: 60px;
+  padding: var(--space-1) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.record-browser-content {
+  container: record-browser / inline-size;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.record-browser-panes {
+  display: grid;
+  grid-template-columns: minmax(300px, min(42%, 460px)) minmax(0, 1fr);
+  gap: var(--space-4);
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--space-4);
+}
+
+.record-browser-list {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-content: start;
+  gap: var(--space-4);
+}
+
+.record-browser-results { align-content: start; }
+
+.record-browser-row {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.record-browser-row-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.record-browser-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.record-browser-back { display: none; }
+
+@container record-browser (width < 760px) {
+  .record-browser-panes { grid-template-columns: minmax(0, 1fr); }
+  .record-browser-panes[data-show-detail="false"] .record-browser-detail,
+  .record-browser-panes[data-show-detail="true"] .record-browser-list { display: none; }
+  .record-browser-back { display: inline-flex; justify-self: start; }
+}
+
+@container record-browser (max-width: 560px) {
+  .record-browser-panes { padding: var(--space-2); }
+}

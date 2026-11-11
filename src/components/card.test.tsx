@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { fireEvent, render } from "@testing-library/react";
 import { Card, CardActions } from "./card";
 
 const rootOf = (markup: ReturnType<typeof render>) => markup.container.firstChild as HTMLElement;
@@ -28,6 +28,19 @@ describe("Card", () => {
     expect(el.className).toBe("card mt");
     expect(el.getAttribute("role")).toBe("group");
     expect(el.getAttribute("aria-label")).toBe("Round");
+  });
+
+  it("activates a selectable card inside a form without submitting it", () => {
+    const onSelect = vi.fn();
+    const onSubmit = vi.fn((event) => event.preventDefault());
+    const { getByRole } = render(
+      <form onSubmit={onSubmit}>
+        <Card as="button" variant="outlined" selected aria-current="true" onClick={onSelect}>Contributor guide</Card>
+      </form>,
+    );
+    fireEvent.click(getByRole("button", { name: "Contributor guide" }));
+    expect(onSelect).toHaveBeenCalledOnce();
+    expect(onSubmit).not.toHaveBeenCalled();
   });
 });
 

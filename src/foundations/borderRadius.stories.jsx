@@ -5,15 +5,17 @@ export default {
 
 const radiusTokens = [
   { token: "--radius-none",             value: "0",          usage: "Directory rows, rail dividers" },
-  { token: "--radius-sharp",            value: "2px",        usage: "Buttons, panels, modals, most UI chrome" },
-  { token: "--radius-rounded",          value: "12px",       usage: "Form inputs (generic select, input)" },
+  { token: "--radius-sharp",            value: "2px",        usage: "Sharp details and legacy surfaces" },
+  { token: "--radius-control",          value: "4px",        usage: "Buttons, fields, and segmented controls" },
+  { token: "--radius-card",             value: "8px",        usage: "Cards, popovers, and select menus" },
+  { token: "--radius-rounded",          value: "12px",       usage: "Large panes" },
   { token: "--radius-pill",             value: "999px",      usage: "Pills, nav badges, avatar circles" },
   { token: "--radius-device-frame",     value: "28px",       usage: "Tablet/mobile preview chrome" },
   { token: "--radius-dialog-prominent", value: "18px",       usage: "Danger modal on mobile" },
-  { token: "--radius-sheet-top",        value: "2px 2px 0 0", usage: "Bottom-sheet modals (rounded top only)" },
+  { token: "--radius-sheet-top",        value: "12px 12px 0 0", usage: "Mobile sheets" },
 ];
 
-const swatchTokens = radiusTokens.slice(0, 4);
+const swatchTokens = radiusTokens.slice(0, 6);
 
 export const BorderRadiusScale = {
   name: "Border Radius Scale",

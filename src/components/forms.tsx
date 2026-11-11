@@ -396,6 +396,7 @@ export function FileUpload({
   return (
     <div className={["file-upload", `file-upload--${layout}`, resolvedInvalid ? "file-upload--invalid" : "", className].filter(Boolean).join(" ")}>
       <input
+        tabIndex={-1}
         {...props}
         ref={inputRef}
         id={resolvedId}
@@ -412,9 +413,10 @@ export function FileUpload({
           role="button"
           tabIndex={props.disabled ? -1 : 0}
           aria-label={typeof label === "string" ? label : "Choose files"}
-          onClick={() => inputRef.current?.click()}
+          aria-disabled={props.disabled || undefined}
+          onClick={() => { if (!props.disabled) inputRef.current?.click(); }}
           onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
+            if (!props.disabled && (event.key === "Enter" || event.key === " ")) {
               event.preventDefault();
               inputRef.current?.click();
             }

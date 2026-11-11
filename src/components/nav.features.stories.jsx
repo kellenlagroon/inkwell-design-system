@@ -27,11 +27,26 @@ export const Horizontal = {
   ),
 };
 
+export const PillSwitch = {
+  render: () => (
+    <div style={{ padding: "var(--space-4)" }}>
+      <ControlledNav shape="pill" items={[
+        { value: "records", label: "Records" },
+        { value: "activity", label: "Activity" },
+      ]} />
+    </div>
+  ),
+};
+
 export const EqualWidth = {
   name: "Equal-width horizontal",
   render: () => (
     <div style={{ padding: 32, maxWidth: 720, margin: "auto" }}>
-      <ControlledNav equalWidth items={APP_ITEMS} />
+      <ControlledNav fit="equal" items={[
+        { value: "all", label: "All" },
+        { value: "flagged", label: "Flagged", badge: 12 },
+        { value: "saved", label: "Saved", badge: 3 },
+      ]} />
     </div>
   ),
 };

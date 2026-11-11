@@ -1,10 +1,11 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import { createElement } from "react";
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 
 export type CardVariant = "plain" | "outlined";
 export type CardTone = "default" | "danger";
 export type CardPadding = "none" | "sm" | "md" | "lg";
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardAppearance {
   /**
    * Surface treatment. `plain` (default) is borderless on the raised surface —
    * the app's common look. `outlined` adds a subtle border on the default
@@ -15,7 +16,18 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   tone?: CardTone;
   /** Token-backed responsive internal spacing. */
   padding?: CardPadding;
+  /** Use the selection tint and border. Put selection semantics on the controlling element. */
+  selected?: boolean;
   children?: ReactNode;
+}
+
+export interface CardProps extends HTMLAttributes<HTMLDivElement>, CardAppearance {
+  as?: "div";
+}
+
+export interface CardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, CardAppearance {
+  /** Make the entire card a native button. Keep its contents non-interactive. */
+  as: "button";
 }
 
 /**
@@ -23,21 +35,24 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  * content-unit sibling to the section-level `Panel`). Compose its contents with
  * `Stack`, `SectionHeading`, and `CardActions` as needed.
  */
-export function Card({ variant = "plain", tone = "default", padding = "md", className = "", children, ...props }: CardProps) {
+export function Card(props: CardProps | CardButtonProps) {
+  const { as = "div", variant = "plain", tone = "default", padding = "md", selected = false, className = "", ...elementProps } = props;
   const classes = [
     "card",
+    as === "button" ? "card--button" : "",
     variant === "outlined" ? "card--outlined" : "",
     tone === "danger" ? "card--danger" : "",
+    selected ? "card--selected" : "",
     padding !== "md" ? `card--padding-${padding}` : "",
     className,
   ]
     .filter(Boolean)
     .join(" ");
-  return (
-    <div className={classes} {...props}>
-      {children}
-    </div>
-  );
+  return createElement(as, {
+    ...elementProps,
+    className: classes,
+    ...(props.as === "button" && { type: props.type ?? "button" }),
+  });
 }
 
 export interface CardActionsProps extends HTMLAttributes<HTMLDivElement> {

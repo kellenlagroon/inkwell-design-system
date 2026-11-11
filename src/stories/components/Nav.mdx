@@ -31,9 +31,9 @@ when `href` is set. Supports both horizontal and vertical orientation.
 
 ### Variants
 
-- **`chip`** (default) — segmented pill with a sliding indicator behind the
-  active item. Best for compact horizontal top-nav or a segmented vertical
-  switcher.
+- **`chip`** (default) uses a 4 px segmented track with a neutral sliding
+  indicator. Set `shape="pill"` for a compact, fully rounded switch.
+  Both shapes have a 44 px minimum item height on coarse pointers.
 - **`list`** — full-width rows, tinted-wash active state, sharp corners.
   Tuned for full-height sidebars. Sidebar auto-defaults its nested Nav to
   `list` via context — pass an explicit `variant` to override.
@@ -64,10 +64,15 @@ Default. Items sit in a row; the indicator slides on the X axis.
 
 <Canvas of={NavFeatures.Horizontal} sourceState="hidden" />
 
+### Compact pill switch
+
+<Canvas of={NavFeatures.PillSwitch} sourceState="hidden" />
+
 ### Equal-width horizontal
 
-Set `fit="equal"` when a horizontal Nav fills its container. Each item receives
-the same width and its label is centered inside that item.
+Set `fit="equal"` when a horizontal Nav fills its container. Segments share
+the available width equally. Each label stays next to its badge, and the two
+are centered as a group.
 
 <Canvas of={NavFeatures.EqualWidth} sourceState="hidden" />
 

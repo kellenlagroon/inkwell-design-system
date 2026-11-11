@@ -47,13 +47,11 @@ need per-viewport spacing on a Stack, wrap it or scope with CSS.
 
 ## Touch targets
 
-Interactive elements must be at least **44 × 44 CSS px** on touch. Inkwell
-components already meet this — `Button`, `Tabs` (`min-height: 44px`),
-`IconButton` (`--icon-btn-size` at md/lg), and form controls scale up on narrow
-viewports.
-
-Do not compress standard buttons below `size="sm"` in a mobile layout; use
-`IconButton` if space is genuinely constrained.
+Aim for at least **44 × 44 CSS px** for touch actions. Buttons, fields, selects,
+and segmented controls use a 44 px minimum height when the primary pointer is
+coarse. The default desktop density is 40 px and the compact density is 36 px.
+Use `density="comfortable"` for a 44 px minimum on other inputs and screens.
+Text inputs and textareas use at least 16 px text below 760 px.
 
 ## Safe-area insets
 

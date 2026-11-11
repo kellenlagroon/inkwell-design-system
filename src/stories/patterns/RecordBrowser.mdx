@@ -1,0 +1,16 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./recordBrowser.stories.jsx";
+
+<Meta of={Stories} name="Docs" />
+
+# Record browser
+
+Browse records in the left pane and open one to see its details. The panes sit side by side when the preview is wide enough. On narrow previews, open a record to switch to its detail view.
+
+<Canvas of={Stories.TwoPane} sourceState="hidden" />
+
+Use `Nav shape="pill"` for the workspace switch and `Nav fit="equal"` for the list views. The example uses a neutral fill for the active segment and shows a count on Flagged. Each record is an outlined `Card as="button"` with a count badge. The current record uses the blue selection tint.
+
+Compose the filter controls in a `Popover` and the edit form in a `Drawer`. An outlined `Card` groups the fields inside the drawer, and a wrapping `ActionGroup` keeps the footer actions reachable on narrow screens.
+
+The preview toolbar switches between the light and dark palettes. Theme tokens set the green accent and blue record selection.

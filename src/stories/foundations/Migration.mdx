@@ -27,14 +27,15 @@ closest regular mapping is:
 | Mantine size | Mantine height / type | Inkwell size | Inkwell height / type |
 |---|---:|---|---:|
 | `xs` | 30px / 12px | `xs` | 28px / 11.52px |
-| `sm` | 36px / 14px | `sm` | 36px / 12.48px |
-| `md` | 42px / 16px | `md` | 44px / 13.44px |
+| `sm` | 36px / 14px | `sm` | 36px / 14px |
+| `md` | 42px / 16px | `md` | 40px / 14px |
 | `lg` | 50px / 18px | `lg` | 52px / 17.28px |
 | `xl` | 60px / 20px | `xl` | 60px / 17.28px |
 
 For compact Mantine buttons, map `compact-xs`, `compact-sm`, and `compact-md`
-to Inkwell `xs`; map `compact-lg` to `sm`; and map `compact-xl` to `md` when a
-44px target is appropriate. Do not recreate 22–26px controls with consumer CSS.
+to Inkwell `xs`; map `compact-lg` to `sm`; and map `compact-xl` to `md`.
+Coarse pointers get a 44 px minimum. Choose `density="comfortable"` to
+apply the full comfortable metrics even when a legacy `size` is supplied.
 The source values are documented in Mantine's
 [Variants and sizes](https://mantine.dev/styles/variants-sizes/) reference.
 
@@ -59,12 +60,12 @@ The source values are documented in Mantine's
 ## Token override example
 
 ```css
-/* Green calls to action, neutral tabs, blue links. */
+/* Green calls to action and blue selection. */
 :root {
   --button-primary-bg: seagreen;
   --button-primary-bg-hover: #187a4a;
-  --nav-active-bg: var(--color-surface-raised);
-  --nav-active-fg: var(--color-text-primary);
+  --color-selection-surface: #f0f6fd;
+  --color-selection-border: #3d8bd9;
   --link-fg: #2463a4;
 }
 ```
