@@ -62,6 +62,8 @@ export interface PopoverProps {
   rootClassName?: string;
   /** Accessible name for a menu or mobile sheet dialog. */
   ariaLabel?: string;
+  /** Give content mode a named dialog contract and move focus into it when opened. */
+  dialog?: boolean;
   /** Render as a bottom sheet on narrow screens. */
   mobileSheet?: boolean;
   /** `auto` scrolls a tall panel; `visible` delegates scrolling to a composed child list. */
@@ -83,6 +85,7 @@ export function Popover({
   panelClassName = "",
   rootClassName = "",
   ariaLabel,
+  dialog = false,
   mobileSheet = false,
   overflow = "auto",
 }: PopoverProps) {
@@ -171,11 +174,12 @@ export function Popover({
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isOpen || (mode !== "menu" && !mobileSheetActive)) return;
-    getFocusables(panelRef.current)[0]?.focus();
-  }, [isOpen, mode, mobileSheetActive]);
+    if (!isOpen || (mode !== "menu" && !mobileSheetActive && !dialog)) return;
+    (getFocusables(panelRef.current)[0] ?? panelRef.current)?.focus();
+  }, [isOpen, mode, mobileSheetActive, dialog]);
 
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.defaultPrevented) return;
     if (event.key === "Escape" && isOpen) {
       event.preventDefault();
       close(true);
@@ -224,7 +228,7 @@ export function Popover({
     onToggle: () => setOpen(!isOpen),
     "aria-expanded": isOpen,
     "aria-controls": isOpen ? id : undefined,
-    "aria-haspopup": mode === "menu" ? "menu" : mobileSheet ? "dialog" : undefined,
+    "aria-haspopup": mode === "menu" ? "menu" : mobileSheet || dialog ? "dialog" : undefined,
   };
 
   const panelClasses = [
@@ -246,9 +250,10 @@ export function Popover({
             id={id}
             ref={panelRef}
             className={panelClasses}
-            role={mode === "menu" ? "menu" : mobileSheetActive ? "dialog" : undefined}
+            role={mode === "menu" ? "menu" : mobileSheetActive || dialog ? "dialog" : undefined}
             aria-label={ariaLabel}
             aria-modal={mobileSheetActive || undefined}
+            tabIndex={mode === "menu" ? undefined : -1}
           >
             {children}
           </div>

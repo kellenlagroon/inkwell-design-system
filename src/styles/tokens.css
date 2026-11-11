@@ -143,14 +143,16 @@
   --control-md-icon-size: 16px;
   --control-md-content-gap: 8px;
   --control-md-font-weight: var(--font-weight-control);
-  --control-compact-height: 32px;
-  --control-compact-font-size: var(--font-size-meta);
-  --control-compact-padding-block: 4px;
-  --control-compact-padding-inline: 12px;
-  --control-compact-icon-size: 14px;
+  --control-compact-height: 36px;
+  --control-compact-font-size: var(--font-size-body);
+  --control-compact-padding-block: 6px;
+  --control-compact-padding-inline: 14px;
+  --control-compact-icon-size: var(--control-md-icon-size);
   --control-compact-content-gap: 6px;
   --control-compact-font-weight: var(--font-weight-control);
-  --control-comfortable-height: 44px;
+  --control-touch-height: 44px;
+  --control-mobile-input-font-size: 1rem;
+  --control-comfortable-height: var(--control-touch-height);
   --control-comfortable-font-size: var(--font-size-body);
   --control-comfortable-padding-block: 10px;
   --control-comfortable-padding-inline: 16px;
@@ -168,6 +170,12 @@
   --z-modal-front: 60;
   --z-modal-host: 80;
 
+  /* ─── Tier 3 · Component — scoped to one component, built from Tier 2 ─── */
+
+  /* Badge dimensions */
+  --badge-min-size: 18px;
+  --badge-dot-size: 10px;
+
   /* Legacy aliases */
   --shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
   --space-1: 4px;
@@ -178,11 +186,13 @@
   --space-6: 24px;
   --radius-none: 0;
   --radius-sharp: 2px;
+  --radius-control: 4px;
+  --radius-card: 8px;
   --radius-rounded: 12px;
   --radius-pill: 999px;
   --radius-device-frame: 28px;
   --radius-dialog-prominent: 18px;
-  --radius-sheet-top: 2px 2px 0 0;
+  --radius-sheet-top: var(--radius-rounded) var(--radius-rounded) 0 0;
   --mobile-nav-height: 64px;
   --chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none'%3E%3Cpath d='M2 2.25L7 7L12 2.25' stroke='%23A1A1AA' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cline x1='15' y1='15' x2='21' y2='21'/%3E%3C/svg%3E");
@@ -215,13 +225,15 @@
   --color-brand-hover: var(--crimson-800);
   --color-brand-emphasis: var(--crimson-600);
   --color-info: var(--steel-400);
+  --color-selection-surface: color-mix(in srgb, var(--color-selection-border) 12%, var(--color-surface-default));
+  --color-selection-border: var(--color-info);
   --color-success: var(--sage-400);
   --color-danger: var(--coral-500);
   --color-danger-text: var(--coral-200);
   --color-warning: var(--amber-400);
   --color-focus-outline-soft: var(--steel-a72);
   --color-focus-outline: var(--color-focus-ring);
-  --color-focus-ring: var(--steel-a72);
+  --color-focus-ring: var(--steel-400);
   --color-brand-soft: color-mix(in srgb, var(--crimson-900) 18%, transparent);
   --color-success-soft: color-mix(in srgb, var(--sage-400)    16%, transparent);
   --color-warning-soft: color-mix(in srgb, var(--amber-400)   14%, transparent);
@@ -235,11 +247,13 @@
   --button-primary-bg-hover: var(--color-brand-hover);
   --button-primary-fg: var(--color-text-strong);
   --button-secondary-bg: var(--color-overlay-soft);
-  --button-secondary-bg-hover: var(--color-border-strong);
+  --button-secondary-bg-hover: var(--color-hover-surface);
   --button-secondary-fg: var(--color-text-primary);
   --button-secondary-border: var(--color-border-strong);
-  --button-secondary-border-hover: var(--button-secondary-border);
-  --button-danger-fg: var(--color-text-strong);
+  --button-secondary-border-hover: var(--control-border-hover);
+  --button-danger-bg: var(--color-danger);
+  --button-danger-bg-hover: color-mix(in srgb, var(--button-danger-bg) 85%, var(--color-text-strong));
+  --button-danger-fg: var(--color-text-inverse);
   --badge-brand-bg: var(--color-brand);
   --badge-filled-fg: var(--color-text-strong);
   --badge-warning-fg: var(--ink-950);
@@ -247,10 +261,10 @@
   --badge-success-fg: var(--ink-950);
   --badge-info-fg: var(--ink-950);
   --nav-active-bg: var(--color-overlay-strong);
-  --nav-active-fg: var(--color-text-primary);
+  --nav-active-fg: var(--color-text-strong);
   --nav-notification-bg: var(--color-brand);
-  --pagination-current-bg: var(--color-text-strong);
-  --pagination-current-fg: var(--color-text-inverse);
+  --pagination-current-bg: var(--color-selection-surface);
+  --pagination-current-fg: var(--color-text-strong);
   --link-fg: var(--color-info);
   --control-surface: var(--color-surface-raised);
   --control-surface-active: var(--color-surface-active);
@@ -261,7 +275,7 @@
   --control-border-hover: var(--color-border-interactive);
   --input-bg: var(--color-overlay-soft);
   --input-border: var(--color-border-strong);
-  --input-focus-border: var(--color-info);
+  --input-focus-border: var(--color-focus-ring);
   --modal-surface: var(--color-surface-raised);
   --modal-border: var(--color-border-default);
   --modal-scrim: var(--color-scrim);
@@ -280,10 +294,10 @@
   /* Component tokens — card, popover, banner, toast, pill, rank */
   --color-surface-panel: color-mix(in srgb, var(--steel-400) 8%, var(--color-bg-canvas));
   --card-surface: var(--color-surface-raised);
-  --card-border: var(--color-border-subtle);
+  --card-border: var(--color-border-default);
   --popover-surface: var(--color-surface-raised);
   --popover-border: var(--color-border-default);
-  --popover-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  --popover-shadow: none;
   --text-button-fg: var(--link-fg);
   --banner-radius: var(--radius-sharp);
   --banner-padding: 14px 16px;
@@ -353,13 +367,15 @@
   --color-brand-hover: var(--crimson-800);
   --color-brand-emphasis: var(--crimson-600);
   --color-info: var(--steel-700);
+  --color-selection-surface: color-mix(in srgb, var(--color-selection-border) 8%, var(--color-surface-default));
+  --color-selection-border: var(--color-info);
   --color-success: var(--sage-700);
   --color-danger: var(--coral-700);
   --color-danger-text: var(--coral-700);
   --color-warning: var(--amber-700);
   --color-focus-outline-soft: var(--steel-a72);
-  --color-focus-outline: var(--steel-400);
-  --color-focus-ring: var(--steel-400);
+  --color-focus-outline: var(--color-focus-ring);
+  --color-focus-ring: var(--steel-700);
   --color-brand-soft: color-mix(in srgb, var(--crimson-900) 10%, var(--neutral-0));
   --color-success-soft: color-mix(in srgb, var(--sage-700) 12%, var(--neutral-0));
   --color-warning-soft: color-mix(in srgb, var(--amber-700) 12%, var(--neutral-0));
@@ -372,11 +388,13 @@
   --button-primary-bg: var(--color-brand);
   --button-primary-bg-hover: var(--color-brand-hover);
   --button-primary-fg: var(--color-text-inverse);
-  --button-secondary-bg: var(--color-surface-active);
-  --button-secondary-bg-hover: color-mix(in srgb, var(--neutral-100) 50%, var(--neutral-200));
+  --button-secondary-bg: var(--control-surface);
+  --button-secondary-bg-hover: var(--color-surface-active);
   --button-secondary-fg: var(--color-text-primary);
-  --button-secondary-border: transparent;
-  --button-secondary-border-hover: var(--button-secondary-border);
+  --button-secondary-border: var(--control-border);
+  --button-secondary-border-hover: var(--control-border-hover);
+  --button-danger-bg: var(--color-danger);
+  --button-danger-bg-hover: color-mix(in srgb, var(--button-danger-bg) 85%, var(--color-text-strong));
   --button-danger-fg: var(--color-text-inverse);
   --badge-brand-bg: var(--color-brand);
   --badge-filled-fg: var(--color-text-inverse);
@@ -385,20 +403,20 @@
   --badge-success-fg: var(--color-text-inverse);
   --badge-info-fg: var(--color-text-inverse);
   --nav-active-bg: var(--color-overlay-strong);
-  --nav-active-fg: var(--color-text-primary);
+  --nav-active-fg: var(--color-text-strong);
   --nav-notification-bg: var(--color-brand);
-  --pagination-current-bg: var(--color-surface-raised);
-  --pagination-current-fg: var(--color-text-primary);
+  --pagination-current-bg: var(--color-selection-surface);
+  --pagination-current-fg: var(--color-text-strong);
   --link-fg: var(--color-info);
-  --control-surface: var(--color-surface-active);
-  --control-surface-active: var(--neutral-200);
+  --control-surface: var(--color-surface-default);
+  --control-surface-active: var(--color-surface-active);
   --control-overlay: var(--color-overlay-soft);
   --control-overlay-strong: var(--color-overlay-strong);
-  --control-border: transparent;
-  --control-border-strong: transparent;
+  --control-border: var(--color-border-default);
+  --control-border-strong: var(--color-border-strong);
   --control-border-hover: var(--color-border-interactive);
-  --input-bg: var(--color-surface-active);
-  --input-border: transparent;
+  --input-bg: var(--color-surface-default);
+  --input-border: var(--control-border);
   --input-focus-border: var(--color-focus-ring);
   --modal-surface: var(--color-surface-raised);
   --modal-border: var(--color-border-subtle);
@@ -418,10 +436,10 @@
   /* Component tokens — card, popover, banner, toast, pill, rank */
   --color-surface-panel: var(--color-surface-default);
   --card-surface: var(--color-surface-raised);
-  --card-border: transparent;
+  --card-border: var(--color-border-default);
   --popover-surface: var(--color-surface-raised);
-  --popover-border: var(--color-border-subtle);
-  --popover-shadow: 0 18px 40px rgba(17, 17, 17, 0.16);
+  --popover-border: var(--control-border);
+  --popover-shadow: none;
   --text-button-fg: var(--link-fg);
   --banner-radius: var(--radius-sharp);
   --banner-padding: 14px 16px;

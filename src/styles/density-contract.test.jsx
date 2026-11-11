@@ -24,7 +24,7 @@ describe("control density stylesheet contract", () => {
 
   it("applies the complete density metric set to shared control families", () => {
     for (const [density, token] of [["compact", "compact"], ["comfortable", "comfortable"]]) {
-      expect(css).toContain(`.ink-control-trigger.ink-control-density--${density} { min-height: var(--control-${token}-height); padding: var(--control-${token}-padding-block) var(--control-${token}-padding-inline); gap: var(--control-${token}-content-gap); font-size: var(--control-${token}-font-size); font-weight: var(--control-${token}-font-weight); }`);
+      expect(css).toContain(`.ink-control-trigger.ink-control-density--${density} { min-height: max(var(--ink-control-touch-min, 0px), var(--control-${token}-height)); padding: var(--control-${token}-padding-block) var(--control-${token}-padding-inline); gap: var(--control-${token}-content-gap); font-size: var(--control-${token}-font-size); font-weight: var(--control-${token}-font-weight); }`);
       expect(css).toContain(`.split-button-chevron.ink-control-density--${density} svg { width: var(--control-${token}-icon-size); height: var(--control-${token}-icon-size); }`);
       expect(css).toContain(`--ink-tabs-tab-font-size: var(--control-${token}-font-size);`);
       expect(css).toContain(`font-weight: var(--control-${token}-font-weight);`);

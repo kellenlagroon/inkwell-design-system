@@ -42,8 +42,10 @@ export interface NavProps {
   onChange?: (value: string, event: MouseEvent) => void;
   /** Layout axis. Defaults to `"horizontal"`. */
   orientation?: NavOrientation;
-  /** Visual style. `chip` (default) is a segmented pill with a sliding indicator; `list` is a full-width list tuned for sidebars (no slider, tinted active row). Sidebar defaults its nested Nav to `list` automatically. */
+  /** Visual style. `chip` (default) is segmented navigation with a sliding indicator; `list` is a full-width list with a tinted active row. Sidebar defaults its nested Nav to `list`. */
   variant?: NavVariant;
+  /** Corner shape for the segmented track, indicator, and items. Defaults to `rounded`. */
+  shape?: "rounded" | "pill";
   /** Dock a horizontal Nav to the bottom of a narrow app container. Defaults to `false`. */
   mobileDocked?: boolean;
   /** @deprecated Use `fit="equal"` instead. */
@@ -74,6 +76,7 @@ export function Nav({
   onChange,
   orientation = "horizontal",
   variant,
+  shape = "rounded",
   mobileDocked = false,
   equalWidth = false,
   fit,
@@ -150,6 +153,7 @@ export function Nav({
     "ink-nav",
     `ink-nav--${orientation}`,
     `ink-nav--${resolvedVariant}`,
+    usesSlider && shape === "pill" ? "ink-nav--pill" : "",
     mobileDocked ? "ink-nav--mobile-docked" : "",
     `ink-nav--fit-${resolvedFit}`,
     equalWidth && !fit ? "ink-nav--equal-width" : "",

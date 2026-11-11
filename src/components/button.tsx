@@ -13,7 +13,7 @@ export type ButtonSpinnerPlacement = "start" | "end";
 interface ButtonOwnProps {
   /** Visual role in the action hierarchy. */
   variant?: ButtonVariant;
-  /** Control height/density. Every size has an explicit height, padding, gap, and type size. */
+  /** Control density. Every size defines a minimum height, padding, gap, and type size. */
   size?: ButtonSize;
   /** Render a spinner and lock the action while work is in progress. */
   loading?: boolean;

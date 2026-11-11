@@ -15,26 +15,15 @@
   color: var(--text);
 }
 
-.sbdocs h1,
-.sbdocs h2,
-.sbdocs h3,
-.sbdocs h4,
-.sbdocs h5,
-.sbdocs h6,
-.sbdocs p,
-.sbdocs li,
-.sbdocs td,
-.sbdocs th,
-.sbdocs strong,
-.sbdocs em {
+.sbdocs :is(h1, h2, h3, h4, h5, h6, p, li, td, th, strong, em):not(:where(.sb-story *)) {
   color: var(--text);
 }
 
-.sbdocs a {
+.sbdocs a:not(:where(.sb-story *)) {
   color: var(--accent);
 }
 
-.sbdocs a:hover {
+.sbdocs a:hover:not(:where(.sb-story *)) {
   color: var(--accent);
   text-decoration: underline;
 }

@@ -6,9 +6,8 @@ import * as TabsFeatures from "../../components/tabs.features.stories.jsx";
 
 # Tabs
 
-A segmented tab bar with a sliding underline indicator, generalizing the app's
-submission-type switcher. It's controlled: `Tabs` renders the tablist and reports the
-selection through `onChange`; you render the matching panel.
+A controlled tab bar for views within a page. `Tabs` renders the tablist and
+reports selection through `onChange`. Render the corresponding panel alongside it.
 
 **Status:** [Stable](?path=/docs/component-status-status--docs) · **Accessibility:** Meets standards
 
@@ -35,14 +34,18 @@ variables passed with `style`. Use these for page-specific spacing, rule, tab,
 and indicator treatments without changing tab behavior.
 
 Tabs also accepts the shared `density` prop (`compact`, `default`, or
-`comfortable`). The default token values are used when the prop is omitted;
-choose `comfortable` for touch-first surfaces.
+`comfortable`). The default variant uses an underline. Use
+`variant="segmented"` for a bordered track with a tinted active item. Its
+corners follow `shape="rounded"` (4 px) or `shape="pill"`.
 
 ## Features
 
 ### Basic
 
 <Canvas of={TabsFeatures.Basic} sourceState="hidden" />
+
+See segmented tabs alongside pill navigation in the
+[Record browser](?path=/story/patterns-record-browser--two-pane).
 
 ### Disabled tab
 
@@ -68,6 +71,6 @@ Useful variables include `--ink-tabs-gap`, `--ink-tabs-border-color`,
 ## Keyboard and accessibility
 
 - The tablist uses roving focus: only the selected tab is in the tab order; arrow keys move within it.
-- `ArrowRight`/`ArrowDown` and `ArrowLeft`/`ArrowUp` move and activate the next/previous enabled tab, wrapping at the ends.
+- `ArrowRight` and `ArrowLeft` move and activate the next or previous enabled tab, wrapping at the ends.
 - `Home`/`End` jump to the first/last enabled tab.
 - Each tab is `role="tab"` with `aria-selected`; set `id` so `aria-controls` links each tab to its panel.

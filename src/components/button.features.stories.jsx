@@ -156,9 +156,8 @@ export const IconButtonStory = {
         <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", marginBottom: "8px" }}>Sizes</p>
         <div style={{ display: "flex", alignItems: "flex-end", gap: "16px" }}>
           {[
-            ["sm", "28px"],
-            [undefined, "36px (default)"],
-            ["lg", "44px"],
+            ["sm", "36px"],
+            [undefined, "44px (default)"],
           ].map(([size, label]) => (
             <div key={label} style={{ display: "grid", gap: "6px", justifyItems: "center" }}>
               <IconButton icon={<IconDotsVertical />} size={size} aria-label="More actions" />

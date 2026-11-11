@@ -28,7 +28,37 @@ export interface DrawerProps {
   footerClassName?: string;
 }
 
-const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE = 'a[href], button, textarea, input:not([type="hidden"]), select, summary, [tabindex]';
+
+function getFocusables(panel: HTMLElement | null): HTMLElement[] {
+  if (!panel) return [];
+  const focusables = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((element) => {
+    if (element.tabIndex < 0 && !element.matches("summary:not([tabindex])")) return false;
+    if (element.matches(":disabled")) return false;
+    if (element.closest('[hidden], [inert], [aria-hidden="true"]')) return false;
+    if (window.getComputedStyle(element).visibility !== "visible") return false;
+    for (let ancestor: HTMLElement | null = element; ancestor && ancestor !== panel; ancestor = ancestor.parentElement) {
+      if (window.getComputedStyle(ancestor).display === "none") return false;
+      if (ancestor !== element && ancestor.matches("details:not([open])")
+        && !ancestor.querySelector(":scope > summary")?.contains(element)) return false;
+    }
+    return true;
+  });
+
+  // Stacked ActionGroups can reverse both the visual order and native Tab order.
+  for (const group of Array.from(panel.querySelectorAll<HTMLElement>(".ink-action-group")).reverse()) {
+    const style = window.getComputedStyle(group);
+    if (style.getPropertyValue("reading-flow") !== "flex-visual" || style.flexDirection !== "column-reverse") continue;
+    const first = focusables.findIndex((element) => group.contains(element));
+    if (first === -1) continue;
+    const ordered = Array.from(group.children).reverse().flatMap((child) =>
+      focusables.filter((element) => child.contains(element)),
+    );
+    focusables.splice(first, ordered.length, ...ordered);
+  }
+
+  return focusables;
+}
 
 export function Drawer({
   open,
@@ -53,7 +83,6 @@ export function Drawer({
 }: DrawerProps) {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
-  const previousFocus = useRef<HTMLElement | null>(null);
   const [rendered, setRendered] = useState(open);
   const [animationState, setAnimationState] = useState<"open" | "closed">(open ? "open" : "closed");
 
@@ -81,47 +110,51 @@ export function Drawer({
   }, [open, rendered]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || !rendered) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    previousFocus.current = document.activeElement as HTMLElement | null;
+    const previousFocus = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
-    const first = panel?.querySelector<HTMLElement>(FOCUSABLE);
-    first?.focus();
+    (getFocusables(panel)[0] ?? panel)?.focus();
     return () => {
       document.body.style.overflow = previousOverflow;
-      previousFocus.current?.focus();
+      previousFocus?.focus();
     };
-  }, [open]);
+  }, [open, rendered]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || !rendered) return;
     function onKeyDown(event: KeyboardEvent) {
+      if (event.defaultPrevented) return;
       if (event.key === "Escape" && closeOnEscape) {
         event.preventDefault();
         onClose();
         return;
       }
       if (event.key !== "Tab") return;
-      const focusable = Array.from(panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []);
+      const panel = panelRef.current;
+      const focusable = getFocusables(panel);
       if (focusable.length === 0) {
         event.preventDefault();
-        panelRef.current?.focus();
+        panel?.focus();
         return;
       }
       const first = focusable[0]!;
       const last = focusable[focusable.length - 1]!;
-      if (event.shiftKey && document.activeElement === first) {
+      if (!panel?.contains(document.activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && (document.activeElement === first || document.activeElement === panel)) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === panel)) {
         event.preventDefault();
         first.focus();
       }
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [closeOnEscape, onClose, open]);
+  }, [closeOnEscape, onClose, open, rendered]);
 
   if (!rendered) return null;
   const panelStyle = { "--ink-drawer-height": height, "--ink-drawer-max-height": maxHeight } as CSSProperties;
@@ -143,6 +176,7 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
+        inert={!open}
         aria-label={ariaLabel}
         aria-labelledby={title && header === undefined ? titleId : undefined}
         tabIndex={-1}

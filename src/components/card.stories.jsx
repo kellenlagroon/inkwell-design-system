@@ -10,14 +10,15 @@ export const Playground = {
   args: {
     variant: "plain",
     tone: "default",
+    selected: false,
   },
   argTypes: {
     variant: { control: { type: "select" }, options: ["plain", "outlined"] },
     tone: { control: { type: "select" }, options: ["default", "danger"] },
   },
-  render: ({ variant, tone }) => (
+  render: ({ variant, tone, selected }) => (
     <div style={{ padding: 24, maxWidth: 420 }}>
-      <Card variant={variant} tone={tone}>
+      <Card variant={variant} tone={tone} selected={selected}>
         <Stack>
           <SectionHeading eyebrow="Overview" title="Project summary" compact />
           <p className="subtle" style={{ margin: 0 }}>Last updated today</p>

@@ -17,7 +17,7 @@ needed.
 ## When to use
 
 - Use `Card` for a discrete block of related content that reads as one unit.
-- Use [Panel](?path=/docs/components-surface--docs) instead when you want the borderless, raised surface.
+- Use [Panel](?path=/docs/components-surface--docs) for a larger content pane.
 - Lay multiple cards out with [Grid](?path=/docs/layout-grid--docs) or [Stack](?path=/docs/layout-stack--docs).
 
 ## Primary example
@@ -39,8 +39,11 @@ buttons. All pass native `div` props through.
 ### Variants
 
 `plain` (default) is borderless on the raised surface — the app's common look.
-`outlined` adds a subtle border on the default surface for when there's no
-background contrast to rely on.
+`outlined` adds a 1 px border on the default surface. Both variants use 8 px
+corners. Use `as="button"` when the entire card performs one action.
+Pass `selected` for the selection tint and outline and `aria-current` to
+identify the card whose details are shown. Keep other actions outside a card
+rendered as a button.
 
 <Canvas of={CardFeatures.Variants} sourceState="hidden" />
 

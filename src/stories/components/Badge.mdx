@@ -36,6 +36,9 @@ bare indicator and drops any content. All native `span` props pass through.
 
 ### Tones
 
+Counts and labels share a minimum height. Counts use tabular numerals, so
+digits have the same width as values change.
+
 <Canvas of={BadgeFeatures.Tones} sourceState="hidden" />
 
 ### Dots
@@ -46,8 +49,8 @@ A bare indicator for presence without a count.
 
 ### On a control
 
-Position the badge yourself with a `position: relative` wrapper — Badge stays
-layout-agnostic rather than baking in placement.
+Use a positioned wrapper to anchor the badge to the control. Center the badge
+on the anchor so a dot and a multi-digit count sit at the same point.
 
 <Canvas of={BadgeFeatures.OnAControl} sourceState="hidden" />
 

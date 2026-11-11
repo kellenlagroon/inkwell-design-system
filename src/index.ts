@@ -67,7 +67,7 @@ export type {
 } from "./components/forms";
 
 export { Card, CardActions } from "./components/card";
-export type { CardProps, CardActionsProps, CardTone, CardVariant, CardPadding } from "./components/card";
+export type { CardProps, CardButtonProps, CardActionsProps, CardTone, CardVariant, CardPadding } from "./components/card";
 export { CardHeader } from "./components/cardHeader";
 export type { CardHeaderProps } from "./components/cardHeader";
 export { ControlGroup } from "./components/controlGroup";

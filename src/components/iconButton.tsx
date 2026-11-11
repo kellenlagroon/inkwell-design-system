@@ -5,7 +5,7 @@ export type IconButtonSize = "sm" | "md";
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** The icon element to render. */
   icon?: ReactNode;
-  /** Control size. `md` (44px) is the default and adds no modifier; `sm` is 32px. */
+  /** Control size. `md` is 44 px and `sm` is 36 px. Coarse pointers use at least 44 px. */
   size?: IconButtonSize;
 }
 

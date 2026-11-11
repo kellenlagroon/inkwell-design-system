@@ -39,10 +39,11 @@ Use variant styling to create action hierarchy between save, manage, cancel, and
 
 Scale button density based on surrounding UI, not just label length.
 
-The default `md` control is 40px high, 14px text, 16px inline padding, 8px
-content gap, and a 550 control weight. Use `density="comfortable"` when a
-touch-first surface needs a 44px target. Use `startIcon` and `endIcon` for
-leading/trailing icons; icon-only actions should use `IconButton`.
+The default `md` button has a 40 px minimum height, 14 px text, 16 px inline
+padding, and an 8 px content gap. The `sm` button has a 36 px minimum height
+with the same text and 16 px icon size. Both sizes use 4 px corners.
+On coarse pointers the minimum height rises to 44 px. Use `startIcon` and
+`endIcon` for decorative icons. Button links use the same metrics.
 
 <Canvas of={ButtonFeatures.ButtonSizes} sourceState="hidden" />
 
@@ -90,12 +91,6 @@ Disabled actions should be used sparingly and only when the user can infer what 
 
 ## Usage guidance
 
-### Design follow-up
-
-Explore secondary-button treatments in both dark and light themes before the
-visual style is considered final. Compare outlined, neutral-filled, and tonal
-surface options across default, hover, focus, loading, and disabled states.
-
 - Do keep labels short, task-oriented, and written in sentence case.
 - Do use one primary button in a cluster whenever possible.
 - Do pair destructive intent with explicit danger styling.
@@ -109,4 +104,5 @@ surface options across default, hover, focus, loading, and disabled states.
 - `Space` activates the focused button.
 - Icon-only buttons should always provide an accessible name.
 - `TextDisclosure` names the controlled content and exposes its current state.
-- `IconButton` has two sizes: `md` (44px, the default) and `sm` (32px).
+- `IconButton` has a 44 px default size and a 36 px `sm` size. Both have a
+  44 px minimum target on coarse pointers.
