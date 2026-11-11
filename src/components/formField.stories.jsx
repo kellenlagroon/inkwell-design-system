@@ -12,8 +12,8 @@ function ControlledInput(props) {
 
 export const Playground = {
   args: {
-    label: "Cycle name",
-    hint: "Shown to reviewers on their submission.",
+    label: "Project name",
+    hint: "Shown in the project directory.",
     error: "",
     required: false,
   },
@@ -26,7 +26,7 @@ export const Playground = {
   render: ({ label, hint, error, required }) => (
     <div style={{ padding: 24, maxWidth: 400 }}>
       <FormField label={label} hint={hint} error={error || undefined} required={required}>
-        <ControlledInput placeholder="Quarterly Planning Review" />
+        <ControlledInput placeholder="Website refresh" />
       </FormField>
     </div>
   ),

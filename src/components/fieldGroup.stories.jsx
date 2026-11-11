@@ -14,13 +14,13 @@ export const Playground = {
   render: ({ columns }) => (
     <div style={{ padding: 24, maxWidth: 760 }}>
       <FieldGroup columns={columns}>
-        <FormField label="Company">
-          <TextInput placeholder="Acme" />
+        <FormField label="Project">
+          <TextInput placeholder="Website refresh" />
         </FormField>
-        <FormField label="Role">
-          <TextInput placeholder="Product Designer" />
+        <FormField label="Owner">
+          <TextInput placeholder="Maya Chen" />
         </FormField>
-        <Button variant="secondary">Add application</Button>
+        <Button variant="secondary">Add project</Button>
       </FieldGroup>
     </div>
   ),

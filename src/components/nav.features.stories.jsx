@@ -7,9 +7,9 @@ export default {
 };
 
 const APP_ITEMS = [
-  { value: "submission", label: "Submission", icon: <IconAward /> },
-  { value: "results", label: "Results", icon: <IconTrophy /> },
-  { value: "administrator", label: "Administrator", icon: <IconSettings /> },
+  { value: "library", label: "Library", icon: <IconAward /> },
+  { value: "reports", label: "Reports", icon: <IconTrophy /> },
+  { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];
 
 function ControlledNav({ items, orientation = "horizontal", variant, initial, ...props }) {
@@ -59,7 +59,7 @@ export const EqualWidthStress = {
         equalWidth
         items={[
           { value: "overview", label: "Overview", icon: <IconList /> },
-          { value: "applications", label: "Application review queue", icon: <IconAward />, badge: 12 },
+          { value: "review", label: "Records awaiting review", icon: <IconAward />, badge: 12 },
           { value: "settings", label: "Settings", icon: <IconSettings /> },
         ]}
       />
@@ -78,7 +78,7 @@ export const ListVariant = {
           items={[
             { value: "overview", label: "Overview", icon: <IconList /> },
             { value: "members", label: "Members", icon: <IconUsers />, badge: 12 },
-            { value: "results", label: "Results", icon: <IconTrophy />, badge: true },
+            { value: "reports", label: "Reports", icon: <IconTrophy />, badge: true },
             { value: "settings", label: "Settings", icon: <IconSettings /> },
           ]}
         />
@@ -95,7 +95,7 @@ export const Vertical = {
         items={[
           { value: "overview", label: "Overview", icon: <IconList /> },
           { value: "members", label: "Members", icon: <IconUsers /> },
-          { value: "results", label: "Results", icon: <IconTrophy /> },
+          { value: "reports", label: "Reports", icon: <IconTrophy /> },
           { value: "settings", label: "Settings", icon: <IconSettings /> },
         ]}
       />
@@ -109,9 +109,9 @@ export const WithBadges = {
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
       <ControlledNav
         items={[
-          { value: "submission", label: "Submission", icon: <IconAward />, badge: 1 },
-          { value: "results", label: "Results", icon: <IconTrophy />, badge: 12 },
-          { value: "administrator", label: "Administrator", icon: <IconSettings /> },
+          { value: "library", label: "Library", icon: <IconAward />, badge: 1 },
+          { value: "reports", label: "Reports", icon: <IconTrophy />, badge: 12 },
+          { value: "settings", label: "Settings", icon: <IconSettings /> },
         ]}
       />
     </div>
@@ -124,9 +124,9 @@ export const WithDotBadge = {
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
       <ControlledNav
         items={[
-          { value: "submission", label: "Submission", icon: <IconAward /> },
-          { value: "results", label: "Results", icon: <IconTrophy />, badge: true },
-          { value: "administrator", label: "Administrator", icon: <IconSettings />, badge: true },
+          { value: "library", label: "Library", icon: <IconAward /> },
+          { value: "reports", label: "Reports", icon: <IconTrophy />, badge: true },
+          { value: "settings", label: "Settings", icon: <IconSettings />, badge: true },
         ]}
       />
     </div>
@@ -139,9 +139,9 @@ export const AsLinks = {
     <div style={{ padding: 32, display: "flex", justifyContent: "center" }}>
       <ControlledNav
         items={[
-          { value: "submission", label: "Submission", icon: <IconAward />, href: "#submission" },
-          { value: "results", label: "Results", icon: <IconTrophy />, href: "#results" },
-          { value: "administrator", label: "Administrator", icon: <IconSettings />, href: "#administrator" },
+          { value: "library", label: "Library", icon: <IconAward />, href: "#library" },
+          { value: "reports", label: "Reports", icon: <IconTrophy />, href: "#reports" },
+          { value: "settings", label: "Settings", icon: <IconSettings />, href: "#settings" },
         ]}
       />
     </div>
@@ -155,7 +155,7 @@ export const LabelOnly = {
       <ControlledNav
         items={[
           { value: "one", label: "Overview" },
-          { value: "two", label: "Rounds" },
+          { value: "two", label: "Projects" },
           { value: "three", label: "Directory" },
         ]}
       />
@@ -169,12 +169,12 @@ export const FittingModes = {
     {(["content", "equal", "scroll", "wrap"]).map((fit) => (
       <div key={fit} style={{ minWidth: 0 }}>
         <small>{fit} · four items</small>
-        <ControlledNav fit={fit} items={[{ value: "one", label: "Overview" }, { value: "two", label: "Interviewing" }, { value: "three", label: "Results" }, { value: "four", label: "Settings" }]} />
+        <ControlledNav fit={fit} items={[{ value: "one", label: "Overview" }, { value: "two", label: "Recent activity" }, { value: "three", label: "Reports" }, { value: "four", label: "Settings" }]} />
       </div>
     ))}
     <div style={{ minWidth: 0 }}>
       <small>wrap · five items</small>
-      <ControlledNav fit="wrap" items={[{ value: "one", label: "Overview" }, { value: "two", label: "Interviewing" }, { value: "three", label: "Results" }, { value: "four", label: "Settings" }, { value: "five", label: "Archived" }]} />
+      <ControlledNav fit="wrap" items={[{ value: "one", label: "Overview" }, { value: "two", label: "Recent activity" }, { value: "three", label: "Reports" }, { value: "four", label: "Settings" }, { value: "five", label: "Archived" }]} />
     </div>
   </div>,
 };

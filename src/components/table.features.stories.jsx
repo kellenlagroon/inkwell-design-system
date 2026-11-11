@@ -5,15 +5,15 @@ export default {
 };
 
 const ROWS = [
-  { id: "a", name: "Northstar", priority: 12, status: 1 },
-  { id: "b", name: "Summit", priority: 11, status: 2 },
-  { id: "c", name: "Harbor", priority: 11, status: 2 },
+  { id: "a", name: "Northstar", open: 12, closed: 1 },
+  { id: "b", name: "Summit", open: 11, closed: 2 },
+  { id: "c", name: "Harbor", open: 11, closed: 2 },
 ];
 
 const COLUMNS = [
-  { id: "name", header: "Item", render: (r) => r.name },
-  { id: "priority", header: "Wins", align: "end", render: (r) => r.priority },
-  { id: "status", header: "Losses", align: "end", render: (r) => r.status },
+  { id: "name", header: "Project", render: (r) => r.name },
+  { id: "open", header: "Open items", align: "end", render: (r) => r.open },
+  { id: "closed", header: "Closed items", align: "end", render: (r) => r.closed },
 ];
 
 export const Basic = {
@@ -31,7 +31,7 @@ export const Sortable = {
         columns={COLUMNS.map((c) => ({ ...c, sortable: true }))}
         data={ROWS}
         getRowKey={(r) => r.id}
-        defaultSortBy="wins"
+        defaultSortBy="open"
         defaultSortDirection="desc"
         hoverable
       />
@@ -79,9 +79,9 @@ export const StickyHeader = {
           columns={COLUMNS}
           data={Array.from({ length: 20 }, (_, i) => ({
             id: `r${i}`,
-            name: `Item ${i + 1}`,
-            priority: 12 - (i % 5),
-            status: i % 5,
+            name: `Project ${i + 1}`,
+            open: 12 - (i % 5),
+            closed: i % 5,
           }))}
           getRowKey={(r) => r.id}
           stickyHeader
@@ -95,7 +95,7 @@ export const StickyHeader = {
 export const Empty = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 480, color: "var(--color-text-primary)" }}>
-      <Table columns={COLUMNS} data={[]} getRowKey={(r) => r.id} empty="No teams yet." />
+      <Table columns={COLUMNS} data={[]} getRowKey={(r) => r.id} empty="No projects yet." />
     </div>
   ),
 };
@@ -104,7 +104,7 @@ export const WithCaption = {
   name: "Caption",
   render: () => (
     <div style={{ padding: 24, maxWidth: 480, color: "var(--color-text-primary)" }}>
-      <Table columns={COLUMNS} data={ROWS} getRowKey={(r) => r.id} caption="Top 3 by record" />
+      <Table columns={COLUMNS} data={ROWS} getRowKey={(r) => r.id} caption="Work items by project" />
     </div>
   ),
 };

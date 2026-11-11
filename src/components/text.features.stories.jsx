@@ -32,7 +32,7 @@ export const InlineLinks = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 560 }}>
       <Text>
-        Read the <Link href="https://example.com" external>external posting</Link> before applying.
+        Read the <Link href="https://example.com" external>reference guide</Link> before making changes.
       </Text>
     </div>
   ),

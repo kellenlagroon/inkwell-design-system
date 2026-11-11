@@ -79,7 +79,7 @@ function ReadinessContent() {
                   <PasswordInput defaultValue="password" />
                 </FormField>
               </FieldGroup>
-              <FormField label="Resume or supporting document">
+              <FormField label="Supporting document">
                 <FileUpload placeholder="No file selected; very-long-filenames-are-truncated-safely.pdf" />
               </FormField>
               <Select
@@ -101,7 +101,7 @@ function ReadinessContent() {
               />
               <CheckboxSelect
                 searchable
-                label="Programs"
+                label="Categories"
                 value={filters}
                 onChange={setFilters}
                 options={Array.from({ length: 8 }, (_, index) => ({ value: String(index), label: `Long filter option ${index + 1}` }))}

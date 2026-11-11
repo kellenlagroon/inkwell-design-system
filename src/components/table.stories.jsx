@@ -6,11 +6,11 @@ export default {
 };
 
 const ITEMS = [
-  { id: "ala", item: "Northstar", group: "Core", priority: 12, status: 1 },
-  { id: "geo", item: "Summit", group: "Core", priority: 11, status: 2 },
-  { id: "osu", item: "Harbor", group: "Growth", priority: 11, status: 2 },
-  { id: "mich", item: "Cedar", group: "Growth", priority: 10, status: 3 },
-  { id: "ore", item: "Atlas", group: "Platform", priority: 10, status: 3 },
+  { id: "northstar", item: "Northstar", group: "Core", open: 12, closed: 1 },
+  { id: "summit", item: "Summit", group: "Core", open: 11, closed: 2 },
+  { id: "harbor", item: "Harbor", group: "Growth", open: 11, closed: 2 },
+  { id: "cedar", item: "Cedar", group: "Growth", open: 10, closed: 3 },
+  { id: "atlas", item: "Atlas", group: "Platform", open: 10, closed: 3 },
 ];
 
 export const Playground = {
@@ -25,7 +25,7 @@ export const Playground = {
     stickyHeader: { control: "boolean" },
   },
   render: ({ density, hoverable, stickyHeader }) => {
-    const [sortBy, setSortBy] = useState("priority");
+    const [sortBy, setSortBy] = useState("open");
     const [direction, setDirection] = useState("desc");
     const data = useMemo(() => {
       const sorted = [...ITEMS];
@@ -41,10 +41,10 @@ export const Playground = {
       <div style={{ padding: 24, maxWidth: 640, color: "var(--color-text-primary)" }}>
         <Table
           columns={[
-            { id: "item", header: "Item", sortable: true, render: (r) => r.item },
+            { id: "item", header: "Project", sortable: true, render: (r) => r.item },
             { id: "group", header: "Group", sortable: true, render: (r) => r.group },
-            { id: "priority", header: "Priority", sortable: true, align: "end", render: (r) => r.priority },
-            { id: "status", header: "Status", sortable: true, align: "end", render: (r) => r.status },
+            { id: "open", header: "Open items", sortable: true, align: "end", render: (r) => r.open },
+            { id: "closed", header: "Closed items", sortable: true, align: "end", render: (r) => r.closed },
           ]}
           data={data}
           getRowKey={(r) => r.id}

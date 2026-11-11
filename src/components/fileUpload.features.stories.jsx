@@ -9,7 +9,7 @@ export default {
 export const Default = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 460 }}>
-      <FormField label="Resume" hint="PDF or Word document.">
+      <FormField label="Supporting document" hint="PDF or Word document.">
         <FileUpload label="Choose file" accept=".pdf,.doc,.docx" />
       </FormField>
     </div>
@@ -27,7 +27,7 @@ export const ErrorState = {
 export const Disabled = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 460 }}>
-      <FormField label="Resume">
+      <FormField label="Supporting document">
         <FileUpload label="Choose file" disabled />
       </FormField>
     </div>

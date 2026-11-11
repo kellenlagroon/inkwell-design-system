@@ -6,7 +6,7 @@ export default {
 
 export const Playground = {
   args: {
-    name: "Kellen Lagroon",
+    name: "Maya Chen",
     src: "",
     size: "md",
     shape: "circle",

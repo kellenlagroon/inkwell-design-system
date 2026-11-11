@@ -9,10 +9,10 @@ export const DefaultTrigger = {
   render: () => (
     <div style={{ padding: 64, display: "flex", justifyContent: "center" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "var(--color-text-primary)" }}>
-        Strength of schedule
+        Retention period
         <Tooltip
-          content="A weighted measure of opponent quality across the season."
-          triggerLabel="More information about strength of schedule"
+          content="Archived records remain available for 90 days."
+          triggerLabel="More information about the retention period"
         />
       </span>
     </div>
@@ -24,10 +24,10 @@ export const CustomTrigger = {
   render: () => (
     <div style={{ padding: 64, display: "flex", justifyContent: "center" }}>
       <Tooltip
-        content="Private: individual submissions are never shown."
+        content="Only workspace members can open this link."
         trigger={
           <button type="button" className="secondary-button">
-            Why anonymized?
+            Who can open this?
           </button>
         }
       />
@@ -67,15 +67,15 @@ export const RichContent = {
   render: () => (
     <div style={{ padding: 64, display: "flex", justifyContent: "center" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "var(--color-text-primary)" }}>
-        Tiebreakers
+        Export contents
         <Tooltip
-          triggerLabel="More information about tiebreakers"
+          triggerLabel="More information about the export"
           content={
             <span style={{ display: "grid", gap: 4 }}>
-              <strong>Applied in order:</strong>
-              <span>1. Head-to-head result</span>
-              <span>2. Total first-place votes</span>
-              <span>3. Average submission rank</span>
+              <strong>Included in the export</strong>
+              <span>Record titles</span>
+              <span>Statuses</span>
+              <span>Last updated dates</span>
             </span>
           }
         />

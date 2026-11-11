@@ -50,8 +50,8 @@ function DescriptionDisclosure() {
   return (
     <div style={{ display: "grid", gap: 8, maxWidth: 520 }}>
       <p id="review-description" hidden={!expanded} style={{ margin: 0 }}>
-        Reviewers compare the complete application, supporting materials, and
-        scoring history before recording a recommendation.
+        Review the record, its attachments, and any open questions before
+        marking the review complete.
       </p>
       <TextDisclosure
         expanded={expanded}
@@ -97,7 +97,7 @@ export const ButtonHierarchy = {
   name: "Hierarchy — primary / secondary / ghost",
   render: () => (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-      <Button variant="primary">Publish results</Button>
+      <Button variant="primary">Publish changes</Button>
       <Button variant="secondary">Manage directory</Button>
       <Button variant="ghost">Cancel</Button>
       <span style={{ flex: 1 }} />
@@ -111,9 +111,9 @@ export const TextIconLeft = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary", [[IconAward, "Review cycle"], [IconRestart, "Restart review"], [IconCheck, "Save changes"]]],
+        ["primary", [[IconAward, "View milestones"], [IconRestart, "Restart task"], [IconCheck, "Save changes"]]],
         ["secondary", [[IconEye, "View directory"], [IconSettings, "Settings"], [IconCopy, "Duplicate"]]],
-        ["ghost", [[IconClose, "Cancel"], [IconLogout, "Leave review"], [IconArrowDown, "Show more"]]],
+        ["ghost", [[IconClose, "Cancel"], [IconLogout, "Sign out"], [IconArrowDown, "Show more"]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {items.map(([Icon, label]) => (
@@ -132,9 +132,9 @@ export const TextIconRight = {
   render: () => (
     <div style={{ display: "grid", gap: "16px" }}>
       {[
-        ["primary", [["Review cycle", IconAward], ["Restart review", IconRestart], ["Save changes", IconCheck]]],
+        ["primary", [["View milestones", IconAward], ["Restart task", IconRestart], ["Save changes", IconCheck]]],
         ["secondary", [["View directory", IconEye], ["Settings", IconSettings], ["Duplicate", IconCopy]]],
-        ["ghost", [["Cancel", IconClose], ["Leave review", IconLogout], ["Show more", IconArrowDown]]],
+        ["ghost", [["Cancel", IconClose], ["Sign out", IconLogout], ["Show more", IconArrowDown]]],
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {items.map(([label, Icon]) => (
@@ -171,9 +171,9 @@ export const IconButtonStory = {
         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
           {[
             ["View", IconEye], ["More actions", IconDotsVertical], ["Settings", IconSettings],
-            ["Copy", IconCopy], ["Restart", IconRestart], ["Review cycle", IconAward],
-            ["Results", IconTrophy], ["Members", IconUsers], ["Cancel", IconClose],
-            ["Confirm", IconCheck], ["Show more", IconArrowDown], ["Leave review", IconLogout],
+            ["Copy", IconCopy], ["Restart", IconRestart], ["View milestones", IconAward],
+            ["Highlights", IconTrophy], ["Members", IconUsers], ["Cancel", IconClose],
+            ["Confirm", IconCheck], ["Show more", IconArrowDown], ["Sign out", IconLogout],
           ].map(([label, Icon]) => (
             <IconButton key={label} icon={<Icon />} aria-label={label} />
           ))}

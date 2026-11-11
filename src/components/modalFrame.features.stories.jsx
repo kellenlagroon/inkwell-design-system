@@ -31,13 +31,13 @@ function ModalTrigger({ triggerLabel, title, size, id, children }) {
 export const ModalFrameOpen = {
   name: "Default",
   render: () => (
-    <ModalTrigger triggerLabel="Create a review cycle" title="Create a review cycle" id="storybookModal">
+    <ModalTrigger triggerLabel="Create a project" title="Create a project" id="storybookModal">
       <form onSubmit={(e) => e.preventDefault()}>
         <Stack>
-          <FormField label="Cycle name">
-            <TextInput placeholder="Quarterly Planning Review" />
+          <FormField label="Project name">
+            <TextInput placeholder="Website refresh" />
           </FormField>
-          <Button type="submit">Create round</Button>
+          <Button type="submit">Create project</Button>
         </Stack>
       </form>
     </ModalTrigger>
@@ -47,8 +47,8 @@ export const ModalFrameOpen = {
 export const ModalFrameCompact = {
   name: "Compact",
   render: () => (
-    <ModalTrigger triggerLabel="Open a review cycle" title="Open a review cycle" size="compact" id="storybookCompactModal">
-      <p className="subtle">Compact modals are used for single-action forms.</p>
+    <ModalTrigger triggerLabel="Archive project" title="Archive project" size="compact" id="storybookCompactModal">
+      <p className="subtle">Archive this project and move it out of the active list?</p>
       <Button>Confirm</Button>
     </ModalTrigger>
   ),

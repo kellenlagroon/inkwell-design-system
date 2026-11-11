@@ -6,8 +6,8 @@ export default {
 
 export const Playground = {
   args: {
-    content: "Submissions are private until results are published.",
-    triggerLabel: "More information about submissions",
+    content: "Archived records remain available for 90 days.",
+    triggerLabel: "More information about the retention period",
   },
   argTypes: {
     content: { control: "text" },
@@ -16,7 +16,7 @@ export const Playground = {
   render: ({ content, triggerLabel }) => (
     <div style={{ padding: 64, display: "flex", justifyContent: "center" }}>
       <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "var(--color-text-primary)" }}>
-        Final submissions
+        Retention period
         <Tooltip content={content} triggerLabel={triggerLabel} />
       </span>
     </div>

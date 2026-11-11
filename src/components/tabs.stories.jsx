@@ -7,8 +7,8 @@ export default {
 
 const TABS = [
   { value: "overview", label: "Overview" },
-  { value: "multi", label: "Multi-Category" },
-  { value: "selection", label: "Settings" },
+  { value: "activity", label: "Activity" },
+  { value: "settings", label: "Settings" },
 ];
 
 export const Playground = {
@@ -22,11 +22,11 @@ export const Playground = {
       const [value, setValue] = useState("overview");
       return (
         <div style={{ padding: 24, maxWidth: 480 }}>
-          <Tabs tabs={TABS} value={value} onChange={setValue} aria-label="Active submission type" id="submission" variant={variant} shape={shape} />
+          <Tabs tabs={TABS} value={value} onChange={setValue} aria-label="Record details" id="record-details" variant={variant} shape={shape} />
           <div
-            id={`submission-panel-${value}`}
+            id={`record-details-panel-${value}`}
             role="tabpanel"
-            aria-labelledby={`submission-tab-${value}`}
+            aria-labelledby={`record-details-tab-${value}`}
             style={{ paddingTop: 20, color: "var(--color-text-primary)" }}
           >
             {TABS.find((t) => t.value === value)?.label} content

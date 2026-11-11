@@ -4,9 +4,8 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Inkwell
 
-Inkwell is a small, opinionated design system for internal apps in this
-project. It was seeded from the seed application and kept deliberately
-isolated: it ships its own tokens, styles, components, tests, and lib build.
+Inkwell is a design system for internal apps. It ships shared tokens, styles,
+and components.
 
 ## Installation
 
@@ -64,9 +63,8 @@ These hold across every layer.
 duration in a component. If a token doesn't exist yet, add it — don't inline.
 
 **A11y is baseline, not extra.** Every component ships with sensible ARIA,
-keyboard support, and focus rings. Where the app the system was seeded from
-lacked something, Inkwell adds it (full arrow-key nav on Tabs, Escape-dismiss
-on Tooltip, `role="progressbar"` on Progress).
+keyboard support, and focus rings. Tabs supports arrow-key navigation, Tooltip
+closes with Escape, and Progress exposes the `progressbar` role.
 
 **Reduced motion is respected.** Any animation has a
 `@media (prefers-reduced-motion: reduce)` variant that slows or removes motion.
