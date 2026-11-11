@@ -11,7 +11,7 @@ const CATEGORIES = [
 ];
 
 export const Stacked = {
-  name: "Stacked (results)",
+  name: "Stacked sections",
   render: () => (
     <div style={{ padding: 24, maxWidth: 520, display: "grid" }}>
       {CATEGORIES.map((c, i) => (

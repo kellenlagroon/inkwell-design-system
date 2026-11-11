@@ -11,8 +11,8 @@ export default {
 const ITEMS = [
   { value: "overview", label: "Overview", icon: <IconList /> },
   { value: "members", label: "Members", icon: <IconUsers /> },
-  { value: "submission", label: "Submission", icon: <IconAward /> },
-  { value: "results", label: "Results", icon: <IconTrophy /> },
+  { value: "library", label: "Library", icon: <IconAward /> },
+  { value: "reports", label: "Reports", icon: <IconTrophy /> },
   { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];
 

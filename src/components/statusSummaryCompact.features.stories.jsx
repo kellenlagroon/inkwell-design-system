@@ -19,8 +19,8 @@ function StatusItem({ label, value, tone }) {
 function Summary() {
   return (
     <StatusSummaryCompact>
-      <StatusItem label="Sources" value="Healthy" tone="success" />
-      <StatusItem label="ATS" value="2 stale" tone="warning" />
+      <StatusItem label="Sync" value="Healthy" tone="success" />
+      <StatusItem label="Index" value="2 pending" tone="warning" />
       <StatusItem label="Queue" value="Idle" tone="neutral" />
     </StatusSummaryCompact>
   );

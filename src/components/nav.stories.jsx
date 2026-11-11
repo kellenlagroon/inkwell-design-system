@@ -7,15 +7,15 @@ export default {
 };
 
 const ITEMS = [
-  { value: "submission", label: "Submission", icon: <IconAward /> },
-  { value: "results", label: "Results", icon: <IconTrophy />, badge: 3 },
-  { value: "administrator", label: "Administrator", icon: <IconSettings /> },
+  { value: "library", label: "Library", icon: <IconAward /> },
+  { value: "reports", label: "Reports", icon: <IconTrophy />, badge: 3 },
+  { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];
 
 const VERTICAL_ITEMS = [
   { value: "overview", label: "Overview", icon: <IconList /> },
   { value: "members", label: "Members", icon: <IconUsers />, badge: 12 },
-  { value: "results", label: "Results", icon: <IconTrophy /> },
+  { value: "reports", label: "Reports", icon: <IconTrophy /> },
   { value: "settings", label: "Settings", icon: <IconSettings /> },
 ];
 

@@ -42,7 +42,7 @@ export const Wrapping = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 320 }}>
       <Inline gap="sm">
-        {["Northstar", "Summit", "Harbor", "Cedar", "Clemson", "Texas", "Atlas"].map((t) => (
+        {["Northstar", "Summit", "Harbor", "Cedar", "Willow", "Ridge", "Atlas"].map((t) => (
           <Box key={t}>{t}</Box>
         ))}
       </Inline>

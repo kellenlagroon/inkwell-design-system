@@ -10,9 +10,9 @@ const MOBILE_VIEWPORTS = {
   },
 };
 
-const PROGRAMS = Array.from({ length: 8 }, (_, index) => ({
+const CATEGORIES = Array.from({ length: 8 }, (_, index) => ({
   value: String(index + 1),
-  label: `Program option ${index + 1}`,
+  label: `Category ${index + 1}`,
 }));
 
 export default {
@@ -27,10 +27,10 @@ function SheetFrame({ children, appliedCount }) {
   return (
     <div className="ink-filter-sheet-sandbox">
       <div className="ink-filter-sheet-sandbox__context">
-        <Text size="sm" tone="secondary">Browse programs</Text>
+        <Text size="sm" tone="secondary">Browse records</Text>
         {appliedCount === undefined ? null : <Text size="sm" aria-live="polite">Applied filters: {appliedCount}</Text>}
       </div>
-      <section className="ink-filter-sheet-sandbox__sheet" aria-label="Program filters">
+      <section className="ink-filter-sheet-sandbox__sheet" aria-label="Category filters">
         {children}
       </section>
     </div>
@@ -39,7 +39,7 @@ function SheetFrame({ children, appliedCount }) {
 
 function FilterList({ selected, onToggle, query }) {
   const options = useMemo(
-    () => PROGRAMS.filter((option) => option.label.toLowerCase().includes(query.toLowerCase())),
+    () => CATEGORIES.filter((option) => option.label.toLowerCase().includes(query.toLowerCase())),
     [query],
   );
 
@@ -74,7 +74,7 @@ function FilterSheet({ mode }) {
     <SheetFrame appliedCount={isStaged ? appliedSelection.length : undefined}>
       <div className="ink-filter-sheet-sandbox__header">
         <div className="ink-filter-sheet-sandbox__heading-row">
-          <Heading level={2} size="sm">Programs</Heading>
+          <Heading level={2} size="sm">Categories</Heading>
           {!isStaged ? (
             <Button variant="ghost" size="sm" onClick={clear} disabled={selected.length === 0}>Clear</Button>
           ) : null}
@@ -85,8 +85,8 @@ function FilterSheet({ mode }) {
         <TextInput
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search programs"
-          aria-label="Search programs"
+          placeholder="Search categories"
+          aria-label="Search categories"
         />
       </div>
       <FilterList selected={selected} onToggle={toggle} query={query} />
@@ -105,12 +105,12 @@ export const ImmediateSelection = {
   globals: { viewport: { value: "mobile320", isRotated: false } },
   render: () => <FilterSheet mode="immediate" />,
   play: async ({ canvas, userEvent }) => {
-    const secondOption = canvas.getByRole("checkbox", { name: "Program option 2" });
+    const secondOption = canvas.getByRole("checkbox", { name: "Category 2" });
     await userEvent.click(secondOption);
     await expect(secondOption).toBeChecked();
     await userEvent.click(canvas.getByRole("button", { name: "Clear" }));
     await expect(canvas.getByText("0 selected")).toBeVisible();
-    await userEvent.click(canvas.getByRole("checkbox", { name: "Program option 1" }));
+    await userEvent.click(canvas.getByRole("checkbox", { name: "Category 1" }));
   },
 };
 
@@ -119,7 +119,7 @@ export const StagedSelection = {
   globals: { viewport: { value: "mobile320", isRotated: false } },
   render: () => <FilterSheet mode="staged" />,
   play: async ({ canvas, userEvent }) => {
-    const secondOption = canvas.getByRole("checkbox", { name: "Program option 2" });
+    const secondOption = canvas.getByRole("checkbox", { name: "Category 2" });
     await userEvent.click(secondOption);
     await expect(canvas.getByText("2 selected")).toBeVisible();
     await userEvent.click(canvas.getByRole("button", { name: "Apply filters" }));

@@ -48,7 +48,7 @@ export const SectionHeadingDefault = {
 
 export const SectionHeadingCompact = {
   name: "Section heading — compact",
-  render: () => <SectionHeading title="Review cycles" compact />,
+  render: () => <SectionHeading title="Projects" compact />,
 };
 
 export const EmptyStateDefault = {

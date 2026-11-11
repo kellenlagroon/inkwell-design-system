@@ -53,12 +53,12 @@ export const Content = {
         )}
       >
         <div style={{ display: "grid", gap: 10 }}>
-          <Checkbox label="Remote" />
+          <Checkbox label="Assigned to me" />
           <Checkbox label="Recently updated" />
-          <Checkbox label="Has interview availability" />
-          <Checkbox label="Requires portfolio review" />
-          <Checkbox label="Open to relocation" />
-          <Checkbox label="Posted this week" />
+          <Checkbox label="Has comments" />
+          <Checkbox label="Needs review" />
+          <Checkbox label="Include archived records" />
+          <Checkbox label="Created this week" />
         </div>
       </Popover>
     </div>
@@ -93,15 +93,15 @@ export const ComposedFilterList = {
     <div style={{ padding: 80 }}>
       <Popover
         overflow="visible"
-        ariaLabel="Program filters"
+        ariaLabel="Category filters"
         trigger={({ ref, open, onToggle, ...triggerProps }) => (
-          <Trigger ref={ref} {...triggerProps} aria-expanded={open} onClick={onToggle} label="Filter programs" />
+          <Trigger ref={ref} {...triggerProps} aria-expanded={open} onClick={onToggle} label="Filter categories" />
         )}
       >
         <div style={{ display: "grid", gap: 8, width: 280 }}>
           <Text size="sm" tone="secondary">The list owns its scroll area; the panel stays visible.</Text>
           <div style={{ maxHeight: 180, overflow: "auto", display: "grid", gap: 4 }}>
-            {Array.from({ length: 12 }, (_, index) => <Checkbox key={index} label={`Program ${index + 1}`} />)}
+            {Array.from({ length: 12 }, (_, index) => <Checkbox key={index} label={`Category ${index + 1}`} />)}
           </div>
           <Button size="sm">Apply filters</Button>
         </div>
@@ -161,7 +161,7 @@ export const MobileSheet = {
             </div>
             <Button variant="ghost" size="sm">Clear</Button>
           </div>
-          <Checkbox label="Remote" />
+          <Checkbox label="Assigned to me" />
           <Checkbox label="Recently updated" />
         </div>
         <div className="ink-popover-mobile-sheet__footer">

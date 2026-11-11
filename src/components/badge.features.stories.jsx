@@ -10,7 +10,7 @@ export const Tones = {
   name: "Tones",
   render: () => (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)", alignItems: "center", padding: "var(--space-6)" }}>
-      <Badge>Applied</Badge>
+      <Badge>Draft</Badge>
       <Badge tone="brand">3</Badge>
       <Badge tone="info">Info</Badge>
       <Badge tone="success">Ready</Badge>
@@ -43,19 +43,19 @@ export const OnAControl = {
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 24 }}>
       <span style={{ position: "relative", display: "inline-flex" }}>
-        <IconButton icon={<IconTrophy />} aria-label="Results" />
+        <IconButton icon={<IconTrophy />} aria-label="Highlights" />
         <Badge
           dot
           tone="brand"
-          aria-label="New results"
+          aria-label="New highlights"
           style={cornerBadge}
         />
       </span>
       <span style={{ position: "relative", display: "inline-flex" }}>
-        <IconButton icon={<IconTrophy />} aria-label="Results" />
+        <IconButton icon={<IconTrophy />} aria-label="Highlights" />
         <Badge
           tone="danger"
-          aria-label="3 new results"
+          aria-label="3 new highlights"
           style={cornerBadge}
         >
           3

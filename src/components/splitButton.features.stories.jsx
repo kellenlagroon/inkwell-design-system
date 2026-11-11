@@ -1,24 +1,24 @@
 import { SplitButton } from "./splitButton";
 import { IconAward, IconList, IconShirt } from "./icons.jsx";
 
-const ROUND_ITEMS = [
+const TEMPLATE_ITEMS = [
   {
-    label: "Review cycle",
-    description: "Reviewers prioritize submitted items",
+    label: "Project plan",
+    description: "Outline milestones and assign owners",
     icon: <IconAward />,
     iconBg: "rgba(200,63,74,0.14)",
     iconColor: "#c83f4a",
   },
   {
-    label: "Multi-category review",
-    description: "Choose across multiple categories",
+    label: "Task list",
+    description: "Group work into categories",
     icon: <IconList />,
     iconBg: "rgba(111,143,181,0.14)",
     iconColor: "#6f8fb5",
   },
   {
-    label: "Item selection review",
-    description: "Reviewers choose from a shared directory",
+    label: "Design brief",
+    description: "Describe goals and list deliverables",
     icon: <IconShirt />,
     iconBg: "rgba(122,176,137,0.14)",
     iconColor: "#7ab089",
@@ -33,9 +33,9 @@ export const Default = {
   render: () => (
     <div style={{ padding: "40px" }}>
       <SplitButton
-        primaryLabel="New review cycle"
+        primaryLabel="New project"
         onPrimaryClick={() => {}}
-        items={ROUND_ITEMS}
+        items={TEMPLATE_ITEMS}
       />
     </div>
   ),
@@ -47,9 +47,9 @@ export const SideBySideWithPrimary = {
     <div style={{ padding: "40px", display: "flex", alignItems: "center", gap: "12px" }}>
       <button className="primary-button">Save changes</button>
       <SplitButton
-        primaryLabel="New review cycle"
+        primaryLabel="New project"
         onPrimaryClick={() => {}}
-        items={ROUND_ITEMS}
+        items={TEMPLATE_ITEMS}
       />
     </div>
   ),

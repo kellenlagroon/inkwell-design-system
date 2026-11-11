@@ -6,7 +6,7 @@ export default {
 
 export const Playground = {
   args: {
-    label: "Choose resume",
+    label: "Choose document",
     accept: ".pdf,.doc,.docx",
     hint: "PDF or Word document.",
     error: "",
@@ -23,7 +23,7 @@ export const Playground = {
   },
   render: ({ label, accept, hint, error, disabled, triggerSize }) => (
     <div style={{ padding: 24, maxWidth: 460 }}>
-      <FormField label="Resume" hint={hint} error={error || undefined}>
+      <FormField label="Supporting document" hint={hint} error={error || undefined}>
         <FileUpload label={label} accept={accept} disabled={disabled} triggerSize={triggerSize} />
       </FormField>
     </div>

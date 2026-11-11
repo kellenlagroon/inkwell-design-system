@@ -46,7 +46,7 @@ export const Playground = {
           </>
         ) : (
           <div style={{ display: "grid", gap: 10 }}>
-            <Checkbox label="Remote" />
+            <Checkbox label="Assigned to me" />
             <Checkbox label="Recently updated" />
             <Button size="sm">Apply</Button>
           </div>

@@ -5,25 +5,11 @@ export default {
   title: "Components/Select",
 };
 
-const SEASON_OPTIONS = [
-  { value: "2026", label: "2026 Season" },
-  { value: "2025", label: "2025 Season" },
-  { value: "2024", label: "2024 Season" },
-  { value: "2023", label: "2023 Season" },
-];
-
-const LEAGUE_OPTIONS = [
-  { value: "l1", label: "Sample Project · Northstar" },
-  { value: "l2", label: "Sample Project · Summit" },
-  { value: "l3", label: "Rivalry Bowl · Cedar" },
-];
-
-const TEAM_OPTIONS = [
-  { value: "t1", label: "Northstar · Jordan Fields" },
-  { value: "t2", label: "Summit · Marcus Webb" },
-  { value: "t3", label: "Harbor · Priya Nair" },
-  { value: "t4", label: "Cedar · Devin Torres" },
-  { value: "t5", label: "Clemson · already claimed", disabled: true },
+const YEAR_OPTIONS = [
+  { value: "2026", label: "2026" },
+  { value: "2025", label: "2025" },
+  { value: "2024", label: "2024" },
+  { value: "2023", label: "2023" },
 ];
 
 function Controlled({ options, placeholder, variant, disabled }) {
@@ -43,7 +29,7 @@ function Controlled({ options, placeholder, variant, disabled }) {
 export const Playground = {
   args: {
     variant: "form",
-    placeholder: "Choose a season…",
+    placeholder: "Choose a reporting year…",
     disabled: false,
   },
   argTypes: {
@@ -56,7 +42,7 @@ export const Playground = {
   },
   render: ({ variant, placeholder, disabled }) => (
     <div style={{ padding: 24, maxWidth: 400 }}>
-      <Controlled options={SEASON_OPTIONS} placeholder={placeholder} variant={variant} disabled={disabled} />
+      <Controlled options={YEAR_OPTIONS} placeholder={placeholder} variant={variant} disabled={disabled} />
     </div>
   ),
 };

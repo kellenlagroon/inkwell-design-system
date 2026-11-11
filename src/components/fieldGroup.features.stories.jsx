@@ -14,11 +14,11 @@ export const TwoColumns = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 720 }}>
       <FieldGroup columns={2}>
-        <FormField label="Company">
-          <TextInput placeholder="Company" />
+        <FormField label="Project">
+          <TextInput placeholder="Website refresh" />
         </FormField>
-        <FormField label="Role">
-          <TextInput placeholder="Role" />
+        <FormField label="Owner">
+          <TextInput placeholder="Maya Chen" />
         </FormField>
       </FieldGroup>
     </div>
@@ -29,8 +29,8 @@ export const WithAlignedAction = {
   render: () => (
     <div style={{ padding: 24, maxWidth: 840 }}>
       <FieldGroup columns={3}>
-        <FormField label="Company">
-          <TextInput placeholder="Company" />
+        <FormField label="Project">
+          <TextInput placeholder="Website refresh" />
         </FormField>
         <FormField label="Status">
           <Select options={STATUS_OPTIONS} value="active" />

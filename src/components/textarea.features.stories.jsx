@@ -14,7 +14,7 @@ export const Basic = {
   name: "Basic",
   render: () => (
     <div style={{ padding: 24, maxWidth: 400 }}>
-      <Controlled rows={5} placeholder="Add notes for reviewers…" />
+      <Controlled rows={5} placeholder="Add project notes…" />
     </div>
   ),
 };

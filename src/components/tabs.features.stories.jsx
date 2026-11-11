@@ -11,8 +11,8 @@ export const Basic = {
       const [value, setValue] = useState("overview");
       const tabs = [
         { value: "overview", label: "Overview" },
-        { value: "submissions", label: "Submissions" },
-        { value: "results", label: "Results" },
+        { value: "activity", label: "Activity" },
+        { value: "files", label: "Files" },
       ];
       return (
         <div style={{ padding: 24, maxWidth: 480 }}>
@@ -51,8 +51,8 @@ export const CustomStyling = {
       const [value, setValue] = useState("overview");
       const tabs = [
         { value: "overview", label: "Overview" },
-        { value: "submissions", label: "Submissions" },
-        { value: "results", label: "Results" },
+        { value: "activity", label: "Activity" },
+        { value: "files", label: "Files" },
       ];
       return (
         <div style={{ padding: 24, maxWidth: 480 }}>

@@ -9,7 +9,7 @@ const SAMPLE_IMAGE =
          <stop offset='0' stop-color='#9a1f2b'/><stop offset='1' stop-color='#f0b429'/>
        </linearGradient></defs>
        <rect width='88' height='88' fill='url(#g)'/>
-       <text x='50%' y='56%' text-anchor='middle' font-family='sans-serif' font-size='34' fill='white'>KL</text>
+       <text x='50%' y='56%' text-anchor='middle' font-family='sans-serif' font-size='34' fill='white'>MC</text>
      </svg>`,
   );
 
@@ -20,9 +20,9 @@ export default {
 export const Initials = {
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 12, alignItems: "center" }}>
-      <Avatar name="Kellen Lagroon" />
-      <Avatar name="Summit Bulldogs" />
-      <Avatar name="Ohio" />
+      <Avatar name="Maya Chen" />
+      <Avatar name="Summit Studio" />
+      <Avatar name="Harbor" />
     </div>
   ),
 };
@@ -30,7 +30,7 @@ export const Initials = {
 export const Image = {
   render: () => (
     <div style={{ padding: 24 }}>
-      <Avatar name="Kellen Lagroon" src={SAMPLE_IMAGE} />
+      <Avatar name="Maya Chen" src={SAMPLE_IMAGE} />
     </div>
   ),
 };
@@ -38,9 +38,9 @@ export const Image = {
 export const Sizes = {
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 12, alignItems: "center" }}>
-      <Avatar name="Kellen Lagroon" size="sm" />
-      <Avatar name="Kellen Lagroon" size="md" />
-      <Avatar name="Kellen Lagroon" size="lg" />
+      <Avatar name="Maya Chen" size="sm" />
+      <Avatar name="Maya Chen" size="md" />
+      <Avatar name="Maya Chen" size="lg" />
     </div>
   ),
 };
@@ -48,7 +48,7 @@ export const Sizes = {
 export const Shapes = {
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 12, alignItems: "center" }}>
-      <Avatar name="Kellen Lagroon" shape="circle" />
+      <Avatar name="Maya Chen" shape="circle" />
       <Avatar name="Organization logo" shape="square" src={SAMPLE_IMAGE} />
     </div>
   ),
@@ -58,8 +58,8 @@ export const Interactive = {
   name: "Interactive (account trigger)",
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 16, alignItems: "center" }}>
-      <Avatar name="Kellen Lagroon" interactive onClick={() => {}} />
-      <Avatar name="Kellen Lagroon" src={SAMPLE_IMAGE} interactive onClick={() => {}} />
+      <Avatar name="Maya Chen" interactive onClick={() => {}} />
+      <Avatar name="Maya Chen" src={SAMPLE_IMAGE} interactive onClick={() => {}} />
     </div>
   ),
 };
@@ -68,8 +68,8 @@ export const WithName = {
   name: "Decorative beside a name",
   render: () => (
     <div style={{ padding: 24, display: "flex", gap: 8, alignItems: "center", color: "var(--color-text-primary)" }}>
-      <Avatar name="Kellen Lagroon" decorative />
-      <span>Kellen Lagroon</span>
+      <Avatar name="Maya Chen" decorative />
+      <span>Maya Chen</span>
     </div>
   ),
 };

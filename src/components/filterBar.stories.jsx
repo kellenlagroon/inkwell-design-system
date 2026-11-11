@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { ActionGroup, Badge, Button, CheckboxSelect, Nav, Select } from "../index";
 
-const PROGRAMS = [
-  { value: "all", label: "All programs" },
-  { value: "design", label: "Design" },
-  { value: "engineering", label: "Engineering" },
+const CATEGORIES = [
+  { value: "all", label: "All categories" },
+  { value: "documentation", label: "Documentation" },
+  { value: "research", label: "Research" },
 ];
 
-const STAGES = [
-  { value: "applied", label: "Applied" },
+const STATUSES = [
+  { value: "draft", label: "Draft" },
   { value: "review", label: "In review" },
-  { value: "interview", label: "Interview" },
-  { value: "offer", label: "Offer" },
+  { value: "published", label: "Published" },
+  { value: "archived", label: "Archived" },
 ];
 
 export default {
@@ -19,9 +19,9 @@ export default {
 };
 
 function FilterBar({ theme, style, showTokenRoles = false }) {
-  const [program, setProgram] = useState("all");
-  const [stages, setStages] = useState([]);
-  const [section, setSection] = useState("applications");
+  const [category, setCategory] = useState("all");
+  const [statuses, setStatuses] = useState([]);
+  const [section, setSection] = useState("records");
 
   return (
     <div
@@ -36,30 +36,30 @@ function FilterBar({ theme, style, showTokenRoles = false }) {
             aria-label={`${theme} example navigation`}
             items={[
               { value: "overview", label: "Overview" },
-              { value: "applications", label: "Applications" },
-              { value: "results", label: "Results" },
+              { value: "records", label: "Records" },
+              { value: "activity", label: "Activity" },
             ]}
             value={section}
             onChange={setSection}
           />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Badge>Applied</Badge>
+            <Badge>Draft</Badge>
             <Badge tone="brand">2 selected</Badge>
           </div>
         </>
       ) : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "end" }}>
         <div style={{ width: "min(100%, 220px)" }}>
-          <Select aria-label="Program" variant="control" value={program} onChange={setProgram} options={PROGRAMS} />
+          <Select aria-label="Category" variant="control" value={category} onChange={setCategory} options={CATEGORIES} />
         </div>
-        <CheckboxSelect label="Stages" placeholder="Stages" options={STAGES} value={stages} onChange={setStages} />
+        <CheckboxSelect label="Statuses" placeholder="Statuses" options={STATUSES} value={statuses} onChange={setStatuses} />
         <ActionGroup stackBelow="sm" style={{ marginLeft: "auto" }}>
-          <Button variant="ghost" size="sm" onClick={() => { setProgram("all"); setStages([]); }}>Clear</Button>
+          <Button variant="ghost" size="sm" onClick={() => { setCategory("all"); setStatuses([]); }}>Clear</Button>
           <Button size="sm">Apply filters</Button>
         </ActionGroup>
       </div>
       <span style={{ color: "var(--color-text-secondary)", fontSize: "var(--font-size-sm)" }}>
-        {program === "all" ? "All programs" : PROGRAMS.find((option) => option.value === program)?.label} · {stages.length} stage{stages.length === 1 ? "" : "s"} selected
+        {category === "all" ? "All categories" : CATEGORIES.find((option) => option.value === category)?.label} · {statuses.length} {statuses.length === 1 ? "status" : "statuses"} selected
       </span>
     </div>
   );
