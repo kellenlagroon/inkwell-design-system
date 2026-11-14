@@ -43,6 +43,29 @@
 - `Nav`'s `mobileDocked` is documented as a viewport behavior rather than a
   container one, and has a story: `Components/Nav/Features → Mobile-docked
   bottom bar`.
+- **Bare element selectors no longer reach a consumer's own controls.**
+  `.modal label`, `.modal input`, `.modal select`, `.modal textarea` and
+  `.modal input[type="search"]` restyled any native control placed inside an
+  Inkwell modal; `.toast button` did the same for any button inside a toast.
+  Every Inkwell control already carries a class, so these now target
+  `.field-label`, `.checkbox-label`, `.input` and `.textarea`, and Toast's
+  dismiss control gets a `.toast-dismiss` class of its own — matching
+  `StatusBanner`'s `.banner-dismiss`. `.toast button` had also been declared
+  four times, twice back to back; those are one rule now. The single remaining
+  element selector, on Popover's consumer-rendered trigger, is commented as
+  deliberate.
+- **A `SectionHeading` title renders the same everywhere.** It took the display
+  font inside a `Panel` (from `.panel h2`) and the body font standing alone;
+  `.section-heading h2` now sets `--font-family-display` itself. The modal's
+  own phone override — a `clamp()`, weight 600 and extra tracking — is gone,
+  so a heading inside a modal matches the page behind it: 20.48px above 760px,
+  17.28px below, bold and in the display font at both.
+- Replace the last hardcoded font sizes with the tokens that already held the
+  same value: `0.78rem` on `.field-label`, `.field-hint` and `.field-error`
+  (`--font-size-sm`), `0.9rem` on `.checkbox-label` (`--font-size-md`) and
+  `16px` on `.split-dropdown-icon` (`--control-md-icon-size`).
+  `.split-button-chevron` moves 15px → `--control-md-icon-size` (16px), the
+  one that was not an exact match.
 - **Native controls follow the theme.** `color-scheme` appeared exactly twice
   in the stylesheet, both times forcing `dark` on `.modal` regardless of the
   active theme, so a modal rendered dark scrollbars and spin buttons in light
@@ -108,6 +131,14 @@ The type-size change is visible by design and was measured directly at 375px
 and 1280px rather than asserted neutral; a further 204,160 comparisons across
 9,280 elements confirm it moves nothing beyond the three classes named above
 and the elements they size.
+
+The selector and token-literal changes above are behaviour-neutral: 123,264
+computed-style comparisons across 5,136 elements, ten stories, two widths and
+both themes show zero differences. A direct probe confirms the intent — inside
+a modal, Inkwell's own `.input` keeps its `12px 16px` padding while a
+consumer's bare `<input>` drops from `12px 16px` to the user agent's
+`1px 2px`, a bare `<select>` to `0`, and a bare `<label>` loses the imposed
+`8px` gap.
 
 The `color-scheme` change was measured the same way: 77,763 comparisons across
 3,703 elements in both themes move `color-scheme` on 424 elements — `normal`

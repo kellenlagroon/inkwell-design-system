@@ -116,7 +116,7 @@ export function Toast({
     >
       <div><strong>{message}</strong></div>
       {onDismiss ? (
-        <button type="button" aria-label={dismissLabel} onClick={onDismiss}>
+        <button type="button" className="toast-dismiss" aria-label={dismissLabel} onClick={onDismiss}>
           <IconClose />
         </button>
       ) : null}
