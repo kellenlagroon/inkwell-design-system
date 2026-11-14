@@ -46,7 +46,7 @@ export interface NavProps {
   variant?: NavVariant;
   /** Corner shape for the segmented track, indicator, and items. Defaults to `rounded`. */
   shape?: "rounded" | "pill";
-  /** Dock a horizontal Nav to the bottom of a narrow app container. Defaults to `false`. */
+  /** Dock a horizontal Nav to the bottom of the viewport at phone widths (760px and below). Defaults to `false`. */
   mobileDocked?: boolean;
   /** @deprecated Use `fit="equal"` instead. */
   /** Give horizontal items equal widths so both the item and its label center reliably. */

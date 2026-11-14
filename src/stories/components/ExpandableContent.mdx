@@ -1,0 +1,38 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ExpandableStories from "../../components/expandableContent.stories.jsx";
+import * as ExpandableFeatures from "../../components/expandableContent.features.stories.jsx";
+
+<Meta of={ExpandableStories} name="Docs" />
+
+# ExpandableContent
+
+A measured disclosure for long content. Compose `RichTextSafe` inside it for consumer-sanitized HTML.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+Use when a long description needs a compact excerpt. Set `collapsedHeight` for the excerpt and `collapseThreshold` for when the control appears.
+
+## Primary example
+
+<Canvas of={ExpandableStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={ExpandableStories} />
+
+## Features
+
+<Canvas of={ExpandableFeatures.ShortContent} sourceState="hidden" />
+<Canvas of={ExpandableFeatures.RichContent} sourceState="hidden" />
+
+## Usage guidance
+
+- Keep the collapsed excerpt meaningful on its own.
+- Supply any rich HTML through your application sanitizer before composing `RichTextSafe`.
+- Use controlled `expanded` and `onExpandedChange` when another part of the app owns disclosure state.
+
+## Keyboard and accessibility
+
+The trigger is a `TextDisclosure` with `aria-expanded` and `aria-controls`. Fully clipped interactive descendants leave the keyboard and accessibility sequences while collapsed, then regain their original attributes on expansion. If a focused control becomes clipped, focus moves to the disclosure. Manual screen reader review remains pending.

@@ -16,7 +16,7 @@ const CATEGORIES = Array.from({ length: 8 }, (_, index) => ({
 }));
 
 export default {
-  title: "Patterns/Mobile readiness/Filter sheet",
+  title: "Compositions/Mobile readiness/Filter sheet",
   parameters: {
     layout: "fullscreen",
     viewport: { options: MOBILE_VIEWPORTS },

@@ -194,3 +194,16 @@ export const CustomStyling = {
     </div>
   ),
 };
+
+export const MobileDocked = {
+  name: "Mobile-docked bottom bar",
+  parameters: { viewport: { defaultViewport: "mobile1" } },
+  render: () => (
+    <div style={{ minHeight: 320, padding: 32 }}>
+      <p className="subtle">
+        Docks to the bottom of the viewport at 760px and below; renders inline above that.
+      </p>
+      <ControlledNav mobileDocked items={APP_ITEMS} />
+    </div>
+  ),
+};

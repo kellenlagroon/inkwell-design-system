@@ -44,13 +44,23 @@
   color: var(--color-text-primary);
   font-family: var(--font-family-body);
 }
+
+/* Native controls follow the declared theme. `color-scheme` is the only way to
+   reach what the browser draws itself — scrollbars, spin buttons, date and
+   colour pickers, and the `select` dropdown list — none of which a custom
+   property can touch. Keyed to an explicit `data-theme` rather than `:root`, so
+   importing this stylesheet never changes native rendering in a host
+   application that has not opted into an Inkwell theme. */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
 }
 
 @layer inkwell.components {
-
-.modal-host > .modal {
-  pointer-events: auto;
-}
 
 .inline-actions,
 .card-actions {
@@ -169,7 +179,8 @@
 }
 
 /* Tabs: segmented underline tab bar with a sliding indicator (see Tabs
-   component). Namespaced ink- to avoid the seeded generic tab classes. */
+   component). Namespaced ink- so it cannot collide with a consumer's own
+   generic tab classes. */
 .ink-tabs {
   --ink-tabs-radius: var(--radius-control);
   --ink-tabs-gap: var(--space-2);
@@ -702,9 +713,14 @@
   cursor: pointer;
 }
 
-.ink-table-sort-button:hover,
+.ink-table-sort-button:hover {
+  color: var(--text);
+}
+
 .ink-table-sort-button:focus-visible {
   color: var(--text);
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .ink-table-sort-icon {
@@ -1034,12 +1050,7 @@
   line-height: var(--line-height-heading);
 }
 
-.app-title,
-.panel h2,
-.workspace-title,
-.board-title,
-.summary-card h3,
-.result-row strong {
+.panel h2 {
   margin: 0;
   font-family: var(--font-family-display);
   line-height: var(--line-height-display);
@@ -1399,26 +1410,10 @@
 .primary-button,
 .secondary-button,
 .ghost-button,
-.selector-button,
-.danger-button,
-.slot-button,
-.picker-team-button {
+.danger-button {
   cursor: pointer;
   border: 0;
   font: inherit;
-}
-
-.ballot-task-button.active {
-  color: var(--color-text-strong);
-}
-
-.ballot-task-button:not(.active):hover {
-  background: var(--color-hover-surface);
-  color: var(--text);
-}
-
-.ballot-task-button.active:hover {
-  color: var(--color-text-strong);
 }
 
 .primary-button {
@@ -1625,7 +1620,7 @@
   width: 40px; min-height: 44px;
   background: var(--button-primary-bg); color: var(--button-primary-fg);
   border: 0; border-radius: 0 var(--radius-control) var(--radius-control) 0;
-  cursor: pointer; font-size: 15px;
+  cursor: pointer; font-size: var(--control-md-icon-size);
   transition: background-color 120ms ease;
 }
 .split-button-chevron:hover { background: var(--button-primary-bg-hover); }
@@ -1666,7 +1661,7 @@
 .split-dropdown-icon {
   width: 30px; height: 30px; flex-shrink: 0; margin-top: 1px;
   border-radius: var(--radius-control);
-  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  display: flex; align-items: center; justify-content: center; font-size: var(--control-md-icon-size);
 }
 .split-dropdown-label {
   display: block;
@@ -1679,26 +1674,7 @@
   color: var(--muted); line-height: 1.5;
 }
 
-/* Shared surfaces */
-.panel,
-.selector-button,
-.league-card,
-.summary-card,
-.round-card,
-.result-row,
-.picker-team-button,
-.slot-button,
-.team-selection-item {
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sharp);
-  background: var(--color-surface-default);
-}
-
-.team-selection-item.disabled {
-  opacity: 0.28;
-  cursor: default;
-}
-
+/* Panel: the section-level surface (see the Panel component). */
 .panel {
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-rounded);
@@ -1706,28 +1682,9 @@
   background: var(--color-surface-default);
 }
 
-/* Shared layout rhythm */
-.grid,
-.stacked-form,
-.selector-list,
-.round-list,
-.results-list,
-.ballot-picker-list,
-.ballot-ranks,
-.team-selection-list,
-.settings-stack {
-  display: grid;
-  gap: var(--space-3);
-}
-
-.results-list,
-.overview-preview-list {
-  gap: var(--space-3);
-}
-
-/* Layout primitives (Stack / Inline / Grid). Namespaced with ink- to avoid
-   collision with the seeded generic classes above; the md/12px default rhythm
-   matches the shared layout rhythm. */
+/* Layout primitives (Stack / Inline / Grid). Namespaced with ink- so they
+   cannot collide with a consumer's own generic class names. The md/12px
+   default rhythm is the system's baseline vertical spacing. */
 .ink-stack {
   display: flex;
   flex-direction: column;
@@ -1780,17 +1737,12 @@
 }
 
 .subtle,
-.helper-text,
-.summary-metric,
-.summary-status,
-.invite-link,
-.result-metric,
-.context-copy {
+.helper-text {
   color: var(--muted);
+  font-size: var(--font-size-base);
 }
 
-.section-heading,
-.workspace-header {
+.section-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1800,6 +1752,9 @@
 
 .section-heading h2 {
   margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-display);
 }
 
 /* Shared forms / controls.
@@ -1894,7 +1849,7 @@ input[type="search"].input:not(:disabled, [aria-invalid="true"]):hover {
   padding: 0;
   border: 0;
   background: none;
-  font-size: 0.78rem;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--muted);
 }
@@ -1905,13 +1860,13 @@ input[type="search"].input:not(:disabled, [aria-invalid="true"]):hover {
 
 .field-hint {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: var(--font-size-sm);
   color: var(--muted);
 }
 
 .field-error {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-danger);
 }
@@ -2062,7 +2017,7 @@ input[type="search"].input.ink-control-density--comfortable {
 }
 
 .checkbox-label {
-  font-size: 0.9rem;
+  font-size: var(--font-size-md);
   line-height: 1.3;
 }
 
@@ -2441,12 +2396,6 @@ input[type="search"].input.ink-control-density--comfortable {
   background: var(--control-surface-active);
 }
 
-.selector-button.active {
-  border-color: transparent;
-  background: var(--selector-active-bg);
-  border-left-color: var(--selector-active-accent);
-}
-
 .secondary-button:not(:disabled, [aria-disabled="true"], [aria-pressed="true"]):hover {
   border-color: var(--button-secondary-border-hover);
   background: var(--button-secondary-bg-hover);
@@ -2488,10 +2437,6 @@ input[type="search"].input.ink-control-density--comfortable {
   cursor: progress;
 }
 
-.selector-button.active strong {
-  color: var(--color-text-strong);
-}
-
 .pill--borderless {
   border: 0;
   background: var(--ink-pill-background, var(--pill-tone-background, transparent));
@@ -2513,54 +2458,11 @@ input[type="search"].input.ink-control-density--comfortable {
   color: var(--pill-success-fg);
 }
 
-.callout,
-.empty-state,
-.compact-card,
-.invite-card {
+.empty-state {
   padding: var(--space-4);
   border-radius: var(--radius-sharp);
   border: 1px solid var(--line-soft);
   background: var(--surface-strong);
-}
-
-.overview-summary-card.active {
-  background: var(--color-surface-active);
-  border-left: 2px solid var(--color-brand);
-  box-shadow: none;
-}
-
-.overview-summary-card .eyebrow {
-  margin-bottom: var(--space-0-5);
-}
-
-.overview-preview-copy .subtle {
-  white-space: nowrap;
-}
-
-.overview-card-status.warning {
-  color: var(--color-warning);
-}
-
-.round-card .card-actions {
-  margin-top: var(--space-2);
-}
-
-.status-inline.open {
-  color: var(--color-warning);
-}
-
-.status-inline.published {
-  color: var(--green);
-}
-
-.invite-link-text.active {
-  color: var(--text);
-}
-
-.league-selector-row.active .league-selector-settings-button {
-  border-color: transparent;
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text);
 }
 
 /* Icon button component. 44px is the real rendered size at every breakpoint —
@@ -2656,11 +2558,6 @@ input[type="search"].input.ink-control-density--comfortable {
   font-size: var(--font-size-lg);
 }
 
-.sign-in-panel .subtle {
-  max-width: 54ch;
-  line-height: var(--line-height-body);
-}
-
 .cselect--invalid .cselect-trigger {
   border-color: var(--color-danger);
 }
@@ -2683,20 +2580,6 @@ input[type="search"].input.ink-control-density--comfortable {
   line-height: var(--line-height-label);
 }
 
-.finder-panel .stacked-form {
-  gap: var(--space-4);
-}
-
-#ballotPickerModal .picker-team-button,
-#ballotPickerModal .picker-team-button.selected {
-  border-color: transparent;
-}
-
-.picker-team-button.selected {
-  border-color: var(--line);
-  background: var(--control-bg-strong);
-}
-
 .primary-button:focus-visible,
 .secondary-button:focus-visible,
 .ghost-button:focus-visible,
@@ -2705,26 +2588,13 @@ input[type="search"].input.ink-control-density--comfortable {
   outline-offset: 2px;
 }
 
-.inline-utility-button:focus-visible,
-.selector-button:focus-visible,
-.slot-button:focus-visible,
-.picker-team-button:focus-visible,
-.icon-button:focus-visible,
 .modal-close-button:focus-visible,
 .banner-dismiss:focus-visible,
-.toast button:focus-visible,
-.overview-summary-card:focus-visible,
-.info-tooltip-trigger:focus-visible,
-.team-selection-item:focus-within {
+.toast-dismiss:focus-visible,
+.info-tooltip-trigger:focus-visible {
   outline: 0;
   border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px var(--color-focus-outline);
-}
-
-.result-row strong,
-.result-row .subtle {
-  overflow-wrap: anywhere;
-  word-break: break-word;
 }
 
 /* Modal system */
@@ -2800,7 +2670,6 @@ input[type="search"].input.ink-control-density--comfortable {
   color: var(--muted);
 }
 
-.wide-modal,
 .modal-panel--wide {
   width: var(--modal-wide-width, min(760px, calc(100% - 24px)));
   max-height: var(--modal-shell-max-height);
@@ -2831,60 +2700,26 @@ input[type="search"].input.ink-control-density--comfortable {
   min-width: 0;
 }
 
-.modal .dashboard-grid,
-.modal .field-grid {
-  gap: var(--modal-grid-gap);
-}
-
-.modal .settings-card,
-.modal .callout,
-.modal .compact-card,
 .modal .empty-state {
   padding: var(--modal-card-padding);
 }
 
-.modal .danger-zone-card {
-  padding: 0;
-  gap: 0;
-}
-
-.modal label {
+.modal .field-label,
+.modal .checkbox-label {
   gap: var(--modal-label-gap);
 }
 
-.modal input,
-.modal select,
-.modal textarea {
+.modal .input,
+.modal .textarea {
   padding: var(--modal-control-padding);
 }
 
-.modal input[type="number"] {
-  color-scheme: dark;
-}
-
-.modal input[type="search"] {
+.modal input[type="search"].input {
   padding-left: 38px;
 }
 
 .modal .cselect-trigger {
   border-radius: var(--radius-sharp);
-}
-
-.modal,
-.modal .team-selection-list,
-.modal .ballot-picker-list,
-#settingsModalBody {
-  color-scheme: dark;
-}
-
-#createLeagueModal .modal-card {
-  display: flex;
-  flex-direction: column;
-  max-height: min(82vh, calc(100vh - 52px));
-}
-
-.create-league-teams-section .section-heading.compact {
-  margin-bottom: var(--space-2);
 }
 
 /* Preview-only modal constraints */
@@ -2902,18 +2737,11 @@ input[type="search"].input.ink-control-density--comfortable {
     border-radius: var(--radius-sharp);
   }
 
-  .wide-modal,
   .modal-panel--wide {
     width: var(--modal-wide-width, var(--modal-shell-width));
     max-height: var(--modal-shell-max-height);
     margin: 0 auto;
     border-radius: var(--radius-sharp);
-  }
-
-  #dangerModal .modal-card {
-    width: min(330px, calc(100% - 40px));
-    max-height: min(420px, calc(100vh - 48px));
-    margin: auto;
   }
 }
 
@@ -2955,7 +2783,7 @@ input[type="search"].input.ink-control-density--comfortable {
   border-color: var(--toast-border-warning);
 }
 
-.toast button {
+.toast-dismiss {
   padding: 0;
   background: transparent;
   color: var(--muted);
@@ -3036,6 +2864,15 @@ input[type="search"].input.ink-control-density--comfortable {
 
 .text-button:hover { color: var(--text-button-fg); text-decoration-thickness: 2px; }
 .text-button:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }
+
+.ink-expandable-content__region--clipped {
+  max-height: var(--ink-expandable-collapsed-height);
+  overflow: hidden;
+}
+
+.ink-expandable-content__trigger {
+  margin-top: var(--space-2);
+}
 
 .ink-container {
   width: min(100%, var(--ink-container-width));
@@ -3214,6 +3051,44 @@ input[type="search"].input.ink-control-density--comfortable {
 .ink-popover-panel--left-start { top: 0; right: calc(100% + var(--space-2)); }
 .ink-popover-panel--left { top: 50%; right: calc(100% + var(--space-2)); transform: translateY(-50%); }
 .ink-popover-panel--left-end { right: calc(100% + var(--space-2)); bottom: 0; }
+
+.ink-status-details__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sharp);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ink-status-details__trigger:hover { background: var(--color-surface-active); }
+.ink-status-details__trigger:focus-visible,
+.ink-status-details__close:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }
+
+.ink-status-details__icon { display: inline-flex; flex: none; color: var(--color-text-secondary); }
+.ink-status-details__trigger--success .ink-status-details__icon { color: var(--color-success); }
+.ink-status-details__trigger--warning .ink-status-details__icon { color: var(--color-warning); }
+.ink-status-details__trigger--danger .ink-status-details__icon { color: var(--color-danger); }
+
+.ink-status-details__copy { display: grid; gap: var(--space-1); min-width: 0; }
+.ink-status-details__copy > strong { font-size: var(--font-size-sm); }
+.ink-status-details__copy > span { color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+
+.ink-status-details__panel { min-width: 280px; max-width: min(360px, calc(100vw - var(--space-4) * 2)); }
+.ink-status-details__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.ink-status-details__heading h2 { margin: 0; color: var(--color-text-primary); font-family: var(--font-family-display); font-size: var(--font-size-lg); }
+.ink-status-details__close { display: inline-flex; flex: none; align-items: center; justify-content: center; padding: var(--space-1); border: 0; border-radius: var(--radius-sharp); background: transparent; color: var(--color-text-secondary); cursor: pointer; }
+.ink-status-details__close:hover { background: var(--color-surface-active); }
+.ink-status-details__description,
+.ink-status-details__evidence { color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+.ink-status-details__evidence { padding-top: var(--space-2); border-top: 1px solid var(--color-border-subtle); }
+.ink-status-details__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); padding-top: var(--space-2); }
 
 /* SplitButton's menu panel. Must follow .ink-popover-panel — these are
    overrides at equal specificity, so source order decides. The surface is set
@@ -3419,15 +3294,17 @@ input[type="search"].input.ink-control-density--comfortable {
   .ink-drawer-root[data-state="closed"] .ink-drawer {
     transform: translateY(100%);
   }
-}
 
-@container app (max-width: 760px) {
+  /* Phone adaptations. These were written as `@container app (...)`, but
+     nothing in this library or in a consuming app ever declares
+     `container-name: app`, so every rule below was inert — the whole of Nav's
+     `mobileDocked` styling included. They are viewport queries now. */
 
-  .section-heading,
-  .workspace-header {
+  .section-heading {
     align-items: stretch;
     grid-template-columns: 1fr;
     flex-direction: column;
+    margin-bottom: 0;
   }
 
   .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-track {
@@ -3491,116 +3368,15 @@ input[type="search"].input.ink-control-density--comfortable {
     padding: var(--space-3);
   }
 
-  .overview-summary-card .eyebrow {
-    margin-bottom: 0;
-    font-size: var(--font-size-2xs);
-  }
-
   .section-heading-copy {
     max-width: none;
     text-align: left;
   }
 
-  #roundModal .modal-card,
-  #teamModal .modal-card,
-  #ballotPickerModal .modal-card,
-  #createLeagueModal .modal-card {
-    width: calc(100% - 16px);
-    align-self: flex-end;
-    margin: 0 auto 0;
-    border-radius: var(--radius-sheet-top);
-  }
-
-  #roundModal .modal-card,
-  #ballotPickerModal .modal-card,
-  #createLeagueModal .modal-card {
-    max-height: min(82vh, calc(100vh - 52px));
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  #teamModal .modal-card {
-    display: flex;
-    flex-direction: column;
-    max-height: min(84vh, calc(100vh - 44px));
-  }
-
-  .ballot-picker-modal-card .section-heading {
-    margin-bottom: var(--space-3);
-  }
-
-  .ballot-picker-modal-card .stacked-form {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    min-height: 0;
-    gap: var(--space-3);
-  }
-
-  #resultsBoard.top-gap {
-    margin-top: var(--space-3);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--line-soft);
-  }
-
-  .overview-preview-copy .subtle {
-    display: none;
-  }
-
-  .mini-label,
-  .pill {
-    font-size: var(--font-size-2xs);
-  }
-
-  .section-heading {
-    margin-bottom: 0;
-  }
-
-  .section-heading h2,
-  .board-title,
-  .workspace-title {
+  .section-heading h2 {
     font-size: var(--font-size-lg);
-    line-height: var(--line-height-compact);
-    letter-spacing: 0.01em;
-    font-weight: var(--font-weight-semibold);
   }
 
-  label,
-  input,
-  select,
-  textarea,
-  .helper-text,
-  .subtle {
-    font-size: var(--font-size-md);
-  }
-
-  #authPanel .stacked-form {
-    gap: var(--space-3);
-  }
-
-  #authPanel .primary-button {
-    margin-top: var(--space-1);
-  }
-
-  #voteEntryPanel .compact-card .eyebrow {
-    margin-bottom: var(--space-0-5);
-  }
-
-  #voteEntryPanel > .helper-text {
-    margin: var(--space-2) 0 0;
-    line-height: var(--line-height-body);
-  }
-
-  #leagueSetupForm.top-gap {
-    margin-top: var(--space-3);
-  }
-
-  .workspace-header,
-  .invite-link,
-  .settings-card,
-  .team-selection-item,
-  .selector-button,
   .ghost-button,
   .secondary-button,
   .primary-button,
@@ -3609,19 +3385,9 @@ input[type="search"].input.ink-control-density--comfortable {
   }
 
   .panel,
-  .settings-card,
-  .workspace-context-card,
-  .compact-card,
-  .invite-card,
-  .callout,
   .empty-state {
     width: 100%;
     max-width: 100%;
-  }
-
-  .modal .dashboard-grid,
-  .modal .field-grid {
-    grid-template-columns: 1fr;
   }
 
   .modal {
@@ -3639,7 +3405,6 @@ input[type="search"].input.ink-control-density--comfortable {
     --modal-control-padding: var(--space-3) var(--space-3);
   }
 
-  #settingsModal .wide-modal,
   .modal-panel--settings {
     --modal-wide-width: calc(100% - 8px);
     height: calc(100vh - 24px);
@@ -3648,47 +3413,10 @@ input[type="search"].input.ink-control-density--comfortable {
     flex-direction: column;
   }
 
-  #settingsModal .modal-card {
-    width: calc(100% - 8px);
-    max-height: calc(100dvh - 24px);
-    align-self: flex-end;
-    margin: 0 auto 0;
-    border-radius: var(--radius-sheet-top);
-  }
-
-  #teamModalForm .primary-button {
-    margin-top: auto;
-  }
-
   .modal .section-heading {
     position: relative;
     align-items: flex-start;
     padding-right: var(--space-7);
-  }
-
-  .modal .section-heading h2 {
-    font-size: clamp(1.08rem, 4.8vw, 1.38rem);
-    line-height: var(--line-height-compact);
-    letter-spacing: 0.01em;
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .modal .dashboard-grid {
-    gap: var(--space-3);
-  }
-
-  #settingsModalBody::-webkit-scrollbar,
-  .modal .ballot-picker-list::-webkit-scrollbar,
-  .modal .team-selection-list::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  .modal .ballot-picker-list,
-  .modal .team-selection-list,
-  #settingsModalBody {
-    scrollbar-width: none;
-    overscroll-behavior: contain;
   }
 
   .modal .modal-close-button {
@@ -3698,7 +3426,8 @@ input[type="search"].input.ink-control-density--comfortable {
   }
 }
 
-@container app (min-width: 761px) and (max-width: 920px) {
+/* Docked Nav at tablet width — also a dead container query until now. */
+@media (min-width: 761px) and (max-width: 920px) {
   .ink-nav--horizontal.ink-nav--mobile-docked .ink-nav-track {
     gap: var(--space-2);
   }
@@ -3770,10 +3499,12 @@ input[type="search"].input.ink-control-density--comfortable {
 .status-banner > span,
 .toast > div { min-width: 0; overflow-wrap: anywhere; }
 .banner-dismiss,
-.toast button { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
-.toast button {
-  font: inherit;
+.toast-dismiss {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font: inherit;
   padding-top: 0;
   min-width: 32px;
   min-height: 32px;
@@ -4014,6 +3745,10 @@ input[type="search"].input.ink-control-density--comfortable {
   .ink-popover--mobile-sheet-capable { width: 100%; min-width: 0; }
   .ink-popover--mobile-sheet-capable > .ink-control-trigger,
   .ink-popover--mobile-sheet-capable > .cselect-trigger,
+  /* The bare `button` is deliberate and is the one left in this file: Popover's
+     trigger is a consumer-rendered element behind a render prop, so there is no
+     Inkwell class to target. The child combinator keeps it to a direct child of
+     the popover root. */
   .ink-popover--mobile-sheet-capable > button { width: 100%; max-width: 100%; }
   .ink-popover-mobile-sheet__body {
     display: grid;
@@ -4067,7 +3802,7 @@ input[type="search"].input.ink-control-density--comfortable {
 
   .file-upload--mobile .file-upload-row { align-items: stretch; flex-direction: column; }
   .file-upload--mobile .file-upload-row .secondary-button { width: 100%; }
-  .toast button { min-width: 44px; min-height: 44px; }
+  .toast-dismiss { min-width: 44px; min-height: 44px; }
 }
 
 @media (max-width: 479px) {

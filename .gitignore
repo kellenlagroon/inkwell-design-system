@@ -3,3 +3,5 @@ storybook-static
 dist
 cli/generated/
 cli/styles/all-components.css
+cli/styles/base.css
+cli/styles/fragments/

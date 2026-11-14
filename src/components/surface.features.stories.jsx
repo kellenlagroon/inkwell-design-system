@@ -56,7 +56,7 @@ export const EmptyStateDefault = {
   render: () => (
     <EmptyState>
       <strong>Join or create a project before continuing.</strong>
-      <div className="subtle top-gap">Open an invite link to join an existing project.</div>
+      <div className="subtle">Open an invite link to join an existing project.</div>
     </EmptyState>
   ),
 };

@@ -1,0 +1,33 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Compositions/Overview" />
+
+# Compositions
+
+Worked examples of Inkwell primitives arranged into larger UI.
+
+**Nothing in this section is a supported API.** These pages exist to show how
+the shipped components compose and to exercise behavior that is hard to test on
+a single component in isolation — narrow-viewport control layouts, drawer
+keyboard behavior, staged versus immediate filter selection. Copy from them
+freely, but import only from the package's public entry point; there is no
+`FilterBar` or `MobileLayout` component to install.
+
+If a composition here starts appearing in more than one real application,
+that's the signal to consider promoting it to a component — see
+[Component Status/Overview](?path=/docs/component-status-overview--docs) for the
+bar it would need to clear first.
+
+## What belongs here
+
+- A layout that only arranges existing components in slots.
+- A responsive or accessibility behavior worth demonstrating end to end.
+- A real-world control grouping that no single component owns.
+
+## What doesn't
+
+- Anything that needs its own stylesheet. Compositions use component CSS and
+  token-backed inline styles only; a bespoke stylesheet means the example has
+  outgrown this section or is carrying styles that belong in a component.
+- A full application template. Those live in `examples/`, where they can be
+  built and run against the published package.

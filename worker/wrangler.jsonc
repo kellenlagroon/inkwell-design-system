@@ -1,0 +1,19 @@
+{
+  // Deploy with `npm run deploy` from this directory, or through
+  // .github/workflows/worker-deploy.yml once CLOUDFLARE_API_TOKEN and
+  // CLOUDFLARE_ACCOUNT_ID exist as Actions secrets.
+  //
+  // Secrets are never stored here. Set them once per environment:
+  //   wrangler secret put FIGMA_WEBHOOK_PASSCODE
+  //   wrangler secret put GITHUB_TOKEN
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "inkwell-figma-webhook",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  "vars": {
+    "GITHUB_REPOSITORY": "kellenlagroon/inkwell-design-system",
+    "FIGMA_FILE_KEY": "TeLw1zTEVZIqCPR1AjuVPp"
+  }
+}

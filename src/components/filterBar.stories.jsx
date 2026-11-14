@@ -15,7 +15,7 @@ const STATUSES = [
 ];
 
 export default {
-  title: "Patterns/Filter bar",
+  title: "Compositions/Filter bar",
 };
 
 function FilterBar({ theme, style, showTokenRoles = false }) {

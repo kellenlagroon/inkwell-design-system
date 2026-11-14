@@ -1,0 +1,38 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as StatusDetailsStories from "../../components/statusDetailsPopover.stories.jsx";
+import * as StatusDetailsFeatures from "../../components/statusDetailsPopover.features.stories.jsx";
+
+<Meta of={StatusDetailsStories} name="Docs" />
+
+# StatusDetailsPopover
+
+A compact status trigger and an evidence and action dialog. The consuming app owns status rules and decisions.
+
+**Status:** [Beta](?path=/docs/component-status-status--docs) · **Accessibility:** Not reviewed
+
+## When to use
+
+Use for a brief status explanation with supporting details or actions. Keep the trigger summary concise; put links and controls in the dialog.
+
+## Primary example
+
+<Canvas of={StatusDetailsStories.Playground} sourceState="hidden" />
+
+## API
+
+<ArgTypes of={StatusDetailsStories} />
+
+## Features
+
+<Canvas of={StatusDetailsFeatures.NeedsReview} sourceState="hidden" />
+<Canvas of={StatusDetailsFeatures.Compact} sourceState="hidden" />
+
+## Usage guidance
+
+- Pass a decorative icon and a clear status `label`; do not encode meaning in color alone.
+- Compose links and app actions in the `evidence` and `actions` slots.
+- Keep verification requests, decisions, and persistence in the app.
+
+## Keyboard and accessibility
+
+The trigger opens a named dialog and focus enters its first control. Escape or Close dismisses it and returns focus to the trigger. On narrow screens, the existing Popover mobile sheet contains Tab navigation. Manual keyboard and screen reader review remains pending.

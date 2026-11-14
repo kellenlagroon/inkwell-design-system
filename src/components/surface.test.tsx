@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import { Container, Center, Surface, Paper } from "./surface";
+import { Container, Center, Surface } from "./surface";
 
 const root = (r: ReturnType<typeof render>) => r.container.firstElementChild!;
 
@@ -50,11 +50,5 @@ describe("Surface", () => {
     expect(el.className).toContain("ink-surface--raised");
     expect(el.className).toContain("mine");
     expect(el.getAttribute("data-testid")).toBe("s");
-  });
-});
-
-describe("Paper", () => {
-  it("is an alias of Surface", () => {
-    expect(Paper).toBe(Surface);
   });
 });

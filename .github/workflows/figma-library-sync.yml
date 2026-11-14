@@ -1,0 +1,75 @@
+name: Sync Figma library
+
+on:
+  repository_dispatch:
+    types: [figma_library_publish]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: figma-library-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.event_name == 'workflow_dispatch' || github.event.client_payload.file_key == 'TeLw1zTEVZIqCPR1AjuVPp'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check Figma sync code
+        run: node --test scripts/figma-sync.test.mjs
+      - name: Read published Figma tokens
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+        run: node scripts/figma-sync.mjs
+      - run: npm run tokens
+      - run: npm run test
+      - run: npm run typecheck
+      - run: npm run build-storybook
+      - run: npm run build
+      - name: Open or update draft pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add tokens/inkwell.tokens.json tokens/figma-sync.snapshot.json src/styles/tokens.css
+          if git diff --cached --quiet; then
+            echo "Figma and code are already in sync."
+            exit 0
+          fi
+
+          existing=$(gh pr list --state open --base main --json headRefName --jq '[.[] | select(.headRefName | startswith("codex/figma-sync-"))][0].headRefName // empty')
+          branch=${existing:-codex/figma-sync-${GITHUB_RUN_ID}}
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git commit -m "Sync design tokens from Figma library"
+
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch"
+            git push --force-with-lease origin "HEAD:refs/heads/$branch"
+          else
+            git push origin "HEAD:refs/heads/$branch"
+          fi
+
+          if [ -z "$existing" ]; then
+            cat > "$RUNNER_TEMP/figma-sync-pr.md" <<'EOF'
+          Figma library publish changed design token values. This PR updates the canonical token source and generated CSS.
+
+          Review both themes and the Button stories before merging. The workflow ran tests, typecheck, Storybook build, and package build.
+
+          Figma file: https://www.figma.com/design/TeLw1zTEVZIqCPR1AjuVPp
+          EOF
+            gh pr create --draft --base main --head "$branch" --title "Sync Inkwell tokens from Figma" --body-file "$RUNNER_TEMP/figma-sync-pr.md"
+          fi
