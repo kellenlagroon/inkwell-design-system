@@ -40,7 +40,7 @@ const MOBILE_VIEWPORTS = {
 const mobileViewport = (value) => ({ viewport: { value, isRotated: false } });
 
 export default {
-  title: "Patterns/Mobile readiness",
+  title: "Compositions/Mobile readiness",
   parameters: {
     layout: "fullscreen",
     viewport: { options: MOBILE_VIEWPORTS },

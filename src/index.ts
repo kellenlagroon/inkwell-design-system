@@ -103,12 +103,16 @@ export { Progress } from "./components/progress";
 export type { ProgressProps, ProgressTone, ProgressSize } from "./components/progress";
 export { Text, Heading, Link } from "./components/text";
 export type { TextProps, HeadingProps, LinkProps, TextTone, TextSize, HeadingLevel, HeadingSize } from "./components/text";
-export { Container, Center, Surface, Paper } from "./components/surface";
+export { Container, Center, Surface } from "./components/surface";
 export type { ContainerProps, CenterProps, SurfaceProps, ContainerSize, SurfaceTone, ResponsivePadding } from "./components/surface";
 export { Pagination } from "./components/pagination";
 export type { PaginationProps } from "./components/pagination";
 export { RichTextSafe } from "./components/richTextSafe";
 export type { RichTextSafeProps } from "./components/richTextSafe";
+export { ExpandableContent } from "./components/expandableContent";
+export type { ExpandableContentProps } from "./components/expandableContent";
+export { StatusDetailsPopover } from "./components/statusDetailsPopover";
+export type { StatusDetailsPopoverProps, StatusDetailsTone } from "./components/statusDetailsPopover";
 export { StatusSummaryCompact } from "./components/statusSummaryCompact";
 export type { StatusSummaryCompactProps } from "./components/statusSummaryCompact";
 

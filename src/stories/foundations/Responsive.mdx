@@ -68,8 +68,9 @@ overlap content.
 
 ## Mobile-specific patterns
 
-- **Drawer sheets** — use `Drawer` with `side="bottom"` and `maxHeight` for
-  filter panels and multi-step flows that would need a full page on desktop.
+- **Drawer sheets** — use `Drawer` with `side="left"` or `side="right"` and
+  `mobileSheet` for filter panels and multi-step flows. Set `maxHeight` when a
+  bounded panel is needed on narrow screens.
 - **Toast** — the `ToastRegion` component already anchors above the keyboard
   and safe area.
 - **Pagination** — collapses to compact numeric controls under 480px.
@@ -80,7 +81,8 @@ Before shipping any component for mobile production:
 
 1. Render at 320px, 375px, and 768px. All labels and controls remain readable
    and reachable.
-2. Interactive targets meet the 44 × 44 px minimum.
+2. Touch actions have a 44 × 44 px target, using comfortable density or
+   sufficient surrounding space where needed.
 3. Long content wraps or truncates — no horizontal scroll on the page body.
 4. Focus rings stay visible under any responsive layout shift.
 

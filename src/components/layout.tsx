@@ -5,8 +5,8 @@ import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
  *
  * Stack / Inline / Grid arrange children with token-backed spacing so consumers
  * stop hand-rolling flexbox and arbitrary gap values. The `gap` scale maps to
- * the same spacing rhythm the source app used — `md` (12px / --space-3) is the
- * default, matching the app's `.stacked-form` / `.grid` layout rhythm.
+ * the system's spacing tokens — `md` (12px / --space-3) is the default and the
+ * baseline vertical rhythm for stacked content.
  *
  * Each primitive renders a `div` with a base class and sets CSS variables inline
  * so the props drive the values while the rules live in the stylesheet.

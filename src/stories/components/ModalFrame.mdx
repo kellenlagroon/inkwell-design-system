@@ -14,7 +14,14 @@ The shared modal shell. It defines container size, close behavior, heading treat
 
 - Use `ModalFrame` when the interaction needs focused task completion over the current page.
 - Use it as a shell around workflow content, not as the workflow itself.
-- Keep workflow-specific modal examples in `Patterns/Modals`.
+
+### Destructive confirmations
+
+A danger confirmation is a `ModalFrame size="compact"` with a `Button variant="danger"` — there is no separate component for it:
+
+- Use one for deletion, archival, or another irreversible action that needs a final confirmation step.
+- Say what will be removed and what cannot be recovered. Don't rely on the title alone.
+- Pair the destructive action with a clearly labeled cancel path, and let `Escape` and the backdrop reach the same cancel.
 
 ## Primary example
 

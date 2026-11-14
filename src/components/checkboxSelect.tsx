@@ -17,6 +17,8 @@ export interface CheckboxSelectProps {
   value: string[];
   onChange: (value: string[]) => void;
   label?: ReactNode;
+  /** Accessible name when `label` is not plain text. */
+  ariaLabel?: string;
   placeholder?: string;
   searchable?: boolean;
   searchPlaceholder?: string;
@@ -30,6 +32,7 @@ export function CheckboxSelect({
   value,
   onChange,
   label = "Filters",
+  ariaLabel,
   placeholder = "Select",
   searchable = false,
   searchPlaceholder = "Search",
@@ -44,6 +47,7 @@ export function CheckboxSelect({
     [options, query],
   );
   const triggerLabel = value.length > 0 ? label : placeholder;
+  const accessibleLabel = ariaLabel ?? (typeof label === "string" ? label : placeholder);
 
   function toggle(optionValue: string) {
     const next = new Set(value);
@@ -55,6 +59,7 @@ export function CheckboxSelect({
   return (
     <Popover
       mobileSheet
+      ariaLabel={accessibleLabel}
       panelClassName={["checkbox-select-panel", className].filter(Boolean).join(" ")}
       trigger={(triggerProps) => (
         <ControlTrigger
@@ -62,7 +67,7 @@ export function CheckboxSelect({
           value={triggerLabel}
           density={density}
           count={value.length || undefined}
-          aria-label={value.length > 0 && typeof label === "string" ? `${label} (${value.length})` : undefined}
+          aria-label={value.length > 0 ? `${accessibleLabel} (${value.length})` : accessibleLabel}
         />
       )}
     >
@@ -70,7 +75,7 @@ export function CheckboxSelect({
         {searchable ? (
           <TextInput density={density} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={searchPlaceholder} aria-label={searchPlaceholder} />
         ) : null}
-        <div className="checkbox-select-options">
+        <div className="checkbox-select-options" role="group" aria-label={accessibleLabel}>
           {filtered.map((option) => {
             const checked = selected.has(option.value);
             return (

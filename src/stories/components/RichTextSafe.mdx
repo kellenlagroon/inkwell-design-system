@@ -42,3 +42,8 @@ links inherit normal weight and `strong`/`b` use explicit strong weight.
 Links retain native keyboard behavior. Ensure consumer-supplied headings and
 landmarks form a sensible document outline; this styling container adds no
 landmark role.
+
+The `collapsed` prop only clips the visual container. It does not manage focus
+or hide clipped links from assistive technology. For long content with links,
+compose `RichTextSafe` inside [ExpandableContent](?path=/docs/components-expandablecontent--docs),
+which measures the excerpt and manages focus for clipped controls.

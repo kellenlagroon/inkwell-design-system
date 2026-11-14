@@ -7,7 +7,26 @@ projects. It is shipped by—not instead of—the versioned
 ```bash
 npx @lagroon/inkwell-design-system init
 npx @lagroon/inkwell-design-system add button card action-group
+npx @lagroon/inkwell-design-system version
+npx @lagroon/inkwell-design-system diff button
 ```
+
+For smaller source-owned CSS, choose fragment mode when initializing a new
+installation:
+
+```bash
+npx @lagroon/inkwell-design-system init --css=fragments
+npx @lagroon/inkwell-design-system add button
+```
+
+The default `full` mode keeps the complete component stylesheet. Fragment mode
+appends generated CSS for each installed source module and its shared
+dependencies to the same `inkwell.css` file. Later `add` commands append only
+fragments that are not already installed. Both modes keep tokens, base styles,
+and component styles in Inkwell's cascade layers. Set the mode during `init`;
+changing `cssMode` after adding components is unsupported because the installed
+stylesheet is user-owned. Fragment mode omits legacy app-only selectors that
+are not part of exported components.
 
 `init` validates that the current directory is a React project, then creates:
 
@@ -45,10 +64,21 @@ shared `forms.tsx` module and its local icon dependency, preserving the source
 module's existing relationships. Public icons remain catalogued separately in
 Foundations/Icons and are copied only when a component needs them internally.
 
-The first component added appends Inkwell's canonical layered component
-stylesheet to the single stylesheet created by `init`. This deliberately favors
-visual fidelity and one predictable CSS artifact over per-component CSS
-pruning; later `add` commands do not rewrite that user-owned stylesheet.
+In default mode, the first component added appends Inkwell's canonical layered
+component stylesheet to the file created by `init`; later `add` commands do
+not rewrite it. Fragment mode keeps the same single-file ownership contract
+with a smaller install. `inkwell diff` reviews either mode against the current
+CLI package.
+
+`version` reports the CLI package version, the recorded source version of each
+installed component, and whether copied files or the stylesheet have changed
+since installation. Installations created before provenance tracking show an
+unknown source version. Shared source files keep the version from their first
+install when another component uses them later. `diff` compares installed files and the stylesheet with
+the current CLI package and prints a unified diff. Pass component names to
+limit the source-file comparison; the stylesheet is always included because it
+is shared. Both commands are read-only and work without registry access. Review
+and merge changes yourself; neither command upgrades owned files.
 
 ## Ownership and safety
 
@@ -71,7 +101,10 @@ Edit `inkwell.json` before adding components to choose a different destination:
 {
   "components": "src/ui/inkwell",
   "stylesheet": "src/ui/inkwell/inkwell.css",
-  "installed": []
+  "cssMode": "full",
+  "installed": [],
+  "sourceVersions": {},
+  "sourceFiles": {}
 }
 ```
 

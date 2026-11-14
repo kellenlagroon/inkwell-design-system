@@ -2,6 +2,122 @@
 
 ## Unreleased
 
+### Removed
+
+- **Breaking:** `Paper` is gone. It was a bare `export const Paper = Surface`
+  alias with no CSS and no behavior of its own. Replace `Paper` with `Surface`;
+  the props are identical.
+- Delete the seed application's leftover CSS from `inkwell.css`: 45 rules and
+  58 grouped selectors covering classes such as `.league-card`,
+  `.picker-team-button`, `.ballot-ranks`, `.invite-card` and `.workspace-header`,
+  plus every `#id` selector (`#settingsModal`, `#ballotPickerModal`, …). A
+  design system ships no id selectors, and none of these could match a
+  consumer's markup. Also removed the unnamespaced `.grid` and `.stacked-form`,
+  which no component rendered and which could silently restyle a consuming app.
+- Remove the seed names that the CLI fragment owner map was routing into
+  component stylesheets: `.selector-button`, `.selector-list`, `.status-inline`
+  and `.wide-modal`.
+- Retire the `Patterns/Modals` page. A danger confirmation is a `ModalFrame`
+  plus a danger `Button`; that guidance now lives on the ModalFrame docs page.
+- Retire the `Patterns/Record Browser` page and its private stylesheet. It was
+  an application template with no test coverage, not a component API.
+- Remove `.callout`. No component, story, or docs page rendered it, and
+  `StatusBanner` (a boxed notice with a tone) and `Surface` (a framed block)
+  already cover what it did.
+- Remove `.modal-host > .modal`. It was half of a rule pair whose other half —
+  the seed application's device-preview overlay — was deleted in the previous
+  cleanup, leaving a rule that targeted a wrapper nothing renders and set
+  `pointer-events` to the value it already had.
+- Remove the bare `label` / `input` / `select` / `textarea` element selectors
+  that were stranded in the dead container block below. Inkwell's own controls
+  are already sized by the `.input` / `.textarea` rules.
+
+### Changed
+
+- Rename the `Patterns` Storybook section to `Compositions` and add an overview
+  page stating that nothing in it is a supported API. `Filter bar` and
+  `Mobile readiness` stay — they carry real play-function coverage.
+- `inkwell.css` no longer declares `.panel` twice. The first declaration was
+  fully overridden by the second and contributed nothing. `.section-heading`
+  was likewise declared twice inside the phone block; the two are now one rule.
+- `Nav`'s `mobileDocked` is documented as a viewport behavior rather than a
+  container one, and has a story: `Components/Nav/Features → Mobile-docked
+  bottom bar`.
+- **Native controls follow the theme.** `color-scheme` appeared exactly twice
+  in the stylesheet, both times forcing `dark` on `.modal` regardless of the
+  active theme, so a modal rendered dark scrollbars and spin buttons in light
+  mode — and everywhere outside a modal, in either theme, the browser drew its
+  own widgets at the user agent's default instead of Inkwell's. Both overrides
+  are gone, replaced by `[data-theme="dark"]` / `[data-theme="light"]` in the
+  `inkwell.base` layer. Keyed to an explicit `data-theme` rather than `:root`,
+  so importing the stylesheet still changes nothing in a host application that
+  has not opted into an Inkwell theme. One of the two removed rules also
+  restated `.modal`, which was already declared earlier in the file.
+- **Type sizes no longer fall back to browser defaults.** `.subtle`,
+  `.helper-text` and `.section-heading h2` declared no `font-size` anywhere, so
+  above 760px they rendered at user-agent sizes and only picked up a token
+  below it — type got *smaller* crossing onto a phone. They now have a base
+  size at every width, and the phone rule keeps only the step that differs:
+  - `.subtle` / `.helper-text`: `--font-size-base` (13.44px), identical to
+    `Text`, with no phone override. Was 16px above 760px and 14.4px below.
+  - `.section-heading h2`: `--font-size-xl` (20.48px) with
+    `--line-height-display`, identical to `Heading`, stepping to
+    `--font-size-lg` (17.28px) on phones — `Heading size="sm"`. Was the user
+    agent's 24px above 760px. The phone rule no longer overrides weight or
+    letter-spacing, so a section title is bold at every width instead of
+    dropping to 600 on phones.
+  - `.pill` / `.mini-label` stay at `--font-size-xs` (11.52px) on phones
+    instead of dropping to `--font-size-2xs` (9.92px). They share a base rule
+    with `.eyebrow`, which the phone rule never covered, so the three now stay
+    in step.
+
+### Fixed
+
+- `scripts/generate-cli-css-fragments.mjs` now fails the build when any class
+  root in `inkwell.css` has no component owner, instead of printing a count and
+  continuing. This is how the seed CSS above survived three cleanup passes.
+- `cli/styles/base.css` is generated from the `inkwell.base` layer in
+  `src/styles/inkwell.css` instead of being maintained by hand, and is now
+  gitignored alongside the other generated CLI assets. It was the one stylesheet
+  the `--css=fragments` install mode could not pick changes up from, and it had
+  already drifted: the `color-scheme` fix above had to be written into it
+  separately. `scripts/build-cli-assets.mjs` throws if the layer is missing.
+- **`Nav`'s `mobileDocked` prop now does something.** Its styling lived in two
+  `@container app (...)` blocks, and nothing in the library or in a consuming
+  app ever declared `container-name: app`, so every rule in them was inert.
+  They are `@media` queries now. The docked bar is fixed to the bottom of the
+  viewport at 760px and below, and the same conversion also switches on the
+  phone adaptations for `.panel`, `.section-heading`, `.pill`, `.mini-label`,
+  `.helper-text`, `.subtle`, `.empty-state`, the modal shells, and the
+  buttons' `min-width`.
+
+### Verification
+
+The CSS deletions are behavior-neutral apart from the `Paper` removal: 30,912
+computed-style comparisons across 84 elements, four viewport widths and both
+themes show zero differences before and after.
+
+The container-query conversion is deliberately *not* neutral — switching off a
+dead query is the point. 770,960 computed-style comparisons across 16,760
+elements, five viewport widths and both themes isolate the change precisely:
+**zero differences at 1280px**, and every one of the 277 differing
+element/property pairs falls inside the two converted breakpoints. No story
+gains horizontal overflow at 320px or 375px.
+
+The type-size change is visible by design and was measured directly at 375px
+and 1280px rather than asserted neutral; a further 204,160 comparisons across
+9,280 elements confirm it moves nothing beyond the three classes named above
+and the elements they size.
+
+The `color-scheme` change was measured the same way: 77,763 comparisons across
+3,703 elements in both themes move `color-scheme` on 424 elements — `normal`
+to `dark` or `light` where there was no scheme at all, and `dark` to `light`
+inside a modal in light theme — and change no layout. The only other property
+to move is the user agent's default text colour on elements that specify none,
+which is what declaring a scheme is for.
+
+## v0.3.0 - 2026-10-14
+
 ### Changed
 
 - Standardize interactive controls on a shared 40px `md` density with compact
@@ -20,6 +136,15 @@
   same dedicated Nav role instead of the legacy brand accent.
 - Pagination current-page colors now use dedicated pagination tokens instead
   of Nav tokens.
+- Align migration and responsive guidance plus Button feature examples with
+  the current density and icon-slot contracts.
+- Add a Next.js package-consumer example for font, theme, and token checks.
+- Record source-owned component provenance and provide read-only `inkwell version`
+  and `inkwell diff` commands for reviewing updates.
+- Add opt-in source-owned CSS fragments with `inkwell init --css=fragments`;
+  existing full-stylesheet installs remain the default.
+- Improve Drawer and CheckboxSelect focus/name behavior and add visible focus
+  outlines to Drawer close and Table sort controls.
 
 ### Added
 

@@ -39,3 +39,11 @@ A multi-select filter popover built from checkboxes.
 - Do use concise option labels.
 - Do include search only when the list is long enough to need it.
 - Don’t bake domain concepts into the option model.
+- When `label` is an icon or other non-text node, provide a specific `ariaLabel`.
+
+## Keyboard and accessibility
+
+The trigger and the checkbox group share an accessible name. On narrow screens,
+the popover becomes a named dialog. Tab moves through the native checkboxes and
+Clear button; Escape closes the panel. The application remains responsible for
+making disabled options and selected state meaningful in context.

@@ -1,0 +1,12 @@
+.adoption-page {
+  width: min(100% - 2rem, 48rem);
+  margin: 3rem auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.adoption-probe, .adoption-values { display: grid; gap: 0.75rem; }
+.adoption-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.adoption-result { font-weight: 700; }
+.adoption-values { grid-template-columns: minmax(8rem, auto) minmax(0, 1fr); overflow-wrap: anywhere; }
+.adoption-values dd { margin: 0; }

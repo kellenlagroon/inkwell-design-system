@@ -117,8 +117,8 @@ export const TextIconLeft = {
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {items.map(([Icon, label]) => (
-            <Button key={label} variant={variant}>
-              <Icon />{label}
+            <Button key={label} variant={variant} startIcon={<Icon />}>
+              {label}
             </Button>
           ))}
         </div>
@@ -138,8 +138,8 @@ export const TextIconRight = {
       ].map(([variant, items]) => (
         <div key={variant} style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {items.map(([label, Icon]) => (
-            <Button key={label} variant={variant}>
-              {label}<Icon />
+            <Button key={label} variant={variant} endIcon={<Icon />}>
+              {label}
             </Button>
           ))}
         </div>

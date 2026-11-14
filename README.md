@@ -35,6 +35,12 @@ Set the value to `"dark"` to return to the default theme. In Storybook, use
 the paintbrush toolbar control to switch the preview canvas between Dark and
 Light; the Storybook navigation and Docs chrome remain unchanged.
 
+Setting `data-theme` also sets `color-scheme`, so the parts the browser draws
+itself — scrollbars, spin buttons, date and colour pickers, the `select`
+dropdown list — follow the theme too. Nothing applies until you declare a
+theme: importing the stylesheet alone does not change native rendering in your
+app.
+
 The token source of truth is
 [`tokens/inkwell.tokens.json`](tokens/inkwell.tokens.json). Run `npm run tokens`
 after changing it. `src/styles/tokens.css` is generated output and should not
@@ -95,6 +101,14 @@ component or configuration; it only appends new, registry-owned CSS fragments
 to the stylesheet it created. See [CLI distribution](docs/cli.md) for migration
 guidance and limitations.
 
+Run `inkwell version` to see which package version supplied each source-owned
+component. Run `inkwell diff [component...]` to review local source and shared
+stylesheet changes against the installed CLI package before merging an update.
+These commands do not replace local files or need npm registry access.
+For a smaller source-owned stylesheet, run `inkwell init --css=fragments`
+before adding components; this appends generated CSS for only the installed
+source modules and their dependencies to the same stylesheet.
+
 ### npm package (versioned dependency)
 
 ```bash
@@ -120,6 +134,10 @@ Then import components from the package entry point:
 ```tsx
 import { Button, TextInput } from "@lagroon/inkwell-design-system";
 ```
+
+In a Next.js App Router project, import these components from a Client Component
+(`"use client"`). The package entry point also contains interactive components
+that use React client hooks.
 
 That styles Inkwell's components and nothing else. The stylesheet deliberately
 does not touch your `<body>` or your native form controls. To adopt Inkwell's
@@ -170,3 +188,6 @@ package at `@lagroon/inkwell-design-system/ai.md`. Source-owned installations
 receive the same content as `inkwell.ai.md` at the project root.
 
 Release history and breaking changes are in [CHANGELOG.md](CHANGELOG.md).
+
+For a package-level Next.js smoke check of font loading, themes, and token
+resolution, see [examples/next-adoption](examples/next-adoption/README.md).

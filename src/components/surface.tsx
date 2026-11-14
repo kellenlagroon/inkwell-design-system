@@ -50,5 +50,3 @@ export function Surface({ tone = "default", padded = true, padding, className = 
     </div>
   );
 }
-
-export const Paper = Surface;
